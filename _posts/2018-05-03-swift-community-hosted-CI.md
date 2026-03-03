@@ -2,17 +2,17 @@
 layout: new-layouts/post
 published: true
 date: 2018-05-03 9:00:00
-title: Swift Community-Hosted Continuous Integration
+title: 커뮤니티 호스팅 지속적 통합
 author: [najacque, shahmishal]
 category: "Community"
 ---
 
-We are delighted to announce a significant expansion of our Swift.org continuous integration testing system.  Members of the Swift community have been hard at work to support Swift on a number of new platforms, and we have extended the Swift CI system to support community-hosted nodes for testing additional platforms.
+Swift.org 지속적 통합 테스트 시스템의 대규모 확장을 기쁘게 알려드립니다. Swift 커뮤니티 멤버들이 여러 새 플랫폼에서 Swift를 지원하기 위해 열심히 작업해 왔으며, 추가 플랫폼 테스트를 위한 커뮤니티 호스팅 노드를 지원하도록 Swift CI 시스템을 확장했습니다.
 
-Community members can volunteer to host nodes for additional platforms and are responsible for maintaining the host system.  New nodes can be initiated by creating a pull request at: [Swift Community-Hosted CI Repository](https://github.com/apple/swift-community-hosted-continuous-integration).  Further information about the process is documented in the [README.md](https://github.com/apple/swift-community-hosted-continuous-integration/blob/master/README.md).
+커뮤니티 멤버는 추가 플랫폼을 위한 노드를 자원하여 호스팅할 수 있으며, 호스트 시스템의 유지보수를 책임집니다. 새 노드는 [Swift Community-Hosted CI 저장소](https://github.com/apple/swift-community-hosted-continuous-integration)에 풀 리퀘스트를 생성하여 시작할 수 있습니다. 프로세스에 대한 자세한 내용은 [README.md](https://github.com/apple/swift-community-hosted-continuous-integration/blob/master/README.md)에 문서화되어 있습니다.
 
-We have worked with several members of the community and are pleased to make CI testing available today for Fedora, and ARMv7 for Debian "Stretch". Check them out at: [Community-Hosted CI](https://ci-external.swift.org).
+커뮤니티의 여러 멤버와 협력하여 오늘부터 Fedora와 Debian "Stretch" ARMv7에 대한 CI 테스트를 이용할 수 있게 되었습니다. [Community-Hosted CI](https://ci-external.swift.org)에서 확인하세요.
 
-## Questions? Comments?
+## 질문이나 의견이 있으신가요?
 
-If you have questions or comments about this post, please feel free to follow up on [this related thread](https://forums.swift.org/t/swift-org-blog-swift-community-hosted-continuous-integration/12391) in the Swift forum.
+이 글에 대한 질문이나 의견이 있으시면 Swift 포럼의 [관련 스레드](https://forums.swift.org/t/swift-org-blog-swift-community-hosted-continuous-integration/12391)에서 이야기해 주세요.

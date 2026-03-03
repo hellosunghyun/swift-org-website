@@ -1,7 +1,7 @@
 ---
 layout: new-layouts/post
 date: 2019-02-05 10:00:00
-title: Swift 5 Exclusivity Enforcement
+title: Swift 5 배타적 접근 적용
 author: atrick
 category: "Language"
 ---

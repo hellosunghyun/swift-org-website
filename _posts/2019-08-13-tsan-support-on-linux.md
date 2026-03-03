@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2019-08-13 10:00:00
-title: Thread Sanitizer for Swift on Linux
+title: Linux에서 Swift용 Thread Sanitizer
 author: jlettner
 category: "Developer Tools"
 ---
@@ -130,7 +130,7 @@ The above code establishes proper synchronization by serializing calls to `resul
 
 One of the main goals of Swift is to make programming simple things easy and difficult things possible. Writing efficient, multithreaded programs is one of those difficult things. Swift guarantees memory safety in the absence of data races, and allows developers to take on additional complexity when they need to. With Thread Sanitizer, developers have a tool in their tool belt that helps bring Swift’s safety and productivity to multithreaded environments.
 
-### Questions?
+### 질문이 있으신가요?
 
 Please feel free to post questions about this post on the [associated thread](https://forums.swift.org/t/swift-org-blog-thread-sanitizer-for-swift-on-linux/27872) on the [Swift forums][].
 

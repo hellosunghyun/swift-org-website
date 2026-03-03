@@ -2,30 +2,30 @@
 layout: new-layouts/post
 published: true
 date: 2016-10-21 10:00:00
-title: Whole-Module Optimization in Swift 3
+title: Swift 3의 전체 모듈 최적화
 author: eeckstein
 category: "Language"
 ---
 
-Whole-module optimization is an optimization mode of the Swift compiler.
-The performance win of whole-module optimization heavily depends on the project, but it can be up to two or even five times.
+전체 모듈 최적화는 Swift 컴파일러의 최적화 모드입니다.
+전체 모듈 최적화의 성능 향상은 프로젝트에 따라 다르지만, 최대 2배에서 5배까지 빨라질 수 있습니다.
 
-Whole-module optimization can be enabled with the `-whole-module-optimization` (or `-wmo`) compiler flag, and in Xcode 8 it is turned on by default for new projects.
-Also the Swift Package Manager compiles with whole-module optimizations in release builds.
+전체 모듈 최적화는 `-whole-module-optimization`(또는 `-wmo`) 컴파일러 플래그로 활성화할 수 있으며, Xcode 8에서는 새 프로젝트에 기본적으로 켜져 있습니다.
+Swift Package Manager도 릴리스 빌드에서 전체 모듈 최적화를 사용하여 컴파일합니다.
 
-So what is it about? Let’s first look at how the compiler works without whole-module optimizations.
+그렇다면 어떤 원리일까요? 먼저 전체 모듈 최적화 없이 컴파일러가 어떻게 동작하는지 살펴보겠습니다.
 
-### Modules and how to compile them
+### 모듈과 컴파일 방식
 
-A module is a set of Swift files. Each module compiles down to a single unit of distribution—either a framework or an executable. In single-file compilation (without `-wmo`) the Swift compiler is invoked for each file in the module separately. Actually, this is what happens behind the scenes. As a user you don’t have to do this manually. It is automatically done by the compiler driver or the Xcode build system.
+모듈은 Swift 파일의 집합입니다. 각 모듈은 프레임워크 또는 실행 파일이라는 하나의 배포 단위로 컴파일됩니다. 단일 파일 컴파일(`-wmo` 없이)에서 Swift 컴파일러는 모듈의 각 파일에 대해 개별적으로 호출됩니다. 실제로 이것은 내부적으로 일어나는 일이며, 사용자가 수동으로 할 필요는 없습니다. 컴파일러 드라이버나 Xcode 빌드 시스템이 자동으로 처리합니다.
 
-![single file compilation](/assets/images/wmo-blog/single-file.png)
+![단일 파일 컴파일](/assets/images/wmo-blog/single-file.png)
 
-After reading and parsing a source file (and doing some other stuff, like type checking), the compiler optimizes the Swift code, generates machine code and writes an object file. Finally the linker combines all object files and generates the shared library or executable.
+소스 파일을 읽고 파싱한 후(타입 체킹 등의 작업 포함), 컴파일러는 Swift 코드를 최적화하고 머신 코드를 생성하여 오브젝트 파일을 작성합니다. 마지막으로 링커가 모든 오브젝트 파일을 결합하여 공유 라이브러리나 실행 파일을 생성합니다.
 
-In single-file compilation the scope of the compiler’s optimizations is just a single file. This limits cross-function optimizations, like function inlining or generic specialization, to functions which are called and defined in the same file.
+단일 파일 컴파일에서 컴파일러 최적화의 범위는 단일 파일에 한정됩니다. 이로 인해 함수 인라이닝이나 제네릭 특수화 같은 함수 간 최적화가 동일 파일 내에서 호출되고 정의된 함수로 제한됩니다.
 
-Let’s look at an example. Let’s assume one file of our module, named utils.swift, contains a generic utility data structure `Container<T>` with a method `getElement` and this method is called throughout the module, for example in main.swift.
+예를 들어보겠습니다. 모듈의 한 파일인 utils.swift에 제네릭 유틸리티 데이터 구조 `Container<T>`와 `getElement` 메서드가 있고, 이 메서드가 모듈 전반에서, 예를 들어 main.swift에서 호출된다고 가정합니다.
 
 main.swift:
 
@@ -47,20 +47,20 @@ struct Container<T> {
 }
 ~~~
 
-When the compiler optimizes main.swift it does not know how `getElement` is implemented. It just knows that it exists. So the compiler generates a call to `getElement`. On the other hand, when the compiler optimizes utils.swift, it does not know for which concrete types the function is called. So it can only generate the generic version of the function which is much slower than code which is specialized for a concrete type.
+컴파일러가 main.swift를 최적화할 때 `getElement`의 구현 방식을 알지 못합니다. 존재한다는 것만 알 뿐입니다. 그래서 컴파일러는 `getElement`에 대한 호출을 생성합니다. 반면, utils.swift를 최적화할 때는 함수가 어떤 구체적인 타입으로 호출되는지 모릅니다. 그래서 구체적인 타입에 특수화된 코드보다 훨씬 느린 제네릭 버전의 함수만 생성할 수 있습니다.
 
-Even the simple return statement in `getElement` needs a lookup in the type’s metadata to figure out how to copy the element. It could be a simple `Int`, but it could also be a larger type, even involving some reference counting operations. The compiler just doesn’t know.
+`getElement`의 단순한 return 문조차도 요소를 복사하는 방법을 알아내기 위해 타입의 메타데이터를 조회해야 합니다. 단순한 `Int`일 수도 있지만, 참조 카운팅 연산을 포함하는 더 큰 타입일 수도 있습니다. 컴파일러는 그것을 알 수 없습니다.
 
-### Whole-module optimization
+### 전체 모듈 최적화
 
-With whole-module optimization the compiler can do a lot better. When compiling with the `-wmo` option, the compiler optimizes all files of a module as a whole.
+전체 모듈 최적화를 사용하면 컴파일러가 훨씬 더 잘 최적화할 수 있습니다. `-wmo` 옵션으로 컴파일하면 컴파일러는 모듈의 모든 파일을 하나의 단위로 최적화합니다.
 
-![whole-module compilation](/assets/images/wmo-blog/wmo.png)
+![전체 모듈 컴파일](/assets/images/wmo-blog/wmo.png)
 
-This has two big advantages. First, the compiler sees the implementation of all functions in a module, so it can perform optimizations like function inlining and function specialization.
-Function specialization means that the compiler creates a new version of a function which is optimized for a specific call-context. For example, the compiler can specialize a generic function for concrete types.
+이는 두 가지 큰 장점이 있습니다. 첫째, 컴파일러가 모듈 내 모든 함수의 구현을 볼 수 있어 함수 인라이닝과 함수 특수화 같은 최적화를 수행할 수 있습니다.
+함수 특수화란 컴파일러가 특정 호출 컨텍스트에 최적화된 새 버전의 함수를 생성하는 것입니다. 예를 들어, 컴파일러는 제네릭 함수를 구체적인 타입에 맞게 특수화할 수 있습니다.
 
-In our example, the compiler produces a version of the generic `Container` which is specialized for the concrete type `Int`.
+이 예에서 컴파일러는 구체적인 타입 `Int`에 특수화된 `Container` 버전을 생성합니다.
 
 ~~~swift
 struct Container {
@@ -72,7 +72,7 @@ struct Container {
 }
 ~~~
 
-Then the compiler can inline the specialized `getElement` function into the `add` function.
+그런 다음 컴파일러는 특수화된 `getElement` 함수를 `add` 함수에 인라인할 수 있습니다.
 
 ~~~swift
 func add (c1: Container<Int>, c2: Container<Int>) -> Int {
@@ -80,38 +80,38 @@ func add (c1: Container<Int>, c2: Container<Int>) -> Int {
 }
 ~~~
 
-This compiles down to just a few machine instructions. That’s a big difference compared to the single-file code where we had two calls to the generic `getElement` function.
+이것은 몇 개의 머신 명령어로 컴파일됩니다. 제네릭 `getElement` 함수에 대한 두 번의 호출이 있었던 단일 파일 코드와 비교하면 큰 차이입니다.
 
-Function specialization and inlining across files are just examples of optimizations the compiler is able to do with whole-module optimizations. Even if the compiler decides not to inline a function, it helps a lot if the compiler sees the implementation of the function.
-For example it can reason about its behavior regarding reference counting operations. With this knowledge the compiler is able to remove redundant reference counting operations around a function call.
+파일 간 함수 특수화와 인라이닝은 전체 모듈 최적화로 컴파일러가 수행할 수 있는 최적화의 예일 뿐입니다. 컴파일러가 함수를 인라인하지 않기로 결정하더라도 함수의 구현을 볼 수 있다는 것은 큰 도움이 됩니다.
+예를 들어 참조 카운팅 연산에 대한 함수의 동작을 추론할 수 있습니다. 이 지식으로 컴파일러는 함수 호출 전후의 불필요한 참조 카운팅 연산을 제거할 수 있습니다.
 
-The second important benefit of whole-module optimization is that the compiler can reason about all uses of non-public functions. Non-public functions can only be used within the module, so the compiler can be sure to see all references to such functions. What can the compiler do with this information?
+전체 모듈 최적화의 두 번째 중요한 이점은 컴파일러가 비공개(non-public) 함수의 모든 사용을 추론할 수 있다는 것입니다. 비공개 함수는 모듈 내에서만 사용될 수 있으므로, 컴파일러는 해당 함수에 대한 모든 참조를 확인할 수 있습니다. 컴파일러는 이 정보로 무엇을 할 수 있을까요?
 
-One very basic optimization is the elimination of so called “dead” functions and methods. These are functions and methods which are never called or otherwise used. With whole-module optimizations the compiler knows if a non-public function or method is not used at all, and if that’s the case it can eliminate it.
-So why would a programmer write a function, which is not used at all? Well, this is not the most important use case for dead function elimination. Often functions become dead as a side-effect of other optimizations.
+매우 기본적인 최적화 중 하나는 이른바 "죽은" 함수와 메서드의 제거입니다. 이것은 전혀 호출되거나 사용되지 않는 함수와 메서드입니다. 전체 모듈 최적화를 사용하면 컴파일러는 비공개 함수나 메서드가 전혀 사용되지 않는지 알 수 있고, 그런 경우 제거할 수 있습니다.
+프로그래머가 전혀 사용되지 않는 함수를 왜 작성할까요? 사실 이것이 죽은 함수 제거의 가장 중요한 사용 사례는 아닙니다. 함수가 다른 최적화의 부수 효과로 죽은 코드가 되는 경우가 많습니다.
 
-Let’s assume that the `add` function is the only place where `Container.getElement` is called. After inlining `getElement`, this function is not used anymore, so it can be removed. Even if the compiler decides to not inline `getElement`, the compiler can remove the original generic version of `getElement`, because the `add` function only calls the specialized version.
+`add` 함수가 `Container.getElement`가 호출되는 유일한 곳이라고 가정합시다. `getElement`를 인라인한 후에는 이 함수가 더 이상 사용되지 않으므로 제거할 수 있습니다. 컴파일러가 `getElement`를 인라인하지 않기로 결정하더라도, `add` 함수가 특수화된 버전만 호출하므로 원래의 제네릭 `getElement` 버전은 제거할 수 있습니다.
 
-### Compile time
+### 컴파일 시간
 
-With single-file compilation the compiler driver starts the compilation for each file in a separate process, which can be done in parallel. Also, files which were not modified since the last compilation don’t need to be recompiled (assuming all dependencies are also unmodified). That’s called incremental compilation.
-All this saves a lot of compile time, especially if you only make a small change.
-How does this work in whole-module compilation?
-Let’s look at how the compiler works in whole-module optimization mode in more detail.
+단일 파일 컴파일에서 컴파일러 드라이버는 각 파일에 대해 별도의 프로세스로 컴파일을 시작하며, 이는 병렬로 수행될 수 있습니다. 또한 마지막 컴파일 이후 수정되지 않은 파일은 다시 컴파일할 필요가 없습니다(모든 의존성도 수정되지 않았다고 가정). 이를 증분 컴파일이라 합니다.
+이 모든 것이 컴파일 시간을 크게 절약하며, 특히 작은 변경만 했을 때 유용합니다.
+전체 모듈 컴파일에서는 어떻게 동작할까요?
+전체 모듈 최적화 모드에서 컴파일러가 어떻게 동작하는지 자세히 살펴보겠습니다.
 
-![whole-module compilation details](/assets/images/wmo-blog/wmo-detail.png)
+![전체 모듈 컴파일 상세](/assets/images/wmo-blog/wmo-detail.png)
 
-Internally the compiler runs in multiple phases: parser, type checking, SIL optimizations, LLVM backend.
+내부적으로 컴파일러는 여러 단계로 실행됩니다: 파서, 타입 체킹, SIL 최적화, LLVM 백엔드.
 
-Parsing and type checking is very fast in most cases, and we expect it to get even faster in subsequent Swift releases.
-The SIL optimizer (SIL stands for “Swift Intermediate Language”) performs all the important Swift-specific optimizations, like generic specialization, function inlining, etc. This phase of the compiler typically takes about one third of the compilation time.
-Most of the compilation time is consumed by the LLVM backend which runs lower-level optimizations and does the code generation.
+파싱과 타입 체킹은 대부분의 경우 매우 빠르며, 이후 Swift 릴리스에서 더 빨라질 것으로 기대합니다.
+SIL 최적화 단계(SIL은 "Swift Intermediate Language"의 약자)는 제네릭 특수화, 함수 인라이닝 등 중요한 Swift 관련 최적화를 모두 수행합니다. 이 단계는 일반적으로 컴파일 시간의 약 3분의 1을 차지합니다.
+대부분의 컴파일 시간은 하위 수준 최적화와 코드 생성을 수행하는 LLVM 백엔드가 소비합니다.
 
-After performing whole-module optimizations in the SIL optimizer the module is split again into multiple parts. The LLVM backend processes the split parts in multiple threads. It also avoids re-processing of a part if that part didn’t change since the previous build.
-So even with whole-module optimizations, the compiler is able to perform a big part of the compilation work in parallel (multi-threaded) and incrementally.
+SIL 최적화 단계에서 전체 모듈 최적화를 수행한 후 모듈은 다시 여러 부분으로 분할됩니다. LLVM 백엔드는 분할된 부분을 여러 스레드로 처리합니다. 또한 이전 빌드 이후 변경되지 않은 부분은 다시 처리하지 않습니다.
+따라서 전체 모듈 최적화에서도 컴파일러는 작업의 상당 부분을 병렬(멀티스레드)로 그리고 증분적으로 수행할 수 있습니다.
 
-### Conclusion
+### 결론
 
-Whole-module optimization is a great way to get maximum performance without having to worry about how to distribute Swift code across files in a module.
-If optimizations, like described above, kick in at a critical code section, performance can be up to five times better than with single-file compilation.
-And you get this high performance with much better compile times than typical to monolithic whole-program optimization approaches.
+전체 모듈 최적화는 모듈 내에서 Swift 코드를 파일에 어떻게 분배할지 걱정하지 않고도 최대 성능을 얻을 수 있는 훌륭한 방법입니다.
+위에서 설명한 최적화가 중요한 코드 구간에 적용되면, 단일 파일 컴파일보다 최대 5배 더 좋은 성능을 얻을 수 있습니다.
+그리고 일반적인 모놀리식 전체 프로그램 최적화 접근 방식보다 훨씬 짧은 컴파일 시간으로 이 높은 성능을 얻을 수 있습니다.

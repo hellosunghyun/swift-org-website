@@ -1,44 +1,44 @@
 ---
 layout: new-layouts/post
 date: 2018-09-26 10:00:00
-title: How Mirror Works
+title: Swift에서 Mirror의 동작 원리
 author: mikeash
 category: "Language"
 ---
 
-Swift places a lot of emphasis on static typing, but it also supports rich metadata about types, which allows code to inspect and manipulate arbitrary values at runtime. This is exposed to Swift programmers through the `Mirror` API. One might wonder, how does something like `Mirror` work in a language with so much emphasis on static types? Let's take a look!
+Swift는 정적 타이핑에 많은 중점을 두지만, 타입에 대한 풍부한 메타데이터도 지원하여 코드가 런타임에 임의의 값을 검사하고 조작할 수 있게 합니다. 이는 `Mirror` API를 통해 Swift 프로그래머에게 제공됩니다. 정적 타입에 이렇게 많은 중점을 두는 언어에서 `Mirror` 같은 것이 어떻게 동작하는지 궁금할 수 있습니다. 한번 살펴보겠습니다!
 
 
-## Disclaimer
+## 면책 사항
 
-Everything here is an internal implementation detail. The code is current as of this writing, but may change. The metadata will become a fixed, reliable format when ABI stability hits, but at the moment that is still subject to change. If you're writing normal Swift code, don't rely on any of this. If you're writing code that wants to do more sophisticated reflection than what `Mirror` provides, this will give you a starting point, but you'll need to keep it up to date with changes until ABI stability. If you want to work on the `Mirror` code itself, this should give you a good idea of how it all fits together, but keep in mind that things may change.
-
-
-## Interface
-
-The `Mirror(reflecting:)` initializer accepts an arbitrary value. The resulting `Mirror` instance then provides information about that value, primarily the children it contains. A child consists of a value and an optional label. You can then use `Mirror` on the child values to traverse an entire object graph without knowing any of the types at compile time.
-
-`Mirror` allows types to provide a custom representation by conforming to the `CustomReflectable` protocol. This is useful for types which want to present something nicer than what they would get from introspection. For example, `Array` conforms to `CustomReflectable` and exposes the elements of the array as unlabeled children. `Dictionary` uses it to expose its key/value pairs as labeled children.
-
-For all other types, `Mirror` does some magic to come up with a list of children based on the actual contents of the value. For structs and classes, it presents the stored properties as children. For tuples, it presents the tuple elements. Enums present the enum case and associated value, if there is one.
-
-How does that magic work? Let's find out!
+여기에 나오는 모든 내용은 내부 구현 세부 사항입니다. 코드는 작성 시점 기준이며 변경될 수 있습니다. 메타데이터는 ABI 안정성이 달성되면 고정되고 신뢰할 수 있는 형식이 되지만, 현재로서는 변경될 수 있습니다. 일반적인 Swift 코드를 작성하는 경우 이 내용에 의존하지 마세요. `Mirror`가 제공하는 것보다 더 정교한 리플렉션을 원하는 코드를 작성한다면, 이것이 출발점이 될 수 있지만 ABI 안정성이 달성될 때까지 변경 사항을 계속 반영해야 합니다. `Mirror` 코드 자체를 작업하고 싶다면, 이 글이 전체 구조를 이해하는 데 도움이 되겠지만 내용이 변경될 수 있음을 염두에 두세요.
 
 
-## Structure
+## 인터페이스
 
-The reflection API is partially implemented in Swift and partially in C++. Swift is more suitable for implementing a Swifty interface, and makes a lot of tasks easier. The lower levels of the Swift runtime are implemented in C++, and accessing those C++ classes directly from Swift isn't possible, so a layer of C connects the two. The Swift side is implemented in [`ReflectionMirror.swift`](https://github.com/apple/swift/blob/master/stdlib/public/core/ReflectionMirror.swift), and the C++ side is in [`ReflectionMirror.mm`](https://github.com/apple/swift/blob/master/stdlib/public/runtime/ReflectionMirror.mm).
+`Mirror(reflecting:)` 이니셜라이저는 임의의 값을 받습니다. 결과로 생성된 `Mirror` 인스턴스는 해당 값에 대한 정보, 주로 포함된 자식 요소들을 제공합니다. 자식은 값과 선택적 레이블로 구성됩니다. 자식 값에 `Mirror`를 사용하면 컴파일 타임에 타입을 전혀 몰라도 전체 객체 그래프를 순회할 수 있습니다.
 
-The two pieces communicate through a small set of C++ functions that are exposed to Swift. Rather than using Swift's built in C bridging, they are declared in Swift with a directive that specifies a custom symbol name, and then a C++ function with that name is carefully crafted to be directly callable from Swift. This allows the two pieces to communicate directly without worrying about what the bridging machinery will do to the values behind the scenes, but it requires knowledge of exactly how Swift passes parameters and return values. Don't try this at home unless you're working on runtime code that needs it.
+`Mirror`는 `CustomReflectable` 프로토콜을 준수하여 타입이 커스텀 표현을 제공할 수 있게 합니다. 이는 내부 검사로 얻을 수 있는 것보다 더 나은 표현을 제시하고 싶은 타입에 유용합니다. 예를 들어, `Array`는 `CustomReflectable`을 준수하며 배열의 요소를 레이블 없는 자식으로 노출합니다. `Dictionary`는 키/값 쌍을 레이블이 있는 자식으로 노출합니다.
 
-For an example of this, take a look at the `_getChildCount` function in `ReflectionMirror.swift`:
+다른 모든 타입의 경우, `Mirror`는 값의 실제 내용을 기반으로 자식 목록을 생성하는 마법을 부립니다. 구조체와 클래스의 경우 저장 프로퍼티를 자식으로 제시합니다. 튜플의 경우 튜플 요소를 제시합니다. 열거형은 열거형 케이스와 연관 값(있는 경우)을 제시합니다.
+
+이 마법은 어떻게 동작할까요? 알아보겠습니다!
+
+
+## 구조
+
+리플렉션 API는 부분적으로 Swift로, 부분적으로 C++로 구현되어 있습니다. Swift는 Swift다운 인터페이스를 구현하는 데 더 적합하고 많은 작업을 쉽게 만듭니다. Swift 런타임의 하위 레벨은 C++로 구현되어 있으며, Swift에서 이러한 C++ 클래스에 직접 접근하는 것은 불가능하므로 C 레이어가 둘을 연결합니다. Swift 쪽은 [`ReflectionMirror.swift`](https://github.com/apple/swift/blob/master/stdlib/public/core/ReflectionMirror.swift)에, C++ 쪽은 [`ReflectionMirror.mm`](https://github.com/apple/swift/blob/master/stdlib/public/runtime/ReflectionMirror.mm)에 구현되어 있습니다.
+
+두 부분은 Swift에 노출된 소규모의 C++ 함수 세트를 통해 통신합니다. Swift의 내장 C 브리징을 사용하는 대신, 커스텀 심볼 이름을 지정하는 디렉티브와 함께 Swift에서 선언하고, 그 이름을 가진 C++ 함수가 Swift에서 직접 호출할 수 있도록 정교하게 만들어집니다. 이를 통해 브리징 메커니즘이 뒤에서 값에 무엇을 할지 걱정하지 않고 두 부분이 직접 통신할 수 있지만, Swift가 매개변수와 반환 값을 전달하는 정확한 방법에 대한 지식이 필요합니다. 이것이 필요한 런타임 코드를 작업하는 것이 아니라면 시도하지 마세요.
+
+이에 대한 예로 `ReflectionMirror.swift`의 `_getChildCount` 함수를 살펴보세요:
 
 ~~~swift
 @_silgen_name("swift_reflectionMirror_count")
 internal func _getChildCount<T>(_: T, type: Any.Type) -> Int
 ~~~
 
-The `@_silgen_name` attribute informs the Swift compiler to map this function to a symbol named `swift_reflectionMirror_count`, instead of the usual Swift mangling applied to `_getChildCount`. Note that the underscore at the beginning indicates that this attribute is reserved for the Standard Library. On the C++ side, the function looks like this:
+`@_silgen_name` 속성은 Swift 컴파일러에 `_getChildCount`에 적용되는 일반적인 Swift 맹글링 대신 `swift_reflectionMirror_count`라는 심볼에 이 함수를 매핑하도록 알려줍니다. 앞의 밑줄은 이 속성이 표준 라이브러리에 예약되어 있음을 나타냅니다. C++ 쪽에서 함수는 다음과 같습니다:
 
 ~~~swift
 SWIFT_CC(swift) SWIFT_RUNTIME_STDLIB_INTERFACE
@@ -47,9 +47,9 @@ intptr_t swift_reflectionMirror_count(OpaqueValue *value,
                                       const Metadata *T) {
 ~~~
 
-`SWIFT_CC(swift)` tells the compiler that this function uses the Swift calling convention rather than the C/C++ convention. `SWIFT_RUNTIME_STDLIB_INTERFACE` marks this as a function that's part of the interface to the Swift side of things, and has the effect of marking it as `extern "C"` which avoids C++ name mangling and ensures that this function will have the symbol name that the Swift side expects. The C++ parameters are carefully arranged to match how Swift will call this function based on the Swift declaration. When Swift code calls `_getChildCount`, the C++ function is invoked with `value` containing a pointer to the Swift value, `type` containing the value of the type parameter, and `T` containing the type corresponding to the generic `<T>`.
+`SWIFT_CC(swift)`는 컴파일러에 이 함수가 C/C++ 규약이 아닌 Swift 호출 규약을 사용한다고 알려줍니다. `SWIFT_RUNTIME_STDLIB_INTERFACE`는 이것을 Swift 쪽 인터페이스의 일부인 함수로 표시하며, `extern "C"`로 표시하는 효과가 있어 C++ 이름 맹글링을 피하고 Swift 쪽이 기대하는 심볼 이름을 가지게 합니다. C++ 매개변수는 Swift 선언을 기반으로 Swift가 이 함수를 호출하는 방식과 일치하도록 신중하게 배치됩니다. Swift 코드가 `_getChildCount`를 호출하면 C++ 함수가 호출되며, `value`에는 Swift 값에 대한 포인터가, `type`에는 타입 매개변수의 값이, `T`에는 제네릭 `<T>`에 해당하는 타입이 포함됩니다.
 
-The full interface between the Swift and C++ parts of `Mirror` consists of these functions:
+`Mirror`의 Swift와 C++ 부분 사이의 전체 인터페이스는 다음 함수들로 구성됩니다:
 
 ~~~swift
 @_silgen_name("swift_reflectionMirror_normalizedType")
@@ -81,13 +81,13 @@ internal func _isImpl(_ object: AnyObject, kindOf: AnyObject) -> Bool
 ~~~
 
 
-## Dynamic Dispatch Done Weird
+## 특이한 방식의 동적 디스패치
 
-There isn't a single universal way to fetch the info we want from any type. Tuples, structs, classes, and enums all need different code for many of these tasks, such as looking up the number of children. There are further subtleties, such as different treatment for Swift and Objective-C classes.
+모든 타입에서 원하는 정보를 가져오는 단일 범용 방법은 없습니다. 튜플, 구조체, 클래스, 열거형 모두 자식 수 조회 같은 많은 작업에 서로 다른 코드가 필요합니다. Swift 클래스와 Objective-C 클래스에 대한 다른 처리 같은 추가적인 미묘한 차이도 있습니다.
 
-All of these functions will need code that dispatches to different implementations based on what kind of type is being examined. This sounds a lot like dynamic dispatch of methods, except that the choice of which implementation to call is more complicated than checking the class of the object the method is being used on. The reflection code attempts to simplify matters by using C++ dynamic dispatch with an abstract base class that contains a C++ version of the above interface, and a bunch of subclasses covering all the various cases. A single function maps a Swift type to an instance of one of those C++ classes. Calling a method on that instance then dispatches to the appropriate implementation.
+이 모든 함수는 검사 중인 타입의 종류에 따라 서로 다른 구현으로 디스패치하는 코드가 필요합니다. 이는 메서드의 동적 디스패치와 매우 비슷하지만, 호출할 구현을 선택하는 것이 메서드가 사용되는 객체의 클래스를 확인하는 것보다 더 복잡합니다. 리플렉션 코드는 위 인터페이스의 C++ 버전을 포함하는 추상 기본 클래스와 다양한 경우를 다루는 여러 하위 클래스와 함께 C++ 동적 디스패치를 사용하여 문제를 단순화합니다. 단일 함수가 Swift 타입을 이러한 C++ 클래스 중 하나의 인스턴스에 매핑합니다. 그 인스턴스에서 메서드를 호출하면 적절한 구현으로 디스패치됩니다.
 
-The mapping function is called `call` and its declaration looks like this:
+매핑 함수는 `call`이라고 하며 선언은 다음과 같습니다:
 
 ~~~cpp
 template<typename F>
@@ -95,11 +95,11 @@ auto call(OpaqueValue *passedValue, const Metadata *T, const Metadata *passedTyp
           const F &f) -> decltype(f(nullptr))
 ~~~
 
-`passedValue` is a pointer to the actual Swift value that was passed in. `T` is the static type of that value, which corresponds to the generic parameter `<T>` on the Swift side. `passedType` is a type that's explicitly passed in by the Swift side and used for the actual reflection step. (This type will be different from the actual runtime type of the object when working with a superclass `Mirror` for an instance of a subclass.) Finally, the `f` parameter is something that will be called, passing in a reference to the implementation object that this function looks up. This function then returns whatever `f` returns when called, to make it easier for users to get values back out.
+`passedValue`는 전달된 실제 Swift 값에 대한 포인터입니다. `T`는 해당 값의 정적 타입으로, Swift 쪽의 제네릭 매개변수 `<T>`에 해당합니다. `passedType`은 Swift 쪽에서 명시적으로 전달되어 실제 리플렉션 단계에 사용되는 타입입니다. (이 타입은 하위 클래스의 인스턴스에 대해 상위 클래스 `Mirror`를 사용할 때 객체의 실제 런타임 타입과 다릅니다.) 마지막으로, `f` 매개변수는 이 함수가 조회한 구현 객체에 대한 참조를 전달하며 호출됩니다. 사용자가 값을 쉽게 꺼낼 수 있도록 이 함수는 호출 시 `f`가 반환하는 것을 그대로 반환합니다.
 
-The implementation of `call` isn't too exciting. It's mostly a big `switch` statement with some extra code to handle special cases. The important thing is that it will end up calling `f` with an instance of a subclass of `ReflectionMirrorImpl`, which will then call a method on that instance to get the real work done.
+`call`의 구현은 그다지 흥미롭지 않습니다. 대부분 특수 케이스를 처리하는 추가 코드가 있는 큰 `switch` 문입니다. 중요한 것은 결국 `ReflectionMirrorImpl`의 하위 클래스 인스턴스와 함께 `f`를 호출하고, 그 인스턴스에서 메서드를 호출하여 실제 작업을 수행한다는 것입니다.
 
-Here is `ReflectionMirrorImpl`, which is the interface everything goes through:
+모든 것이 거치는 인터페이스인 `ReflectionMirrorImpl`은 다음과 같습니다:
 
 ~~~cpp
 struct ReflectionMirrorImpl {
@@ -120,7 +120,7 @@ struct ReflectionMirrorImpl {
 };
 ~~~
 
-The functions which serve as the interface between the Swift and C++ components then use `call` to invoke the corresponding method. For example, here's what `swift_reflectionMirror_count` looks like:
+Swift와 C++ 컴포넌트 사이의 인터페이스 역할을 하는 함수들은 `call`을 사용하여 해당 메서드를 호출합니다. 예를 들어 `swift_reflectionMirror_count`는 다음과 같습니다:
 
 ~~~cpp
 SWIFT_CC(swift) SWIFT_RUNTIME_STDLIB_INTERFACE
@@ -133,9 +133,9 @@ intptr_t swift_reflectionMirror_count(OpaqueValue *value,
 }
 ~~~
 
-## Tuple Reflection
+## 튜플 리플렉션
 
-Let's start out with tuple reflection, which is probably the simplest one that still does some work. It starts off by returning a display style of `'t'` to indicate that it's a tuple:
+아마도 실제 작업을 수행하면서도 가장 단순한 튜플 리플렉션부터 시작하겠습니다. 튜플임을 나타내기 위해 표시 스타일 `'t'`를 반환하는 것으로 시작합니다:
 
 ~~~cpp
 struct TupleImpl : ReflectionMirrorImpl {
@@ -144,9 +144,9 @@ struct TupleImpl : ReflectionMirrorImpl {
   }
 ~~~
 
-Using a hardcoded constant like this is unusual, but given that there is exactly one place in C++ and one place in Swift that references this value, and that they're not using bridging to communicate, it's a reasonable choice.
+이런 하드코딩된 상수를 사용하는 것은 일반적이지 않지만, C++에서 한 곳과 Swift에서 한 곳에서만 이 값을 참조하고 통신에 브리징을 사용하지 않는다는 점에서 합리적인 선택입니다.
 
-Next is the `count` method. At this point we know that `type` is actually a `TupleTypeMetadata *` rather than just a `Metadata *`. `TupleTypeMetadata` has a `NumElements` field which holds the number of elements in the tuple, and we're done:
+다음은 `count` 메서드입니다. 이 시점에서 `type`이 단순한 `Metadata *`가 아니라 실제로 `TupleTypeMetadata *`임을 알고 있습니다. `TupleTypeMetadata`에는 튜플의 요소 수를 담는 `NumElements` 필드가 있으며, 이것으로 끝입니다:
 
 ~~~cpp
   intptr_t count() {
@@ -155,7 +155,7 @@ Next is the `count` method. At this point we know that `type` is actually a `Tup
   }
 ~~~
 
-The `subscript` method takes a bit more work. It starts out with the same `static_cast`:
+`subscript` 메서드는 좀 더 많은 작업이 필요합니다. 같은 `static_cast`로 시작합니다:
 
 ~~~cpp
   AnyReturn subscript(intptr_t i, const char **outName,
@@ -163,16 +163,16 @@ The `subscript` method takes a bit more work. It starts out with the same `stati
     auto *Tuple = static_cast<const TupleTypeMetadata *>(type);
 ~~~
 
-Next, a bounds check to ensure the caller isn't asking for an index this tuple can't contain:
+다음으로 호출자가 이 튜플에 포함될 수 없는 인덱스를 요청하지 않도록 범위 검사를 합니다:
 
 ~~~cpp
     if (i < 0 || (size_t)i > Tuple->NumElements)
       swift::crash("Swift mirror subscript bounds check failure");
 ~~~
 
-Subscript has two jobs: it retrieves the value and the corresponding name. For a struct or class, the name is the stored property's name. For a tuple, the name is either the tuple label for that element, or a numeric indicator like `.0` if there is no label.
+subscript는 두 가지 작업을 합니다: 값과 해당하는 이름을 가져옵니다. 구조체나 클래스의 경우 이름은 저장 프로퍼티의 이름입니다. 튜플의 경우 이름은 해당 요소의 튜플 레이블이거나, 레이블이 없으면 `.0` 같은 숫자 표시입니다.
 
-Labels are stored in a space-separated list in the `Labels` field of the metadata. This code tracks down the `i`th string in that list:
+레이블은 메타데이터의 `Labels` 필드에 공백으로 구분된 목록으로 저장됩니다. 이 코드는 해당 목록에서 `i`번째 문자열을 추적합니다:
 
 ~~~cpp
     // Determine whether there is a label.
@@ -192,7 +192,7 @@ Labels are stored in a space-separated list in the `Labels` field of the metadat
     }
 ~~~
 
-If there is no label, generate an appropriate numeric name:
+레이블이 없으면 적절한 숫자 이름을 생성합니다:
 
 ~~~cpp
     if (!hasLabel) {
@@ -203,26 +203,26 @@ If there is no label, generate an appropriate numeric name:
     }
 ~~~
 
-Because we're working at the intersection of Swift and C++, we don't get nice things like automatic memory management. Swift has ARC and C++ has RAII, but the two don't get along. The `outFreeFunc` allows the C++ code to provide a function to the caller which it will use to free the returned name. The label needs to be freed with `free`, so this code sets the value of `*outFreeFunc` accordingly:
+Swift와 C++의 교차점에서 작업하기 때문에 자동 메모리 관리 같은 편리한 것을 사용할 수 없습니다. Swift에는 ARC가 있고 C++에는 RAII가 있지만, 둘은 잘 어울리지 않습니다. `outFreeFunc`은 C++ 코드가 반환된 이름을 해제하는 데 사용할 함수를 호출자에게 제공할 수 있게 합니다. 레이블은 `free`로 해제해야 하므로, 이 코드는 `*outFreeFunc` 값을 그에 맞게 설정합니다:
 
 ~~~cpp
     *outFreeFunc = [](const char *str) { free(const_cast<char *>(str)); };
 ~~~
 
-That takes care of the name. Surprisingly, the value is simpler to retrieve. The `Tuple` metadata contains a function that returns information about the element at a given index:
+이것으로 이름 처리가 끝납니다. 놀랍게도 값을 가져오는 것이 더 간단합니다. `Tuple` 메타데이터에는 주어진 인덱스의 요소에 대한 정보를 반환하는 함수가 포함되어 있습니다:
 
 ~~~cpp
     auto &elt = Tuple->getElement(i);
 ~~~
 
-`elt` contains an offset which can be applied to the tuple value to get a pointer to the element value:
+`elt`에는 튜플 값에 적용하여 요소 값에 대한 포인터를 얻을 수 있는 오프셋이 포함되어 있습니다:
 
 ~~~cpp
     auto *bytes = reinterpret_cast<const char *>(value);
     auto *eltData = reinterpret_cast<const OpaqueValue *>(bytes + elt.Offset);
 ~~~
 
-`elt` also contains the element's type. With the type and the pointer to the value, it's possible to construct a new `Any` containing that value. The type contains function pointers for allocating and initializing storage containing a value of the given type. This code uses those functions to copy the value into the `Any`, then returns the `Any` to the caller:
+`elt`에는 요소의 타입도 포함되어 있습니다. 타입과 값에 대한 포인터로, 해당 값을 포함하는 새로운 `Any`를 구성할 수 있습니다. 타입에는 주어진 타입의 값을 포함하는 스토리지를 할당하고 초기화하기 위한 함수 포인터가 포함되어 있습니다. 이 코드는 이 함수들을 사용하여 값을 `Any`에 복사한 다음, 호출자에게 `Any`를 반환합니다:
 
 ~~~cpp
     Any result;
@@ -237,14 +237,14 @@ That takes care of the name. Surprisingly, the value is simpler to retrieve. The
 };
 ~~~
 
-That's it for tuples.
+튜플에 대한 설명은 여기까지입니다.
 
 
 ## swift_getFieldAt
 
-Looking up the elements in structs, classes, and enums is currently quite complex. Much of this complexity is due to the lack of a direct reference between these types and the field descriptors which contain the information about a type's fields. A helper function called `swift_getFieldAt` searches for the appropriate field descriptor for a given type. This whole function should go away once we add that direct reference, but in the meantime it provides an interesting look at how the runtime code is able to use the language's metadata to look up type information.
+구조체, 클래스, 열거형에서 요소를 조회하는 것은 현재 상당히 복잡합니다. 이 복잡성의 대부분은 이러한 타입과 타입의 필드 정보를 포함하는 필드 디스크립터 사이에 직접적인 참조가 없기 때문입니다. `swift_getFieldAt`이라는 헬퍼 함수가 주어진 타입에 대해 적절한 필드 디스크립터를 검색합니다. 직접 참조를 추가하면 이 함수 전체가 사라져야 하지만, 그동안 런타임 코드가 언어의 메타데이터를 사용하여 타입 정보를 조회하는 방법에 대한 흥미로운 시각을 제공합니다.
 
-The function prototype looks like this:
+함수 프로토타입은 다음과 같습니다:
 
 ~~~cpp
 void swift::_swift_getFieldAt(
@@ -253,9 +253,9 @@ void swift::_swift_getFieldAt(
         callback) {
 ~~~
 
-It takes the type to examine and the field index to look up. It also takes a callback which will be invoked with the info that it looked up.
+검사할 타입과 조회할 필드 인덱스를 받습니다. 또한 조회한 정보와 함께 호출될 콜백도 받습니다.
 
-The first task is to get the type context descriptor for this type, which contains additional information about the type which will be used later:
+첫 번째 작업은 이 타입의 타입 컨텍스트 디스크립터를 가져오는 것으로, 나중에 사용될 타입에 대한 추가 정보를 포함합니다:
 
 ~~~cpp
   auto *baseDesc = base->getTypeContextDescriptor();
@@ -263,20 +263,20 @@ The first task is to get the type context descriptor for this type, which contai
     return;
 ~~~
 
-The work is divided into two parts. First, it looks up the type's field descriptor. The field descriptor contains all of the info about the fields of the type. Once the field descriptor is available, this function can look up the necessary information from the descriptor.
+작업은 두 부분으로 나뉩니다. 먼저 타입의 필드 디스크립터를 조회합니다. 필드 디스크립터는 타입의 필드에 대한 모든 정보를 포함합니다. 필드 디스크립터를 사용할 수 있게 되면, 이 함수는 디스크립터에서 필요한 정보를 조회할 수 있습니다.
 
-Looking up the information from the descriptor is wrapped up in a helper called `getFieldAt` which the other code calls from various places in its search for the appropriate field descriptor. Let's start with the search. It starts off by getting a demangler, which is used to turn mangled type names into actual type references:
+디스크립터에서 정보를 조회하는 것은 `getFieldAt`이라는 헬퍼에 래핑되어 있으며, 다른 코드가 적절한 필드 디스크립터를 검색하는 여러 곳에서 호출합니다. 검색부터 시작하겠습니다. 맹글링된 타입 이름을 실제 타입 참조로 변환하는 데 사용되는 디맹글러를 가져오는 것으로 시작합니다:
 
 ~~~cpp
   auto dem = getDemanglerForRuntimeTypeResolution();
 ~~~
-It also has a cache to speed up multiple searches:
+여러 검색을 빠르게 하기 위한 캐시도 있습니다:
 
 ~~~cpp
   auto &cache = FieldCache.get();
 ~~~
 
-If the cache already has the field descriptor, call `getFieldAt` with it:
+캐시에 이미 필드 디스크립터가 있으면, 그것으로 `getFieldAt`을 호출합니다:
 
 ~~~cpp
   if (auto Value = cache.FieldCache.find(base)) {
@@ -285,7 +285,7 @@ If the cache already has the field descriptor, call `getFieldAt` with it:
   }
 ~~~
 
-To make the search code simpler, there's a helper which takes a `FieldDescriptor` and checks whether it's the one being searched for. If the descriptor matches, it puts the descriptor in the cache, calls `getFieldAt`, and returns success to the caller. Matching is complex, but essentially boils down to comparing the mangled names:
+검색 코드를 단순화하기 위해, `FieldDescriptor`를 받아 검색 대상인지 확인하는 헬퍼가 있습니다. 디스크립터가 일치하면 캐시에 넣고, `getFieldAt`을 호출하고, 호출자에게 성공을 반환합니다. 매칭은 복잡하지만, 본질적으로 맹글링된 이름을 비교하는 것입니다:
 
 ~~~cpp
   auto isRequestedDescriptor = [&](const FieldDescriptor &descriptor) {
@@ -302,7 +302,7 @@ To make the search code simpler, there's a helper which takes a `FieldDescriptor
   };
 ~~~
 
-Field descriptors can be registered at runtime or baked into a binary at build time. These two loops search all known field descriptors for a match:
+필드 디스크립터는 런타임에 등록하거나 빌드 타임에 바이너리에 포함할 수 있습니다. 이 두 루프는 일치하는 것을 찾기 위해 알려진 모든 필드 디스크립터를 검색합니다:
 
 ~~~cpp
   for (auto &section : cache.DynamicSections.snapshot()) {
@@ -320,7 +320,7 @@ Field descriptors can be registered at runtime or baked into a binary at build t
   }
 ~~~
 
-In the event that no match is found, log a warning and invoke the callback with an empty tuple just to give it something:
+일치하는 것을 찾지 못한 경우, 경고를 기록하고 무언가를 제공하기 위해 빈 튜플로 콜백을 호출합니다:
 
 ~~~cpp
   auto typeName = swift_getTypeName(base, /*qualified*/ true);
@@ -334,20 +334,20 @@ In the event that no match is found, log a warning and invoke the callback with 
 }
 ~~~
 
-That takes care of the search for a field descriptor. The `getFieldAt` helper transforms the field descriptor into the name and field type that gets passed to the callback. It starts out by getting the requested field record out of the field descriptor:
+이것으로 필드 디스크립터 검색이 완료됩니다. `getFieldAt` 헬퍼는 필드 디스크립터를 콜백에 전달되는 이름과 필드 타입으로 변환합니다. 필드 디스크립터에서 요청된 필드 레코드를 가져오는 것으로 시작합니다:
 
 ~~~cpp
   auto getFieldAt = [&](const FieldDescriptor &descriptor) {
     auto &field = descriptor.getFields()[index];
 ~~~
 
-The name is directly accessible from the record:
+이름은 레코드에서 직접 접근할 수 있습니다:
 
 ~~~cpp
     auto name = field.getFieldName(0);
 ~~~
 
-If the field is actually an enum case, it may not have a type. Check for that early and invoke the callback accordingly:
+필드가 실제로 열거형 케이스인 경우 타입이 없을 수 있습니다. 이를 미리 확인하고 그에 따라 콜백을 호출합니다:
 
 ~~~cpp
     if (!field.hasMangledTypeName()) {
@@ -356,7 +356,7 @@ If the field is actually an enum case, it may not have a type. Check for that ea
     }
 ~~~
 
-The field record stores the field type as a mangled name. The callback expects a pointer to metadata, so the mangled name has to be resolved to an actual type. The function `_getTypeByMangledName` handles most of that work, but requires the caller to resolve any generic arguments used by the type. Doing that requires pulling out all of the generic contexts that the type is nested in:
+필드 레코드는 필드 타입을 맹글링된 이름으로 저장합니다. 콜백은 메타데이터에 대한 포인터를 기대하므로, 맹글링된 이름을 실제 타입으로 해석해야 합니다. `_getTypeByMangledName` 함수가 대부분의 작업을 처리하지만, 호출자가 타입에서 사용되는 모든 제네릭 인자를 해석해야 합니다. 이를 위해 타입이 중첩된 모든 제네릭 컨텍스트를 추출해야 합니다:
 
 ~~~cpp
     std::vector<const ContextDescriptor *> descriptorPath;
@@ -372,7 +372,7 @@ The field record stores the field type as a mangled name. The callback expects a
     }
 ~~~
 
-Now get the mangled name and fetch the type, passing in a lambda that resolves generic arguments:
+이제 맹글링된 이름을 가져오고, 제네릭 인자를 해석하는 람다를 전달하여 타입을 가져옵니다:
 
 ~~~cpp
     auto typeName = field.getMangledTypeName(0);
@@ -382,14 +382,14 @@ Now get the mangled name and fetch the type, passing in a lambda that resolves g
         [&](unsigned depth, unsigned index) -> const Metadata * {
 ~~~
 
-If the requested depth is beyond the size of the descriptor path, fail:
+요청된 깊이가 디스크립터 경로의 크기를 초과하면 실패합니다:
 
 ~~~cpp
           if (depth >= descriptorPath.size())
             return nullptr;
 ~~~
 
-Otherwise, fetch the generic argument from the type that contains the field. This requires converting the index and depth into a single flat index, which is done by walking up the descriptor path and adding the number of generic parameters at each stage until the given depth is reached:
+그렇지 않으면, 필드를 포함하는 타입에서 제네릭 인자를 가져옵니다. 이를 위해 인덱스와 깊이를 단일 평탄 인덱스로 변환해야 하는데, 이는 디스크립터 경로를 올라가면서 주어진 깊이에 도달할 때까지 각 단계의 제네릭 매개변수 수를 더하여 수행합니다:
 
 ~~~cpp
           unsigned currentDepth = 0;
@@ -406,21 +406,21 @@ Otherwise, fetch the generic argument from the type that contains the field. Thi
           }
 ~~~
 
-If the index is beyond the generic parameters available at the given depth, fail:
+인덱스가 주어진 깊이에서 사용 가능한 제네릭 매개변수를 초과하면 실패합니다:
 
 ~~~cpp
           if (index >= currentContext->getNumGenericParams())
             return nullptr;
 ~~~
 
-Otherwise fetch the appropriate generic argument from the base type:
+그렇지 않으면 기반 타입에서 적절한 제네릭 인자를 가져옵니다:
 
 ~~~cpp
           return base->getGenericArgs()[flatIndex];
         });
 ~~~
 
-Like before, if the type couldn't be found, use an empty tuple:
+이전과 마찬가지로, 타입을 찾을 수 없으면 빈 튜플을 사용합니다:
 
 ~~~cpp
     if (typeInfo == nullptr) {
@@ -432,7 +432,7 @@ Like before, if the type couldn't be found, use an empty tuple:
     }
 ~~~
 
-Then invoke the callback with whatever was found:
+그런 다음 찾은 것으로 콜백을 호출합니다:
 
 ~~~cpp
     callback(name, FieldType()
@@ -443,13 +443,13 @@ Then invoke the callback with whatever was found:
   };
 ~~~
 
-That's `swift_getFieldAt`. With that helper available, let's take a look at the other reflection implementations.
+이것이 `swift_getFieldAt`입니다. 이 헬퍼를 사용할 수 있으므로, 다른 리플렉션 구현을 살펴보겠습니다.
 
-## Structs
+## 구조체
 
-The implementation for structs is similar, but a little more complex. There are struct types which don't support reflection at all, looking up the name and offset in a struct takes more effort, and structs can contain weak references which the reflection code needs to be able to extract.
+구조체에 대한 구현은 비슷하지만 좀 더 복잡합니다. 리플렉션을 전혀 지원하지 않는 구조체 타입이 있고, 구조체에서 이름과 오프셋을 조회하는 데 더 많은 노력이 필요하며, 구조체는 리플렉션 코드가 추출할 수 있어야 하는 약한 참조를 포함할 수 있습니다.
 
-First is a helper method to check whether the struct can be reflected at all. This is stored in a flag that's accessible through the struct metadata. Similar to the above code with tuples, we know at this point that `type` is really a `StructMetadata *`, so we can cast freely:
+먼저 구조체가 리플렉션될 수 있는지 확인하는 헬퍼 메서드가 있습니다. 이는 구조체 메타데이터를 통해 접근할 수 있는 플래그에 저장됩니다. 튜플의 위 코드와 마찬가지로, 이 시점에서 `type`이 실제로 `StructMetadata *`임을 알고 있으므로 자유롭게 캐스팅할 수 있습니다:
 
 ~~~cpp
 struct StructImpl : ReflectionMirrorImpl {
@@ -460,7 +460,7 @@ struct StructImpl : ReflectionMirrorImpl {
   }
 ~~~
 
-The display style for a struct is `'s'`:
+구조체의 표시 스타일은 `'s'`입니다:
 
 ~~~cpp
   char displayStyle() {
@@ -468,7 +468,7 @@ The display style for a struct is `'s'`:
   }
 ~~~
 
-The child count is the number of fields as reported by the metadata, or `0` if this type isn't actually reflectable:
+자식 수는 메타데이터가 보고하는 필드 수이며, 이 타입이 실제로 리플렉션될 수 없으면 `0`입니다:
 
 ~~~cpp
   intptr_t count() {
@@ -481,7 +481,7 @@ The child count is the number of fields as reported by the metadata, or `0` if t
   }
 ~~~
 
-Like before, the `subscript` method is the complicated part. It starts off similarly, doing a bounds check and looking up the offset:
+이전과 마찬가지로, `subscript` 메서드가 복잡한 부분입니다. 비슷하게 시작하여 범위 검사와 오프셋 조회를 합니다:
 
 ~~~cpp
   AnyReturn subscript(intptr_t i, const char **outName,
@@ -495,7 +495,7 @@ Like before, the `subscript` method is the complicated part. It starts off simil
     auto fieldOffset = Struct->getFieldOffsets()[i];
 ~~~
 
-Getting the type info for a struct field is a bit more involved. That work is passed off to the `_swift_getFieldAt` helper function:
+구조체 필드의 타입 정보를 가져오는 것은 좀 더 복잡합니다. 이 작업은 `_swift_getFieldAt` 헬퍼 함수에 위임됩니다:
 
 ~~~cpp
     Any result;
@@ -503,7 +503,7 @@ Getting the type info for a struct field is a bit more involved. That work is pa
     _swift_getFieldAt(type, i, [&](llvm::StringRef name, FieldType fieldInfo) {
 ~~~
 
-Once it has the field info, things proceed similarly to the tuple code. Fill out the name and compute a pointer to the field's storage:
+필드 정보를 얻으면 튜플 코드와 비슷하게 진행됩니다. 이름을 채우고 필드 스토리지에 대한 포인터를 계산합니다:
 
 ~~~cpp
       *outName = name.data();
@@ -513,7 +513,7 @@ Once it has the field info, things proceed similarly to the tuple code. Fill out
       auto *fieldData = reinterpret_cast<OpaqueValue *>(bytes + fieldOffset);
 ~~~
 
-There's an extra step to copy the field's value into the `Any` return value to handle weak references. The `loadSpecialReferenceStorage` function handles those. If it doesn't load the value then the value has normal storage, and the value can be copied into the return value normally:
+약한 참조를 처리하기 위해 필드의 값을 `Any` 반환 값에 복사하는 추가 단계가 있습니다. `loadSpecialReferenceStorage` 함수가 이를 처리합니다. 값을 로드하지 않으면 값은 일반 스토리지를 가지며, 값을 정상적으로 반환 값에 복사할 수 있습니다:
 
 ~~~cpp
       bool didLoad = loadSpecialReferenceStorage(fieldData, fieldInfo, &result);
@@ -530,12 +530,12 @@ There's an extra step to copy the field's value into the `Any` return value to h
 };
 ~~~
 
-That takes care of structs.
+이것으로 구조체에 대한 설명이 끝납니다.
 
 
-## Classes
+## 클래스
 
-Classes are similar to structs, and the code in `ClassImpl` is almost the same. There are two notable differences due to Objective-C interop. One is that it has an implementation of `quickLookObject` which invokes the Objective-C `debugQuickLookObject` method:
+클래스는 구조체와 비슷하며, `ClassImpl`의 코드도 거의 동일합니다. Objective-C 상호 운용성으로 인한 두 가지 주목할 만한 차이가 있습니다. 하나는 Objective-C의 `debugQuickLookObject` 메서드를 호출하는 `quickLookObject` 구현이 있다는 것입니다:
 
 ~~~cpp
 #if SWIFT_OBJC_INTEROP
@@ -553,7 +553,7 @@ id quickLookObject() {
 #endif
 ~~~
 
-The other is that the field offset has to be obtained from the Objective-C runtime if the class has an Objective-C superclass:
+다른 하나는 클래스에 Objective-C 상위 클래스가 있는 경우 Objective-C 런타임에서 필드 오프셋을 가져와야 한다는 것입니다:
 
 ~~~cpp
   uintptr_t fieldOffset;
@@ -571,9 +571,9 @@ The other is that the field offset has to be obtained from the Objective-C runti
 ~~~
 
 
-## Enums
+## 열거형
 
-Enums are a bit different. `Mirror` considers an enum instance to have at most one child, which has the enum case name as its label and the associated value as its value. Cases with no associated value have no children. For example:
+열거형은 약간 다릅니다. `Mirror`는 열거형 인스턴스를 최대 하나의 자식을 가진 것으로 간주하며, 열거형 케이스 이름이 레이블이고 연관 값이 값입니다. 연관 값이 없는 케이스에는 자식이 없습니다. 예를 들어:
 
 ~~~cpp
 enum Foo {
@@ -583,9 +583,9 @@ enum Foo {
 }
 ~~~
 
-When mirror is used on a value of `Foo`, it will show no children for `Foo.bar`, one child with an `Int` value for a `Foo.baz`, and one child with a `(String, String)` value for a `Foo.quux`. While a value of a class or struct always contains the same fields and thus the same child labels and types, different enum cases of the same type do not. Associated values can also be `indirect`, which requires special handling.
+`Foo` 값에 mirror를 사용하면 `Foo.bar`에는 자식이 없고, `Foo.baz`에는 `Int` 값을 가진 하나의 자식이, `Foo.quux`에는 `(String, String)` 값을 가진 하나의 자식이 표시됩니다. 클래스나 구조체의 값은 항상 같은 필드를 포함하여 같은 자식 레이블과 타입을 가지지만, 같은 타입의 다른 열거형 케이스는 그렇지 않습니다. 연관 값은 `indirect`일 수도 있어 특별한 처리가 필요합니다.
 
-There are four key pieces of information needed to reflect an `enum` value: the case name, the tag (a numeric representation of which enum case the value stores), the payload type, and whether the payload is indirect. The `getInfo` method fetches all of these values:
+`enum` 값을 리플렉션하는 데 네 가지 핵심 정보가 필요합니다: 케이스 이름, 태그(값이 저장하는 열거형 케이스의 숫자 표현), 페이로드 타입, 페이로드가 indirect인지 여부. `getInfo` 메서드가 이 모든 값을 가져옵니다:
 
 ~~~cpp
 const char *getInfo(unsigned *tagPtr = nullptr,
@@ -593,13 +593,13 @@ const char *getInfo(unsigned *tagPtr = nullptr,
                     bool *indirectPtr = nullptr) {
 ~~~
 
-The tag is retrieved by querying the metadata directly:
+태그는 메타데이터를 직접 쿼리하여 가져옵니다:
 
 ~~~cpp
   unsigned tag = type->vw_getEnumTag(value);
 ~~~
 
-The other info is retrieved using `_swift_getFieldAt`. It takes the tag as the "field index" and provides the appropriate info:
+나머지 정보는 `_swift_getFieldAt`을 사용하여 가져옵니다. 태그를 "필드 인덱스"로 받아 적절한 정보를 제공합니다:
 
 ~~~cpp
   const Metadata *payloadType = nullptr;
@@ -613,7 +613,7 @@ The other info is retrieved using `_swift_getFieldAt`. It takes the tag as the "
   });
 ~~~
 
-All of these values are then returned to the caller:
+이 모든 값은 호출자에게 반환됩니다:
 
 ~~~cpp
   if (tagPtr)
@@ -627,9 +627,9 @@ All of these values are then returned to the caller:
 }
 ~~~
 
-(You might wonder: why is the case name the one that's returned directly, while the other three are returned through pointers? Why not return the tag, or the payload type? The answer is: I don't really know, it seemed like a good idea at the time.)
+(궁금할 수 있습니다: 왜 케이스 이름은 직접 반환되고 나머지 세 개는 포인터를 통해 반환될까요? 왜 태그나 페이로드 타입을 반환하지 않을까요? 답은: 잘 모르겠지만, 그때는 좋은 생각 같았습니다.)
 
-The `count` method can then use `getInfo` to retrieve the payload type, and return `0` or `1` if the payload type is `null` or not:
+`count` 메서드는 `getInfo`를 사용하여 페이로드 타입을 가져온 다음, 페이로드 타입이 `null`인지 아닌지에 따라 `0` 또는 `1`을 반환합니다:
 
 ~~~cpp
 intptr_t count() {
@@ -643,7 +643,7 @@ intptr_t count() {
 }
 ~~~
 
-The `subscript` method starts out by getting all info about the value:
+`subscript` 메서드는 값에 대한 모든 정보를 가져오는 것으로 시작합니다:
 
 ~~~cpp
 AnyReturn subscript(intptr_t i, const char **outName,
@@ -655,14 +655,14 @@ AnyReturn subscript(intptr_t i, const char **outName,
   auto *caseName = getInfo(&tag, &payloadType, &indirect);
 ~~~
 
-Actually copying the value takes a bit more work. In order to handle indirect values, the whole process goes through an extra box:
+실제로 값을 복사하는 것은 좀 더 많은 작업이 필요합니다. indirect 값을 처리하기 위해 전체 프로세스가 추가적인 박스를 거칩니다:
 
 ~~~cpp
   const Metadata *boxType = (indirect ? &METADATA_SYM(Bo).base : payloadType);
   BoxPair pair = swift_allocBox(boxType);
 ~~~
 
-Because of the way enum extraction works, there's no way to cleanly copy the value out. The only operation available is to *destructively* extract the payload value. To make a copy and leave the original intact, destructively extract it, then put it back in:
+열거형 추출 방식의 특성상 값을 깨끗하게 복사할 방법이 없습니다. 사용 가능한 유일한 연산은 페이로드 값을 *파괴적으로* 추출하는 것입니다. 복사본을 만들고 원본을 그대로 두려면, 파괴적으로 추출한 다음 다시 넣어야 합니다:
 
 ~~~cpp
   type->vw_destructiveProjectEnumData(const_cast<OpaqueValue *>(value));
@@ -672,7 +672,7 @@ Because of the way enum extraction works, there's no way to cleanly copy the val
   value = pair.buffer;
 ~~~
 
-In the indirect case, the real data has to be pulled out of the box:
+indirect인 경우, 실제 데이터를 박스에서 꺼내야 합니다:
 
 ~~~cpp
   if (indirect) {
@@ -680,14 +680,14 @@ In the indirect case, the real data has to be pulled out of the box:
     value = swift_projectBox(const_cast<HeapObject *>(owner));
   }
 ~~~
-Everything is now in place. The child's label is set to be the case name:
+모든 것이 준비되었습니다. 자식의 레이블은 케이스 이름으로 설정됩니다:
 
 ~~~cpp
   *outName = caseName;
   *outFreeFunc = nullptr;
 ~~~
 
-The now-familiar pattern is used to return the payload as an `Any`:
+이제 익숙한 패턴을 사용하여 페이로드를 `Any`로 반환합니다:
 
 ~~~cpp
   Any result;
@@ -702,16 +702,16 @@ The now-familiar pattern is used to return the payload as an `Any`:
 }
 ~~~
 
-## Miscellaneous Kinds
+## 기타 종류
 
-There are three more implementations in this file, all of which do almost nothing. `ObjCClassImpl` handles Objective-C classes. It doesn't even attempt to return any children for these, because Objective-C allows too much leeway with the contents of ivars. Objective-C classes are allowed to do things like keep a dangling pointer sitting around forever, with some separate logic telling the implementation not to touch the value. Attempting to return such a value as a `Mirror`'s child would violate Swift's memory safety guarantees. There's no way to reliably tell if the value in question is doing such a thing, so this code avoids it entirely.
+이 파일에는 거의 아무것도 하지 않는 세 가지 구현이 더 있습니다. `ObjCClassImpl`은 Objective-C 클래스를 처리합니다. Objective-C는 ivar의 내용에 너무 많은 자유를 허용하기 때문에 이들에 대해 자식을 반환하려고 시도조차 하지 않습니다. Objective-C 클래스는 댕글링 포인터를 영원히 유지하면서 구현에 해당 값을 건드리지 말라고 알리는 별도의 로직을 가지는 것 같은 일이 허용됩니다. 이러한 값을 `Mirror`의 자식으로 반환하려고 시도하면 Swift의 메모리 안전 보장을 위반합니다. 해당 값이 그런 일을 하고 있는지 신뢰할 수 있게 판별할 방법이 없으므로, 이 코드는 이를 완전히 피합니다.
 
-`MetatypeImpl` handles metatypes. If you use `Mirror` on an actual type, such as `Mirror(reflecting: String.self)`, this is what's used. There could conceivably be some useful information to provide here, but at the moment it doesn't even try, and just returns nothing. Similarly, `OpaqueImpl` handles opaque types and returns nothing.
+`MetatypeImpl`은 메타타입을 처리합니다. `Mirror(reflecting: String.self)` 같이 실제 타입에 `Mirror`를 사용하면 이것이 사용됩니다. 여기서 유용한 정보를 제공할 수도 있겠지만, 현재로서는 시도조차 하지 않고 아무것도 반환하지 않습니다. 마찬가지로, `OpaqueImpl`은 opaque 타입을 처리하며 아무것도 반환하지 않습니다.
 
 
-## Swift Interface
+## Swift 인터페이스
 
-On the Swift side of things, `Mirror` calls the interface functions implemented in C++ to retrieve the information it needs, then presents it in a friendlier form. This is done in an initializer on `Mirror`:
+Swift 쪽에서 `Mirror`는 C++로 구현된 인터페이스 함수를 호출하여 필요한 정보를 가져온 다음, 더 친숙한 형태로 제시합니다. 이는 `Mirror`의 이니셜라이저에서 수행됩니다:
 
 ~~~swift
 internal init(internalReflecting subject: Any,
@@ -720,13 +720,13 @@ internal init(internalReflecting subject: Any,
 {
 ~~~
 
-The `subjectType` is the type that will be used to reflect the `subject` value. This is typically the value's runtime type, but it will be a superclass if the caller uses `superclassMirror` to walk up the class hierarchy. If the caller didn't pass in a `subjectType`, this code asks the C++ code to grab the type of `subject`:
+`subjectType`은 `subject` 값을 리플렉션하는 데 사용될 타입입니다. 일반적으로 값의 런타임 타입이지만, 호출자가 `superclassMirror`를 사용하여 클래스 계층을 올라가면 상위 클래스가 됩니다. 호출자가 `subjectType`을 전달하지 않으면, 이 코드는 C++ 코드에 `subject`의 타입을 가져오도록 요청합니다:
 
 ~~~swift
   let subjectType = subjectType ?? _getNormalizedType(subject, type: type(of: subject))
 ~~~
 
-Then it constructs the `children` by getting the number of children, and creating a collection that lazily fetches each individual child:
+그런 다음 자식 수를 가져오고, 각 자식을 지연 방식으로 가져오는 컬렉션을 만들어 `children`을 구성합니다:
 
 ~~~swift
   let childCount = _getChildCount(subject, type: subjectType)
@@ -736,9 +736,9 @@ Then it constructs the `children` by getting the number of children, and creatin
   self.children = Children(children)
 ~~~
 
-The `getChild` function is a small wrapper around the C++ `_getChild` function which transforms the C string containing the label name into a Swift `String`.
+`getChild` 함수는 레이블 이름을 포함하는 C 문자열을 Swift `String`으로 변환하는 C++ `_getChild` 함수의 작은 래퍼입니다.
 
-`Mirror` has a `superclassMirror` property which returns a `Mirror` that inspects the properties of the next class up the class hierarchy. Internally, it has a `_makeSuperclassMirror` property which stores a closure that can construct the superclass `Mirror` on demand. That closure starts by getting the superclass of `subjectType`. Non-class types and classes with no superclasses can't have a superclass mirror, so they get `nil`:
+`Mirror`에는 클래스 계층에서 상위 클래스의 프로퍼티를 검사하는 `Mirror`를 반환하는 `superclassMirror` 프로퍼티가 있습니다. 내부적으로, 요청 시 상위 클래스 `Mirror`를 구성할 수 있는 클로저를 저장하는 `_makeSuperclassMirror` 프로퍼티가 있습니다. 이 클로저는 `subjectType`의 상위 클래스를 가져오는 것으로 시작합니다. 비클래스 타입과 상위 클래스가 없는 클래스는 상위 클래스 mirror를 가질 수 없으므로 `nil`을 받습니다:
 
 ~~~swift
   self._makeSuperclassMirror = {
@@ -748,7 +748,7 @@ The `getChild` function is a small wrapper around the C++ `_getChild` function w
     }
 ~~~
 
-The caller can specify a custom ancestor representation, which is a `Mirror` instance that can be directly returned as the superclass mirror:
+호출자는 커스텀 조상 표현을 지정할 수 있으며, 이는 상위 클래스 mirror로 직접 반환될 수 있는 `Mirror` 인스턴스입니다:
 
 ~~~swift
     if let customAncestor = customAncestor {
@@ -761,7 +761,7 @@ The caller can specify a custom ancestor representation, which is a `Mirror` ins
     }
 ~~~
 
-Otherwise, return a new `Mirror` for the same value but using the `superclass` as the `subjectType`:
+그렇지 않으면, 같은 값에 대해 `superclass`를 `subjectType`으로 사용하는 새로운 `Mirror`를 반환합니다:
 
 ~~~swift
     return Mirror(internalReflecting: subject,
@@ -770,7 +770,7 @@ Otherwise, return a new `Mirror` for the same value but using the `superclass` a
   }
 ~~~
 
-Finally, it fetches and decodes the display style, and sets up `Mirror`'s remaining properties:
+마지막으로, 표시 스타일을 가져와 디코딩하고 `Mirror`의 나머지 프로퍼티를 설정합니다:
 
 ~~~swift
     let rawDisplayStyle = _getDisplayStyle(subject)
@@ -789,6 +789,6 @@ Finally, it fetches and decodes the display style, and sets up `Mirror`'s remain
 ~~~
 
 
-## Conclusion
+## 결론
 
-Swift's rich type metadata exists mostly behind the scenes, supporting things like protocol conformance lookup and generic type resolution. Some of it is exposed to the user with the `Mirror` type, allowing runtime inspection of arbitrary values. It might seem weird and mysterious at first, given the statically typed nature of Swift, but it's really a straightforward application of the information already available. This tour of the implementation should help dispel that mystery and give you insight into what's going on when you use `Mirror`.
+Swift의 풍부한 타입 메타데이터는 대부분 내부에서 프로토콜 적합성 조회와 제네릭 타입 해석 같은 것을 지원합니다. 일부는 `Mirror` 타입을 통해 사용자에게 노출되어 런타임에 임의의 값을 검사할 수 있게 합니다. Swift의 정적 타입 특성을 고려하면 처음에는 이상하고 신비하게 보일 수 있지만, 사실 이미 사용 가능한 정보를 직접적으로 활용하는 것에 불과합니다. 이 구현 탐방이 그 신비를 걷어내고 `Mirror`를 사용할 때 무슨 일이 일어나는지에 대한 통찰을 제공하기를 바랍니다.

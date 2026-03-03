@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2019-03-25 12:00:00
-title: Swift 5 Released!
+title: Swift 5 출시!
 author: tkremenek
 category: "Language"
 ---
@@ -13,7 +13,7 @@ Swift 5 is a major milestone in the evolution of the language.  Thanks to ABI st
 
 You can try out some of the new features in this [playground](https://github.com/twostraws/whats-new-in-swift-5-0) put together by Paul Hudson.
 
-### Language Updates
+### 언어 업데이트
 
 #### Stable ABI and Binary Compatibility
 
@@ -53,7 +53,7 @@ Swift 5 implements the following Standard Library proposals from the Swift Evolu
 * [ SE-0239 Add Codable conformance to Range types](https://github.com/swiftlang/swift-evolution/blob/master/proposals/0239-codable-range.md)
 * [SE-0241 Deprecate String Index Encoded Offsets](https://github.com/swiftlang/swift-evolution/blob/master/proposals/0241-string-index-explicit-encoding-offset.md)
 
-#### Additional Language and Compiler Updates
+#### 추가 언어 및 컴파일러 업데이트
 
 Swift 5 defaults to enforcing exclusive access to memory for both debug and release builds (See the [Swift 5 Exclusivity Enforcement](/blog/swift-5-exclusivity/) blog post for more information about this update). And Swift 5 supports dynamically callable types that help improve interoperability with dynamic languages such as Python, JavaScript and Ruby.
 
@@ -67,7 +67,7 @@ Swift 5 also implements the following language proposals from the Swift Evolutio
 * [ SE-0230 Flatten nested optionals resulting from 'try?'](https://github.com/swiftlang/swift-evolution/blob/master/proposals/0230-flatten-optional-try.md)
 
 
-### Package Manager Updates
+### Package Manager 업데이트
 
 Swift Package Manager includes a number of new features in Swift 5, including dependency mirroring, target-specific build settings, customized deployment targets, and the ability to generate code coverage data.  Additionally, the `swift run` command now includes the ability to import libraries in a REPL without needing to build an executable.
 
@@ -77,17 +77,17 @@ Swift 5 implements the following Package Manager proposals from the Swift Evolut
 * [SE-0236 Package Manager Platform Deployment Settings](https://github.com/swiftlang/swift-evolution/blob/master/proposals/0236-package-manager-platform-deployment-settings.md)
 * [ SE-0238 Package Manager Target Specific Build Settings](https://github.com/swiftlang/swift-evolution/blob/master/proposals/0238-package-manager-build-settings.md)
 
-### Migrating to Swift 5
+### Swift로 마이그레이션 5
 
 Swift 5 is source compatible with Swift 4, Swift 4.1 and Swift 4.2.
 
 To help with moving to Swift 5 from earlier releases of Swift, Apple’s Xcode 10.2 contains a code migrator that can automatically handle many of the needed source changes. There is also a [migration guide](/migration-guide-swift5/) available to guide you through many of the changes — especially through the ones that are less mechanical and require more direct scrutiny.
 
-### Documentation
+### 문서
 
 An updated version of [The Swift Programming Language](https://docs.swift.org/swift-book/) for Swift 5 is now available on Swift.org. It is also available for free on the [Apple Books store](https://itunes.apple.com/us/book/the-swift-programming-language/id881256329?mt=11).
 
-### Platforms
+### 플랫폼
 
 #### Linux
 
@@ -100,7 +100,7 @@ For development on Apple’s platforms, Swift 5 ships as part of [Xcode 10.2](ht
 
 A toolchain is also [available for download](/download/) from Swift.org.
 
-### Sources
+### 소스
 
 Development on Swift 5 was tracked in the swift-5.0-branch on the following repositories on GitHub:
 

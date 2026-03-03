@@ -2,20 +2,14 @@
 layout: new-layouts/post
 published: true
 date: 2017-08-22 09:45:00
-title: Swift Local Refactoring
+title: Swift 로컬 리팩토링
 author: nkcsgexi
 category: "Developer Tools"
 ---
 
-Xcode 9 includes a brand new refactoring engine. It can transform code locally
-within a single Swift source file, or globally, such as renaming a method or property
-that occurs in multiple files and even different languages. The logic behind local refactorings is
-implemented entirely in the compiler and SourceKit, and is now open source in
-the [swift repository](https://github.com/apple/swift). Therefore, any Swift enthusiast can
-contribute refactoring actions to the language. This post discusses how
-a simple refactoring can be implemented and surfaced in Xcode.
+Xcode 9에는 완전히 새로운 리팩토링 엔진이 포함되어 있습니다. 단일 Swift 소스 파일 내에서 로컬로, 또는 여러 파일이나 서로 다른 언어에 걸쳐 메서드나 프로퍼티 이름을 변경하는 것과 같이 글로벌로 코드를 변환할 수 있습니다. 로컬 리팩토링의 로직은 전적으로 컴파일러와 SourceKit에 구현되어 있으며, 현재 [swift 저장소](https://github.com/apple/swift)에서 오픈 소스로 제공됩니다. 따라서 Swift에 관심 있는 누구나 언어에 리팩토링 동작을 기여할 수 있습니다. 이 글에서는 간단한 리팩토링을 구현하고 Xcode에 표시하는 방법을 설명합니다.
 
-## Kinds of Refactorings
+## 리팩토링의 종류
 
 A **local refactoring** occurs within the confines of a single file.
 Examples of local refactoring include *Extract Method* and *Extract Repeated Expression*.
@@ -45,7 +39,7 @@ need to start from the raw representation of a cursor or a range position;
 instead, we can start with [ResolvedCursorInfo] and [ResolvedRangeInfo] upon which a refactoring-specific
 analysis can be derived.
 
-## Cursor-based Refactoring
+## 커서 기반 리팩토링
 
 ![Cursor-based Refactoring](/assets/images/local-refactoring/Cursor.png)
 
@@ -133,7 +127,7 @@ is fairly straightforward to implement. In the function body, we
 can use [EditConsumer] to issue textual edits around the expression pointed by
 the cursor with the appropriate Foundation API calls, as Lines 3 and 4 illustrate.
 
-## Range-based Refactoring
+## 범위 기반 리팩토링
 
 ![Range-based Refactoring](/assets/images/local-refactoring/Range.png)
 
@@ -201,7 +195,7 @@ function body of [performChange], we can access not only the original
 [ResolvedRangeInfo] for the user's selection, but also other important utilities such
 as the edit consumer and source manager, making the implementation more convenient.
 
-## Diagnostics
+## 진단
 A refactoring action may need to be aborted during automated code change for various reasons.
 When this happens, a refactoring implementation can communicate via diagnostics the cause of such failures to the user.
 Refactoring diagnostics employ the same mechanism as the compiler itself.
@@ -229,7 +223,7 @@ After declaring it, we can use the diagnostic in either [isApplicable] or
 6  }
 ~~~
 
-## Testing
+## 테스트
 
 Corresponding to the two steps in implementing a new
 refactoring action, we need to test that:
@@ -241,7 +235,7 @@ populated properly.
 These two parts are both tested using the [swift-refactor] command line utility which
 is built alongside the compiler.
 
-#### Contextual Refactoring Test
+#### 컨텍스트 리팩토링 테스트
 ~~~cpp
 1  func foo() {
 2    print("Hello World!")
@@ -281,7 +275,7 @@ testing that we show the right actions at the right cursor positions, we also ne
 test available refactorings are not wrongly populated in situations like string literals
 with interpolation.
 
-#### Code Transformation Test
+#### 코드 변환 테스트
 
 We should also test that when applying the refactoring, the automated code
 change matches our expectations. As a preparation, we need to teach [swift-refactor]
@@ -323,7 +317,7 @@ for the code resulting from the refactoring; using the newly added `-localize-st
 dumps the result to the temporary directory; finally, Line 6 compares the result
 with the expected output illustrated in the second code example.
 
-## Integrating with Xcode
+## Xcode와 통합
 After implementing all of above pieces in the Swift codebase, we
 are ready to test/use the newly added refactoring in Xcode by integrating with
 a locally-built open source toolchain.
@@ -338,7 +332,7 @@ following figure illustrates.
 
 ![Specify Toolchain](/assets/images/local-refactoring/Toolchain.png)
 
-## Potential Local Refactoring Ideas
+## 로컬 리팩토링 아이디어
 This post just touches on some of the things that are now possible to implement in the new refactoring engine.
 If you are excited about extending the refactoring engine to implement additional transformations,
 Swift's [issue database] contains [several ideas of refactoring transformations](https://bugs.swift.org/issues/?jql=labels%3DStarterProposal%20AND%20labels%3DRefactoring%20AND%20resolution%3DUnresolved) awaiting implementations.

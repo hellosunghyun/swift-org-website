@@ -1,7 +1,7 @@
 ---
 layout: new-layouts/post
 date: 2019-02-06 12:00:00
-title: Introducing the sourcekitd Stress Tester
+title: sourcekitd 스트레스 테스터 소개
 author: nathawes
 category: "Developer Tools"
 ---
@@ -183,7 +183,7 @@ If the stress tester detects an unexpected failure like the above when running o
 7. Click the "Create" button to finish filing the issue, and navigate to it via the notification that appears or under "Recent Issues" in the "Issues" menu.
 8. In the "Details" section please add the label "FoundByStressTester" to help us track the quantity and kinds of issues the stress tester is finding.
 
-### Conclusion
+### 결론
 
 The sourcekitd stress tester is a relatively simple new testing tool for sourcekitd, but based on the issues found running over the Swift source compatibility suite and its inclusion as part of Swift's CI testing, we expect it to have a big impact on the reliability of the Swift editing experience in Xcode and SourceKit-LSP going forward. Knowing that code completion, local refactorings, and many other sourcekitd features work reliably on every token of every file of every project in the Swift source compatibility suite provides much greater confidence that changes to sourcekitd and the compiler aren't regressing this functionality. The stress tester's inclusion in the [swift.org](http://swift.org/) toolchains provides an avenue for yet further coverage too, as Swift developers now have a simple way to find and report sourcekitd failures in their own projects.
 

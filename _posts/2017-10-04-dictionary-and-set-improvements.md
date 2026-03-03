@@ -2,23 +2,14 @@
 layout: new-layouts/post
 published: true
 date: 2017-10-04 12:00:00
-title: Dictionary and Set Improvements in Swift 4.0
+title: Swift 4.0의 Dictionary와 Set 개선
 author: natecook1000
 category: "Language"
 ---
 
-In the latest release of Swift,
-dictionaries and sets gain a number of new methods and initializers
-that make common tasks easier than ever.
-Operations like grouping, filtering, and transforming values
-can now be performed in a single step,
-letting you write more expressive and efficient code.
+Swift 최신 릴리스에서 딕셔너리와 셋은 일반적인 작업을 더 쉽게 만드는 다수의 새로운 메서드와 이니셜라이저를 갖게 됩니다. 그룹핑, 필터링, 값 변환 같은 연산을 이제 한 단계로 수행할 수 있어 더 표현력 있고 효율적인 코드를 작성할 수 있습니다.
 
-This post explores these new transformations,
-using some grocery data for a market as an example.
-This custom `GroceryItem` struct,
-made up of a name and a department,
-will serve as the data type:
+이 글에서는 마트의 식료품 데이터를 예시로 이 새로운 변환들을 살펴봅니다. 이름과 부서로 구성된 커스텀 `GroceryItem` 구조체를 데이터 타입으로 사용합니다:
 
 ~~~swift
 struct GroceryItem: Hashable {
@@ -51,11 +42,10 @@ let 🍤 = GroceryItem(name: "Shrimp", department: .seafood)
 let groceries = [🍎, 🍌, 🥐, 🐟, 🍇, 🍞, 🍤]
 ~~~
 
-The examples that follow use the `groceries` array
-to build and transform dictionaries with these new tools.
+이어지는 예제에서는 `groceries` 배열을 사용하여 이 새로운 도구로 딕셔너리를 구축하고 변환합니다.
 
 
-## Grouping Values by a Key
+## 키별 값 그룹핑
 
 <img
   alt="Grouping groceries by their department"
@@ -63,16 +53,9 @@ to build and transform dictionaries with these new tools.
   srcset="/assets/images/dictionary-blog/grouping_2x.png 2x"
   class="dictionary-blog" />
 
-A new grouping initializer makes it a snap
-to build a dictionary from a sequence of values,
-grouped by keys computed from those values.
-We'll use this new initializer to build a dictionary of groceries
-grouped by their department.
+새로운 그룹핑 이니셜라이저를 사용하면 값에서 계산된 키로 그룹화된 딕셔너리를 값 시퀀스에서 쉽게 만들 수 있습니다. 이 새 이니셜라이저를 사용하여 부서별로 그룹화된 식료품 딕셔너리를 만들어 보겠습니다.
 
-To do this in earlier versions of Swift,
-you used iteration to build up a dictionary from scratch.
-This required type annotations, manual iteration,
-and a check to see if each key already existed in the dictionary.
+이전 Swift 버전에서 이를 구현하려면 딕셔너리를 처음부터 반복으로 구축해야 했습니다. 타입 어노테이션, 수동 반복, 각 키가 딕셔너리에 이미 존재하는지 확인이 필요했습니다.
 
 ~~~swift
 // Swift <= 3.1
@@ -86,11 +69,7 @@ for item in groceries {
 }
 ~~~
 
-With this update to Swift,
-you can use the `Dictionary(grouping:by)` initializer to create the same dictionary
-with a single line of code.
-Pass a closure that returns a key for each element in your array.
-In the following code, the closure returns the department for each grocery item:
+이번 Swift 업데이트로 `Dictionary(grouping:by)` 이니셜라이저를 사용하여 한 줄의 코드로 동일한 딕셔너리를 만들 수 있습니다. 배열의 각 요소에 대해 키를 반환하는 클로저를 전달합니다. 다음 코드에서 클로저는 각 식료품 항목의 부서를 반환합니다:
 
 ~~~swift
 // Swift 4.0
@@ -105,7 +84,7 @@ The value for each key is an array of the groceries within that department,
 in the same order as the original list.
 Using `.bakery` as a key in `groceriesByDepartment` gives you the array `[🥐, 🍞]`.
 
-## Transforming a Dictionary's Values
+## 딕셔너리 값 변환
 
 You can transform the values of a dictionary,
 while keeping the same keys,
@@ -125,7 +104,7 @@ and doesn't need to recompute any hash values.
 This makes calling `mapValues(_:)` faster
 than rebuilding the dictionary from scratch.
 
-## Building Dictionaries from Key-Value Pairs
+## 키-값 쌍으로 딕셔너리 구축
 
 <img
   alt="Building a dictionary from names and values"
@@ -196,7 +175,7 @@ the uniquing closure is called with the old and new values (`"🐕"` and `"🐶"
 Because the closure always returns its second parameter,
 the result has `"🐶"` as the value for the `"dog"` key.
 
-## Selecting Certain Entries
+## 특정 항목 선택
 
 Dictionaries now have a `filter(_:)` method that returns a dictionary,
 not just an array of key-value pairs,
@@ -217,7 +196,7 @@ let outOfStock = groceriesByName.filter { (_, item) in isOutOfStock(item) }
 This code calls an `isOutOfStock(_:)` function on each item,
 keeping only the grocery items that are out of stock.
 
-## Using Default Values
+## 기본값 사용
 
 Dictionaries now have a second key-based subscript
 that makes it easier to get and update values.
@@ -274,7 +253,7 @@ the dictionary adds the new key-value pair.
 
 At the end of the loop, `cart` is `[🍌: 3, 🍞: 1]`.
 
-## Merging Two Dictionaries into One
+## 두 딕셔너리 하나로 병합
 
 In addition to easier incremental changes,
 dictionaries now make it simpler to make changes in bulk,
@@ -308,7 +287,7 @@ To create a new dictionary
 with the merged contents instead of merging in place,
 use the nonmutating `merging(_:uniquingKeysWith:)` method.
 
-## And That's Not All…
+## 이것이 전부가 아닙니다…
 
 There are a few more additions we haven't covered.
 Dictionaries now have custom `keys` and `values` collections with new capabilities.

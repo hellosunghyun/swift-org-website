@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2019-10-17 10:00:00
-title: New Diagnostic Architecture Overview
+title: 새로운 진단 아키텍처 개요
 author: xedin
 category: "Language"
 ---
@@ -550,7 +550,7 @@ error: member 'spring' expects argument of type '(response: Double, dampingFract
 
 The new diagnostic infrastructure is designed to overcome all of the shortcomings of the old approach. The way it’s structured is intended to make it easy to improve/port existing diagnostics and to be used by new feature implementors to provide great diagnostics right off the bat. It shows very promising results with all of the diagnostics we have ported so far, and we are hard at work porting more every day.
 
-### Questions?
+### 질문이 있으신가요?
 
 Please feel free to post questions about this post on the [associated thread](https://forums.swift.org/t/swift-org-blog-new-diagnostic-architecture-overview/29905) on the [Swift forums][].
 
