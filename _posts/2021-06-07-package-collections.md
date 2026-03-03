@@ -1,7 +1,7 @@
 ---
 layout: new-layouts/post
 date: 2021-06-07 9:00:00
-title: Package Collections
+title: 패키지 컬렉션
 author: tomerd
 category: "Community"
 ---

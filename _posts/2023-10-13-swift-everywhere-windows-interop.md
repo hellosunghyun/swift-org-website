@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2023-10-13 10:00:00
-title: "Swift Everywhere: Using Interoperability to Build on Windows"
+title: Swift Everywhere: 상호 운용성을 활용한 Windows 빌드
 author: [compnerd]
 category: "Adopters"
 ---

@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2023-05-18 10:30:00
-title: Evolving the Swift Workgroups
+title: Swift 워크그룹 발전시키기
 author: [tkremenek]
 category: "Community"
 ---
@@ -72,7 +72,7 @@ Over the coming weeks, the Swift project will add two new groups to provide supp
 
 ![Swift Workgroups Diagram](/assets/images/evolving-workgroups-blog/community-structure.png)
 
-### Ecosystem Steering Group
+### 생태계 Steering Group
 
 Notably, we will be creating a new **Ecosystem Steering Group.**
 
@@ -92,7 +92,7 @@ The new Contributor Experience workgroup will explore providing community member
 
 For more details, please see the [Contributor Experience Workgroup Charter](/contributor-experience-workgroup).
 
-## Next Steps and You
+## 다음 단계 and You
 
 If you're interested in getting involved, check out the charters of the above groups, or read about other ways to [contribute to the project](/contributing/). If you have contributed and don’t fall neatly into one of the groups above, keep going! All contributions are valuable.
 

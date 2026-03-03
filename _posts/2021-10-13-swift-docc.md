@@ -1,6 +1,6 @@
 ---
 layout: new-layouts/post
-title: Swift-DocC is Now Open Source
+title: Swift-DocC 오픈 소스 공개
 author: franklinsch
 date: 2021-10-13 10:00:00
 category: "Developer Tools"
@@ -45,7 +45,7 @@ documentation when it’s well organized. Another key goal is to provide an
 intuitive way for developers to organize documentation into logical groups and
 to write links to other pages.
 
-## Overview
+## 개요
 
 Swift-DocC encompasses tools and libraries to help developers write and
 generate documentation on many platforms, including macOS and Linux, with the
@@ -97,7 +97,7 @@ Rendered website
 
 ![The rendered version of the Sloth page]({{ site.baseurl }}/assets/images/swift-docc/sloth.png){:width="100%" srcset="{{ site.baseurl }}/assets/images/swift-docc/sloth@2x.png 2x"}
 
-## What's Next?
+## 다음은?
 
 ### Integration with Swift Tools
 
@@ -141,7 +141,7 @@ Your experience, feedback, and contributions are greatly encouraged!
 * [File a bug report](https://bugs.swift.org/) for problems you find, or ideas for improvements
 * And as always, [pull requests](https://github.com/swiftlang/swift-docc/pulls) are welcome!
 
-### Questions?
+### 질문이 있으신가요?
 
 Please feel free to post questions about this post on the [associated
 thread](https://forums.swift.org/t/announcing-swift-docc) on the [Swift

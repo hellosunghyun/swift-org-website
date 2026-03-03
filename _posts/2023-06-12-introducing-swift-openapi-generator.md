@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2023-06-12 11:00:00
-title: Introducing Swift OpenAPI Generator
+title: Swift OpenAPI Generator 소개
 author: [honzadvorsky, simonjbeaumont]
 category: "Developer Tools"
 ---

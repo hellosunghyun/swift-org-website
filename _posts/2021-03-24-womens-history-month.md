@@ -1,7 +1,7 @@
 ---
 layout: new-layouts/post
 date: 2021-03-24 10:00:00
-title: Celebrating Women’s History Month
+title: 여성 역사의 달 기념
 author: [hborla, twostraws]
 category: "Community"
 ---

@@ -1,7 +1,7 @@
 ---
 layout: new-layouts/post
 date: 2020-10-01 14:00:00
-title: Introducing Swift Atomics
+title: Swift Atomics 소개
 author: lorentey
 category: "Developer Tools"
 ---
@@ -118,7 +118,7 @@ All atomic operations exposed by this package are guaranteed to have lock-free i
 
 However, we do not guarantee wait-free operation: depending on the capabilities of the target platform, some of the exposed operations may be implemented by compare-and-exchange loops. When multiple threads are repeatedly competing for access to the same atomic variable, this may result in unfair scheduling where some threads may get repeatedly preempted by others, forcing them to retry their operation an arbitrary number of times. That said, all atomic operations map directly to dedicated, wait-free CPU instructions where available -- to the extent supported by LLVM & Clang.
 
-## What's Next?
+## 다음은?
 
 In the near term, we'd like to round out the package by adding even more atomic types and operations, as well as to validate our assumptions about correctness and performance by improving the existing test suite.
 
@@ -135,6 +135,6 @@ Your experience, feedback, and contributions are greatly encouraged!
 * [Open an issue](https://github.com/apple/swift-atomics/issues) with problems you find or ideas you have for improvements,
 * And as always, [pull requests](https://github.com/apple/swift-atomics/pulls) are welcome!
 
-## Questions?
+## 질문이 있으신가요?
 
 Please feel free to ask questions about this post in the [associated thread](https://forums.swift.org/t/introducing-swift-atomics) on the [Swift forums](https://forums.swift.org/).

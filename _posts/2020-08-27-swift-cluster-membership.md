@@ -2,14 +2,14 @@
 layout: new-layouts/post
 published: true
 date: 2020-08-27 9:00:00
-title: Introducing Swift Cluster Membership
+title: Swift Cluster Membership 소개
 author: ktoso
 category: "Developer Tools"
 ---
 
 It is my pleasure to announce a new open source project for the Swift Server ecosystem, [Swift Cluster Membership](https://www.github.com/apple/swift-cluster-membership). This library aims to help Swift grow in a new space of server applications: clustered multi-node distributed systems. With this library we provide reusable runtime-agnostic *membership protocol* implementations which can be adopted in various clustering use-cases.
 
-## Background
+## 배경
 
 Cluster membership protocols are a crucial building block for distributed systems, such as computation intensive clusters, schedulers, databases, key-value stores and more. With the announcement of this package, we aim to make building such systems simpler, as they no longer need to rely on external services to handle service membership for them. We would also like to invite the community to collaborate on and develop additional membership protocols.
 
@@ -128,7 +128,7 @@ From there onwards, we would like to continue investigating additional membershi
 
 Additional documentation and examples can be found on [GitHub](https://github.com/apple/swift-cluster-membership).
 
-## Getting Involved
+## 참여하기
 
 If you are interested in cluster membership protocols, please get involved! Swift Cluster Membership is a fully open-source project, developed on [GitHub](https://github.com/apple/swift-cluster-membership). Contributions from the open source community are welcome at all times. We encourage discussion on the [Swift forums](https://forums.swift.org/c/server). For bug reports, feature requests, and pull requests, please use the GitHub repository.
 

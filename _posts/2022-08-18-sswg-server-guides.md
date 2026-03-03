@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2022-08-18 13:00:00
-title: Server Guides Now on Swift.org
+title: Swift.org에 서버 가이드 추가
 author: 0xTim
 category: "Community"
 ---

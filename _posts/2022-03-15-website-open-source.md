@@ -1,7 +1,7 @@
 ---
 layout: new-layouts/post
 date: 2022-03-15 9:00:00
-title: Swift.org Website is Now Open Source
+title: Swift.org 웹사이트 오픈 소스 공개
 author: tomerd
 category: "Community"
 ---

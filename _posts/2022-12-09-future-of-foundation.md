@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2022-12-09 08:00:00
-title: The Future of Foundation
+title: Foundation의 미래
 author: [parkera]
 category: "Developer Tools"
 ---

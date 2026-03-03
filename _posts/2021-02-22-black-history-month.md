@@ -1,7 +1,7 @@
 ---
 layout: new-layouts/post
 date: 2021-02-22 10:00:00
-title: Celebrating Black History Month
+title: 흑인 역사의 달 기념
 author: [hborla, krstnfx]
 category: "Community"
 ---

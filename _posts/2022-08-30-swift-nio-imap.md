@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2022-08-30 13:00:00
-title: Announcing SwiftNIO IMAP
+title: SwiftNIO IMAP 발표
 author: [danieleggert, corybenfield]
 category: "Developer Tools"
 ---

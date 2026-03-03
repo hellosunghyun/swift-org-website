@@ -1,7 +1,7 @@
 ---
 layout: new-layouts/post
 date: 2020-11-19 9:00:00
-title: Introducing SwiftNIO SSH
+title: SwiftNIO SSH 소개
 author: corybenfield
 category: "Developer Tools"
 ---
@@ -114,7 +114,7 @@ Additional documentation and examples can be found on [GitHub](https://github.co
 
 This project is currently in a pre-release state. While it’s considered to be feature complete, we’d like to give it some more time to bake in the public eye before we tag a 1.0 release. However, we do not expect any API breakage between now and that release.
 
-## Getting Involved
+## 참여하기
 
 If you are interested in SwiftNIO SSH, please get involved! SwiftNIO SSH is a fully open-source project, developed on [GitHub](https://github.com/apple/swift-nio-ssh). Contributions from the open source community are welcome at all times. We encourage discussion on the [Swift forums](https://forums.swift.org/c/server). For bug reports, feature requests, and pull requests, please use the GitHub repository.
 

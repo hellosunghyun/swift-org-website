@@ -1,7 +1,7 @@
 ---
 layout: new-layouts/post
 date: 2020-12-16 9:59:00
-title: Accessibility and Inclusion in the Swift Community
+title: Swift 커뮤니티의 접근성과 포용성
 author: diversity-workgroup
 category: "Community"
 ---

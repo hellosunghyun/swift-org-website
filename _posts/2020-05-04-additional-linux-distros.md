@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2020-05-05 10:00:00
-title: Additional Linux Distributions
+title: 추가 Linux 배포판
 author: tomerd
 category: "Developer Tools"
 ---
@@ -53,7 +53,7 @@ It is important to note that the new distributions do not run automatically as p
 * @swift-ci Please test Amazon Linux 2
 
 
-## Getting Involved
+## 참여하기
 
 If you are interested in building Swift on Linux, come and get involved!
 

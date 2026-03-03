@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2022-06-21 10:00:00
-title: "Exploring Swift: Property wrappers in the wild"
+title: "Swift 탐구: 실전에서의 Property Wrappers"
 author: [tingbecker, twostraws]
 category: "Language"
 ---

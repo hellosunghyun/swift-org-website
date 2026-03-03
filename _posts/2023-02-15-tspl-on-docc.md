@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2023-02-16 14:00:00
-title: “The Swift Programming Language” book now published with DocC
+title: ""The Swift Programming Language" 책이 DocC로 출판되었습니다"
 author: [amartini]
 category: "Community"
 ---

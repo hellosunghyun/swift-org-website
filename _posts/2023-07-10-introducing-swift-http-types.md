@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2023-07-10 10:00:00
-title: Introducing Swift HTTP Types
+title: Swift HTTP Types 소개
 author: [guoyezhang, erickinnear, corybenfield]
 category: "Developer Tools"
 ---
@@ -31,7 +31,7 @@ As the package matures, our goal is to replace SwiftNIO's `HTTPRequestHead` and 
 
 The new currency types are designed to be suitable for use in any HTTP scenario and are not tied to any existing framework, eliminating the need for duplicate HTTP abstractions.
 
-## Example Usage
+## 사용 예제
 
 The API is designed to offer ergonomic ways to perform the most common HTTP operations, while scaling cleanly to represent advanced use cases.
  

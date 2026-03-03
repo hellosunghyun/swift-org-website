@@ -1,7 +1,7 @@
 ---
 layout: new-layouts/post
 date: 2020-10-07 9:00:00
-title: Announcing Swift Algorithms
+title: Swift Algorithms 발표
 author: natecook1000
 category: "Developer Tools"
 ---
@@ -92,6 +92,6 @@ Your experience, feedback, and contributions are greatly encouraged!
 * [Open an issue](https://github.com/apple/swift-algorithms/issues) with problems you find or ideas you have for improvements,
 * And as noted above, [pull requests are welcome](https://github.com/apple/swift-algorithms/pulls) for fixes or for new algorithms that meet the criteria of the package!
 
-## Questions?
+## 질문이 있으신가요?
 
 Please feel free to ask questions about this post in the [associated thread](https://forums.swift.org/t/introducing-swift-algorithms/40997) on the [Swift forums](https://forums.swift.org/).

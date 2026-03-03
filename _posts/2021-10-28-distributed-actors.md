@@ -1,7 +1,7 @@
 ---
 layout: new-layouts/post
 date: 2021-10-28 9:00:00
-title: Introducing Swift Distributed Actors
+title: Swift Distributed Actors 소개
 author: ktoso
 category: "Developer Tools"
 ---

@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2022-07-22 10:30:00
-title: Announcing the Documentation Workgroup
+title: 문서화 워크그룹 발표
 author: franklinsch
 category: "Community"
 ---

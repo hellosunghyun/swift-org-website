@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2023-04-26 10:30:00
-title: Foundation Package Preview Now Available
+title: Foundation 패키지 프리뷰 출시
 author: [parkera]
 category: "Developer Tools"
 ---
@@ -41,7 +41,7 @@ For internationalization support on non-Darwin platforms, we created a separate 
 
 > Note: The Foundation Preview package depends on the under-development [Swift 5.9 toolchain](https://www.swift.org/download).
 
-## Performance
+## 성능
 
 Being written in Swift, this new implementation provides some major benefits over the previous C and Objective-C versions.
 
@@ -61,7 +61,7 @@ The Foundation package is an independent project in its early incubation stages.
 
 The workgroup will meet regularly to review proposals, look at emerging trends in the Swift ecosystem, and discuss how the library can evolve to best meet our common goals. The initial members of the workgroup will be announced in the coming weeks.
 
-## Next Steps
+## 다음 단계
 
 Quality and performance are our two most important goals for the project. Therefore, the plans for the first half of 2023 are continuing refinement of the core API, adding to our suites of unit and performance tests, and expanding to other platforms where possible, using the most relevant code from [swift-corelibs-foundation](https://github.com/swiftlang/swift-corelibs-foundation).
 

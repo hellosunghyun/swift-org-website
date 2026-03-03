@@ -1,6 +1,6 @@
 ---
 layout: new-layouts/post
-title: Standard Library Preview Package
+title: 표준 라이브러리 프리뷰 패키지
 author: natecook1000
 date: 2020-02-18 09:00:00
 category: "Developer Tools"
@@ -92,7 +92,7 @@ Once a proposal is approved, it will be made available as part of the Standard L
 
 If you're interested in participating in the review process and determining the direction of Swift, please visit the [Evolution section of the Swift forums](https://forums.swift.org/c/evolution). Everyone is welcome to propose, discuss, and review ideas to improve the Swift language and standard library!
 
-### Questions?
+### 질문이 있으신가요?
 
 Please feel free to post questions about this post on the [associated thread](https://forums.swift.org/t/swift-org-blog-standard-library-preview-package/33916) on the [Swift forums][].
 

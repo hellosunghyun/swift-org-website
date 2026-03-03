@@ -1,7 +1,7 @@
 ---
 layout: new-layouts/post
 date: 2020-02-13 09:00:00
-title: Library Evolution in Swift
+title: Swift의 라이브러리 에볼루션
 author: slavapestov
 category: "Language"
 ---
@@ -63,7 +63,7 @@ The [`@frozen` attribute](https://docs.swift.org/swift-book/ReferenceManual/Attr
 
 With that out of the way, let's move on and describe some common resilient changes that a framework author can introduce, as well as non-resilient changes to avoid.
 
-### Examples of resilient changes
+### 예제 of resilient changes
 
 - A general principle is that ABI-private declarations (per the above definition) can be added, removed and changed oh a whim. Only what is explicitly declared to be ABI-public becomes part of the framework's binary interface.
 
@@ -257,7 +257,7 @@ With that out of the way, let's move on and describe some common resilient chang
   public class Widget : Gizmo {}
   ~~~
 
-### Examples of non-resilient changes
+### 예제 of non-resilient changes
 
 - Removing an ABI-public declaration is not allowed, because existing client code can reference those declarations; either via source, or the framework's inlinable functions that were emitted into the client. For example, imagine a framework published this code:
 
@@ -421,7 +421,7 @@ The `-enable-testing` compiler flag builds a framework in a special mode allowin
 
 The `-enable-library-evolution` compiler flag is supported in conjunction with `-enable-testing`, and in fact the recommended way of building a framework target for testing is to pass both flags. However, it is important to note that the resulting framework is only resilient with respect to changes to the public API. This means that clients normally importing the framework remain binary compatible with a new version built for testing. However, code that actually uses `@testable import`, such as the framework's own unit tests, bypasses access control and necessarily depends on non-resilient implementation details of the specific version of the framework it was built against. For this reason, tests should always be built together with the framework.
 
-## Implementation of library evolution
+## 구현 of library evolution
 
 For the remainder of this article, we're going to dive into compiler implementation details. Understanding these details is not a requirement for making use of the library evolution feature. This material is only of interest to Swift compiler contributors, or anyone who is curious about how things work under the hood.
 
@@ -489,7 +489,7 @@ We also continued to flesh out the implementation of resilient structs and enums
 
 Swift 5.1 finally introduced `@frozen`, as the replacement for the experimental `@_fixed_layout`, while remaining ABI-compatible with the standard library from Swift 5.0. With the introduction of `@frozen`, library evolution is now ready for general use.
 
-### Questions?
+### 질문이 있으신가요?
 
 Please feel free to post questions about this post on the [associated thread](https://forums.swift.org/t/swift-org-blog-library-evolution-in-swift/33785) on the [Swift forums][].
 

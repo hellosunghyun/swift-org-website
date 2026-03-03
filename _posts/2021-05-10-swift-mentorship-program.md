@@ -1,7 +1,7 @@
 ---
 layout: new-layouts/post
 date: 2021-05-10 10:00:00
-title: Announcing the Swift Mentorship Program
+title: Swift 멘토십 프로그램 발표
 author: diversity-workgroup
 category: "Community"
 ---

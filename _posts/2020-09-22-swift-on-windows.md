@@ -1,7 +1,7 @@
 ---
 layout: new-layouts/post
 date: 2020-09-22 9:00:00
-title: Introducing Swift on Windows
+title: Windows에서의 Swift 소개
 author: compnerd
 category: "Community"
 ---
@@ -66,7 +66,7 @@ More details are available on [Readdle's blog](https://sparkmailapp.com/blog/swi
 
 Adding support for Windows to Swift is the beginning of a journey.  The current support sets the first milestone where the language is usable.  There is yet another even broader part of the ecosystem like lldb and the Swift Package Manager which still need more work to be as complete in their support for this different platform.
 
-## Getting Started and Getting Involved!
+## 시작하기 and Getting Involved!
 
 The [Getting Started](/getting-started/) section has been updated with new information about using Swift on Windows!  For the early adopters who are getting started and finding issues, please report them to the [Swift Bug Tracker](https://bugs.swift.org).
 

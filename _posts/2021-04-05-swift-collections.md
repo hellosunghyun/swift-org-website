@@ -1,7 +1,7 @@
 ---
 layout: new-layouts/post
 date: 2021-04-05 14:00:00
-title: Introducing Swift Collections
+title: Swift Collections 소개
 author: lorentey
 category: "Developer Tools"
 ---
@@ -248,7 +248,7 @@ Your experience, feedback, and contributions are very welcome!
 - [Open an issue][issues] with problems you find,
 - or contribute a [pull request][prs] to fix them!
 
-## Questions?
+## 질문이 있으신가요?
 
 Please feel free to ask questions about this post in the [associated thread][announcement-thread] on the Swift forums.
 

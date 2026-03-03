@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2023-03-24 8:00:00
-title: Swift Package Index gains Apple sponsorship
+title: Swift Package Index, Apple 후원 획득
 author: [daveverwer, svenaschmidt]
 category: "Community"
 ---

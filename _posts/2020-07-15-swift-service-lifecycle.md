@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2020-07-15 9:00:00
-title: Introducing Swift Service Lifecycle
+title: Swift Service Lifecycle 소개
 author: tomerd
 category: "Developer Tools"
 ---
@@ -78,7 +78,7 @@ lifecycle.wait()
 
 
 
-## Getting Involved
+## 참여하기
 
 If you are interested in Service Lifecycle, come and get involved!
 

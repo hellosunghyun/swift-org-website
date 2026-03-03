@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2022-07-06 08:00:00
-title: "Swift language announcements from WWDC22"
+title: "WWDC22의 Swift 언어 발표"
 author: [fbernutz, hishnash, natpanferova]
 category: "Language"
 ---

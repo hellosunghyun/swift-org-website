@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2022-12-05 10:00:00
-title: Swift Summer of Code 2022 Summary
+title: Swift Summer of Code 2022 요약
 author: [ktoso]
 category: "Community"
 ---

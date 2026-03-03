@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2022-07-14 09:45:00
-title: Swift Extension for Visual Studio Code
+title: Visual Studio Code용 Swift 확장
 author: adam-fowler
 category: "Developer Tools"
 ---
@@ -17,7 +17,7 @@ Until this point there have been individual components to make up that developme
 
 The [Swift Server Workgroup](/sswg/) (SSWG) felt there was a need for a more complete solution. The Swift Extension for Visual Studio Code from the SSWG brings together many of these components into one package with everything pre-configured to work from the get-go.
 
-## Features
+## 기능
 
 The extension is primarily targeted at Swift Packager Manager (SwiftPM) projects. It consists of a number of components already available as well as new ones, all brought together into one coherent package.
 

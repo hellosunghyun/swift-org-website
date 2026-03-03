@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2023-03-07 9:00:00
-title: Introducing Swift Certificates and Swift ASN.1
+title: Swift Certificates와 Swift ASN.1 소개
 author: [corybenfield]
 category: "Developer Tools"
 ---

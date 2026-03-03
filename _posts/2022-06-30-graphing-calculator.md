@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2022-06-30 16:00:00
-title: "Developer Spotlight: Porting Graphing Calculator from C++ to Swift"
+title: "개발자 스포트라이트: Graphing Calculator를 C++에서 Swift로 포팅"
 author: [ronavitzur]
 category: "Adopters"
 ---

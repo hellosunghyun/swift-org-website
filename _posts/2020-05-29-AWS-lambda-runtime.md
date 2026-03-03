@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2020-05-29 10:00:00
-title: Introducing Swift AWS Lambda Runtime
+title: Swift AWS Lambda Runtime 소개
 author: tomerd
 category: "Developer Tools"
 ---
@@ -12,7 +12,7 @@ It is my pleasure to announce a new open source project for the Swift Server eco
 The project is a group effort that included engineers across the Swift community, including engineers from Apple and Amazon. Notably [Fabian Fett](https://github.com/fabianfett) pioneered the work in the community and co-authored the library. As an open source library, anyone interested in contributing to the project can easily join in to help make it better.
 
 
-## Background
+## 배경
 
 Many modern systems have client components, like iOS, macOS or watchOS applications, as well as server components with which those clients interact. Serverless functions are often the easiest and most efficient way for client application developers to extend their applications into the cloud.
 
@@ -143,10 +143,10 @@ There are several areas which need additional attention, including but not limit
 * Additional documentation and best practices
 * Additional examples
 
-## Getting Involved
+## 참여하기
 
 If you are interested in Swift AWS Lambda Runtime, come and get involved! The [source is available](https://github.com/swift-server/swift-aws-lambda-runtime), and we encourage contributions from the open source community. If you have feedback, questions or would like to discuss the project, please feel free to chat on the [Swift forums](https://forums.swift.org/c/server). If you would like to report bugs, please use [the GitHub issue tracker](https://github.com/swift-server/swift-aws-lambda-runtime/issues). We look forward to working with you, and helping move the industry forward to a better, safer programming future.
 
-### Questions?
+### 질문이 있으신가요?
 
 Please feel free to post questions about this post on the [associated thread](https://forums.swift.org/t/announcing-swift-aws-lambda-runtime/37009) on the [Swift forums](https://forums.swift.org).

@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2023-09-28 11:00:00
-title: Debugging Improvements in Swift 5.9
+title: Swift 5.9의 디버깅 개선 사항
 author: [adrian-prantl, augustonoronha, kastiglione]
 category: "Language"
 ---

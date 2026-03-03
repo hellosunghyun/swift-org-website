@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2023-11-01 10:30:00
-title: 'Introducing Packages on Swift.org'
+title: Swift.org에 패키지 페이지 소개
 author: [daveverwer, svenaschmidt]
 category: "Community"
 ---
@@ -16,7 +16,7 @@ _The package lists give you relevant information at a glance._
 
 The package lists are powered by the [Swift Package Index](https://swiftpackageindex.com/), thanks to the [sponsorship and support of Apple](/blog/swift-package-index-developer-spotlight/).
 
-## Community Showcase
+## 커뮤니티 Showcase
 
 In addition to finding common categories of packages, you can also browse new and interesting work from across the Swift package ecosystem with the [Community Showcase](/packages/showcase.html).
 

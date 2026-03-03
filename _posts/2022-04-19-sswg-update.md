@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2022-04-25 11:00:00
-title: SSWG 2021 Annual Update
+title: SSWG 2021 연간 업데이트
 author: 0xTim
 category: "Community"
 ---
@@ -43,11 +43,11 @@ Next, new Swift GitHub Actions have been created by the community to make buildi
 
 Finally, the increase of ARM-based machines for both development and deployment has provided new opportunities for those wanting to use different architectures. Swift 5.6 provides toolchains for ARM Linux as well as multi-platform Docker images with ARM support. We've started to add information to the guides for cross-compilation of applications and will continue to refine them as more people start building Swift applications for ARM. This allows a great experience for working with Swift in Docker and makes deploying to ARM servers (like AWS Graviton) possible.
 
-### Documentation
+### 문서
 
 The SSWG have added a large amount of documentation across SSWG projects, incubated projects, and the server guides. These are a valuable source of information providing technical deep dives and explanations for everything from deploying Swift applications to analyzing performance. However, there is a significant issue with discoverability and this will be a focus for 2022.
 
-### Ecosystem
+### 생태계
 
 Due to the pandemic and the late publishing of last year's update, only one extra library was added to the SSWG incubation, [MultiPartKit](https://github.com/vapor/multipart-kit). This was accepted at the Incubating level.
 

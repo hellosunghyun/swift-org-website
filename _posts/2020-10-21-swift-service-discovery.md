@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2020-10-21 9:00:00
-title: Introducing Swift Service Discovery
+title: Swift Service Discovery 소개
 author: yim-lee
 category: "Developer Tools"
 ---
@@ -104,7 +104,7 @@ The backend implementation must also notify via `completionHandler` when the sub
 This is the beginning of a community-driven open-source project actively seeking contributions.
 Besides contributing to Swift Service Discovery itself, we need compatible backend implementations that manage service registration and location information for querying.
 
-## Getting Involved
+## 참여하기
 
 If you are interested in Swift Service Discovery, come and get involved!
 The [source is available](https://github.com/apple/swift-service-discovery), and we encourage contributions from the open source community.

@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2022-06-15 09:20:00
-title: Announcing the Language Workgroup
+title: 언어 워크그룹 발표
 author: tkremenek
 about: Ted Kremenek is a member of the Swift Core Team and serves as the voice of the Project Lead.  Ted manages the Languages and Runtimes group at Apple.
 category: "Language"

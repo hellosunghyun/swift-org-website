@@ -1,6 +1,6 @@
 ---
 layout: new-layouts/post
-title: Announcing ArgumentParser
+title: ArgumentParser 발표
 author: natecook1000
 date: 2020-02-27 09:00:00
 category: "Developer Tools"
@@ -221,7 +221,7 @@ The Swift project includes several command-line tools written in Swift — some 
 
 We'll be working to adopt `ArgumentParser` across the Swift project, and invite you to experiment with the library, give feedback, and get involved in its ongoing development!
 
-## Learn More
+## 더 알아보기
 
 In addition to what we've seen so far, `ArgumentParser` supports `--flag` arguments for Boolean or enumerable properties, multiple names for options and flags, encapsulating groups of arguments, and much more. You can learn more by visiting [the repository's README](https://github.com/apple/swift-argument-parser), browsing the guides in the [documentation folder](https://github.com/apple/swift-argument-parser/tree/main/Sources/ArgumentParser/Documentation.docc), and reading the in-source symbol documentation.
 
@@ -230,7 +230,7 @@ You can also explore the Swift project's in-flight adoption of `ArgumentParser`:
 * [`indexstore-db`](https://github.com/swiftlang/indexstore-db/pull/72) is a simple utility with two commands.
 * [`swift-format`](https://github.com/swiftlang/swift-format/pull/154) uses some advanced features, like custom option values and hidden flags.
 
-## What's Next?
+## 다음은?
 
 In the near term, there are a couple additional features that need to be added so that SwiftPM can adopt `ArgumentParser` without regressing in functionality — you can find those features tracked as [issues in the repository](https://github.com/apple/swift-argument-parser/issues). Once SwiftPM adoption is complete, we'd like to adopt the library in the [Swift rewrite of the Swift compiler driver](https://github.com/swiftlang/swift-driver), as well.
 
@@ -245,7 +245,7 @@ Your experience, feedback, and contributions are greatly encouraged!
 * [Open an issue](https://github.com/apple/swift-argument-parser/issues) with problems you find or ideas you have for improvements,
 * And as always, [pull requests](https://github.com/apple/swift-argument-parser/pulls) are welcome!
 
-### Questions?
+### 질문이 있으신가요?
 
 Please feel free to post questions about this post on the [associated thread](https://forums.swift.org/t/announcing-argumentparser/34155) on the [Swift forums][].
 

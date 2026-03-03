@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2022-03-24 11:00:00
-title: Introducing Swift Async Algorithms
+title: Swift Async Algorithms 소개
 author: parkera
 category: "Developer Tools"
 ---
@@ -105,7 +105,7 @@ Combine's API is based on the `Publisher` and `Subscriber` interfaces, with *ope
 
 We're excited about the possibilities that `async/await` and `AsyncSequence` bring to the language. We believe this package will be a great place to explore future development and evolution of higher-level APIs in this space.
 
-## What's Next
+## 다음은
 
 Today we are releasing a prototype version of the **Swift Async Algorithms** package. Our intent is to kickstart the project with a working implementation, then move forward with detailed design discussions on the Swift Forums. We welcome community involvement in:
 
@@ -117,7 +117,7 @@ Today we are releasing a prototype version of the **Swift Async Algorithms** pac
 We are using [GitHub Issues](https://github.com/apple/swift-async-algorithms/issues) to track bugs, feature requests, and starter tasks.
 ### References
 
-#### Documentation
+#### 문서
 
 * [Combine](https://developer.apple.com/documentation/combine/)
 

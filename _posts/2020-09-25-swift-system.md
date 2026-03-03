@@ -1,7 +1,7 @@
 ---
 layout: new-layouts/post
 date: 2020-09-25 9:00:00
-title: Swift System is Now Open Source
+title: Swift System 오픈 소스 공개
 author: milseman
 category: "Developer Tools"
 ---
@@ -85,7 +85,7 @@ try fd.closeAfter {
 
 Our immediate goal is to simplify building cross-platform libraries and applications such as [SwiftNIO](https://github.com/apple/swift-nio) and the [Swift Package Manager](https://github.com/swiftlang/swift-package-manager). `System` does not eliminate the need for `#if os()` conditionals to implement cross-platform abstractions, but it does make it safer and more expressive to fill out the platform-specific parts.
 
-## What's Next?
+## 다음은?
 
 System is only in its infancy—it currently includes a small number of system calls, currency types, and convenience functionality. As part of the effort to increase the API coverage, we'll be working to adopt System in the Swift Package Manager. This will include [enhancements to FilePath](https://github.com/apple/swift-system/pull/2) and adding support for the recently announced [Swift on Windows](/blog/swift-on-windows/).
 
@@ -103,6 +103,6 @@ Your experience, feedback, and contributions are greatly encouraged!
 
 * And as always, [pull requests](https://github.com/apple/swift-system/pulls) are welcome!
 
-## Questions?
+## 질문이 있으신가요?
 
 Please feel free to ask questions about this post in the [associated thread](https://forums.swift.org/t/swift-system-is-now-open-source) on the [Swift forums](https://forums.swift.org/).

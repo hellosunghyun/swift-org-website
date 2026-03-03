@@ -1,7 +1,7 @@
 ---
 layout: new-layouts/post
 date: 2020-12-16 10:00:00
-title: Diversity in Swift
+title: Swift에서의 다양성
 author: diversity-workgroup
 category: "Community"
 ---
@@ -34,6 +34,6 @@ This is just the beginning! We’re excited for Diversity in Swift to grow, and 
 
 We can't wait to hear from you.
 
-## Questions?
+## 질문이 있으신가요?
 
 Please feel free to ask questions about this post in the [associated thread](https://forums.swift.org/t/announcing-diversity-in-swift/42885) on the [Swift forums](https://forums.swift.org/).
