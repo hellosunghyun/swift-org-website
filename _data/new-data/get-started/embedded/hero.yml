@@ -1,12 +1,12 @@
-headline: Create embedded software with Swift
-body: Develop efficient, reliable firmware for devices like microcontrollers
+headline: Swift로 임베디드 소프트웨어 만들기
+body: 마이크로컨트롤러와 같은 장치를 위한 효율적이고 안정적인 펌웨어를 개발하세요
 link:
   url: https://docs.swift.org/embedded/documentation/embedded/waystogetstarted
-  text: Get Started
+  text: 시작하기
 boxes:
-  - title: Safe
-    text: Eliminate buffer overruns and null‑pointer crashes at compile time, keeping your firmware dependable and robust.
-  - title: Interoperable
-    text: Reuse existing C/C++ drivers and SDKs with zero wrappers or runtime glue, integrating in minutes.
-  - title: Tiny
-    text: Produce meaningful programs measured in kilobytes that are capable of running on constrained devices with no hidden overhead.
+  - title: 안전
+    text: 컴파일 시점에 버퍼 오버런과 널 포인터 크래시를 제거하여, 펌웨어의 신뢰성과 견고함을 유지합니다.
+  - title: 상호 운용
+    text: 래퍼나 런타임 글루 없이 기존 C/C++ 드라이버와 SDK를 재사용하여, 몇 분 만에 통합할 수 있습니다.
+  - title: 초소형
+    text: 킬로바이트 단위의 의미 있는 프로그램을 만들어 숨겨진 오버헤드 없이 제한된 장치에서 실행할 수 있습니다.

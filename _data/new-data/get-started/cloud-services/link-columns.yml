@@ -1,26 +1,26 @@
-headline: Learn more
+headline: 더 알아보기
 columns:
-  - headline: Documentation
+  - headline: 문서
     links:
-      - text: 'Build a web service with Vapor'
+      - text: 'Vapor로 웹 서비스 구축하기'
         url: 'https://docs.swift.org/getting-started-swift-server/tutorials/getting-started-swift-server/'
-      - text: 'Swift server development guides'
+      - text: 'Swift 서버 개발 가이드'
         url: '/documentation/server/guides/'
-      - text: 'Swift on AWS documentation'
+      - text: 'AWS의 Swift 문서'
         url: 'https://aws.amazon.com/developer/language/swift/'
-  - headline: Talks
+  - headline: 발표
     links:
-      - text: 'Explore the Swift on Server ecosystem'
+      - text: '서버에서의 Swift 생태계 살펴보기'
         url: 'https://www.youtube.com/watch?v=OWNjtWUb9bs'
-      - text: 'Live coding a streaming ChatGPT proxy with Swift OpenAPI—from scratch!'
+      - text: 'Swift OpenAPI로 스트리밍 ChatGPT 프록시 라이브 코딩!'
         url: 'https://www.youtube.com/watch?v=yK__6GF_tvM'
-      - text: 'Swift, Server-Side, Serverless'
+      - text: 'Swift, 서버사이드, 서버리스'
         url: 'https://www.youtube.com/watch?v=M1POAEPATFo'
-  - headline: Community
+  - headline: 커뮤니티
     links:
-      - text: 'Server category on Swift forums'
+      - text: 'Swift 포럼의 서버 카테고리'
         url: 'https://forums.swift.org/c/server/43'
-      - text: 'Swift server meetup'
+      - text: 'Swift 서버 밋업'
         url: 'https://forums.swift.org/tag/meetup'
-      - text: 'Swift server workgroup'
+      - text: 'Swift 서버 워크그룹'
         url: '/sswg/'

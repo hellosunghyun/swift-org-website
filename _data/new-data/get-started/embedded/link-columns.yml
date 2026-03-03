@@ -1,26 +1,26 @@
-headline: Learn more
+headline: 더 알아보기
 columns:
-  - headline: Documentation
+  - headline: 문서
     links:
-      - text: Embedded Swift documentation
+      - text: Embedded Swift 문서
         url: 'https://docs.swift.org/embedded/documentation/embedded'
-      - text: Getting started with Embedded Swift
+      - text: Embedded Swift 시작하기
         url: 'https://docs.swift.org/embedded/documentation/embedded/waystogetstarted'
-      - text: Embedded Swift vision document
+      - text: Embedded Swift 비전 문서
         url: 'https://github.com/swiftlang/swift-evolution/blob/main/visions/embedded-swift.md'
-      - text: Embedded Swift example projects
+      - text: Embedded Swift 예제 프로젝트
         url: 'https://github.com/swiftlang/swift-embedded-examples'
-  - headline: Talks
+  - headline: 발표
     links:
-      - text: Go Small With Embedded Swift
+      - text: Embedded Swift로 작게 시작하기
         url: 'https://www.youtube.com/watch?v=LqxbsADqDI4'
-      - text: Build a Music Visualizer
+      - text: 음악 비주얼라이저 만들기
         url: 'https://fosdem.org/2025/schedule/event/fosdem-2025-5284-building-a-ferrofluidic-music-visualizer-with-embedded-swift/'
-      - text: Why Swift is the Next Big Thing for IoT
+      - text: Swift가 IoT의 차세대 핵심인 이유
         url: 'https://fosdem.org/2025/schedule/event/fosdem-2025-6148-why-swift-is-the-next-big-thing-for-iot/'
-  - headline: Community
+  - headline: 커뮤니티
     links:
-      - text: Embedded category on Swift forums
+      - text: Swift 포럼의 임베디드 카테고리
         url: 'https://forums.swift.org/c/development/embedded/107'
-      - text: Embedded Swift community hour
+      - text: Embedded Swift 커뮤니티 아워
         url: 'https://forums.swift.org/t/embedded-swift-community-hour-may-9-2025/79647/'

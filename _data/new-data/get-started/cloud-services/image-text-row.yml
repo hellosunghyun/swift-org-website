@@ -2,10 +2,10 @@ image:
   src: /assets/images/get-started/swift-performance-graph@2x.png
   alt:
 copy:
-  headline: Low memory footprint. Massive performance.
+  headline: 적은 메모리 사용. 압도적인 성능.
   paragraphs:
-    - 'Cultured Code migrated the services that support Things to Swift and saw a massive reduction in both cost and response time.'
+    - 'Cultured Code는 Things를 지원하는 서비스를 Swift로 마이그레이션하여 비용과 응답 시간 모두 대폭 절감했습니다.'
     - 'By leveraging Swift’s built-in features and server-oriented packages, they were able to thoroughly test and rapidly improve their customer experience.'
   link:
-    text: Read more
+    text: 더 읽기
     href: /blog/how-swifts-server-support-powers-things-cloud/

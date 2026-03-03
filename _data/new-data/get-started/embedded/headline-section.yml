@@ -1,5 +1,5 @@
-headline: Dive into Embedded Swift
+headline: Embedded Swift 살펴보기
 body: Explore how Embedded Swift tailors Swift’s features like generics, protocols, and async/await into a firmware‑optimized compilation mode that produces compact binaries with predictable performance for bare‑metal devices.
 link:
   href: 'https://docs.swift.org/embedded/documentation/embedded/'
-  copy: Learn more
+  copy: 더 알아보기

@@ -1,19 +1,19 @@
-title: Read the blog
+title: 블로그 읽기
 secondary_cards:
-  - name: Get Started with Embedded Swift on Microcontrollers
+  - name: 마이크로컨트롤러에서 Embedded Swift 시작하기
     logo_alt: Variety of embedded development boards
     logo: /assets/images/get-started/embedded-swift-micro-controllers@2x.png
-    text: Discover how Swift runs on ARM and RISC-V microcontrollers with real-world examples using the new Embedded Swift compilation mode.
-    link_text: Read more
+    text: 새로운 Embedded Swift 컴파일 모드를 사용하는 실제 예제로 ARM 및 RISC-V 마이크로컨트롤러에서 Swift가 어떻게 실행되는지 알아보세요.
+    link_text: 더 읽기
     link: https://www.swift.org/blog/embedded-swift-examples/
 
-  - name: "Byte-sized Swift: Building Tiny Games for the Playdate"
+  - name: "바이트 크기의 Swift: Playdate용 작은 게임 만들기"
     logo_alt: Breakout-style grayscale game
     logo: /assets/images/get-started/tiny-games-playdate@2x.png
-    text: Learn how Swift was used to build tiny games on the Playdate, with full source, hardware demos, and a deep dive into Embedded Swift.
-    link_text: Read more
+    text: 전체 소스, 하드웨어 데모, Embedded Swift 심층 분석과 함께 Playdate에서 작은 게임을 만드는 데 Swift가 어떻게 사용되었는지 알아보세요.
+    link_text: 더 읽기
     link: https://www.swift.org/blog/byte-sized-swift-tiny-games-playdate/
 
 link:
-  text: Read more
+  text: 더 읽기
   url: /blog

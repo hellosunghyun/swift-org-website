@@ -1,18 +1,18 @@
-title: Explore cloud native packages
+title: 클라우드 네이티브 패키지 살펴보기
 tertiary_cards:
   - name: gRPC Swift
-    text: The Swift language implementation of gRPC.
-    link_text: View on GitHub
+    text: gRPC의 Swift 언어 구현입니다.
+    link_text: GitHub에서 보기
     link: https://github.com/grpc/grpc-swift
   - name: Swift OTel 
-    text: OpenTelemetry client built for Swift observability libraries. (pre-1.0 release)
-    link_text: View on GitHub
+    text: Swift 관측성 라이브러리를 위해 구축된 OpenTelemetry 클라이언트입니다. (1.0 이전 릴리스)
+    link_text: GitHub에서 보기
     link: https://github.com/swift-otel/swift-otel
   - name: Swift Prometheus
-    text: Client for the Prometheus monitoring system, supporting counters, gauges and histograms.
-    link_text: View on GitHub
+    text: 카운터, 게이지, 히스토그램을 지원하는 Prometheus 모니터링 시스템 클라이언트입니다.
+    link_text: GitHub에서 보기
     link: https://github.com/swift-server/swift-prometheus
   - name: Swift OPA
-    text:  Evaluate Open Policy Agent IR Plans compiled from Rego declarative policy. (pre-1.0 release)
-    link_text: View on GitHub
+    text: Rego 선언적 정책에서 컴파일된 Open Policy Agent IR 플랜을 평가합니다. (1.0 이전 릴리스)
+    link_text: GitHub에서 보기
     link: https://github.com/open-policy-agent/swift-opa

@@ -1,21 +1,21 @@
-title: Explore more server packages
+title: 더 많은 서버 패키지 살펴보기
 link:
-  text: Explore more packages on Swift Package Index
+  text: Swift Package Index에서 더 많은 패키지 살펴보기
   url: https://swiftpackageindex.com/keywords/server-side-swift
 tertiary_cards:
   - name: Swift OpenAPI Generator
-    text: Generate Swift client and server code from an OpenAPI document.
-    link_text: View on GitHub
+    text: OpenAPI 문서에서 Swift 클라이언트 및 서버 코드를 생성합니다.
+    link_text: GitHub에서 보기
     link: https://github.com/apple/swift-openapi-generator
   - name: Async HTTP Client
-    text: Provides an HTTP Client library built on top of SwiftNIO.
-    link_text: View on GitHub
+    text: SwiftNIO 기반의 HTTP 클라이언트 라이브러리를 제공합니다.
+    link_text: GitHub에서 보기
     link: https://github.com/swift-server/async-http-client
   - name: PostgresNIO
-    text: Non-blocking, event-driven Swift client for PostgreSQL.
-    link_text: View on GitHub
+    text: PostgreSQL용 논블로킹, 이벤트 기반 Swift 클라이언트입니다.
+    link_text: GitHub에서 보기
     link: https://github.com/vapor/postgres-nio
   - name: SwiftNIO
-    text: Cross-platform asynchronous event-driven network application framework.
-    link_text: View on GitHub
+    text: 크로스 플랫폼 비동기 이벤트 기반 네트워크 애플리케이션 프레임워크입니다.
+    link_text: GitHub에서 보기
     link: https://github.com/apple/swift-nio

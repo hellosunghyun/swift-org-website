@@ -1,7 +1,7 @@
-headline: Squeeze into the smallest places
+headline: 가장 작은 공간에 들어가기
 image:
   url: /assets/images/get-started/playdate-device@2x.png
-  alt: A playdate device
+  alt: Playdate 장치
 code: |-
   /// Updates each pixel of the current row based on
   /// the surrounding rows in the previous frame.
@@ -27,4 +27,4 @@ code: |-
 body: In just 788 bytes of resulting compiled code, Embedded Swift powers Conway’s Game of Life on the Playdate handheld—melding high‑level abstractions with low‑level bit‑twiddling for real‑time animation.
 link:
   url: https://www.swift.org/blog/byte-sized-swift-tiny-games-playdate/
-  text: Learn more
+  text: 더 알아보기

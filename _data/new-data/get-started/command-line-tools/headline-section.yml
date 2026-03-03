@@ -1,5 +1,5 @@
-headline: Make your CLI look great
-body: 'Noora is Swift package that "distills common CLI patterns into a cohesive design system of themable components, enabling richer and more interactive experiences." Design components range from prompts to progress bars, to alerts.'
+headline: 멋진 CLI를 만들어 보세요
+body: 'Noora는 "일반적인 CLI 패턴을 테마 적용이 가능한 컴포넌트의 통합 디자인 시스템으로 정제하여, 더 풍부하고 인터랙티브한 경험을 가능하게 하는" Swift 패키지입니다. 프롬프트부터 프로그레스 바, 알림까지 다양한 디자인 컴포넌트를 제공합니다.'
 link:
   href: 'https://github.com/tuist/Noora'
-  copy: View Noora on GitHub
+  copy: GitHub에서 Noora 보기

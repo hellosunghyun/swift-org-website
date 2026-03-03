@@ -1,20 +1,20 @@
 image: /assets/images/get-started/package.png
-image_alt: Package image for Open Source Frameworks & Packages section
-title: Explore CLIs built with Swift
+image_alt: 오픈 소스 프레임워크 및 패키지 섹션의 패키지 이미지
+title: Swift로 만들어진 CLI 살펴보기
 tertiary_cards:
   - name: swiftly
-    text: CLI tool for installing, managing, and switching between Swift toolchains.
-    link_text: Learn more
+    text: Swift 툴체인을 설치, 관리, 전환하는 CLI 도구입니다.
+    link_text: 더 알아보기
     link: https://github.com/swiftlang/swiftly
   - name: DocC
-    text: CLI tool for Swift-DocC and provides support for generating and previewing documentation.
-    link_text: Learn more
+    text: Swift-DocC를 위한 CLI 도구로, 문서 생성 및 미리보기를 지원합니다.
+    link_text: 더 알아보기
     link: https://github.com/swiftlang/swift-docc
   - name: Swift Package Manager
     text: Tool for managing the distribution of Swift code that’s integrated with the Swift build system.
-    link_text: Learn more
+    link_text: 더 알아보기
     link: https://github.com/swiftlang/swift-package-manager
   - name: Vapor Toolbox
-    text: CLI tool to easily create new Vapor projects.
-    link_text: Learn more
+    text: 새로운 Vapor 프로젝트를 쉽게 생성하는 CLI 도구입니다.
+    link_text: 더 알아보기
     link: https://github.com/vapor/toolbox

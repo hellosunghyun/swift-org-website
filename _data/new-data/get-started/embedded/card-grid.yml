@@ -1,20 +1,20 @@
-title: Runs on many embedded platforms
+title: 다양한 임베디드 플랫폼에서 실행
 hero_card:
   url: /assets/images/get-started/embedded-hero@2x.png
-  alt: "A sample Swift code snippet with a blinking microcontroller next to it"
+  alt: "깜박이는 마이크로컨트롤러 옆의 Swift 코드 스니펫 예시"
 tertiary_cards:
-  - name: "Integrate with Raspberry Pi Pico SDK"
-    text: "Take advantage of seamless interoperatibility and use existing APIs from the Pico SDK directly from your Swift code."
-    link_text: Open guide
+  - name: "Raspberry Pi Pico SDK와 통합"
+    text: "원활한 상호 운용성을 활용하여 Swift 코드에서 직접 Pico SDK의 기존 API를 사용하세요."
+    link_text: 가이드 열기
     link: https://docs.swift.org/embedded/documentation/embedded/picoguide
-  - name: "Go baremetal on STM32 chips"
-    text: "For maximum control, you can run completely baremetal and use Swift MMIO to operate hardware devices."
-    link_text: Open guide
+  - name: "STM32 칩에서 베어메탈 개발"
+    text: "최대한의 제어를 위해, 완전히 베어메탈로 실행하고 Swift MMIO를 사용하여 하드웨어 장치를 조작할 수 있습니다."
+    link_text: 가이드 열기
     link: https://docs.swift.org/embedded/documentation/embedded/stm32baremetalguide
 text:
-  Embedded Swift is not limited to specific hardware devices or platforms. It's versatile, it can be integrated with
-  existing SDKs and build systems, and it can also be used for pure baremetal development. Most common ARM
-  and RISC-V chips can be targeted by the Swift toolchain.
+  Embedded Swift는 특정 하드웨어 장치나 플랫폼에 국한되지 않습니다. 다재다능하여 기존 SDK 및 빌드 시스템과 통합할 수 있으며,
+  순수 베어메탈 개발에도 사용할 수 있습니다. 대부분의 일반적인 ARM 및 RISC-V 칩을
+  Swift 툴체인으로 타겟팅할 수 있습니다.
 link:
   url: https://docs.swift.org/embedded/documentation/embedded/integratingwithplatforms
-  text: Learn more about integration with other platforms and build systems
+  text: 다른 플랫폼 및 빌드 시스템과의 통합에 대해 더 알아보기

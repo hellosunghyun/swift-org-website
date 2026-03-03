@@ -1,6 +1,6 @@
-headline: Use Subprocess to handle process execution
+headline: Subprocess로 프로세스 실행 처리하기
 paragraphs:
-  - 'Subprocess is a Swift library that provides precise, idiomatic control over launching and managing child processes. You can either collect the child process output asynchronously in full, or stream it in real time using AsyncSequence, making it easy to process output line-by-line as it arrives.'
+  - 'Subprocess는 자식 프로세스의 실행 및 관리를 정밀하고 관용적으로 제어할 수 있는 Swift 라이브러리입니다. 자식 프로세스의 출력을 비동기적으로 전체 수집하거나, AsyncSequence를 사용하여 실시간으로 스트리밍하여 도착하는 대로 한 줄씩 처리할 수 있습니다.'
   - 'Subprocess gives you fine-grained control over environment variables, arguments, and many platform specific parameters, while embracing Swift’s concurrency features and type safety. Whether you’re building CLI tools or server-side Swift applications, swift-subprocess integrates cleanly.'
 link:
   text: Subprocess

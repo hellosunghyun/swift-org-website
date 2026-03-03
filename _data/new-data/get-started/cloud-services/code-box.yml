@@ -1,8 +1,8 @@
-headline: Develop and deploy to the cloud
+headline: 클라우드에 개발하고 배포하기
 code: $ docker pull swift
-after-code-text: Swift publishes official container images for multiple architectures, making it easy to develop on Linux and to deploy to production. Ready-to-use guides are available for deploying to environments like Kubernetes, AWS, GCP, Digital Ocean, and many others.
+after-code-text: Swift는 여러 아키텍처용 공식 컨테이너 이미지를 배포하여, Linux에서의 개발과 프로덕션 배포를 쉽게 합니다. Kubernetes, AWS, GCP, Digital Ocean 등의 환경에 배포할 수 있는 바로 사용 가능한 가이드가 준비되어 있습니다.
 links:
   - href: '/install/linux/docker/'
-    copy: 'View installation via Docker'
+    copy: 'Docker를 통한 설치 방법 보기'
   - href: '/documentation/server/guides/deployment.html'
-    copy: 'View deployment guides'
+    copy: '배포 가이드 보기'
