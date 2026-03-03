@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2024-07-01 09:00:00
-title: Plotting a Path to a Package Ecosystem without Data Race Errors
+title: 데이터 경쟁 오류 없는 패키지 생태계를 향한 길
 author: [daveverwer, svenaschmidt]
 category: "Language"
 ---

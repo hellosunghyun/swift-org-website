@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2025-02-21 10:00:00
-title: How Swift's server support powers Things Cloud
+title: Swift의 서버 지원이 Things Cloud를 구동하는 방법
 author: [vrylko, wjainek]
 category: "Adopters"
 ---
@@ -103,7 +103,7 @@ Now, with over a full year in production, we're pleased to report that Swift has
 
 And one extra win: Swift’s outstanding performance allowed us to replace our custom C-based push notification service with a Swift-based one; this significantly simplified our codebase and operations.
 
-## Conclusions
+## 결론s
 
 Swift turned out to be a great choice for server usage. It delivered on everything we had hoped for: We’re now using a modern and expressive programming language, the code runs and performs well, and the Swift ecosystem provides all the integrations we need. With a year of production use, we haven’t encountered a single operational issue.
 

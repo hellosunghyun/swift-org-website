@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2025-06-04 10:00:00
-title: "Redesigned Swift.org is now live"
+title: 새롭게 디자인된 Swift.org 공개
 featured-image:
   url: '/assets/images/swift-redesign-blog/swift-redesign-blog.png'
   alt: 'Screenshot of the redesigned website.'
@@ -38,7 +38,7 @@ The homepage now highlights Swift's strengths alongside code examples that illus
    <img style="width: 50%;" src="/assets/images/swift-redesign-blog/cloud_light@2x.jpg">
 </div>
 
-## Next Steps
+## 다음 단계
 
 We look forward to hearing your feedback on this first set of changes as we continue to redesign other sections of the site. There are several ways to offer feedback on the redesign and to get involved:
 

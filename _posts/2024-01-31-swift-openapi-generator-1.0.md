@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2024-01-31 12:00:00
-title: Swift OpenAPI Generator 1.0 Released
+title: Swift OpenAPI Generator 1.0 출시
 author: [simonjbeaumont, honzadvorsky]
 excerpt_separator: <!--read more-->
 category: "Developer Tools"
@@ -148,7 +148,7 @@ The Swift OpenAPI Generator project is split across multiple repositories to ena
 * [swift-server/swift-openapi-vapor][swift-openapi-vapor-repo]: Server transport using Vapor web framework.
 * [swift-server/swift-openapi-hummingbird][swift-openapi-hummingbird-repo]: Server transport using Hummingbird web framework.
 
-## Next Steps
+## 다음 단계
 
 To get started, check out the [documentation], which contains [step-by-step tutorials][tutorials].
 

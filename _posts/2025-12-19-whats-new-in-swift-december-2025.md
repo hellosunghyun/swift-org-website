@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2025-12-19 16:00:00
-title: "What's new in Swift: December 2025 Edition"
+title: Swift 새 소식: 2025년 12월 에디션
 author: [timsneath, davelester]
 category: "Digest"
 ---

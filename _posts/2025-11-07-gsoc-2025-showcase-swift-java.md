@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2025-11-07 10:00:00
-title: "GSoC 2025 Showcase: Extending Swift-Java Interoperability"
+title: GSoC 2025 쇼케이스: Swift-Java 상호 운용성 확장
 author: [mads, ktoso]
 category: "Community"
 ---

@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2026-01-30 15:15:00
-title: "What's new in Swift: January 2026 Edition"
+title: Swift 새 소식: 2026년 1월 에디션
 author: [nicksloan, davelester]
 category: "Digest"
 ---
@@ -35,7 +35,7 @@ And now for what's new in Swift this month.
 * [Feather Database](https://github.com/feather-framework/feather-database) provides a database-agnostic layer that can be shared by multiple database drivers. And it's designed for modern Swift concurrency.
 * Miguel de Icaza has ported the .NET Foundation mail stack, originally created by Jeffrey Stedfast (MailKit/MimeKit), to Swift. Hello [MailFoundation](https://github.com/migueldeicaza/MailFoundation) and [MimeFoundation](https://github.com/migueldeicaza/MimeFoundation)!
 
-## Community highlights
+## 커뮤니티 highlights
 * [Introduction to Building Swift for Yocto](https://xtremekforever.substack.com/p/introduction-to-building-swift-for) - Check out this embedded Linux guide to using meta-swift to build Swift for a Raspberry Pi Zero 2.
 * Registration is open for several Swift community conferences, including [SwiftCraft](https://swiftcraft.uk) and [try! Swift Tokyo](https://tryswift.jp/en/). The Call for Proposals (CFP) is still open for try! Swift Tokyo. 
 

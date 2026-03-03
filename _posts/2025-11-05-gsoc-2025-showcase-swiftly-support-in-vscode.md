@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2025-11-05 17:00:00
-title: 'GSoC 2025 Showcase: Swiftly support in VS Code'
+title: GSoC 2025 쇼케이스: VS Code에서의 Swiftly 지원
 author: [priyambada, ktoso]
 category: "Community"
 ---

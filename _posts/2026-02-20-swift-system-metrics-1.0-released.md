@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2026-02-20 10:00:00
-title: "Announcing Swift System Metrics 1.0: Process-Level Monitoring"
+title: Swift System Metrics 1.0 발표: 프로세스 수준 모니터링
 author: [vladimir_kukushkin]
 category: "Developer Tools"
 ---

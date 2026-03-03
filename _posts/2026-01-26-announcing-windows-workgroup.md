@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2026-01-26 12:00:00
-title: "Announcing the Windows Workgroup"
+title: Windows 워크그룹 발표
 author: [shahmishal]
 category: "Community"
 description: "We are excited to announce the creation of the Windows workgroup! The primary goal is to ensure ongoing support for Swift on Windows, enabling users to develop Windows applications using Swift."

@@ -1,20 +1,20 @@
 ---
 layout: page
-title: Project Ideas for GSoC 2024
+title: GSoC 2024 프로젝트 아이디어
 ---
 
-This page contains a non-exhaustive list of potential project ideas that we are keen to develop during [Google Summer of Code 2024](https://summerofcode.withgoogle.com/). If you would like to apply to GSoC as a contributor, please follow these steps to get started:
+이 페이지는 다음 기간 동안 개발하고자 하는 프로젝트 아이디어의 예시 목록을 담고 있습니다: [Google Summer of Code 2024](https://summerofcode.withgoogle.com/). GSoC에 기여자로 지원하고 싶다면 다음 단계를 따라 시작하세요:
 
-1. Read through this page and the Google Summer of Code guides,
-2. Identify, or come up with your own project ideas you find interesting.
-3. Check out the [Development forum](https://forums.swift.org/c/development) to connect with potential mentors.
-- Feel free to mention the project mentors on the forums, when starting a thread about your interest in participating in a specific project they are offering to mentor.
+1. 이 페이지와 Google Summer of Code 가이드를 읽어보세요.
+2. 관심 있는 프로젝트 아이디어를 찾거나 직접 구상하세요.
+3. [Development 포럼](https://forums.swift.org/c/development)에서 잠재적 멘토와 소통하세요.
+- 특정 프로젝트 참여에 관심이 있는 스레드를 시작할 때 포럼에서 프로젝트 멘토를 자유롭게 언급하세요.
 
-When posting on the forums about GSoC this year, please use the [`gsoc-2024` tag](https://forums.swift.org/tag/gsoc-2024), so it is easy to identify.
+올해 포럼에 GSoC에 대해 게시할 때는 [`gsoc-2024` tag](https://forums.swift.org/tag/gsoc-2024), so it is easy to identify.
 
-## Tips for contacting mentors
+## 멘토 연락 방법
 
-The Swift forums are powered by discourse, a discussion forums platform with spam avoidance mechanisms built-in. If this is your first time joining the forums, you _may_ not be able to send mentors a direct message, as this requires a minimum amount of prior participation before the "send private message" feature is automatically enabled.
+Swift 포럼은 스팸 방지 메커니즘이 내장된 토론 포럼 플랫폼 Discourse로 운영됩니다. 포럼에 처음 가입하는 경우, "개인 메시지 보내기" 기능이 자동으로 활성화되기 전에 최소한의 사전 참여가 필요하므로 멘토에게 직접 메시지를 보내지 못할 _수_ 있습니다.
 
 To start things off, we recommend starting a new thread or joining an existing discussion about the project you are interested in on the dedicated [GSoC forums category](https://www.swift.org/gsoc2024/). You should also _tag_ your thread with the `gsoc-2024` tag. It is best if you start a thread after having explored the topic a little bit already, and come up with specific questions about parts of the project you are not sure about. For example, you may have tried to build the project, but not sure where a functionality would be implemented; or you may not be sure about the scope of the project.
 
@@ -22,13 +22,13 @@ Please use the forums to tag and communicate with the project's mentor to figure
 
 If you would like to reach out to a mentor privately rather than making a public forum post, and the forums are not allowing you to send private messages yet, please reach out to Konrad Malawski at `ktoso AT apple.com` directly via email with the `[gsoc2024]` tag in the email subject and describe the project you would like to work on. We will route you to the appropriate mentor. In general, public communications on the forums are preferred though, as this is closer to the normal open-source way of getting things done in the Swift project.
 
-## Writing a proposal
+## 제안서 작성하기
 
-Getting familiar with the codebase you are interested in working on during GSoC helps to write a good proposal because it helps you get a better understanding of how everything works and how you might best approach the project you are interested in. How you want to do that is really up to you and your style of learning. You could just clone the repository, read through the source code and follow the execution path of a test case by setting a breakpoint and stepping through the different instructions, read the available documentation or try to fix a simple bug in the codebase. The latter is how many open-source contributors got started, but it’s really up to you. If you do want to go and fix a simple bug, our repositories contain a label “good first issue” that marks issues that should be easy to fix and doable by newcomers to the project.
+GSoC 동안 작업하고 싶은 코드베이스에 익숙해지면 모든 것이 어떻게 작동하는지, 관심 있는 프로젝트에 어떻게 접근하는 것이 좋은지 더 잘 이해할 수 있어 좋은 제안서를 작성하는 데 도움이 됩니다. How you want to do that is really up to you and your style of learning. You could just clone the repository, read through the source code and follow the execution path of a test case by setting a breakpoint and stepping through the different instructions, read the available documentation or try to fix a simple bug in the codebase. The latter is how many open-source contributors got started, but it’s really up to you. If you do want to go and fix a simple bug, our repositories contain a label “good first issue” that marks issues that should be easy to fix and doable by newcomers to the project.
 
 When it comes to writing the proposal, the [Google Summer of Code Guide](https://google.github.io/gsocguides/student/writing-a-proposal) contains general, good advice.
 
-## Potential Projects
+## 프로젝트 목록
 
 We are currently collecting project ideas on the forums in the dedicated [GSoC](https://forums.swift.org/tag/gsoc-2024).
 
@@ -38,45 +38,45 @@ You can browse previous year's project ideas here: [2023](https://www.swift.org/
 
 ### Create Real-World Swift Macro Examples
 
-**Project size**: 90 hours
+**프로젝트 규모**: 90 hours
 
-**Estimated difficulty**: Easy
+**예상 난이도**: 쉬움
 
-**Recommended skills**
+**권장 기술**
 
 - Basic proficiency in Swift.
 - Basic knowledge of SwiftSyntax.
 - Optional: Experience with documentation tools, particularly Swift's DocC.
 
-**Description**
+**설명**
 
 Swift Macros offer a powerful way to transform source code during compilation, streamlining the code generation process and minimizing repetitive manual tasks. The swift-syntax repository features [several examples](https://github.com/swiftlang/swift-syntax/tree/main/Examples/Sources/MacroExamples) showcasing Swift Macros. These serve as a foundational starting point, illustrating various types of macros. However, they often present scenarios that may not directly align with everyday use cases encountered in real-world applications. Additionally, there is notable variability in how these examples handle diagnostics, with some macros requiring more detailed feedback mechanisms for incorrect usage. This situation highlights a valuable area for enhancement, aiming to provide more comprehensive guidance and practical applications for developers.
 
 This project is set to enrich the Swift community by enhancing the current suite of Swift Macro examples with real-world applicability and by introducing new, meticulously crafted examples. It will expand upon the foundational work in the swift-syntax repository, infusing it with comprehensive documentation and interactive tutorials created using DocC. Each example, both new and enhanced, will be carefully designed to showcase the use of different types of Swift Macros, equipped with practical diagnostics, unit tests, and detailed documentation. The initiative will also include the creation of DocC tutorials for some of the most sought-after and impactful Macros, providing an invaluable educational resource for the Swift community. Our aim is to illuminate the diverse capabilities of Swift Macros, highlighting their power and flexibility while sharing best practices for diagnostics, error handling, and testing. By building upon the existing examples and introducing new insights and techniques, this project promises to elevate the collective knowledge and utility of Swift Macros, fostering innovation and excellence within the ecosystem.
 
-**Expected outcomes/benefits/deliverables**
+**기대 성과/이점/산출물**
 
 - A comprehensive set of real-world Swift Macro examples, demonstrating practical applications across different types of Macros.
 - Detailed documentation for each example, including the rationale for using Macros, the problems they solve, and guides to their implementation, with an emphasis on diagnostics and error handling.
 - A series of high-quality DocC tutorials covering the creation and application of popular and useful Macros, offering an interactive and engaging learning experience.
 
-**Potential mentors**
+**잠재적 멘토**
 
 - [Alex Hoppen](https://github.com/ahoppen)
 - [Mateusz Bąk](https://github.com/Matejkob)
 
 ### Lexical scopes for swift-syntax
 
-**Project size**: 175 hours
+**프로젝트 규모**: 175 hours
 
-**Difficulty**: Intermediate
+**Difficulty**: 중급
 
-**Recommended skills**
+**권장 기술**
 
 - Basic proficiency in Swift, willingness to read C++ for inspiration
 - Interest in parsers and compilers
 
-**Description**
+**설명**
 
 Swift source code is organized into a set of scopes, each of which can introduce names that can be found in that scope and other scopes nested within it. For example, in a function like this:
 
@@ -94,26 +94,26 @@ There is a scope for the outermost curly braces of the function, in which the pa
 
 This project involves implementing a notion of lexical scopes as part of [swift-syntax](https://github.com/swiftlang/swift-syntax), with APIs to answer questions like "What does `b` refer to in `return a + b`?" or "What construct does this `break` escape out of?". These APIs can form the basis of IDE features like "edit all in scope" and are an important step toward replacing the [C++ implementation of scopes](https://github.com/swiftlang/swift/blob/main/include/swift/AST/ASTScope.h) within the Swift compiler.
 
-**Expected outcomes/benefits/deliverables**
+**기대 성과/이점/산출물**
 
 Introduce a new library for the swift-syntax package with an API to implement name and scope lookup for a given syntax node, with lots of tests for all of the fun corner cases in Swift (e.g, `guard let`, implicit names like `self`, `error` in a catch block, `newValue` in a setter). From there, the sky's the limit: there are many scope-based queries to build APIs for, or you could start building on top of these APIs for something like IDE support in [SourceKit-LSP](https://github.com/swiftlang/sourcekit-lsp).
 
-**Potential mentors**
+**잠재적 멘토**
 
 - [Doug Gregor](https://github.com/DougGregor)
 
 ### Code Completion for Keywords using swift-syntax
 
-**Project size**: 175 hours
+**프로젝트 규모**: 175 hours
 
-**Estimated difficulty**: Intermediate
+**예상 난이도**: 중급
 
-**Recommended skills**
+**권장 기술**
 
 - Proficiency in Swift
 - Knowledge of C++ is advantageous but not required
 
-**Description**
+**설명**
 
 The swift-syntax tree has structural information about Swift’s grammar. For example, it knows all the different declaration nodes and which keywords they start with. This should allow us to perform code completion of keywords (such as `struct`) and punctuation (such as `->`) by determining the cursor’s position in the syntax tree and figuring out the possible keywords at that position by iterating the syntax tree’s structure. For example, when invoking code completion at the top level, code completion should determine that a declaration is allowed at the top level, iterate over all the declaration nodes and collect the keywords they start with. 
 
@@ -123,27 +123,27 @@ The tricky part is that the SwiftSyntax tree is an over-approximation of the Swi
 
 The advantage of keyword completion based on swift-syntax is that its results are produced by the syntax tree’s and are thus guaranteed to be complete. It removes the need to manually maintain a [list of keyword completions](https://github.com/swiftlang/swift/blob/72486c975f0e69e642db53482c9c15329aefa139/lib/IDE/CodeCompletion.cpp#L662-L1119) and provide previously missing completions like `->` after the parameters in a function declaration.
 
-**Expected outcomes/benefits/deliverables**
+**기대 성과/이점/산출물**
 
 Provide all keyword or punctuator completions that are valid at a certain position in a SwiftSyntax tree with a very low ratio of invalid completions.
 
-**Potential mentors**
+**잠재적 멘토**
 
 - [Alex Hoppen](https://github.com/ahoppen)
 
 ### Expansion of Swift Macros in Visual Studio Code
 
-**Project size**: 175 hours
+**프로젝트 규모**: 175 hours
 
-**Estimated difficulty**: Intermediate
+**예상 난이도**: 중급
 
-**Recommended skills**
+**권장 기술**
 
 - Proficiency in Swift
 - Proficiency in TypeScript and JavaScript
 - Experience in writing Visual Studio Code extensions is beneficial but not required
 
-**Description**
+**설명**
 
 Swift Macros allow the generation of source code at compile time. While this provides concise code and avoids repetition of common paradigms, understanding the source code can become harder if it is unknown what the macro expands to. 
 
@@ -153,26 +153,26 @@ The project's goal is to implement a code action to show the macro-generated cod
 
 As a stretch goal, Visual Studio Code should also offer semantic functionality like jump-to-definition inside the macro expansion and allow the expansion of nested macros.
 
-**Expected outcomes/benefits/deliverables**
+**기대 성과/이점/산출물**
 
 An end-to-end implementation that allows the display of a macro’s contents in Visual Studio Code.
 
-**Potential mentors**
+**잠재적 멘토**
 
 - [Alex Hoppen](https://github.com/ahoppen) and [Adam Fowler](https://github.com/adam-fowler)
 
 ### Introduce Swift Distributed Tracing support to AsyncHTTPClient
 
-**Project size**: 90 hours
+**프로젝트 규모**: 90 hours
 
-**Difficulty**: Intermediate
+**Difficulty**: 중급
 
-**Recommended skills**
+**권장 기술**
 
 - Basic proficiency in Swift and Swift Concurrency
 - Basic proficiency in HTTP concepts
 
-**Description**
+**설명**
 
 During an earlier Summer of Code edition, the [swift-distributed-tracing](https://github.com/apple/swift-distributed-tracing) library was kicked off. The development of the library continued ever since, and now we'd like to include support for tracing in some of the core server libraries.
 
@@ -207,60 +207,60 @@ The above should result in 3 spans being recorded:
 You can read more about tracing in the documentation of these libraries: [swift-distributed-tracing](https://github.com/apple/swift-distributed-tracing), [swift-otel](https://github.com/slashmo/swift-otel).
 
 
-**Expected outcomes/benefits/deliverables**
+**기대 성과/이점/산출물**
 
 - Introduce built-in support for distributed tracing in AsyncHTTPClient
 - It should be possible to bootstrap a tracing backend and have the HTTP client pick trace headers and propagate them in any requests made.
 - In addition, there should be a small "demo" docker example prepared, such that developers can quickly try out the functionality.
 
-**Potential mentors**
+**잠재적 멘토**
 
 - [Konrad 'ktoso' Malawski](https://github.com/ktoso)
 
 ### Re-implement property wrappers with macros
 
-**Project size**: 350 hours
+**프로젝트 규모**: 350 hours
 
-**Estimated difficulty**: Intermediate
+**예상 난이도**: 중급
 
-**Recommended skills**
+**권장 기술**
 
 - Proficiency in Swift and C++
 
-**Description**
+**설명**
 
 [Property wrappers](https://github.com/swiftlang/swift-evolution/blob/main/proposals/0258-property-wrappers.md) feature is currently implemented purely within the compiler but with the addition of [Swift Macros](https://github.com/swiftlang/swift-evolution/blob/main/proposals/0389-attached-macros.md) and [init accessors](https://github.com/swiftlang/swift-evolution/blob/main/proposals/0400-init-accessors.md) it's now possible to remove all ad-hoc code from the compiler and implement property wrappers by using existing features.
 
 This work would remove a lot of property wrapper-specific code throughout the compiler - parsing, semantic analysis, SIL generation etc. which brings great benefits by facilitating code reuse, cleaning up the codebase and potentially fixing implementation corner cases. Macros and init accessors in their current state might not be sufficient to cover all of the property wrapper use scenarios, so the project is most likely going to require improving and expanding the aforementioned features as well.
 
 
-**Expected outcomes/benefits/deliverables**
+**기대 성과/이점/산출물**
 
 The outcome of this project is the complete removal of all property wrappers-specific code from the compiler. This benefits the Swift project in multiple areas - stability, testability and code health.
 
-**Potential mentors**
+**잠재적 멘토**
 
 - [Pavel Yaskevich](https://github.com/xedin)
 
 ### etcd client
 
-**Project size**: 175 hours
+**프로젝트 규모**: 175 hours
 
-**Estimated difficulty**: Intermediate
+**예상 난이도**: 중급
 
-**Recommended skills**
+**권장 기술**
 
 - Basic proficiency in Swift and Swift Concurrency
 - Basic proficiency with gRPC
 - Optional: Experience with using etcd
 
-**Description**
+**설명**
 
 `etcd` is a strongly consistent, distributed key-value store that provides a reliable way to store data that needs to be accessed by a distributed system or cluster of machines. It gracefully handles leader elections during network partitions and can tolerate machine failure, even in the leader node. Furthermore, `etcd` is a [CNCF graduated](https://www.cncf.io/projects/) project powering Kubernetes which stores all cluster information in `etcd`.
 
 Swift is a great programming language for implementing complex distributed systems and having an `etcd` client enables such systems to store their data reliably. The latest revisions of `etcd` exposes a [gRPC](https://grpc.io) API that clients can use to communicate with the `etcd` server to update and query stored data. 
 
-**Expected outcomes/benefits/deliverables**
+**기대 성과/이점/산출물**
 
 - Create a brand new `swift-etcd-client` package
 - Connect and communicate with an `etcd` server using [etcd gRPC APIs](https://etcd.io/docs/v3.5/learning/api/)
@@ -271,21 +271,21 @@ Swift is a great programming language for implementing complex distributed syste
   - Strech goal [lease operations](https://etcd.io/docs/v3.5/learning/api/#lease-api)
 - All publicly exposed APIs should feel native to Swift and use Concurrency concepts such as `AsyncSequence`
 
-**Potential mentors**
+**잠재적 멘토**
 
 - [Franz Busch](https://github.com/FranzBusch)
 
 ### Add a `deploy` SwiftPM plugin and a Swift-based DSL to the Swift runtime for AWS Lambda  
 
-**Project size**: 90 hours
+**프로젝트 규모**: 90 hours
 
-**Estimated difficulty**: Intermediate
+**예상 난이도**: 중급
 
-**Recommended skills**
+**권장 기술**
 
 - Proficiency in Swift
 
-**Description**
+**설명**
 
 [AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html) templates provide a short-hand syntax, optimized for defining Infrastructure as Code (IaC) for serverless applications.
 
@@ -299,7 +299,7 @@ The existing code has a significant challenge: to be useful for developers, the 
 
 This project is aimed at simplifying the alignment with an ever-evolving SAM template definition by writing a code generator. The code generator will consume [the SAM template definition](https://github.com/aws/serverless-application-model/blob/develop/samtranslator/validator/sam_schema/schema.json) and generate an API-stable set of Swift data structures. As a second step, a manually designed and coded DSL would consume these data structures to generate the YAML SAM template from the DSL.
 
-**Expected outcomes/benefits/deliverables**
+**기대 성과/이점/산출물**
 
 - a Swift data structure generator. This new, yet-to-be-created piece of code will read and parse the [JSON SAM template definition](https://github.com/aws/serverless-application-model/blob/develop/samtranslator/validator/sam_schema/schema.json) and generate a set of API-stable Swift `Codable` data structures to generate a valid SAM YAML template. The generated code must be similar to [these existing data structures](https://github.com/sebsto/swift-aws-lambda-runtime/blob/sebsto/deployerplugin_dsl/Sources/AWSLambdaDeploymentDescriptor/DeploymentDescriptor.swift) (these were created manually)
 
@@ -307,32 +307,32 @@ This project is aimed at simplifying the alignment with an ever-evolving SAM tem
 
 - these two components must be callable from [an existing SwiftPM plugin](https://github.com/sebsto/swift-aws-lambda-runtime/tree/sebsto/deployerplugin_dsl/Plugins/AWSLambdaDeployer)
 
-**Potential mentors**
+**잠재적 멘토**
 
 - [Sebastien Stormacq](mailto:stormacq@amazon.com), ([GitHub](https://github.com/sebsto))
 
 ### Building Swift Macros with WebAssembly
 
-**Project size**: 350 hours
+**프로젝트 규모**: 350 hours
 
-**Difficulty**: Intermediate
+**Difficulty**: 중급
 
-**Recommended skills**
+**권장 기술**
 
 - Basic proficiency in Swift, C++
 - Interest in compilers and WebAssembly
 
-**Description**
+**설명**
 
 Swift [macros](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/macros) are built as host programs that make use of the [swift-syntax](https://github.com/swiftlang/swift-syntax) package to process Swift syntax and produce new syntax. One of the downsides of this approach is that the build process for each macro can take a significant amount of time, and pre-building macro binaries is complicated by the fact that the binaries need to be built for multiple host platforms (e.g., Linux, Windows, and macOS) and architectures (e.g., x86 and ARM). Moreover, macros are aggressively sandboxed to prevent errors in macros from affecting the Swift compiler itself.
 
 [WebAssembly](https://webassembly.org/) provides a portable compilation target that can be executed on any platform and architecture. [SwiftWasm](https://swiftwasm.org/) can compile Swift to WebAsssembly, and [WasmKit](https://github.com/swiftwasm/WasmKit) provides a runtime that can execute WebAssembly programs. WebAssembly could provide a way to build Swift macros into binaries that can be distributed and run anywhere, eliminating the need to rebuild them continually. This project involves getting swift-syntax and macros implemented on top of it building to WebAssembly, teaching the Swift compiler to communicate with these macro implementations, and extending the [Swift Package Manager](https://github.com/swiftlang/swift-package-manager) with support for building and using macros with WebAssembly.
 
-**Expected outcomes/benefits/deliverables**
+**기대 성과/이점/산출물**
 
 The ideal outcome of this project would be for Swift macros to be able to opt into being built with WebAssembly and have the Swift Package Manager do so without further intervention from the user.
 
-**Potential mentors**
+**잠재적 멘토**
 
 - [Doug Gregor](https://github.com/DougGregor)
 
@@ -341,26 +341,26 @@ The ideal outcome of this project would be for Swift macros to be able to opt in
 
 ### Project name
 
-**Project size**: 90 hours / 175 hours / 350 hours
+**프로젝트 규모**: 90 hours / 175 hours / 350 hours
 
-**Estimated difficulty**: Easy / Intermediate / Hard
+**예상 난이도**: 쉬움 / 중급 / Hard
 
-**Recommended skills**
+**권장 기술**
 
 - E.g. Proficiency in Swift, and/or C++
 - Knowledge of ...
 - Optional, experience in ... 
 
-**Description**
+**설명**
 
 Brief description of the project, its goals and what areas of the Swift project it relates to.
 
-**Expected outcomes/benefits/deliverables**
+**기대 성과/이점/산출물**
 
 Description of expected outcomes, like some specific feature being implemented, a performance improvement, or a guide being written.
 This will be the basis for passing the Summer of Code assignment and the final submission of the project. 
 
-**Potential mentors**
+**잠재적 멘토**
 
 - Your name (and link to GitHub, or other means of reaching you)
 - Optionally: additional mentors

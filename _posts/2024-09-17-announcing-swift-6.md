@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2024-09-17 10:00:00
-title: Announcing Swift 6
+title: Swift 6 발표
 author: [hborla]
 category: "Language"
 ---
@@ -205,7 +205,7 @@ Swift 6 adds official support and testing for Debian and Fedora, as well as on U
 
 Prebuilt toolchains are now available for the arm64 architecture, which provides improved compiler performance for Windows on ARM hosts. In Swift 6, the Swift package manager also parallelizes builds across multiple cores on Windows by default. On a 10-core machine, this can improve build performance by up to a factor of 10!
 
-## Next Steps
+## 다음 단계
 
 ### Download Swift 6
 

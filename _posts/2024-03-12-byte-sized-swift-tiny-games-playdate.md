@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2024-03-12 10:00:00
-title: "Byte-sized Swift: Building Tiny Games for the Playdate"
+title: 바이트 크기 Swift: Playdate용 작은 게임 만들기
 author: [rauhul]
 category: "Adopters"
 ---

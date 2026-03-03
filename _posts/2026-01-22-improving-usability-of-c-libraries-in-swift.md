@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2026-01-22 12:00:00
-title: "Improving the usability of C libraries in Swift"
+title: Swift에서 C 라이브러리의 사용성 개선
 author: [doug_gregor]
 category: "Language"
 ---

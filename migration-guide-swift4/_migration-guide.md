@@ -1,108 +1,108 @@
-**This is a legacy document for Xcode 9 and migrating from Swift 3.**
+**이 문서는 Xcode 9와 Swift 3에서의 마이그레이션을 위한 레거시 문서입니다.**
 
-Xcode 9.0 comes with a Swift Migrator tool that helps you migrate your project to Swift 4.
+Xcode 9.0에는 프로젝트를 Swift 4로 마이그레이션하는 데 도움이 되는 Swift Migrator 도구가 포함되어 있습니다.
 
-## Pre-Migration Preparation
+## 마이그레이션 사전 준비
 
-Make sure that the project that you intend to migrate builds successfully in Swift 3.2 mode, and all its tests pass. Keep in mind that Swift 3.2 does have significant changes from 3.1, as well as the SDKs against which you built, so you may need to resolve errors initially.
+마이그레이션하려는 프로젝트가 Swift 3.2 모드에서 성공적으로 빌드되고, 모든 테스트가 통과하는지 확인하세요. Swift 3.2는 3.1에서 상당한 변경이 있으며 빌드 대상 SDK도 변경되었으므로, 처음에 오류를 해결해야 할 수도 있습니다.
 
-It's highly recommended to have your project managed under source control. This will allow you to easily review the changes that were applied via the migration assistant and to discard them and re-try the migration if needed.
+프로젝트를 소스 컨트롤로 관리하는 것을 적극 권장합니다. 이렇게 하면 마이그레이션 어시스턴트를 통해 적용된 변경 사항을 쉽게 검토하고, 필요한 경우 변경을 취소하고 마이그레이션을 다시 시도할 수 있습니다.
 
-Different from last year, the Migrator is built directly into the compiler and not a separate tool, so it can understand both Swift 3.2 and Swift 4 code equally and compile them together, just like the Swift 4 compiler can. That means you decide when and if you'd like to migrate on a per-target basis when it makes sense for your project. While migrating to Swift 4 is definitely encouraged, it's not an all-or-nothing process, as Swift 3.2 and Swift 4 targets can coexist and link together.
+작년과 달리, Migrator는 별도의 도구가 아니라 컴파일러에 직접 내장되어 있으므로, Swift 4 컴파일러처럼 Swift 3.2와 Swift 4 코드를 동등하게 이해하고 함께 컴파일할 수 있습니다. 즉, 프로젝트에 적합한 시점에 타겟별로 마이그레이션 여부와 시기를 결정할 수 있습니다. Swift 4로의 마이그레이션을 적극 권장하지만, Swift 3.2와 Swift 4 타겟이 공존하고 함께 링크될 수 있으므로 전부 한꺼번에 해야 하는 것은 아닙니다.
 
-The migration assistant does a *migrator build* to gather the changes, using the scheme you have selected, so the targets that will get processed are the ones that are included in the scheme. To review and modify what is included in the scheme, invoke the *Edit Scheme...* sheet and select the *Build* tab from the column on the left, and make sure all your targets and their unit tests are included.
+마이그레이션 어시스턴트는 선택한 스킴을 사용하여 *migrator 빌드*를 수행하고 변경 사항을 수집하므로, 처리되는 타겟은 스킴에 포함된 타겟입니다. 스킴에 포함된 항목을 검토하고 수정하려면 _Edit Scheme..._ 시트를 열고 왼쪽 열에서 _Build_ 탭을 선택한 다음, 모든 타겟과 단위 테스트가 포함되어 있는지 확인하세요.
 
-> If your project depends on other open-source projects that are provided by Carthage or CocoaPods, consult the [Using Carthage/CocoaPods Projects](#using-carthagecocoapods-projects) section.
+> 프로젝트가 Carthage나 CocoaPods에서 제공하는 다른 오픈 소스 프로젝트에 의존하는 경우, [Carthage/CocoaPods 프로젝트 사용](#using-carthagecocoapods-projects) 섹션을 참고하세요.
 
-## Swift Migration Assistant
+## Swift 마이그레이션 어시스턴트
 
-When you open your project with Xcode 9 for the first time, you will see a migration opportunity item in the Issue Navigator: click it to activate a sheet asking you if you'd like to migrate. You can be reminded later or invoke the Migrator manually from the menu *Edit -> Convert -> To Current Swift Syntax...*
+Xcode 9으로 프로젝트를 처음 열면 Issue Navigator에 마이그레이션 기회 항목이 표시됩니다. 이를 클릭하면 마이그레이션 여부를 묻는 시트가 활성화됩니다. 나중에 알림을 받거나 메뉴 *Edit -> Convert -> To Current Swift Syntax...*에서 Migrator를 수동으로 실행할 수 있습니다.
 
-You will be presented with a list of targets to migrate. Targets that do not contain any Swift code will not be selected.
+마이그레이션할 타겟 목록이 표시됩니다. Swift 코드가 포함되지 않은 타겟은 선택되지 않습니다.
 
-There is only one migration workflow this year, although there is a choice between two kinds of *`@objc` Inference*:
+올해는 마이그레이션 워크플로가 하나뿐이지만, 두 가지 _`@objc` 추론_ 중 선택할 수 있습니다:
 
-- **Minimize Inference**: Add an @objc attribute to your code only where it is needed based on static inference. After using this option you need to follow the manual steps detailed in Completing a Swift 4 minimize inference migration to complete the conversion.
-- **Match Swift 3 Behavior**: Add an @objc attribute to your code anywhere it would be implicitly inferred by the compiler. This option does not change the size of your binary as it adds explicit @objc attributes everywhere they were implicitly added by Swift 3.
+- **추론 최소화**: 정적 추론에 기반하여 필요한 곳에만 @objc 속성을 추가합니다. 이 옵션을 사용한 후에는 Swift 4 추론 최소화 마이그레이션 완료에 설명된 수동 단계를 따라 변환을 완료해야 합니다.
+- **Swift 3 동작 일치**: 컴파일러가 암시적으로 추론하는 모든 곳에 @objc 속성을 추가합니다. 이 옵션은 Swift 3에서 암시적으로 추가되었던 모든 곳에 명시적 @objc 속성을 추가하므로 바이너리 크기를 변경하지 않습니다.
 
-> For more information and implications of these two choices, see the Xcode Help article [Migrate to Swift 4 `@objc` inference](https://help.apple.com/xcode/mac/current/#/deve838b19a1).
+> 이 두 선택의 자세한 내용과 영향은 Xcode 도움말 문서 [Migrate to Swift 4 `@objc` inference](https://help.apple.com/xcode/mac/current/#/deve838b19a1)를 참고하세요.
 
-Clicking *Next* will bring up the *Generate Preview* sheet and the assistant will initiate a *migration build* to get source changes. When this is done, you will be presented with all the changes that will be applied once you click on 'Save'. This will also change the *Swift Language Version* build setting for the migrated targets to *Swift 4*.
+*Next*를 클릭하면 _Generate Preview_ 시트가 나타나고, 어시스턴트가 *migration 빌드*를 시작하여 소스 변경 사항을 수집합니다. 완료되면 'Save'를 클릭했을 때 적용될 모든 변경 사항이 표시됩니다. 이때 마이그레이션된 타겟의 _Swift Language Version_ 빌드 설정도 *Swift 4*로 변경됩니다.
 
-There may have been issues with processing the targets that will negatively impact the migration process. Switch to the *Report Navigator* and select the *Convert* entry that was added; this is the conversion build log. Check the log for errors that may have showed up.
+타겟 처리 중 마이그레이션 프로세스에 부정적인 영향을 미치는 문제가 있었을 수 있습니다. *Report Navigator*로 전환하고 추가된 _Convert_ 항목을 선택하세요. 이것이 변환 빌드 로그입니다. 나타난 오류가 있는지 로그를 확인하세요.
 
-If you see errors about not being able to code-sign the target, try disabling code-signing from the build settings of the target. If you see other errors, please [file a bug report](https://bugreport.apple.com) and include the details. You are strongly encouraged to attach a project that illustrates the faulty migration if possible.
+타겟의 코드 서명을 할 수 없다는 오류가 보이면, 타겟의 빌드 설정에서 코드 서명을 비활성화해 보세요. 다른 오류가 보이면 [버그 리포트](https://bugreport.apple.com)를 제출하고 세부 사항을 포함해 주세요. 가능하면 잘못된 마이그레이션을 보여주는 프로젝트를 첨부하는 것을 적극 권장합니다.
 
-## Swift 4 Migration Changes Overview
+## Swift 4 마이그레이션 변경 사항 개요
 
-The vast majority of changes that the Migrator suggests comes from data generated by a comparison of the previous SDK and the current SDK, which may drive renaming of identifiers and types, for example; and from normal *compiler fix-its*. There are a few special provisions where the Migrator can safely perform straightforward mechanical changes.
+Migrator가 제안하는 대부분의 변경은 이전 SDK와 현재 SDK를 비교하여 생성된 데이터에서 비롯되며, 식별자와 타입의 이름 변경 등을 유발할 수 있습니다. 또한 일반적인 *컴파일러 fix-it*에서도 비롯됩니다. Migrator가 안전하게 직관적인 기계적 변경을 수행할 수 있는 몇 가지 특별한 경우도 있습니다.
 
-### SDK Changes
+### SDK 변경 사항
 
-The two most prevalent SDK changes are moving global constants into static type properties and transforming string constants into Swift enumeration cases. These are handled automatically by the Migrator. You'll also see various type signature changes.
+가장 많은 두 가지 SDK 변경 사항은 전역 상수를 정적 타입 프로퍼티로 이동하고 문자열 상수를 Swift 열거형 케이스로 변환하는 것입니다. 이는 Migrator가 자동으로 처리합니다. 다양한 타입 시그니처 변경도 있습니다.
 
-### Notable Special Cases
+### 주목할 만한 특수 케이스
 
-#### New String
+#### 새로운 String
 
-`String` has new APIs in Swift 4, some of which now return `Substring` or `String`. To ease this transition, the Migrator will insert explicit initializer conversions when an API now expects a different type.
+`String`은 Swift 4에서 새로운 API를 가지며, 일부는 이제 `Substring` 또는 `String`을 반환합니다. 이 전환을 쉽게 하기 위해, API가 이제 다른 타입을 기대하는 경우 Migrator가 명시적 이니셜라이저 변환을 삽입합니다.
 
-> For more information about the new `String` and `Substring` APIs, see the [Swift Evolution Document for SE-0163](https://github.com/swiftlang/swift-evolution/blob/main/proposals/0163-string-revision-1.md).
+> 새로운 `String` 및 `Substring` API에 대한 자세한 내용은 [SE-0163의 Swift Evolution 문서](https://github.com/swiftlang/swift-evolution/blob/main/proposals/0163-string-revision-1.md)를 참고하세요.
 
-#### SE-0110: Distinguish between single-tuple and multiple-argument function types
+#### SE-0110: 단일 튜플과 다중 인수 함수 타입 구분
 
 **`f: (Void) -> ()`**
 
-When using `f: (Void) -> ()` for the type of a function argument, it is generally meant to be `f: () -> ()`, so the Migrator will suggest you use this type instead. Otherwise, with the new rules in SE-0110 for Swift 4, you would need to call the function `f` as `f(())`.
+함수 인수의 타입으로 `f: (Void) -> ()`를 사용할 때, 일반적으로 `f: () -> ()`를 의미하므로, Migrator가 이 타입을 대신 사용하도록 제안합니다. 그렇지 않으면 Swift 4의 SE-0110 새로운 규칙에 따라 함수 `f`를 `f(())`로 호출해야 합니다.
 
-**Adding tuple destructuring**
+**튜플 디스트럭처링 추가**
 
-For code such as:
+다음과 같은 코드의 경우:
 
 ```swift
 func foo(_: ((Int, Int) -> ()) {}
 foo { (x, y) in print(x + y) }
 ```
 
-The Migrator must add explicit tuple destructuring to continue building in Swift 4, such as:
+Migrator는 Swift 4에서 계속 빌드되도록 명시적 튜플 디스트럭처링을 추가해야 합니다:
 
 ```swift
 func foo(_: ((Int, Int) -> ()) {}
 foo { let (x, y) = $0; print(x + y) }
 ```
 
-> For more information about this language change, see the [Swift Evolution Document for SE-0110](https://github.com/swiftlang/swift-evolution/blob/main/proposals/0110-distinguish-single-tuple-arg.md).
+> 이 언어 변경에 대한 자세한 내용은 [SE-0110의 Swift Evolution 문서](https://github.com/swiftlang/swift-evolution/blob/main/proposals/0110-distinguish-single-tuple-arg.md)를 참고하세요.
 
-#### Default parameter values must be public
+#### 기본 매개변수 값은 public이어야 합니다
 
-The compiler is now more strict about the accessibility of referenced, non-literal values used as default arguments for your public functions; they must be also be `public`. Among other things, this exposes an opportunity for optimizing access to the value at the call site. Because this may involve API design, the Migrator does not suggest fixes, although there are some possibilities for you to consider as an API author:
+컴파일러는 이제 public 함수의 기본 인수로 사용되는 참조된 비리터럴 값의 접근성에 대해 더 엄격합니다. 해당 값도 `public`이어야 합니다. 이는 무엇보다 호출 사이트에서 해당 값에 대한 접근을 최적화할 기회를 제공합니다. API 설계가 관련될 수 있으므로, Migrator는 수정을 제안하지 않지만, API 작성자로서 고려할 수 있는 몇 가지 방법이 있습니다:
 
-- Make the referenced default values `public`.
-- Provide `public` functions which return a sensible default value.
+- 참조된 기본 값을 `public`으로 만듭니다.
+- 적절한 기본 값을 반환하는 `public` 함수를 제공합니다.
 
-> In both cases, consider the impact of exposing new API, making sure to document your public symbols.
+> 두 경우 모두, 새로운 API를 노출하는 영향을 고려하고 public 심볼을 문서화하세요.
 
-## After Migration
+## 마이그레이션 후
 
-While the migrator will take care of many mechanical changes for you, it is likely that you will need to make more manual changes to be able to build the project after applying the migrator changes.
+Migrator가 많은 기계적 변경을 처리해 주지만, Migrator 변경 사항을 적용한 후 프로젝트를 빌드하기 위해 추가적인 수동 변경이 필요할 수 있습니다.
 
-You may see compiler errors that have associated fixits; while the migrator is designed to incorporate fixits that the Swift 4 compiler provides, some fixits may not be applied if they are not applicable 100% of the time.
+연관된 fix-it이 있는 컴파일러 오류가 보일 수 있습니다. Migrator는 Swift 4 컴파일러가 제공하는 fix-it을 반영하도록 설계되었지만, 100% 적용 가능하지 않은 일부 fix-it은 적용되지 않을 수 있습니다.
 
-Even if it compiles fine, the code that the migrator provided may not be ideal. Use your best judgement and check that the changes are appropriate for your project.
+코드가 정상적으로 컴파일되더라도, Migrator가 제공한 코드가 이상적이지 않을 수 있습니다. 자체 판단을 사용하고 변경 사항이 프로젝트에 적합한지 확인하세요.
 
-## Known Migration Issues
+## 알려진 마이그레이션 문제
 
-> For information on the latest known issues for migration in Xcode 9, see the *Swift Migration* section of the Release Notes for Xcode 9 on the [Developer Downloads](https://developer.apple.com/download/) page.
+> Xcode 9의 최신 알려진 마이그레이션 문제에 대한 정보는 [Developer Downloads](https://developer.apple.com/download/) 페이지의 Xcode 9 릴리스 노트에서 _Swift Migration_ 섹션을 참고하세요.
 
-## Using Carthage/CocoaPods Projects
+## Carthage/CocoaPods 프로젝트 사용
 
-Here are some important points to consider when migrating a project with external dependencies using package managers like Carthage, CocoaPods, or the Swift Package Manager.
+Carthage, CocoaPods 또는 Swift Package Manager과 같은 패키지 관리자를 사용하는 외부 의존성이 있는 프로젝트를 마이그레이션할 때 고려해야 할 몇 가지 중요한 사항이 있습니다.
 
-- It is recommended to use source dependencies rather than binary Swift modules, because Swift 3.1 modules will not be compatible with Swift 3.2/4 modules, unless you can get distributions that were built in Swift 3.2 or Swift 4 mode.
-- Make sure your source dependencies build successfully in Swift 3.2 mode as well as your own targets.
-- If you have setup framework search paths for finding the binary Swift modules inside Carthage's build folder, either remove the search paths or clean the build folder, so that you are sure that you are only using the Swift modules that are built from your Xcode workspace.
-- It is not necessary to migrate your source dependencies as long as they can build in Swift 3.2 mode.
+- Swift 3.1 모듈은 Swift 3.2/4 모듈과 호환되지 않으므로, 바이너리 Swift 모듈보다 소스 의존성을 사용하는 것이 권장됩니다. Swift 3.2 또는 Swift 4 모드로 빌드된 배포판을 확보하는 것도 방법입니다.
+- 소스 의존성이 자체 타겟과 마찬가지로 Swift 3.2 모드에서 성공적으로 빌드되는지 확인하세요.
+- Carthage의 빌드 폴더 내 바이너리 Swift 모듈을 찾기 위한 프레임워크 검색 경로를 설정한 경우, 검색 경로를 제거하거나 빌드 폴더를 정리하여 Xcode 워크스페이스에서 빌드된 Swift 모듈만 사용하고 있는지 확인하세요.
+- 소스 의존성이 Swift 3.2 모드에서 빌드할 수 있는 한 마이그레이션할 필요는 없습니다.
 
-## Miscellaneous
+## 기타
 
-- If you have multiple schemes in your project that cover different targets, you will only get notified that you need to migrate one of them.  You will need to manually select the new scheme, then run *Edit -> Convert -> To Current Swift Syntax* to migrate the remaining schemes. Or you can create a scheme that includes all the targets from your project, and have it selected before running the migration assistant.
+- 프로젝트에 다른 타겟을 포함하는 여러 스킴이 있는 경우, 그 중 하나만 마이그레이션해야 한다는 알림을 받게 됩니다. 새 스킴을 수동으로 선택한 다음 *Edit -> Convert -> To Current Swift Syntax*를 실행하여 나머지 스킴을 마이그레이션해야 합니다. 또는 프로젝트의 모든 타겟을 포함하는 스킴을 만들고, 마이그레이션 어시스턴트를 실행하기 전에 선택해 두면 됩니다.

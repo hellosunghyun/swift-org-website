@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2025-12-11 10:00:00
-title: "Swift Configuration 1.0 released"
+title: Swift Configuration 1.0 출시
 author: [honzadvorsky]
 category: "Developer Tools"
 ---
@@ -79,7 +79,7 @@ Beyond basic lookups, the library includes features for production environments:
 
 The [documentation](https://swiftpackageindex.com/apple/swift-configuration/documentation) covers these features in detail.
 
-## Community adoption
+## 커뮤니티 adoption
 
 With 1.0, the API is now stable. Projects can depend on Swift Configuration knowing only backward-compatible changes are expected going forward. API stability allows libraries and tools to rely on Swift Configuration as a common integration point for reading configuration.
 

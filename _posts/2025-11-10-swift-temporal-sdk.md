@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2025-11-10 13:40:00
-title: "Introducing Temporal Swift SDK: Building durable and reliable workflows"
+title: Temporal Swift SDK 소개: 내구성 있고 신뢰할 수 있는 워크플로 구축
 author: [FranzBusch]
 category: "Developer Tools"
 featured-image:
@@ -48,7 +48,7 @@ To get started with the Temporal Swift SDK, explore its [documentation](https://
 
 For a deeper understanding of Temporal's core concepts and architectural patterns, check out the [general Temporal documentation](https://docs.temporal.io/), which provides valuable context for building robust distributed systems. For a video introduction, watch this [conference presentation](https://www.youtube.com/watch?v=2KW78hoPBWA) from Server-Side Swift 2025 where the project was announced.
 
-## Community and feedback
+## 커뮤니티 and feedback
 
 Temporal Swift SDK is an open source project and we're eager to hear from the Swift community. Whether you're building microservices, coordinating long-running processes, or simply curious about durable execution, we'd love to know how the Temporal Swift SDK works for you.
 

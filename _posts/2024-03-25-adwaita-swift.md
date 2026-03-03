@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2024-03-25 10:00:00
-title: "Writing GNOME Apps with Swift"
+title: Swift로 GNOME 앱 작성하기
 author: [davidswift]
 category: 'Developer Tools'
 ---

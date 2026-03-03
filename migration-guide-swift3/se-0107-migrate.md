@@ -1,16 +1,16 @@
 ---
 layout: page
-title: UnsafeRawPointer Migration
+title: UnsafeRawPointer 마이그레이션
 ---
 
-### Contents:
+### 목차:
 
-- [Introduction](#introduction)
-- [API for binding memory types and pointer conversion](#api-for-binding-memory-types-and-pointer-conversion)
-- [Common use cases](#common-use-cases)
-- [Automatic migration cases](#automatic-migration-cases)
+- [소개](#introduction)
+- [메모리 타입 바인딩 및 포인터 변환 API](#api-for-binding-memory-types-and-pointer-conversion)
+- [일반적인 사용 사례](#common-use-cases)
+- [자동 마이그레이션 사례](#automatic-migration-cases)
 
-## Introduction
+## 소개
 
 Swift 3 introduces an `UnsafeRawPointer` type and enforces type safety with respect to unsafe pointer conversion.
 
@@ -69,7 +69,7 @@ For information on using this API, see [API for binding memory types and pointer
 Copy the above Introduction into the main document and update this link
 --->
 
-## API for binding memory types and pointer conversion
+## 메모리 타입 바인딩 및 포인터 변환 API
 
 ### UnsafePointer.withMemoryRebound(to:capacity:_)
 
@@ -258,7 +258,7 @@ Remember that incorrect use of the Swift memory model can result in
 code that works in one release to be miscompiled in subsequent releases
 of the compiler.
 
-## Common use cases
+## 일반적인 사용 사례
 
 Part of the difficulty in using Swift UnsafePointer is the impedance
 mismatch with existing API's. The two common issues that developer
@@ -592,7 +592,7 @@ extension sockaddr_storage {
 }
 ~~~
 
-## Automatic migration cases
+## 자동 마이그레이션 사례
 
 The following cases are not handled by compiler fix-its, but are
 patterns that can be automatically, or almost automatically,

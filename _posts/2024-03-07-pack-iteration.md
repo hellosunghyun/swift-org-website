@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2024-03-07 10:30:00
-title: Iterate Over Parameter Packs in Swift 6.0
+title: Swift 6.0에서 Parameter Pack 반복하기
 author: [simanerush]
 category: "Language"
 ---
@@ -229,7 +229,7 @@ print(evaluateAll(result:
 // [5, true]
 ```
 
-## Summary
+## 요약
 
 We are excited to bring pack iteration to Swift 6.0!
 As seen in this article, pack iteration makes interacting with value parameter packs significantly more straightforward, making such an advanced feature more accessible and intuitive to incorporate into your Swift code.

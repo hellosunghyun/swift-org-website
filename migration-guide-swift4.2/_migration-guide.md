@@ -1,88 +1,88 @@
-Xcode 10.0 comes with a Swift Migrator tool that helps you migrate your project to Swift 4.2.
+Xcode 10.0에는 프로젝트를 Swift 4.2로 마이그레이션하는 데 도움이 되는 Swift Migrator 도구가 포함되어 있습니다.
 
-> For the previous release's Migration Guide, see [Migrating to Swift 4](/migration-guide-swift4).
+> 이전 릴리스의 마이그레이션 가이드는 [Swift 4로 마이그레이션하기](/migration-guide-swift4)를 참고하세요.
 
-## Pre-Migration Preparation
+## 마이그레이션 사전 준비
 
-Make sure that the project that you intend to migrate builds successfully in Swift 3 or Swift 4 mode, and all its tests pass. You may need to resolve errors initially due to compiler changes.
+마이그레이션하려는 프로젝트가 Swift 3 또는 Swift 4 모드에서 성공적으로 빌드되고, 모든 테스트가 통과하는지 확인하세요. 컴파일러 변경으로 인해 처음에 오류를 해결해야 할 수도 있습니다.
 
-It's highly recommended to have your project managed under source control. This will allow you to easily review the changes that were applied via the migration assistant and to discard them and re-try the migration if needed.
+프로젝트를 소스 컨트롤로 관리하는 것을 적극 권장합니다. 이렇게 하면 마이그레이션 어시스턴트를 통해 적용된 변경 사항을 쉽게 검토하고, 필요한 경우 변경을 취소하고 마이그레이션을 다시 시도할 수 있습니다.
 
-You decide when and if you'd like to migrate on a per-target basis when it makes sense for your project. While migrating to Swift 4.2 is definitely encouraged, it's not an all-or-nothing process, as Swift 3, 4, and 4.2 targets can coexist and link together.
+프로젝트에 적합한 시점에 타겟별로 마이그레이션 여부와 시기를 결정할 수 있습니다. Swift 4.2로의 마이그레이션을 적극 권장하지만, Swift 3, 4, 4.2 타겟이 공존하고 함께 링크될 수 있으므로 전부 한꺼번에 해야 하는 것은 아닙니다.
 
-The migration assistant does a *migrator build* to gather the changes, using the scheme you have selected, so the targets that will get processed are the ones that are included in the scheme. To review and modify what is included in the scheme, invoke the *Edit Scheme...* sheet and select the *Build* tab from the column on the left, and make sure all your targets and their unit tests are included.
+마이그레이션 어시스턴트는 선택한 스킴을 사용하여 *migrator 빌드*를 수행하고 변경 사항을 수집하므로, 처리되는 타겟은 스킴에 포함된 타겟입니다. 스킴에 포함된 항목을 검토하고 수정하려면 _Edit Scheme..._ 시트를 열고 왼쪽 열에서 _Build_ 탭을 선택한 다음, 모든 타겟과 단위 테스트가 포함되어 있는지 확인하세요.
 
-> If your project depends on other open-source projects that are provided by Carthage or CocoaPods, consult the [Using Carthage/CocoaPods Projects](#using-carthagecocoapods-projects) section.
+> 프로젝트가 Carthage나 CocoaPods에서 제공하는 다른 오픈 소스 프로젝트에 의존하는 경우, [Carthage/CocoaPods 프로젝트 사용](#using-carthagecocoapods-projects) 섹션을 참고하세요.
 
-## Swift Migration Assistant
+## Swift 마이그레이션 어시스턴트
 
-When you open your project with Xcode 10 for the first time, you will see a migration opportunity item in the Issue Navigator: click it to activate a sheet asking you if you'd like to migrate. You can be reminded later or invoke the Migrator manually from the menu *Edit -> Convert -> To Current Swift Syntax...*
+Xcode 10으로 프로젝트를 처음 열면 Issue Navigator에 마이그레이션 기회 항목이 표시됩니다. 이를 클릭하면 마이그레이션 여부를 묻는 시트가 활성화됩니다. 나중에 알림을 받거나 메뉴 *Edit -> Convert -> To Current Swift Syntax...*에서 Migrator를 수동으로 실행할 수 있습니다.
 
-You will be presented with a list of targets to migrate. Targets that do not contain any Swift code will not be selected.
+마이그레이션할 타겟 목록이 표시됩니다. Swift 코드가 포함되지 않은 타겟은 선택되지 않습니다.
 
-If all your selected targets are in Swift 4 mode there is only one migration workflow, but for Swift 3 targets there is a choice between two kinds of *`@objc` Inference*:
+선택한 모든 타겟이 Swift 4 모드인 경우 마이그레이션 워크플로는 하나뿐이지만, Swift 3 타겟의 경우 두 가지 _`@objc` 추론_ 중 선택할 수 있습니다:
 
-- **Minimize Inference**: Add an @objc attribute to your code only where it is needed based on static inference. After using this option you need to follow the manual steps detailed in Completing a Swift 4 minimize inference migration to complete the conversion.
-- **Match Swift 3 Behavior**: Add an @objc attribute to your code anywhere it would be implicitly inferred by the compiler. This option does not change the size of your binary as it adds explicit @objc attributes everywhere they were implicitly added by Swift 3.
+- **추론 최소화**: 정적 추론에 기반하여 필요한 곳에만 @objc 속성을 추가합니다. 이 옵션을 사용한 후에는 Swift 4 추론 최소화 마이그레이션 완료에 설명된 수동 단계를 따라 변환을 완료해야 합니다.
+- **Swift 3 동작 일치**: 컴파일러가 암시적으로 추론하는 모든 곳에 @objc 속성을 추가합니다. 이 옵션은 Swift 3에서 암시적으로 추가되었던 모든 곳에 명시적 @objc 속성을 추가하므로 바이너리 크기를 변경하지 않습니다.
 
-> For more information and implications of these two choices, see the Xcode Help article [Migrate to Swift 4 `@objc` inference](https://help.apple.com/xcode/mac/current/#/deve838b19a1).
+> 이 두 선택의 자세한 내용과 영향은 Xcode 도움말 문서 [Migrate to Swift 4 `@objc` inference](https://help.apple.com/xcode/mac/current/#/deve838b19a1)를 참고하세요.
 
-Clicking *Next* will bring up the *Generate Preview* sheet and the assistant will initiate a *migration build* to get source changes. When this is done, you will be presented with all the changes that will be applied once you click on 'Save'. This will also change the *Swift Language Version* build setting for the migrated targets to *Swift 4.2*.
+*Next*를 클릭하면 _Generate Preview_ 시트가 나타나고, 어시스턴트가 *migration 빌드*를 시작하여 소스 변경 사항을 수집합니다. 완료되면 'Save'를 클릭했을 때 적용될 모든 변경 사항이 표시됩니다. 이때 마이그레이션된 타겟의 _Swift Language Version_ 빌드 설정도 *Swift 4.2*로 변경됩니다.
 
-There may have been issues with processing the targets that will negatively impact the migration process. Switch to the *Report Navigator* and select the *Convert* entry that was added; this is the conversion build log. Check the log for errors that may have showed up.
+타겟 처리 중 마이그레이션 프로세스에 부정적인 영향을 미치는 문제가 있었을 수 있습니다. *Report Navigator*로 전환하고 추가된 _Convert_ 항목을 선택하세요. 이것이 변환 빌드 로그입니다. 나타난 오류가 있는지 로그를 확인하세요.
 
-If you see errors about not being able to code-sign the target, try disabling code-signing from the build settings of the target. If you see other errors, please [file a bug report](https://bugreport.apple.com) and include the details. You are strongly encouraged to attach a project that illustrates the faulty migration if possible.
+타겟의 코드 서명을 할 수 없다는 오류가 보이면, 타겟의 빌드 설정에서 코드 서명을 비활성화해 보세요. 다른 오류가 보이면 [버그 리포트](https://bugreport.apple.com)를 제출하고 세부 사항을 포함해 주세요. 가능하면 잘못된 마이그레이션을 보여주는 프로젝트를 첨부하는 것을 적극 권장합니다.
 
-## Swift 4.2 Migration Changes Overview
+## Swift 4.2 마이그레이션 변경 사항 개요
 
-The vast majority of changes that the Migrator suggests comes from data generated by a comparison of the previous SDK and the current SDK, which may drive renaming of identifiers and types, for example; and from normal *compiler fix-its*.
+Migrator가 제안하는 대부분의 변경은 이전 SDK와 현재 SDK를 비교하여 생성된 데이터에서 비롯되며, 식별자와 타입의 이름 변경 등을 유발할 수 있습니다. 또한 일반적인 *컴파일러 fix-it*에서도 비롯됩니다.
 
-The most prevalent SDK changes are moving global constants into static type properties and transforming string constants into Swift enumeration cases. These are handled automatically by the Migrator.
+가장 많은 SDK 변경 사항은 전역 상수를 정적 타입 프로퍼티로 이동하고 문자열 상수를 Swift 열거형 케이스로 변환하는 것입니다. 이는 Migrator가 자동으로 처리합니다.
 
-If you migrate from Swift 3 code, also see the migration changes overview from last year's migrator from [Migrating to Swift 4](/migration-guide-swift4/#swift-4-migration-changes-overview).
+Swift 3 코드에서 마이그레이션하는 경우, 작년 Migrator의 마이그레이션 변경 사항 개요인 [Swift 4로 마이그레이션하기](/migration-guide-swift4/#swift-4-migration-changes-overview)도 참고하세요.
 
-## After Migration
+## 마이그레이션 후
 
-While the migrator will take care of many mechanical changes for you, it is likely that you will need to make more manual changes to be able to build the project after applying the migrator changes.
+Migrator가 많은 기계적 변경을 처리해 주지만, Migrator 변경 사항을 적용한 후 프로젝트를 빌드하기 위해 추가적인 수동 변경이 필요할 수 있습니다.
 
-You may see compiler errors that have associated fixits; while the migrator is designed to incorporate fixits that the Swift 4 compiler provides, some fixits may not be applied if they are not applicable 100% of the time.
+연관된 fix-it이 있는 컴파일러 오류가 보일 수 있습니다. Migrator는 Swift 4 컴파일러가 제공하는 fix-it을 반영하도록 설계되었지만, 100% 적용 가능하지 않은 일부 fix-it은 적용되지 않을 수 있습니다.
 
-Even if it compiles fine, the code that the migrator provided may not be ideal. Use your best judgement and check that the changes are appropriate for your project.
+코드가 정상적으로 컴파일되더라도, Migrator가 제공한 코드가 이상적이지 않을 수 있습니다. 자체 판단을 사용하고 변경 사항이 프로젝트에 적합한지 확인하세요.
 
-See [Known Migration Issues](#known-migration-issues) section, for a list of issues that you may encounter while trying to migrate your project.
+프로젝트를 마이그레이션하면서 만날 수 있는 문제 목록은 [알려진 마이그레이션 문제](#known-migration-issues) 섹션을 참고하세요.
 
-## Known Migration Issues
+## 알려진 마이그레이션 문제
 
 ### SDK
 
-* You may see errors like `Cannot assign value of type 'Int' to type 'UIBackgroundTaskIdentifier'`
-	* Workaround: remove migrator-inserted conversion functions / add .rawValue as appropriate
-* You may see errors like `binary operator '|=' cannot be applied to two 'UIAccessibility.Traits' operands`
-	* Workaround: `|` the raw values of the LHS and RHS, pass the result to `UIAccessibilityTraits(rawValue:)` and assign to the LHS
-* UIApplicationMain has changed the type of its second argument to match the type of `CommandLine.unsafeArgv` exactly
-	* Workaround: replace the second argument with `CommandLine.unsafeArgv`.
-* For a macOS application using `AppKit` you may see errors like `argument labels '(rawValue:)' do not match any available overloads`
-	*  Workaround: remove the `rawValue:` argument label.
+- `Cannot assign value of type 'Int' to type 'UIBackgroundTaskIdentifier'`와 같은 오류가 보일 수 있습니다.
+  - 해결 방법: Migrator가 삽입한 변환 함수를 제거하거나 적절히 .rawValue를 추가하세요.
+- `binary operator '|=' cannot be applied to two 'UIAccessibility.Traits' operands`와 같은 오류가 보일 수 있습니다.
+  - 해결 방법: 좌변과 우변의 원시 값을 `|`하고, 결과를 `UIAccessibilityTraits(rawValue:)`에 전달한 후 좌변에 할당하세요.
+- UIApplicationMain의 두 번째 인수 타입이 `CommandLine.unsafeArgv`의 타입과 정확히 일치하도록 변경되었습니다.
+  - 해결 방법: 두 번째 인수를 `CommandLine.unsafeArgv`로 교체하세요.
+- `AppKit`을 사용하는 macOS 애플리케이션에서 `argument labels '(rawValue:)' do not match any available overloads`와 같은 오류가 보일 수 있습니다.
+  - 해결 방법: `rawValue:` 인수 레이블을 제거하세요.
 
-### Other
+### 기타
 
-* Swift Migration build is ignoring `Other Swift Flags` build setting
-	* Manifests as missing return error, due to conditional compilation branches with no `#else` and none of the expected -D flags being passed.
-	* Workaround: try adding `#else` clauses with an appropriate assertion / `fatalError()` as necessary prior to migration
-* Changes applied via the Swift migration assistant do not show up in the open document
-	* Workaround: switch to a different file and back, and the changes will show up.
-* For a `main.swift` file, the migrator may add helper functions to the bottom of a file and they will not be available on preceding top-level expressions.
-	* Workaround: move the helper functions to the start of the file after the imports.
+- Swift 마이그레이션 빌드가 `Other Swift Flags` 빌드 설정을 무시합니다.
+  - `#else`가 없는 조건부 컴파일 분기로 인해 missing return 오류로 나타나며, 예상된 -D 플래그가 전달되지 않습니다.
+  - 해결 방법: 마이그레이션 전에 필요에 따라 적절한 assertion / `fatalError()`가 있는 `#else` 절을 추가해 보세요.
+- Swift 마이그레이션 어시스턴트를 통해 적용된 변경 사항이 열린 문서에 표시되지 않습니다.
+  - 해결 방법: 다른 파일로 전환했다가 다시 돌아오면 변경 사항이 표시됩니다.
+- `main.swift` 파일의 경우, Migrator가 파일 하단에 헬퍼 함수를 추가할 수 있으며, 이는 그 앞의 최상위 수준 표현식에서 사용할 수 없습니다.
+  - 해결 방법: 헬퍼 함수를 import 문 다음, 파일 시작 부분으로 이동하세요.
 
-## Using Carthage/CocoaPods Projects
+## Carthage/CocoaPods 프로젝트 사용
 
-Here are some important points to consider when migrating a project with external dependencies using package managers like Carthage, CocoaPods, or the Swift Package Manager.
+Carthage, CocoaPods 또는 Swift Package Manager과 같은 패키지 관리자를 사용하는 외부 의존성이 있는 프로젝트를 마이그레이션할 때 고려해야 할 몇 가지 중요한 사항이 있습니다.
 
-- It is recommended to use source dependencies rather than binary Swift modules, because Swift 3.1 modules will not be compatible with Swift 3.2/4 modules, unless you can get distributions that were built in Swift 3.2 or Swift 4 mode.
-- Make sure your source dependencies build successfully in Swift 3.2 mode as well as your own targets.
-- If you have setup framework search paths for finding the binary Swift modules inside Carthage's build folder, either remove the search paths or clean the build folder, so that you are sure that you are only using the Swift modules that are built from your Xcode workspace.
-- It is not necessary to migrate your source dependencies as long as they can build in Swift 3.2 mode.
+- Swift 3.1 모듈은 Swift 3.2/4 모듈과 호환되지 않으므로, 바이너리 Swift 모듈보다 소스 의존성을 사용하는 것이 권장됩니다. Swift 3.2 또는 Swift 4 모드로 빌드된 배포판을 확보하는 것도 방법입니다.
+- 소스 의존성이 자체 타겟과 마찬가지로 Swift 3.2 모드에서 성공적으로 빌드되는지 확인하세요.
+- Carthage의 빌드 폴더 내 바이너리 Swift 모듈을 찾기 위한 프레임워크 검색 경로를 설정한 경우, 검색 경로를 제거하거나 빌드 폴더를 정리하여 Xcode 워크스페이스에서 빌드된 Swift 모듈만 사용하고 있는지 확인하세요.
+- 소스 의존성이 Swift 3.2 모드에서 빌드할 수 있는 한 마이그레이션할 필요는 없습니다.
 
-## Miscellaneous
+## 기타
 
-- If you have multiple schemes in your project that cover different targets, you will only get notified that you need to migrate one of them.  You will need to manually select the new scheme, then run *Edit -> Convert -> To Current Swift Syntax* to migrate the remaining schemes. Or you can create a scheme that includes all the targets from your project, and have it selected before running the migration assistant.
+- 프로젝트에 다른 타겟을 포함하는 여러 스킴이 있는 경우, 그 중 하나만 마이그레이션해야 한다는 알림을 받게 됩니다. 새 스킴을 수동으로 선택한 다음 *Edit -> Convert -> To Current Swift Syntax*를 실행하여 나머지 스킴을 마이그레이션해야 합니다. 또는 프로젝트의 모든 타겟을 포함하는 스킴을 만들고, 마이그레이션 어시스턴트를 실행하기 전에 선택해 두면 됩니다.

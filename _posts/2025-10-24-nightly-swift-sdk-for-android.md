@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2025-10-24 10:00:00
-title: "Announcing the Swift SDK for Android"
+title: Android용 Swift SDK 발표
 author: joannis
 category: "Developer Tools"
 featured-image:
@@ -21,7 +21,7 @@ This milestone reflects months of effort by the Android workgroup, building on m
 
 The Swift SDK for Android is available today, bundled with the [Windows installer](/install/windows/) or downloadable separately for use on Linux or macOS.
 
-## Getting Started
+## 시작하기
 
 We've published a [Getting Started guide](/documentation/articles/swift-sdk-for-android-getting-started.html) to help you set up your first native Swift code on an Android device. The [Swift for Android Examples](https://github.com/swiftlang/swift-android-examples) help demonstrate end‑to‑end application workflows on Android.
 
@@ -29,7 +29,7 @@ With the Swift SDK for Android, you can now start porting your Swift packages to
 
 The [swift-java project](https://github.com/swiftlang/swift-java) enables you to interoperate between Java and Swift. It is both a library and a code generator, enabling you to integrate Swift and Java in both directions by automatically generating safe and performant bindings. To learn about generating bindings to bring your business logic to Android, check out the [recent Swift Server Side meetup talk](https://www.youtube.com/watch?v=96IQAA7Nl8E&t=982s) by Mads Odgaard.
 
-## Next Steps
+## 다음 단계
 
 This preview release opens many new opportunities to continue improving these tools. We encourage you to share your experiences, ideas, tools and apps on the [Swift forums](https://forums.swift.org). This post has been published on an [associated thread](https://forums.swift.org/t/announcing-the-swift-sdk-for-android/82845) for discussion, and new posts can be shared in the [Android category](https://forums.swift.org/c/platform/android/115).
 

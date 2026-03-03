@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2024-06-10 10:00:00
-title: "New GitHub Organization for the Swift Project"
+title: Swift 프로젝트를 위한 새 GitHub 조직
 author: [tkremenek]
 category: "Community"
 ---

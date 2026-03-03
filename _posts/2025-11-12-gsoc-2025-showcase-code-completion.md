@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2025-11-12 17:05:00
-title: "GSoC 2025 Showcase: Improved Code completion for Swift"
+title: GSoC 2025 쇼케이스: Swift의 코드 완성 개선
 author: [ahmedelrefaey, ktoso]
 category: "Community"
 ---

@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2025-06-02 10:00:00
-title: "Swift at Apple: Migrating the Password Monitoring service from Java"
+title: Apple에서의 Swift: 비밀번호 모니터링 서비스를 Java에서 마이그레이션
 author: [rmondello, indravardhan, spencervd6, umeshbatra13]
 category: "Adopters"
 ---

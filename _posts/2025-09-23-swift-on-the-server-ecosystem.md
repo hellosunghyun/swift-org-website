@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2025-09-23 17:00:00
-title: "The Growth of the Swift Server Ecosystem"
+title: Swift 서버 생태계의 성장
 author: [0xTim]
 category: "Community"
 ---

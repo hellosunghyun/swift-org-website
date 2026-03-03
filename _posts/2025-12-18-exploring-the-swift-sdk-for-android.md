@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2025-12-18 10:00:00
-title: "Exploring the Swift SDK for Android"
+title: Android용 Swift SDK 탐구
 author: android-workgroup
 category: "Developer Tools"
 ---

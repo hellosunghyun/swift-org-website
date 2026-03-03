@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2024-03-20 10:00:00
-title: "Introducing the Benchmark Package: Complementing Unit Tests with Performance Checks"
+title: Benchmark 패키지 소개: 성능 검사로 유닛 테스트 보완하기
 author: [hassila]
 category: "Developer Tools"
 ---

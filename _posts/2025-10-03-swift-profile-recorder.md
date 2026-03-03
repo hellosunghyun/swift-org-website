@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2025-10-06 10:00:00
-title: "Introducing Swift Profile Recorder: Identifying Performance Bottlenecks in Production"
+title: Swift Profile Recorder 소개: 프로덕션 성능 병목 식별
 author: [weissi, mitchellallison]
 category: "Developer Tools"
 ---
@@ -107,7 +107,7 @@ An example running Hummingbird's [`hello` example](https://github.com/hummingbir
 Swift Profile Recorder can also be used a source to send samples to [Parca](https://parca.dev) as well as [Pyroscope](https://pyroscope.io). If your production environment allows you to install system-wide profiling using eBPF, we would recommend to use Parca Agent together with [swift-parca](https://github.com/ordo-one/swift-parca).
 
 
-## Community and feedback
+## 커뮤니티 and feedback
 
 Swift Profile Recorder is an open source project and we're eager to hear from the Swift community. Whether you're running Swift applications in Kubernetes, investigating performance issues, or simply curious about where your application spends its time, we'd love to know how Swift Profile Recorder works for you. For example, it should be possible to integrate Swift Profile Recorder into a lambda function. We look forward to hearing how you use the profiler.
 

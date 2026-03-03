@@ -3,7 +3,7 @@ layout: new-layouts/post
 published: true
 category: "Community"
 date: 2024-02-13 10:00:00
-title: Swift Summer of Code 2023 Summary
+title: Swift Summer of Code 2023 요약
 author: [ktoso, FranzBusch, ahoppen, xedin]
 category: "Community"
 ---

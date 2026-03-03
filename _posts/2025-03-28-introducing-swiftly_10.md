@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2025-03-28 6:00:00
-title: Introducing swiftly 1.0
+title: swiftly 1.0 소개
 author: [chris-mcgee]
 category: "Developer Tools"
 ---

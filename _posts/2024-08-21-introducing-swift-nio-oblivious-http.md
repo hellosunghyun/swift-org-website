@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2024-08-21 10:00:00
-title: Introducing Oblivious HTTP support in Swift
+title: Swift에서 Oblivious HTTP 지원 소개
 author: [corybenfield]
 category: "Developer Tools"
 ---

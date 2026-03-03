@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2026-03-02 14:05:00
-title: "What's new in Swift: February 2026 Edition"
+title: Swift 새 소식: 2026년 2월 에디션
 author: [karenchu, davelester]
 category: "Digest"
 ---
@@ -39,7 +39,7 @@ Lastly, [Swift System Metrics 1.0](https://www.swift.org/blog/swift-system-metri
 * [SwiftCrossUI: Swift apps, everywhere](https://www.youtube.com/watch?v=EC9qVCYBVyk&list=PLeb93j_rsErO182fdoJ4m1p_suKAOcBnM&index=9) presented a UI solution for Swift applications that run on Android, Linux, and Windows, using native UI components on each platform. The project also recently published a [development update](https://www.youtube.com/watch?v=HgRO7eIHkyE) in video form, covering contributions and recent changes.
 * Ever wanted to control microcontrollers in Swift? [CoreAVR + ArduinoKit: Swift on the Arduino, the Swift way](https://www.youtube.com/watch?v=1ofoMAFq8ak&list=PLeb93j_rsErO182fdoJ4m1p_suKAOcBnM&index=6) introduces ArduinoKit, which acts as the Arduino standard library for Swift, and CoreAVR, a hardware abstraction layer for AVR microcontrollers written in Swift.
 
-## Community highlights
+## 커뮤니티 highlights
 * Swift is participating in Google Summer of Code 2026! 🎉 A recent [forums post announced the process](https://forums.swift.org/t/swift-google-summer-of-code-2026/85007) and outlined key dates to learn more. This is a great opportunity if you're a student interested in contributing to Swift!
 * A community member recently blogged about their experience [profiling Swift applications on Windows and macOS with Tracy](https://compositorapp.com/blog/2026-02-07/Tracy/), covering how to visualize and analyze their application performance.
 

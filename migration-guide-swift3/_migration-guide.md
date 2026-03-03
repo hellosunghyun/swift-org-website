@@ -1,8 +1,8 @@
-**This is a legacy document for Xcode 8 and migrating from Swift 2.**
+**이 문서는 Xcode 8과 Swift 2에서의 마이그레이션을 위한 레거시 문서입니다.**
 
-Xcode 8.0 comes with a Swift Migrator tool that helps you migrate your project to Swift 3, or update it to work with Swift 2.3 and the new SDKs.
+Xcode 8.0에는 프로젝트를 Swift 3으로 마이그레이션하거나 Swift 2.3과 새로운 SDK에서 동작하도록 업데이트하는 데 도움이 되는 Swift Migrator 도구가 포함되어 있습니다.
 
-## Pre-Migration Preparation
+## 마이그레이션 사전 준비
 
 To get the most effective migration, make sure that the project that you intend to migrate builds successfully, and all its tests pass, when using Xcode 7.3[.1].
 Also make sure that the project is managed under source control. This will allow you to easily review the changes that were applied via the migration assistant and to discard them and re-try the migration if needed.
@@ -12,7 +12,7 @@ To review and modify what is included in the scheme, invoke the *"Edit Scheme...
 
 If your project depends on other open-source projects that are provided by Carthage or CocoaPods, consult the [Using Carthage/CocoaPods Projects](#using-carthagecocoapods-projects) section.
 
-## Swift Migration Assistant
+## Swift 마이그레이션 어시스턴트
 When you open your project with Xcode 8.0 for the first time, you will be prompted via the migration assistant to do a migration pass. The assistant can also be invoked manually from the menu *Edit -> Convert -> To Current Swift Syntax...*
 
 You can choose from two kinds of migration to perform:
@@ -34,13 +34,13 @@ If you see other errors, please file a bug report at https://bugreport.apple.com
 
 If you need to apply any workarounds, discard the changes that you accepted from the migration assistant earlier, apply the workarounds, and invoke the assistant manually to re-try the conversion from the start.
 
-## Swift 3 Migration Changes Overview
+## Swift 3 마이그레이션 변경 사항 개요
 
-There have been many significant changes for Swift 3, which the migrator will help you with. You can see an overview of the Swift 3 evolution proposals here: [https://github.com/swiftlang/swift-evolution](https://github.com/swiftlang/swift-evolution)
+Swift 3에는 많은 중요한 변경 사항이 있으며, Migrator가 이를 도와줍니다. You can see an overview of the Swift 3 evolution proposals here: [https://github.com/swiftlang/swift-evolution](https://github.com/swiftlang/swift-evolution)
 
-Here is a brief overview of the more impactful source-breaking changes:
+소스 호환성에 영향을 미치는 주요 변경 사항의 간략한 개요입니다:
 
-### API Design Guidelines
+### API 설계 가이드라인
 
 The Objective-C APIs are imported into Swift 3 according to the new [Swift API design guidelines](/documentation/api-design-guidelines). This affects both how the SDKs are imported and the Objective-C user frameworks. The Swift Standard Library also has many changes for adhering to the guidelines. For more details you can refer to proposal [SE-0005 - Better Translation of Objective-C APIs Into Swift](https://github.com/swiftlang/swift-evolution/blob/main/proposals/0005-objective-c-name-translation.md).
 The migrator is lowercasing enums declared by the user, to match them with the new guidelines.
@@ -52,7 +52,7 @@ For details see proposals [SE-0044 - Import as member](https://github.com/swiftl
 
 The 'NS' prefix from key Foundation types is getting removed in Swift 3, see [SE-0086 - Drop NS Prefix in Swift Foundation](https://github.com/swiftlang/swift-evolution/blob/main/proposals/0086-drop-foundation-ns.md).
 
-### Swift Standard Library
+### Swift 표준 라이브러리
 
 The Collection indexing model has changed dramatically in Swift 3, for more details see [SE-0065 - A New Model for Collections and Indices](https://github.com/swiftlang/swift-evolution/blob/main/proposals/0065-collections-move-indices.md).
 The most visible change is that indexes no longer have `successor()`, `predecessor()`, `advancedBy(_:)`, `advancedBy(_:limit:)`, or `distanceTo(_:)` methods. Instead, those operations are moved to the collection, which is now responsible for incrementing and decrementing its indices.
@@ -79,7 +79,7 @@ var r = 0..<10 // CountableRange<Int>
 Range(r) // converts to Range<Int>
 ~~~
 
-### Language
+### 언어
 - **Consistent first argument labels**
 The first argument label in functions is now considered API by default, see [SE-0046 - Establish consistent label behavior across all parameters including first labels](https://github.com/swiftlang/swift-evolution/blob/main/proposals/0046-first-label.md).
 The migrator adds underscore labels to preserve the existing APIs:
@@ -143,7 +143,7 @@ The default for closures was switched and they require an `@escaping` annotation
 An `Unsafe[Mutable]RawPointer` type has been introduced. It replaces `Unsafe[Mutable]Pointer<Void>`. Conversion from `UnsafePointer<T>` to `UnsafePointer<U>` has been disallowed. `Unsafe[Mutable]RawPointer` provides an API for untyped memory access and an API for binding memory to a type. Binding memory allows for safe conversion between pointer types.
 For detailed instructions on how to migrate your code to the new API refer to the [UnsafeRawPointer migration guide](/migration-guide-swift3/se-0107-migrate.html).
 
-## After Migration
+## 마이그레이션 후
 
 While the migrator will take care of many mechanical changes for you, it is likely that you will need to make more manual changes to be able to build the project after applying the migrator changes.
 
@@ -154,7 +154,7 @@ You may also see new comments that the migrator added (`/*Migrator FIXME: ...*/`
 
 See [Known Migration Issues](#known-migration-issues) section, for a list of issues that you may encounter while trying to migrate your project.
 
-## Using Carthage/CocoaPods Projects
+## Carthage/CocoaPods 프로젝트 사용
 
 If you are using binary Swift modules from other projects that are not built along with your project in your Xcode workspace, you can choose from one of the following migration strategies:
 
@@ -168,9 +168,9 @@ You can follow this workflow for migrating your project:
 	- Before trying to build, modify the Carthage/CocoaPods dependency file and specify the specific tag/branch of the project that is migrated to Swift 2.3 or Swift 3; update your dependencies and try to build your project with the updated dependencies and the source changes that you got from the migrator.
 
 
-## Known Migration Issues
+## 알려진 마이그레이션 문제
 
-### Swift Standard Library
+### Swift 표준 라이브러리
 
 - The migrator may fail to migrate uses of the indexing methods on `SetIndex` and `DictionaryIndex`.
 	- Workaround: Manually migrate the indexing methods to their collection counterparts. Roughly:
@@ -253,7 +253,7 @@ NotificationCenter.default().post(name: MyController.MyGreatNotification, object
 	- `dispatch_get_specific` no longer takes an `UnsafeMutablePointer<Void>`, and it does not add the required argument label.
 		- Workaround: Replace your `UnsafeMutablePointer<Void>` keys with `DispatchSpecificKey<T>` , and add the missing `key:` label.
 
-###  Swift 3 Language
+### Swift 3 언어
 - The migrator may not fully migrate closures that take `ImplicitlyUnwrappedOptional`s.
 	- Workaround: Promote them to use regular optionals.
 - The migrator may incorrectly insert `?` after values of implicitly unwrapped optional type where `!` would be more appropriate.  This can allow a nil value to be silently propagated instead of deterministically trapping.
@@ -268,5 +268,5 @@ NotificationCenter.default().post(name: MyController.MyGreatNotification, object
 - The migrator may add unnecessary Swift module qualifications to SequenceType conformances, e.g. `struct MySequence: SequenceType` => `struct MySequence: Swift.Sequence`.
 	- Workaround: Remove the leading `Swift.`
 
-### Miscellaneous
+### 기타
 - If you have multiple schemes in your project that cover different targets, you will only get notified that you need to migrate one of them.  You will need to manually select the new scheme, then run *Edit -> Convert -> To Current Swift Syntax* to migrate the remaining schemes. Or you can create a scheme that includes all the targets from your project, and have it selected before running the migration assistant.

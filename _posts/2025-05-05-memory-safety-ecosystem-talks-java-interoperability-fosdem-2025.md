@@ -2,7 +2,7 @@
 layout: new-layouts/post
 published: true
 date: 2025-05-05 11:55:00
-title: "ICYMI: Memory Safety, Ecosystem Talks, and Java Interoperability at FOSDEM 2025"
+title: 다시 보기: FOSDEM 2025의 메모리 안전, 생태계 발표, Java 상호 운용성
 author: [parispittman]
 category: "Digest"
 ---
