@@ -7,12 +7,12 @@
     </td>
     <td class="">
         <span class="release">
-          <a href="https://download.swift.org/{{ include.release.tag | downcase }}/xcode/{{ include.release.tag }}/{{ include.release.tag }}-osx.pkg" title="Toolchain">Toolchain</a>
+          <a href="https://download.swift.org/{{ include.release.tag | downcase }}/xcode/{{ include.release.tag }}/{{ include.release.tag }}-osx.pkg" title="툴체인">툴체인</a>
         </span>
     </td>
     <td class="">
         <span class="release">
-          <a href="https://download.swift.org/{{ include.release.tag | downcase }}/xcode/{{ include.release.tag }}/{{ include.release.tag }}-osx-symbols.pkg" title="Debugging Symbols">Debugging Symbols</a>
+          <a href="https://download.swift.org/{{ include.release.tag | downcase }}/xcode/{{ include.release.tag }}/{{ include.release.tag }}-osx-symbols.pkg" title="디버깅 심볼">디버깅 심볼</a>
         </span>
     </td>
     <td class="release">
@@ -20,7 +20,7 @@
         {% assign static_sdk = release_info.platforms | where: 'name', 'Static SDK'| first %}
     {% if static_sdk %}
         {% assign tag_downcase = include.release.tag | downcase %}
-        <button onclick="copyToClipboard(this, 'swift sdk install https://download.swift.org/{{ tag_downcase }}/static-sdk/{{ include.release.tag }}/{{ include.release.tag }}_static-linux-{{ static_sdk.version }}.artifactbundle.tar.gz --checksum {{ static_sdk.checksum }}')">Copy install command</button>
+        <button onclick="copyToClipboard(this, 'swift sdk install https://download.swift.org/{{ tag_downcase }}/static-sdk/{{ include.release.tag }}/{{ include.release.tag }}_static-linux-{{ static_sdk.version }}.artifactbundle.tar.gz --checksum {{ static_sdk.checksum }}')">설치 명령어 복사</button>
     {% else %}
         Unavailable
     {% endif %}

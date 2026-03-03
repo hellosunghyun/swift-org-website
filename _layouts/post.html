@@ -14,7 +14,7 @@ layout: base
 
   <footer>
     {% if page.author %}
-      <p>Written by</p>
+      <p>작성자</p>
       {% include authors.html authors=page.author %}
     {% endif %}
 
@@ -34,7 +34,7 @@ layout: base
 </main>
 
 {% capture licenseinfo %}
-  <p>Except where otherwise noted, all content on this blog is licensed<br /> under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International license</a>.</p>
+  <p>별도의 명시가 없는 한, 이 블로그의 모든 콘텐츠는 <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International 라이선스</a>에 따라 사용이 허가됩니다.</p>
 {% endcapture %}
 
 {% include new-includes/footer/footer.html licenseinfo=licenseinfo %}

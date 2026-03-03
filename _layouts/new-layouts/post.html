@@ -39,7 +39,7 @@ layout: new-layouts/base
 
       {% if authors.size > 1 %}
         <hr />
-        <h2>Authors</h2>
+        <h2>작성자</h2>
         {% include authors.html authors=authors %}
       {% endif %}
 
@@ -47,7 +47,7 @@ layout: new-layouts/base
 
       <hr />
 
-      <h2>Continue Reading</h2>
+      <h2>계속 읽기</h2>
 
       {% if page.previous or page.next %}
       <nav class="section card-grid">
@@ -63,7 +63,7 @@ layout: new-layouts/base
                 <p class="nav-excerpt">
                   {{ page.previous.excerpt | strip_html | truncate: 80, '..' }}
                 </p>
-                <a href="{{ page.previous.url }}" rel="prev"> More </a>
+                <a href="{{ page.previous.url }}" rel="prev"> 더 보기 </a>
               </div>
             </li>
             {% endif %} {% if page.next %}
@@ -76,7 +76,7 @@ layout: new-layouts/base
                 <p class="nav-excerpt">
                   {{ page.next.excerpt | strip_html | truncate: 80, '..' }}
                 </p>
-                <a href="{{ page.next.url }}" rel="next"> More </a>
+                <a href="{{ page.next.url }}" rel="next"> 더 보기 </a>
               </div>
             </li>
             {% endif %}

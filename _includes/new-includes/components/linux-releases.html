@@ -37,7 +37,7 @@
             {%- for arch in platform.archs -%}
             <div class="link-group">
               <a class="body-copy" href="https://download.swift.org/{{ tag_downcase }}/{{ platform_release_name_url }}{% if arch != "x86_64" %}-{{ arch }}{% endif %}/{{ tag }}/{{ tag }}-{{ platform_name }}{% if arch != "x86_64" %}-{{ arch }}{% endif %}.tar.gz" class="cta-secondary">
-                Download ({{ arch }})
+                다운로드 ({{ arch }})
               </a> |
               <a class="body-copy" href="https://download.swift.org/{{ tag_downcase }}/{{ platform_release_name_url }}{% if arch != "x86_64" %}-{{ arch }}{% endif %}/{{ tag }}/{{ tag }}-{{ platform_name }}{% if arch != "x86_64" %}-{{ arch }}{% endif %}.tar.gz.sig" >
                 {{- arch -}}
@@ -80,7 +80,7 @@
   <div class="release-box section">
     <div class="content">
         <details class="download">
-        <summary>Previous Releases</summary>
+        <summary>이전 릴리스</summary>
         {% include install/_older-releases.md platform=include.platform %}
         </details>
     </div>
@@ -88,7 +88,7 @@
   {% endif %}
   <h2 id="development-snapshots" class="header-with-anchor">Development Snapshots</h2>
   <div>
-    <p class="content-copy">Swift snapshots are prebuilt binaries that are automatically created from the branch. These snapshots are not official releases. They have gone through automated unit testing, but they have not gone through the full testing that is performed for official releases.</p>
+    <p class="content-copy">Swift 스냅샷은 브랜치에서 자동으로 생성되는 사전 빌드된 바이너리입니다. 이 스냅샷은 공식 릴리스가 아닙니다. 자동화된 단위 테스트를 거쳤지만, 공식 릴리스에서 수행되는 전체 테스트를 거치지는 않았습니다.</p>
   </div>
   <div>
     <p class="content-copy">
@@ -110,13 +110,13 @@
           </p>
           <div class="link-wrapper">
             <div class="link-group">
-              <a href="https://download.swift.org/{{ include.branch_dir }}/{{ platform_release_name_url }}/{{ development_builds.first.dir }}/{{ development_builds.first.download }}" class="body-copy">Download (x86_64)</a> |
+              <a href="https://download.swift.org/{{ include.branch_dir }}/{{ platform_release_name_url }}/{{ development_builds.first.dir }}/{{ development_builds.first.download }}" class="body-copy">다운로드 (x86_64)</a> |
               <a href="https://download.swift.org/{{ include.branch_dir }}/{{ platform_release_name_url }}/{{ development_builds.first.dir }}/{{ development_builds.first.download_signature }}" class="body-copy">Signature (PGP)</a>
             </div>
           </div>
           <div class="link-wrapper">
             <div class="link-group">
-              <a href="https://download.swift.org/{{ include.branch_dir }}/{{ platform_release_name_url }}-aarch64/{{ aarch64_development_builds.first.dir }}/{{ aarch64_development_builds.first.download }}" class="body-copy">Download (aarch64)</a> |
+              <a href="https://download.swift.org/{{ include.branch_dir }}/{{ platform_release_name_url }}-aarch64/{{ aarch64_development_builds.first.dir }}/{{ aarch64_development_builds.first.download }}" class="body-copy">다운로드 (aarch64)</a> |
               <a href="https://download.swift.org/{{ include.branch_dir }}/{{ platform_release_name_url }}-aarch64/{{ aarch64_development_builds.first.dir }}/{{ aarch64_development_builds.first.download_signature }}" class="body-copy">Signature (PGP)</a>
             </div>
           </div>
@@ -136,13 +136,13 @@
           </p>
           <div class="link-wrapper">
             <div class="link-group">
-              <a href="https://download.swift.org/{{ include.branch_dir_2 }}/{{ platform_release_name_url }}/{{ development_builds_2.first.dir }}/{{ development_builds_2.first.download }}"  class="body-copy">Download (x86_64)</a> |
+              <a href="https://download.swift.org/{{ include.branch_dir_2 }}/{{ platform_release_name_url }}/{{ development_builds_2.first.dir }}/{{ development_builds_2.first.download }}"  class="body-copy">다운로드 (x86_64)</a> |
               <a href="https://download.swift.org/{{ include.branch_dir_2 }}/{{ platform_release_name_url }}/{{ development_builds_2.first.dir }}/{{ development_builds_2.first.download_signature }}" class="body-copy">Signature (PGP)</a>
             </div>
           </div>
           <div class="link-wrapper">
             <div class="link-group">
-              <a href="https://download.swift.org/{{ include.branch_dir_2 }}/{{ platform_release_name_url }}-aarch64/{{ aarch64_development_builds_2.first.dir }}/{{ aarch64_development_builds_2.first.download }}" class="body-copy">Download (aarch64)</a> |
+              <a href="https://download.swift.org/{{ include.branch_dir_2 }}/{{ platform_release_name_url }}-aarch64/{{ aarch64_development_builds_2.first.dir }}/{{ aarch64_development_builds_2.first.download }}" class="body-copy">다운로드 (aarch64)</a> |
               <a href="https://download.swift.org/{{ include.branch_dir_2 }}/{{ platform_release_name_url }}-aarch64/{{ aarch64_development_builds_2.first.dir }}/{{ aarch64_development_builds_2.first.download_signature }}" class="body-copy">Signature (PGP)</a>
             </div>
           </div>

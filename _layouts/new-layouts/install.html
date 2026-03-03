@@ -13,13 +13,13 @@ layout: new-layouts/base
     const originalText = button.innerText;
 
     navigator.clipboard.writeText(text).then(() => {
-      button.innerText = 'Copied!';
+      button.innerText = '복사됨!';
       setTimeout(() => {
         button.innerText = originalText;
       }, 1000);
     }).catch(err => {
       console.error('Failed to copy:', err);
-      button.innerText = 'Failed';
+      button.innerText = '실패';
     });
   }
 </script>
