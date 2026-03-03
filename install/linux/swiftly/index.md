@@ -12,7 +12,7 @@ curl -O "https://download.swift.org/swiftly/linux/swiftly-{{ site.data.builds.sw
 PGP 서명을 사용하여 아카이브의 무결성을 검증할 수 있습니다. 다음 명령으로 서명을 다운로드하고, swift.org 서명을 키체인에 설치한 후, 서명을 검증합니다.
 
 ```
-curl https://www.swift.org/keys/all-keys.asc | gpg --import -
+curl /keys/all-keys.asc | gpg --import -
 curl -O "https://download.swift.org/swiftly/linux/swiftly-{{ site.data.builds.swiftly_release.version }}-$(uname -m).tar.gz.sig"
 gpg --verify swiftly-{{ site.data.builds.swiftly_release.version }}-$(uname -m).tar.gz.sig swiftly-{{ site.data.builds.swiftly_release.version }}-$(uname -m).tar.gz
 ```

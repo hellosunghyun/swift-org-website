@@ -31,7 +31,7 @@ Sample output:
 
 ```
 % SWIFTORG_SERVER_NAME=prod swift run swiftorgClient
-Testing SwiftOrg API at https://www.swift.org/api/v1...
+Testing SwiftOrg API at /api/v1...
 ✅ listReleases
 ✅ listDevToolchains(main, amazonlinux2)
 ✅ listDevToolchains(main, centos7)

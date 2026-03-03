@@ -83,7 +83,7 @@ _동적_ 링크의 경우 조각은 *실행 파일*과 _동적 라이브러리_(
 
 Static Linux SDK를 가져오려면:
 
-- 전체 Static Linux SDK 설치 안내가 있는 swift.org [설치 페이지](https://www.swift.org/install)를 방문하여 직접 다운로드하거나 "설치 명령 복사"를 클릭하세요.
+- 전체 Static Linux SDK 설치 안내가 있는 swift.org [설치 페이지](/install)를 방문하여 직접 다운로드하거나 "설치 명령 복사"를 클릭하세요.
 
 - 이전 릴리스의 경우 설치 페이지에서 "이전 릴리스"로 이동하세요.
 
@@ -263,7 +263,7 @@ $ bom document outline ~/.swiftpm/swift-sdks/swift-6.1.2-RELEASE-static-linux-0.
   └ 📄 DESCRIBES 0 Files
 ```
 
-프로젝트에 추가적인 C/C++ 의존성이 있는 경우, 직접 빌드한 정적 라이브러리를 다른 컨텍스트에서 사용하는 것과 동일한 과정입니다. 정적 라이브러리(`.a` 파일)가 링커의 검색 경로에 있어야 합니다. 또한 라이브러리의 함수를 Swift 코드에서 직접 호출하려면 헤더 파일도 컴파일러의 include 경로에 추가해야 합니다. Swift 특유의 부분은 라이브러리에 대한 모듈 맵이 필요하다는 것뿐이지만, 이는 Static SDK for Linux 외부에서도 마찬가지입니다([Swift와 C++ 혼합 사용](https://www.swift.org/documentation/cxx-interop/) 참고).
+프로젝트에 추가적인 C/C++ 의존성이 있는 경우, 직접 빌드한 정적 라이브러리를 다른 컨텍스트에서 사용하는 것과 동일한 과정입니다. 정적 라이브러리(`.a` 파일)가 링커의 검색 경로에 있어야 합니다. 또한 라이브러리의 함수를 Swift 코드에서 직접 호출하려면 헤더 파일도 컴파일러의 include 경로에 추가해야 합니다. Swift 특유의 부분은 라이브러리에 대한 모듈 맵이 필요하다는 것뿐이지만, 이는 Static SDK for Linux 외부에서도 마찬가지입니다([Swift와 C++ 혼합 사용](/documentation/cxx-interop/) 참고).
 
 Static SDK에 번들된 일부 의존성은 해당 기능을 사용하면 Swift의 런타임 라이브러리에 의해 포함될 수 있습니다 — 예를 들어, Foundation Networking은 `libcurl`을 사용하고 `libcurl`은 `libz`를 사용합니다 — 하지만 정적 링크의 작동 방식 덕분에 일반적으로 "사용한 만큼만 비용을 지불"합니다.
 

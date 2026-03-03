@@ -36,7 +36,7 @@ We are currently collecting project ideas on the forums in the dedicated [GSoC c
 
 Potential mentors, please feel free to propose project ideas to this page directly, by [opening a pull request](https://github.com/swiftlang/swift-org-website/edit/main/gsoc2025/index.md) to the Swift website. 
 
-You can browse previous year's project ideas here: [2024](https://www.swift.org/gsoc2024/), [2023](https://www.swift.org/gsoc2023/), [2022](https://www.swift.org/gsoc2022/), [2021](https://www.swift.org/gsoc2021/), [2020](https://www.swift.org/gsoc2020/), [2019](https://www.swift.org/gsoc2019/).
+You can browse previous year's project ideas here: [2024](/gsoc2024/), [2023](/gsoc2023/), [2022](/gsoc2022/), [2021](/gsoc2021/), [2020](/gsoc2020/), [2019](/gsoc2019/).
 
 
 
@@ -235,7 +235,7 @@ SourceKit-LSP has recently added a feature to support DocC Live Preview for edit
 
 _This project can possibly be combined with the Swiftly Integration in VS Code project and the Tutorial mode for Swift project. When submitting project application for both together, please then mark it as a medium (175 hours) project._
 
-Right now there isn't a whole lot of guidance on how to use the [Swift extension for VS Code](https://github.com/swiftlang/vscode-swift) once it is installed. Apart from reading [an article about it](https://www.swift.org/documentation/articles/getting-started-with-vscode-swift.html) and the "Details" tab of the Swift extension in VS Code it's up to the user to realize that a Swift toolchain will have to be installed and figure out the workflow to Build, Run, Test and Debug code. As well, people who are installing the extension could be new to programming and Swift in general. A tutorial mode that will show the features of the extension will be greatly beneficial for first time users.
+Right now there isn't a whole lot of guidance on how to use the [Swift extension for VS Code](https://github.com/swiftlang/vscode-swift) once it is installed. Apart from reading [an article about it](/documentation/articles/getting-started-with-vscode-swift.html) and the "Details" tab of the Swift extension in VS Code it's up to the user to realize that a Swift toolchain will have to be installed and figure out the workflow to Build, Run, Test and Debug code. As well, people who are installing the extension could be new to programming and Swift in general. A tutorial mode that will show the features of the extension will be greatly beneficial for first time users.
 
 The feature can possibly be implemented with [VS Code Walkthrough](https://code.visualstudio.com/api/ux-guidelines/walkthroughs) mode or something similar to the [CodeTour](https://github.com/microsoft/codetour) extension.
 

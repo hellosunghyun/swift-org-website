@@ -60,7 +60,7 @@ Platform Steering Group이 추진하는 모든 변경 사항이 Evolution 검토
 
 ## 소통
 
-Platform Steering Group은 Swift 포럼의 [Platform 카테고리](https://forums.swift.org/c/platform)를 통해 커뮤니티와 주로 소통합니다. [Swift 블로그](https://www.swift.org/blog/)에 특별 게시물을 준비할 수도 있습니다.
+Platform Steering Group은 Swift 포럼의 [Platform 카테고리](https://forums.swift.org/c/platform)를 통해 커뮤니티와 주로 소통합니다. [Swift 블로그](/blog/)에 특별 게시물을 준비할 수도 있습니다.
 
 Steering Group은 현재 플랫폼 Evolution 프로세스를 마련하고 있으며, 세부 사항이 확정되면 이 헌장을 업데이트할 예정이지만, Steering Group이 다음을 담당할 것으로 예상됩니다:
 
@@ -84,4 +84,4 @@ Platform Steering Group은 Swift 커뮤니티와 별개가 아닙니다. Steerin
 
 Swift 플랫폼 지원, Platform Evolution 프로세스, 특정 Platform Evolution 제안 또는 Platform Steering Group 관할의 기타 주제에 대한 제안이나 피드백은 언제든 환영합니다. Platform Steering Group과 소통하는 주된 방법은 Swift 포럼의 Evolution 카테고리에 게시하는 것입니다. 기존 검토, 피치 또는 기타 토론 스레드에 답변을 추가하거나, [Evolution > Discussion](https://forums.swift.org/c/evolution/discuss) 또는 [Evolution > Pitches](https://forums.swift.org/c/evolution/pitches)에 새 스레드를 만들 수 있습니다. 커뮤니티 멤버는 이메일이나 포럼의 개인 메시지를 통해 Platform Steering Group 멤버에게 비공개로 연락할 수도 있습니다.
 
-Platform Steering Group은 [Swift 행동 강령](https://www.swift.org/code-of-conduct/)을 따릅니다. 학대, 괴롭힘 또는 기타 용납할 수 없는 행동은 해당 행동의 대상인지 여부와 관계없이 Steering Group 의장이나 [Swift Core Team](https://www.swift.org/community/#community-structure) 구성원에게 연락하거나 해당 행동을 모더레이션에 신고하여 보고할 수 있습니다.
+Platform Steering Group은 [Swift 행동 강령](/code-of-conduct/)을 따릅니다. 학대, 괴롭힘 또는 기타 용납할 수 없는 행동은 해당 행동의 대상인지 여부와 관계없이 Steering Group 의장이나 [Swift Core Team](/community/#community-structure) 구성원에게 연락하거나 해당 행동을 모더레이션에 신고하여 보고할 수 있습니다.

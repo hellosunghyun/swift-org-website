@@ -90,7 +90,7 @@ $ gpg.exe —keyserver hkp://keyserver.ubuntu.com `
 또는:
 
 ```powershell
-$ wget https://swift.org/keys/{{ all_keys_file }} -UseBasicParsing | Select-Object -Expand Content | gpg.exe —import -
+$ wget /keys/{{ all_keys_file }} -UseBasicParsing | Select-Object -Expand Content | gpg.exe —import -
 ```
 
 이전에 키를 가져온 적이 있다면 이 단계를 건너뛰세요.

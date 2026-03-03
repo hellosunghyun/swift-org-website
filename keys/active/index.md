@@ -17,7 +17,7 @@ The following keys are being used to sign toolchain packages:
 * `Swift Automatic Signing Key #4 <swift-infrastructure@forums.swift.org>`
 
   Download
-  : <https://swift.org/keys/{{ automatic_signing_key_file }}>
+  : </keys/{{ automatic_signing_key_file }}>
 
   Fingerprint
   : `E813 C892 820A 6FA1 3755  B268 F167 DF1A CF9C E069`
@@ -36,7 +36,7 @@ The following keys are being used to sign toolchain packages:
   Or
 
    ~~~ shell
-  $ wget -q -O - https://swift.org/keys/{{ automatic_signing_key_file }} | \
+  $ wget -q -O - /keys/{{ automatic_signing_key_file }} | \
     gpg --import -
   ~~~
 
@@ -44,7 +44,7 @@ The following keys are being used to sign toolchain packages:
  * `Swift 5.x Release Signing Key <swift-infrastructure@swift.org>`
 
   Download
-  : <https://swift.org/keys/release-key-swift-5.x.asc>
+  : </keys/release-key-swift-5.x.asc>
 
   Fingerprint
   : `A62A E125 BBBF BB96 A6E0  42EC 925C C1CC ED3D 1561`
@@ -63,7 +63,7 @@ The following keys are being used to sign toolchain packages:
   Or:
 
   ~~~ shell
-  $ wget -q -O - https://swift.org/keys/release-key-swift-5.x.asc | \
+  $ wget -q -O - /keys/release-key-swift-5.x.asc | \
     gpg --import -
   ~~~
 
@@ -71,7 +71,7 @@ The following keys are being used to sign toolchain packages:
  * `Swift 6.x Release Signing Key <swift-infrastructure@forums.swift.org>`
 
   Download
-  : <https://swift.org/keys/release-key-swift-6.x.asc>
+  : </keys/release-key-swift-6.x.asc>
 
   Fingerprint
   : `52BB 7E3D E28A 71BE 22EC 05FF EF80 A866 B47A 981F`
@@ -90,6 +90,6 @@ The following keys are being used to sign toolchain packages:
   Or:
 
   ~~~ shell
-  $ wget -q -O - https://swift.org/keys/release-key-swift-6.x.asc | \
+  $ wget -q -O - /keys/release-key-swift-6.x.asc | \
     gpg --import -
   ~~~

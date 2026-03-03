@@ -10,7 +10,7 @@ title: 성능 문제 디버깅
 
 Swift에서 성능 문제를 디버깅하기 위한 기본적인 방법과 도구는 다음과 같습니다:
 
-1. **성능 측정**: [Xcode의 Instruments](https://help.apple.com/instruments/mac/current/)와 [Linux perf](https://www.swift.org/documentation/server/guides/linux-perf.html)는 애플리케이션의 성능을 추적하고 과도한 CPU, 메모리 또는 에너지를 소비하는 영역을 식별하는 데 도움이 되는 프로파일링 도구를 제공합니다. 예를 들어, 프로파일링과 플레임 그래프는 CPU 소비를 보여주고, 메모리 그래프는 메모리 소비를 보여줍니다. 각 플랫폼마다 애플리케이션 성능 측정 방법이 다르다는 점에 유의하세요.
+1. **성능 측정**: [Xcode의 Instruments](https://help.apple.com/instruments/mac/current/)와 [Linux perf](/documentation/server/guides/linux-perf.html)는 애플리케이션의 성능을 추적하고 과도한 CPU, 메모리 또는 에너지를 소비하는 영역을 식별하는 데 도움이 되는 프로파일링 도구를 제공합니다. 예를 들어, 프로파일링과 플레임 그래프는 CPU 소비를 보여주고, 메모리 그래프는 메모리 소비를 보여줍니다. 각 플랫폼마다 애플리케이션 성능 측정 방법이 다르다는 점에 유의하세요.
    - macOS의 경우 [Getting Started with Instruments](https://developer.apple.com/videos/play/wwdc2019/411/)를 참고하세요.
    - Linux의 경우 [perf: Linux profiling with performance counters](https://perf.wiki.kernel.org/index.php/Main_Page)를 참고하세요.
 
@@ -132,7 +132,7 @@ for f in 0..<2_000 {
 
 Linux에서 Swift의 플레임 그래프를 생성하려면 `perf`와 `FlameGraph` 스크립트를 결합하여 CPU 사용량 및 스택 트레이스에 대한 데이터를 수집할 수 있습니다. 그런 다음 플레임 그래프 도구를 사용하여 시각화하여 애플리케이션의 성능 특성에 대한 인사이트를 얻을 수 있습니다:
 
-1. Linux용 `perf`를 [설치하고 구성](https://www.swift.org/server/guides/linux-perf.html)합니다.
+1. Linux용 `perf`를 [설치하고 구성](/server/guides/linux-perf.html)합니다.
 2. `swift build -c release`를 사용하여 코드를 `./slow`라는 바이너리로 컴파일합니다:
 
    a. 터미널을 열고 Swift 코드가 있는 디렉터리(보통 Swift 패키지의 루트 디렉터리)로 이동합니다.

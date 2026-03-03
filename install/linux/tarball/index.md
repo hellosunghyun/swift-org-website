@@ -32,7 +32,7 @@ title: Tarball을 사용한 Linux 설치
 
   <div class="highlight">
     <pre class="highlight">
-      <code>$ wget -q -O - https://swift.org/keys/all-keys.asc | \
+      <code>$ wget -q -O - /keys/all-keys.asc | \
         gpg --import -
       </code>
     </pre>

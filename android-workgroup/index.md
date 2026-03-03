@@ -15,7 +15,7 @@ Android 워크그룹은 다음 활동을 수행합니다:
 - Foundation, Dispatch 등 핵심 Swift 패키지가 Android 관용구에 맞게 더 잘 동작하도록 개선 사항을 제안합니다.
 - Platform Steering Group과 협력하여 플랫폼 지원 수준을 전반적으로 공식 정의하고, Android에 대해 특정 수준의 공식 지원을 달성하기 위해 노력합니다.
 - Swift 통합에 지원되는 Android API 수준 및 아키텍처 범위를 결정합니다.
-- 풀 리퀘스트 검사에 Android 테스트를 포함하는 Swift 프로젝트의 [지속적 통합](https://www.swift.org/documentation/continuous-integration/)을 개발합니다.
+- 풀 리퀘스트 검사에 Android 테스트를 포함하는 Swift 프로젝트의 [지속적 통합](/documentation/continuous-integration/)을 개발합니다.
 - Swift와 Android의 Java SDK 간 브리징 및 Android 앱에 Swift 라이브러리를 패키징하는 모범 사례를 파악하고 제안합니다.
 - Android에서 Swift 애플리케이션의 디버깅 지원을 개발합니다.
 - 다양한 커뮤니티 Swift 패키지에 Android 지원을 추가하도록 조언하고 지원합니다.

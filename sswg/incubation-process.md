@@ -124,9 +124,9 @@ SSWG는 Logging이나 Metrics API와 같이 생태계 전반의 일관성이 중
 
 성숙도 수준에 승인된 프로젝트는 다음과 같이 정의된 적절한 배지를 사용하여 프로젝트 README에 성숙도 수준을 표시하는 것이 권장됩니다:
 
-[![sswg:sandbox](https://img.shields.io/badge/sswg-sandbox-lightgrey.svg)](https://swift.org/sswg/incubation-process.html#sandbox-level){: style="display: inline-block; width: 94px; height: 20px"}
-[![sswg:incubating](https://img.shields.io/badge/sswg-incubating-blue.svg)](https://swift.org/sswg/incubation-process.html#incubating-level){: style="display: inline-block; width: 104px; height: 20px"}
-[![sswg:graduated](https://img.shields.io/badge/sswg-graduated-green.svg)](https://swift.org/sswg/incubation-process.html#graduated-level){: style="display: inline-block; width: 104px; height: 20px"}
+[![sswg:sandbox](https://img.shields.io/badge/sswg-sandbox-lightgrey.svg)](/sswg/incubation-process.html#sandbox-level){: style="display: inline-block; width: 94px; height: 20px"}
+[![sswg:incubating](https://img.shields.io/badge/sswg-incubating-blue.svg)](/sswg/incubation-process.html#incubating-level){: style="display: inline-block; width: 104px; height: 20px"}
+[![sswg:graduated](https://img.shields.io/badge/sswg-graduated-green.svg)](/sswg/incubation-process.html#graduated-level){: style="display: inline-block; width: 104px; height: 20px"}
 
 SSWG는 6개월마다 모든 프로젝트를 검토하며, 최소 요구 사항을 더 이상 충족하지 않는 프로젝트를 강등, 보관 또는 제거할 권리를 보유합니다.
 예를 들어, 더 이상 정기적인 업데이트를 받지 않거나 보안 문제를 적시에 해결하지 못하는 Graduated 프로젝트가 이에 해당합니다. 마찬가지로 SSWG는 더 이상 업데이트를 받지 않는 피치와 제안을 제거하거나 보관할 권리를 보유합니다.
@@ -204,6 +204,6 @@ Swift Server 생태계 인덱스 페이지의 변경 사항은 SSWG가 Swift Ser
 
 - [인큐베이션 패키지](/sswg/incubated-packages.html)
 
-* [Swift Evolution](https://www.swift.org/swift-evolution/)
+* [Swift Evolution](/swift-evolution/)
 * [CNCF Project Lifecycle & Process](https://github.com/cncf/toc/tree/main/process)
 * [The Apache Incubator](https://incubator.apache.org)

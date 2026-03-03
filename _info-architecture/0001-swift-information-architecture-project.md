@@ -114,7 +114,7 @@ The Swift Package Manager currently has at least four different sources of docum
 This makes it difficult for newcomers and developers to find all the relevant documentation for Swift packages and make it likely that one part of the documentation or another will become out of date.
 
 There is the overview and tutorial on [Swift.org](http://Swift.org):
-[Swift.org - Package Manager](https://www.swift.org/documentation/package-manager/)
+[Swift.org - Package Manager](/documentation/package-manager/)
 
 The markdown documentation in swiftlang/swift-package-mananger:
 https://github.com/swiftlang/swift-package-manager/blob/main/Documentation/README.md

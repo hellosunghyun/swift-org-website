@@ -7,7 +7,7 @@ author: krilnon
 category: "Community"
 ---
 
-Swift에 제안된 변경 사항에 대한 원스톱 정보 허브인 새로운 [Swift Evolution](https://www.swift.org/swift-evolution/) 현황 페이지를 공개하게 되어 기쁩니다.
+Swift에 제안된 변경 사항에 대한 원스톱 정보 허브인 새로운 [Swift Evolution](/swift-evolution/) 현황 페이지를 공개하게 되어 기쁩니다.
 
 Swift.org 커뮤니티는 [Swift Evolution 프로세스](https://github.com/swiftlang/swift-evolution/blob/master/process.md)를 적극적으로 수용해 왔으며, 현재까지 100개 이상의 제안에 기여했습니다. 새로운 제안이 등록될 때마다 커뮤니티에서 활발한 활동이 일어납니다.
 

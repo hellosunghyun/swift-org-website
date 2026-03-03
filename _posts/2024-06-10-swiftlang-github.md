@@ -29,7 +29,7 @@ As we move forward, we will address several key governance aspects:
 
 ## A Community Journey
 
-[Various groups within our community](https://www.swift.org/community/#community-structure) will spearhead this migration, including the Core Team, the Contributor Experience Workgroup, the Swift Server Workgroup, and the Website Workgroup. This initiative represents a community-wide effort, with full transparency as changes progressively unfold.
+[Various groups within our community](/community/#community-structure) will spearhead this migration, including the Core Team, the Contributor Experience Workgroup, the Swift Server Workgroup, and the Website Workgroup. This initiative represents a community-wide effort, with full transparency as changes progressively unfold.
 
 As a first step, we will move the `swift-evolution` repository today, with other repositories transitioning over the coming weeks. We will post updates to the accompanying forum posts as the migration unfurls.
 

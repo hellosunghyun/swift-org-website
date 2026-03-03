@@ -30,6 +30,6 @@ Swift.org에 호스팅되는 모든 소스 파일에는 해당되는 라이선�
 // Copyright (c) {{site.time | date: "%Y"}} Apple Inc. and the Swift project authors
 // Licensed under Apache License v2.0 with Runtime Library Exception
 //
-// See https://swift.org/LICENSE.txt for license information
-// See https://swift.org/CONTRIBUTORS.txt for the list of Swift project authors
+// See /LICENSE.txt for license information
+// See /CONTRIBUTORS.txt for the list of Swift project authors
 ```
