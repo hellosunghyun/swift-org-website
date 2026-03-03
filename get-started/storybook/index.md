@@ -1,6 +1,6 @@
 ---
 layout: new-layouts/base
-title: Storybook
+title: 스토리북
 ---
 
 <div class="get-started">
@@ -48,7 +48,7 @@ title: Storybook
 {% include new-includes/components/code-box.html content = site.data.new-data.get-started.storybook.code-box-with-tabs with-tabs = true %}
 
 <div class="stand-alone-link">
-    <a class="link">Stand alone link</a>
+    <a class="link">독립 링크</a>
 </div>
 
 </div>

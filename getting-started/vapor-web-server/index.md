@@ -1,59 +1,59 @@
 ---
 layout: page
-title: Build a Web Service with Vapor
+title: Vapor로 웹 서비스 만들기
 ---
 
-> The source code for this guide can be found [on GitHub](https://github.com/vapor/swift-getting-started-web-server)
+> 이 가이드의 소스 코드는 [GitHub](https://github.com/vapor/swift-getting-started-web-server)에서 확인할 수 있습니다.
 
 {% include getting-started/_installing.md %}
 
-## Choosing a web framework
+## 웹 프레임워크 선택
 
-Over the years, the Swift community created several web frameworks designed to help building web services.
-This guide focuses on the [Vapor](https://vapor.codes) web framework, a popular choice within the community.
+지난 몇 년간 Swift 커뮤니티는 웹 서비스 구축을 돕기 위한 여러 웹 프레임워크를 만들어 왔습니다.
+이 가이드에서는 커뮤니티에서 인기 있는 웹 프레임워크인 [Vapor](https://vapor.codes)를 다룹니다.
 
-## Installing Vapor
+## Vapor 설치
 
-First, you need to install the Vapor toolbox.
-If you already have Homebrew installed on macOS, run
+먼저 Vapor 도구 모음(toolbox)을 설치해야 합니다.
+macOS에 Homebrew가 이미 설치되어 있다면 다음을 실행하세요:
 
 ```bash
 brew install vapor
 ```
 
-If you're running on a different OS or want to install the toolbox from source, see [the Vapor docs](https://docs.vapor.codes/install/linux/#install-toolbox) for how to do so.
+다른 운영체제를 사용하거나 소스에서 직접 설치하려면 [Vapor 문서](https://docs.vapor.codes/install/linux/#install-toolbox)를 참고하세요.
 
-## Creating a Project
+## 프로젝트 생성
 
-Then, in your terminal in a directory where you want to create the new project run:
+터미널에서 새 프로젝트를 생성할 디렉터리로 이동한 다음 실행합니다:
 
 ```bash
 vapor new HelloVapor
 ```
 
-This pulls down a template and asks you a series of questions to create a simple project with everything you need to get started. This guide will create a simple REST API that you can send and receive JSON to and from. So answer no to all other questions. You'll see the project created successfully:
+이 명령은 템플릿을 다운로드하고 몇 가지 질문을 통해 시작에 필요한 모든 것이 갖춰진 간단한 프로젝트를 생성합니다. 이 가이드에서는 JSON을 주고받을 수 있는 간단한 REST API를 만들 것이므로, 나머지 질문에는 모두 no로 답하세요. 프로젝트가 성공적으로 생성된 것을 확인할 수 있습니다:
 
 ![A New Vapor Project]({{site.url}}/assets/images/getting-started-guides/vapor-web-server/new-project.png)
 
-Navigate into the created directory and open the project in your IDE of choice. For instance, to use VSCode run:
+생성된 디렉터리로 이동하고 원하는 IDE로 프로젝트를 열어 보세요. 예를 들어 VSCode를 사용하려면:
 
 ```bash
 cd HelloVapor
 code .
 ```
 
-For Xcode, run:
+Xcode를 사용하려면:
 
 ```bash
 cd HelloVapor
 open Package.swift
 ```
 
-Vapor's template contains a number of files and functions already set up for you. **configure.swift** contains the code to configure your application and **routes.swift** contains route handler code.
+Vapor의 템플릿에는 여러 파일과 함수가 이미 구성되어 있습니다. **configure.swift**에는 애플리케이션 설정 코드가, **routes.swift**에는 라우트 핸들러 코드가 들어 있습니다.
 
-## Creating Routes
+## 라우트 만들기
 
-First, open **routes.swift** and create a new route to say hello to anyone accessing your site by declaring a new route below `app.get("hello") { ... }`:
+먼저 **routes.swift**를 열고, 사이트에 접속하는 사람에게 인사하는 새 라우트를 만들어 봅시다. `app.get("hello") { ... }` 아래에 새 라우트를 선언하세요:
 
 ```swift
 // 1
@@ -65,13 +65,13 @@ app.get("hello", ":name") { req async throws -> String in
 }
 ```
 
-Here's what the code does:
+코드를 하나씩 살펴보겠습니다:
 
-1. Declare a new route handler registered as a **GET** request to `/hello/<NAME>`. The `:` denotes a dynamic path parameter in Vapor and will match any value and allow you to retrieve it in your route handler. `app.get(...)` takes a closure as the final parameter that can be asynchronous and must return a `Response` or something conforming to `ResponseEncodable`, such as `String`.
-2. Get the name from the parameters. By default, this returns a `String`. If you want to extract another type, such as `Int` or `UUID` you can write `req.parameters.require("id", as: UUID.self)` and Vapor will attempt to cast it to the type and automatically throw an error if it's unable to. This throws an error if the route hasn't been registered with the correct parameter name.
-3. Return the `Response`, in this case a `String`. Note that you don't need to set a status code, response body or any headers. Vapor handles this all for you, whilst allowing you to control the `Response` returned if needed.
+1. `/hello/<NAME>`에 대한 **GET** 요청으로 등록되는 새 라우트 핸들러를 선언합니다. `:`은 Vapor에서 동적 경로 파라미터를 나타내며, 어떤 값이든 매칭되어 라우트 핸들러에서 가져올 수 있습니다. `app.get(...)`은 마지막 파라미터로 클로저를 받으며, 비동기일 수 있고 `Response`나 `String` 같은 `ResponseEncodable`을 준수하는 타입을 반환해야 합니다.
+2. 파라미터에서 이름을 가져옵니다. 기본적으로 `String`을 반환합니다. `Int`나 `UUID` 같은 다른 타입을 추출하려면 `req.parameters.require("id", as: UUID.self)`처럼 작성하면 Vapor가 해당 타입으로 캐스팅을 시도하고, 불가능하면 자동으로 오류를 던집니다. 라우트가 올바른 파라미터 이름으로 등록되지 않은 경우에도 오류를 던집니다.
+3. `Response`를 반환합니다. 이 경우에는 `String`입니다. 상태 코드, 응답 본문, 헤더를 직접 설정할 필요가 없습니다. Vapor가 이 모든 것을 자동으로 처리하며, 필요하면 반환되는 `Response`를 직접 제어할 수도 있습니다.
 
-Save the file and build and run the app:
+파일을 저장하고 앱을 빌드한 후 실행합니다:
 
 ```bash
 $ swift run
@@ -81,18 +81,18 @@ Build complete! (59.87s)
 [ NOTICE ] Server starting on http://127.0.0.1:8080
 ```
 
-Send a **GET** request to `http://localhost:8080/hello/tim`. You'll get the response back:
+`http://localhost:8080/hello/tim`으로 **GET** 요청을 보내 보세요. 다음과 같은 응답을 받게 됩니다:
 
 ```bash
 $ curl http://localhost:8080/hello/tim
 Hello, Tim!
 ```
 
-Try it with different names to see it change automatically!
+다른 이름으로도 시도해 보면 자동으로 바뀌는 것을 확인할 수 있습니다!
 
-## Returning JSON
+## JSON 반환
 
-Vapor uses [`Codable`](https://developer.apple.com/documentation/foundation/archives_and_serialization/encoding_and_decoding_custom_types) under the hood to make it easy to send and receive JSON, using a wrapper protocol called `Content` to add a few extra features. Next, you'll return a JSON body with the message from the Hello! route. First, create a new type at the bottom of **routes.swift**:
+Vapor는 내부적으로 [`Codable`](https://developer.apple.com/documentation/foundation/archives_and_serialization/encoding_and_decoding_custom_types)을 사용하며, `Content`라는 래퍼 프로토콜로 몇 가지 기능을 더해 JSON을 쉽게 주고받을 수 있도록 합니다. 다음으로 Hello! 라우트의 메시지를 JSON 본문으로 반환해 보겠습니다. 먼저 **routes.swift** 하단에 새 타입을 만드세요:
 
 ```swift
 struct UserResponse: Content {
@@ -100,9 +100,9 @@ struct UserResponse: Content {
 }
 ```
 
-This defines a new type that conforms to `Content` that matches the JSON you want to return.
+반환할 JSON 형태와 일치하는 `Content`를 준수하는 새 타입입니다.
 
-Create a new route below `app.get("hello", ":name") { ... }` to return this JSON:
+`app.get("hello", ":name") { ... }` 아래에 이 JSON을 반환하는 새 라우트를 만듭니다:
 
 ```swift
 // 1
@@ -115,24 +115,24 @@ app.get("json", ":name") { req async throws -> UserResponse in
 }
 ```
 
-Here's what this code does:
+코드를 살펴보겠습니다:
 
-1. Define a new route handler that handles a **GET** request to `/json`. Importantly, the return type for the closure is `UserResponse`.
-2. Get the name as before and construct the message.
-3. Return the `UserResponse`.
+1. `/json`에 대한 **GET** 요청을 처리하는 새 라우트 핸들러를 정의합니다. 중요한 점은 클로저의 반환 타입이 `UserResponse`라는 것입니다.
+2. 이전과 같이 이름을 가져오고 메시지를 구성합니다.
+3. `UserResponse`를 반환합니다.
 
-Save and build and run the app again and send a GET request to `http://localhost:8080/json/tim`:
+저장하고 앱을 다시 빌드하여 실행한 후 `http://localhost:8080/json/tim`으로 GET 요청을 보냅니다:
 
 ```bash
 $ curl http://localhost:8080/json/tim
 {"message":"Hello, Tim!"}
 ```
 
-This time, you get JSON back!
+이번에는 JSON으로 응답을 받습니다!
 
-## Handling JSON
+## JSON 처리
 
-Finally, we'll cover how to receive JSON. At the bottom of **routes.swift**, create a new type to model JSON you'll send to the server app:
+마지막으로 JSON을 수신하는 방법을 다루겠습니다. **routes.swift** 하단에 서버 앱으로 전송할 JSON을 모델링하는 새 타입을 만드세요:
 
 ```swift
 struct UserInfo: Content {
@@ -141,7 +141,7 @@ struct UserInfo: Content {
 }
 ```
 
-This contains two properties, a name and an age. Then, below the JSON route, create a new route to handle a POST request with this body:
+이름과 나이, 두 개의 프로퍼티를 포함합니다. 그런 다음 JSON 라우트 아래에 이 본문을 가진 POST 요청을 처리하는 새 라우트를 만듭니다:
 
 ```swift
 // 1
@@ -154,19 +154,19 @@ app.post("user-info") { req async throws -> UserResponse in
 }
 ```
 
-The important differences in this new route handler are:
+이 새 라우트 핸들러의 중요한 차이점은:
 
-1. Use `app.post(...)` instead of `app.get(...)` as this route handler is a **POST** request.
-2. Decode the JSON from the request body.
-3. Use the data from the JSON body to create a new message.
+1. 이 라우트 핸들러가 **POST** 요청이므로 `app.get(...)` 대신 `app.post(...)`를 사용합니다.
+2. 요청 본문에서 JSON을 디코딩합니다.
+3. JSON 본문의 데이터를 사용하여 새 메시지를 만듭니다.
 
-Send a POST request with a valid JSON body and see your response:
+유효한 JSON 본문과 함께 POST 요청을 보내고 응답을 확인해 보세요:
 
 ```bash
 $ curl http://localhost:8080/user-info -X POST -d '{"name": "Tim", "age": 99}' -H "Content-Type: application/json"
 {"message":"Hello, Tim! You are 99 years old."}
 ```
 
-Congratulations! You've built your first web server in Swift!
+축하합니다! Swift로 첫 번째 웹 서버를 만들었습니다!
 
-> The source code for this guide can be found [on GitHub](https://github.com/vapor/swift-getting-started-web-server)
+> 이 가이드의 소스 코드는 [GitHub](https://github.com/vapor/swift-getting-started-web-server)에서 확인할 수 있습니다.

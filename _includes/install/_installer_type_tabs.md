@@ -1,4 +1,4 @@
-Select installer option:
+설치 옵션을 선택하세요:
 
 <div class="interactive-tabs os">
   <div class="tabs">

@@ -1,4 +1,4 @@
-Follow the instructions below to install the latest version of Swift on a [supported platform](/platform-support).
+[지원 플랫폼](/platform-support)에 최신 버전의 Swift를 설치하려면 아래 안내를 따르세요.
 
 <div class="interactive-tabs os">
   <div class="tabs">

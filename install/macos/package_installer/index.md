@@ -1,84 +1,71 @@
 ---
 layout: page
-title: macOS Package Installer
+title: macOS 패키지 설치 프로그램
 ---
 
-Xcode includes a release of Swift that is supported by Apple.
-You can try out a version that is still in development
-by downloading one of the packages from [download](/install/macos) page.
+Xcode에는 Apple이 지원하는 Swift 릴리스가 포함되어 있습니다.
+아직 개발 중인 버전을 사용해 보려면
+[다운로드](/install/macos) 페이지에서 패키지를 받아 설치하세요.
 
 <div class="warning" markdown="1">
-To submit to the App Store you must build your app using the version of Swift that comes included within Xcode.
+App Store에 앱을 제출하려면 Xcode에 포함된 Swift 버전으로 빌드해야 합니다.
 </div>
 
 <div class="warning" markdown="1">
-Xcode is not required to run the package installer or use an installed
-toolchain. However, when Xcode is not installed, the functionality of the Swift
-Package Manager may be limited due to some [outstanding issues](https://github.com/swiftlang/swift-package-manager/issues/4396).
+패키지 설치 프로그램을 실행하거나 설치된 툴체인을 사용하는 데 Xcode가 필수는 아닙니다. 단, Xcode가 설치되어 있지 않으면 일부 [미해결 이슈](https://github.com/swiftlang/swift-package-manager/issues/4396)로 인해 Swift Package Manager의 기능이 제한될 수 있습니다.
 </div>
 
-0. Download a latest Swift release
+0. 최신 Swift 릴리스
    ([{{ site.data.builds.swift_releases.last.name }}](/install/macos))
-   or development [snapshot](/install/macos/#development-snapshots) package.
-   Make sure that your system meets the aforecited requirements for
-   this package.
+   또는 개발 [스냅샷](/install/macos/#development-snapshots) 패키지를 다운로드하세요.
+   시스템이 해당 패키지의 요구 사항을 충족하는지 확인하세요.
 
-0. Run the package installer,
-   which will install an Xcode toolchain into
-   `~/Library/Developer/Toolchains/`:
+1. 패키지 설치 프로그램을 실행하면
+   `~/Library/Developer/Toolchains/`에 Xcode 툴체인이 설치됩니다:
 
-    ~~~ shell
-    installer -target CurrentUserHomeDirectory -pkg ~/Downloads/swift-DEVELOPMENT-SNAPSHOT-2025-02-26-a-osx.pkg
-    ~~~
+   ```shell
+   installer -target CurrentUserHomeDirectory -pkg ~/Downloads/swift-DEVELOPMENT-SNAPSHOT-2025-02-26-a-osx.pkg
+   ```
 
-   An Xcode toolchain (`.xctoolchain`) includes a copy of the compiler, LLDB,
-   and other related tools needed to provide a cohesive development experience
-   for working in a specific version of Swift.
+   Xcode 툴체인(`.xctoolchain`)에는 특정 Swift 버전에서 일관된 개발 환경을 제공하는 데 필요한 컴파일러, LLDB 및 기타 관련 도구의 사본이 포함되어 있습니다.
 
-* To select the installed toolchain in Xcode, navigate to `Xcode > Toolchains`.
+- 설치된 툴체인을 Xcode에서 선택하려면 `Xcode > Toolchains`로 이동하세요.
 
-  Xcode uses the selected toolchain for building Swift code, debugging, and
-  even code completion and syntax coloring. You'll see a new toolchain
-  indicator in Xcode's toolbar when Xcode is using an installed toolchain.
-  Select the default toolchain to go back to Xcode's built-in tools.
+  Xcode는 선택한 툴체인을 Swift 코드 빌드, 디버깅, 코드 자동 완성 및 구문 강조에 사용합니다. Xcode가 설치된 툴체인을 사용하면 툴바에 새로운 툴체인 표시기가 나타납니다. 기본 도구로 돌아가려면 기본 툴체인을 선택하세요.
 
-* Selecting a toolchain in Xcode affects the IDE only. To use the installed
-  toolchain with
-  * `xcrun`, pass the `--toolchain swift` option. For example:
+- 설치된 툴체인을 IDE 외부에서 사용하려면:
+  - `xcrun`의 경우 `--toolchain swift` 옵션을 전달합니다. 예:
 
-    ~~~ shell
+    ```shell
     xcrun --toolchain swift swift --version
-    ~~~
+    ```
 
-  * `xcodebuild`, pass the `-toolchain swift` option.
+  - `xcodebuild`의 경우 `-toolchain swift` 옵션을 전달합니다.
 
-  Alternatively, you may select the toolchain on the command line by exporting
-  the `TOOLCHAINS` environment variable as follows:
+  또는 다음과 같이 `TOOLCHAINS` 환경 변수를 내보내 커맨드라인에서 툴체인을 선택할 수 있습니다:
 
-  ~~~ shell
+  ```shell
   export TOOLCHAINS=$(plutil -extract CFBundleIdentifier raw ~/Library/Developer/Toolchains/<toolchain name>.xctoolchain/Info.plist)
-  ~~~
+  ```
 
+### macOS에서의 코드 서명
 
-### Code Signing on macOS
+macOS `.pkg` 파일은
+Swift 오픈 소스 프로젝트의 개발자 ID로 디지털 서명되어 있어
+변조되지 않았음을 확인할 수 있습니다.
+패키지 내의 모든 바이너리도 서명되어 있습니다.
 
-The macOS `.pkg` files are digitally signed
-by the developer ID of the Swift open source project
-to allow verification that they have not been tampered with.
-All binaries in the package are signed as well.
-
-The Swift toolchain installer on macOS
-should display a lock icon on the right side of the title bar.
-Clicking the lock brings up detailed information about the signature.
-The signature should be produced by
-`Developer ID Installer: Swift Open Source (V9AUD2URP3)`.
+macOS의 Swift 툴체인 설치 프로그램은
+제목 표시줄 오른쪽에 잠금 아이콘을 표시해야 합니다.
+잠금을 클릭하면 서명에 대한 자세한 정보를 확인할 수 있습니다.
+서명은 `Developer ID Installer: Swift Open Source (V9AUD2URP3)`에서
+생성된 것이어야 합니다.
 
 <div class="warning" markdown="1">
-  If the lock is not displayed
-  or the signature is not produced by the Swift open source developer ID,
-  do not proceed with the installation.
-  Instead, quit the installer
-  and please email <swift-infrastructure@forums.swift.org>
-  with as much detail as possible,
-  so that we can investigate the problem.
+  잠금이 표시되지 않거나
+  서명이 Swift 오픈 소스 개발자 ID에서 생성된 것이 아니라면
+  설치를 진행하지 마세요.
+  설치 프로그램을 종료한 후
+  가능한 한 자세한 내용을 포함하여 <swift-infrastructure@forums.swift.org>로
+  이메일을 보내 주시면 문제를 조사하겠습니다.
 </div>

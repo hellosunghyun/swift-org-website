@@ -1,9 +1,9 @@
 ---
 layout: page
-title: Installation via RPM
+title: RPM을 사용한 설치
 ---
 
-Use the instructions below for RPM installation:
+아래 지침에 따라 RPM으로 설치합니다:
 
 **Amazon Linux 2**
 

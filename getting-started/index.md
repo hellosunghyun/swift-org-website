@@ -1,6 +1,6 @@
 ---
 layout: page-wide
-title: Getting Started
+title: 시작하기
 ---
 
 {% include getting-started/_installing.md %}

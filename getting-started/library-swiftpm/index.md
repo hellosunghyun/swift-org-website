@@ -1,45 +1,45 @@
 ---
 layout: page
-title: Build a library
+title: 라이브러리 만들기
 ---
 
-> The source code for this guide can be found [on GitHub](https://github.com/apple/swift-getting-started-package-library)
+> 이 가이드의 소스 코드는 [GitHub](https://github.com/apple/swift-getting-started-package-library)에서 확인할 수 있습니다.
 
 {% include getting-started/_installing.md %}
 
-## Bootstrapping
+## 프로젝트 생성
 
-Let’s write a small library with our new Swift development environment.
-To start, we’ll use SwiftPM to make a new project for us. In your terminal of choice run:
+새로 구성한 Swift 개발 환경으로 간단한 라이브러리를 만들어 보겠습니다.
+먼저 SwiftPM을 사용해 새 프로젝트를 생성합니다. 터미널에서 다음 명령을 실행하세요:
 
-~~~bash
+```bash
 $ mkdir MyLibrary
 $ cd MyLibrary
 $ swift package init --name MyLibrary --type library
-~~~
+```
 
-This will generate a new directory called _MyLibrary_ with the following files:
+이 명령은 다음과 같은 파일 구조의 _MyLibrary_ 디렉터리를 생성합니다:
 
-~~~no-highlight
+```no-highlight
 .
 ├── Package.swift
 ├── Sources
-│   └── MyLibrary
-│       └── MyLibrary.swift
+│   └── MyLibrary
+│       └── MyLibrary.swift
 └── Tests
     └── MyLibraryTests
         └── MyLibraryTests.swift
-~~~
+```
 
-`Package.swift` is the manifest file for Swift. It’s where you keep metadata for your project, as well as its dependencies.
+`Package.swift`는 Swift의 매니페스트 파일입니다. 프로젝트의 메타데이터와 의존성 정보를 관리하는 곳입니다.
 
-`Sources/MyLibrary/MyLibrary.swift` is the library initial source file and where we’ll write our library code.
-`Test/MyLibraryTests/MyLibraryTests.swift` is where we can write tests for our library.
+`Sources/MyLibrary/MyLibrary.swift`는 라이브러리의 초기 소스 파일이자, 라이브러리 코드를 작성할 곳입니다.
+`Test/MyLibraryTests/MyLibraryTests.swift`는 라이브러리의 테스트를 작성할 수 있는 곳입니다.
 
-In fact, SwiftPM generated a "Hello, world!" project for us, including some unit tests!
-We can run the tests by running  `swift test`  in our terminal.
+SwiftPM이 "Hello, world!" 프로젝트를 유닛 테스트까지 포함하여 자동으로 생성해 줍니다!
+터미널에서 `swift test`를 실행하면 테스트를 바로 실행할 수 있습니다.
 
-~~~no-highlight
+```no-highlight
 $ swift test
 Building for debugging...
 [5/5] Linking MyLibraryPackageTests
@@ -53,14 +53,14 @@ Test Suite 'All tests' passed at 2025-08-01 14:02:39.233.
 ◇ Test example() started.
 ✔ Test example() passed after 0.001 seconds.
 ✔ Test run with 1 test passed after 0.001 seconds.
-~~~
+```
 
-## A small library
+## 간단한 라이브러리
 
-Now let’s write a small library.
-Replace the example content of `MyLibrary.swift` with the following code:
+이제 간단한 라이브러리를 작성해 보겠습니다.
+`MyLibrary.swift`의 예시 코드를 다음 코드로 교체하세요:
 
-~~~swift
+```swift
 import Foundation
 
 struct Email: CustomStringConvertible {
@@ -78,12 +78,12 @@ struct Email: CustomStringConvertible {
 private struct InvalidEmailError: Error {
   let email: String
 }
-~~~
+```
 
-Now let's add a unit test for this strongly typed Email API.
-Replace the example content of `MyLibraryTests.swift` with the following code:
+이제 이 강타입 Email API에 대한 유닛 테스트를 추가하겠습니다.
+`MyLibraryTests.swift`의 예시 코드를 다음 코드로 교체하세요:
 
-~~~swift
+```swift
 import Testing
 @testable import MyLibrary
 
@@ -97,11 +97,11 @@ struct MyLibraryTests {
     }
   }
 }
-~~~
+```
 
-Once we save that, we can run the tests again:
+저장한 후 테스트를 다시 실행합니다:
 
-~~~no-highlight
+```no-highlight
 $ swift test
 Building for debugging...
 [5/5] Linking MyLibraryPackageTests
@@ -117,8 +117,8 @@ Test Suite 'All tests' passed at 2025-08-01 14:24:32.689.
 ✔ Test email() passed after 0.001 seconds.
 ✔ Suite MyLibraryTests passed after 0.001 seconds.
 ✔ Test run with 1 test passed after 0.001 seconds.
-~~~
+```
 
 ---
 
-> The source code for this guide can be found [on GitHub](https://github.com/apple/swift-getting-started-package-library).
+> 이 가이드의 소스 코드는 [GitHub](https://github.com/apple/swift-getting-started-package-library)에서 확인할 수 있습니다.

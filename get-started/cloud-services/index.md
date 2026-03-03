@@ -1,6 +1,6 @@
 ---
 layout: new-layouts/base
-title: Use case
+title: 활용 사례
 ---
 
 <div class="get-started">
@@ -13,14 +13,13 @@ title: Use case
 
 {% include new-includes/components/card-grid.html content = site.data.new-data.get-started.cloud-services.tertiary-content-cloud-native %}
 
-
 {% include new-includes/components/headline-section.html content = site.data.new-data.get-started.cloud-services.headline-section %}
 
 {% include new-includes/components/code-box.html content = site.data.new-data.get-started.cloud-services.code-box %}
 
 {% include new-includes/components/card-grid.html content = site.data.new-data.get-started.cloud-services.tertiary-content %}
 
-<!-- Resources -->
+<!-- 리소스 -->
 
 {% include new-includes/components/link-columns.html content = site.data.new-data.get-started.cloud-services.link-columns %}
 

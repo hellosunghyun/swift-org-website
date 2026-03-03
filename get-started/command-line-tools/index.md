@@ -1,6 +1,6 @@
 ---
 layout: new-layouts/base
-title: Command Line
+title: 커맨드라인
 ---
 
 <div class="get-started">

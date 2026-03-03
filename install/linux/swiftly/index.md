@@ -1,15 +1,15 @@
 ---
 layout: page
-title: Getting Started with Swiftly on Linux
+title: Linux에서 Swiftly 시작하기
 ---
 
-Download swiftly for [Linux (Intel)](https://download.swift.org/swiftly/linux/swiftly-{{ site.data.builds.swiftly_release.version }}-x86_64.tar.gz), or [Linux (ARM)](https://download.swift.org/swiftly/linux/swiftly-{{ site.data.builds.swiftly_release.version }}-aarch64.tar.gz).
+[Linux (Intel)](https://download.swift.org/swiftly/linux/swiftly-{{ site.data.builds.swiftly_release.version }}-x86_64.tar.gz) 또는 [Linux (ARM)](https://download.swift.org/swiftly/linux/swiftly-{{ site.data.builds.swiftly_release.version }}-aarch64.tar.gz)용 swiftly를 다운로드하세요.
 
 ```
 curl -O "https://download.swift.org/swiftly/linux/swiftly-{{ site.data.builds.swiftly_release.version }}-$(uname -m).tar.gz"
 ```
 
-You can verify the integrity of the archive using the PGP signature. This will download the signature, install the swift.org signatures into your keychain, and verify the signature.
+PGP 서명을 사용하여 아카이브의 무결성을 검증할 수 있습니다. 다음 명령으로 서명을 다운로드하고, swift.org 서명을 키체인에 설치한 후, 서명을 검증합니다.
 
 ```
 curl https://www.swift.org/keys/all-keys.asc | gpg --import -
@@ -17,25 +17,25 @@ curl -O "https://download.swift.org/swiftly/linux/swiftly-{{ site.data.builds.sw
 gpg --verify swiftly-{{ site.data.builds.swiftly_release.version }}-$(uname -m).tar.gz.sig swiftly-{{ site.data.builds.swiftly_release.version }}-$(uname -m).tar.gz
 ```
 
-Extract the archive.
+아카이브를 압축 해제합니다.
 
 ```
 tar -zxf swiftly-{{ site.data.builds.swiftly_release.version }}-$(uname -m).tar.gz
 ```
 
-Run the following command in your terminal, to configure swiftly for your account, and automatically download the latest swift toolchain.
+터미널에서 다음 명령을 실행하여 swiftly를 설정하고 최신 Swift 툴체인을 자동으로 다운로드합니다.
 
 ```
 ./swiftly init
 ```
 
-Note: You can set the SWIFTLY_HOME_DIR and SWIFTLY_BIN_DIR environment variables to customize your install location.
+참고: SWIFTLY_HOME_DIR과 SWIFTLY_BIN_DIR 환경 변수를 설정하여 설치 위치를 변경할 수 있습니다.
 
-Your current shell may need some additional steps to update your session. Follow the guidance at the end of the installation for a smooth install experience, such as sourcing the environment file, and rehashing your shell's PATH.
+현재 사용 중인 셸에서 세션을 업데이트하기 위해 추가 단계가 필요할 수 있습니다. 환경 파일 소싱, 셸 PATH 재해싱 등 설치 마지막에 안내되는 지침을 따르면 원활하게 설치할 수 있습니다.
 
-There can be certain packages that need to be installed on your system so that the Swift toolchain can function. The swiftly initialization routine will show you how to install any missing packages.
+Swift 툴체인이 정상적으로 동작하려면 시스템에 특정 패키지가 설치되어 있어야 할 수 있습니다. swiftly 초기화 과정에서 누락된 패키지의 설치 방법을 안내합니다.
 
-Now that swiftly and swift are installed, you can access the `swift` command from the latest Swift release:
+swiftly와 Swift가 설치되었으므로 최신 Swift 릴리스의 `swift` 명령을 사용할 수 있습니다:
 
 ```
 swift --version
@@ -44,7 +44,7 @@ Swift version {{ site.data.builds.swift_releases.last.name }} (swift-{{ site.dat
 Target: x86_64-unknown-linux-gnu
 ```
 
-Or, you can install (and use) another swift release:
+다른 Swift 릴리스를 설치하고 사용할 수도 있습니다:
 
 ```
 swiftly install --use 5.10
@@ -54,16 +54,16 @@ Swift version 5.10 (swift-5.10-RELEASE)
 Target: x86_64-unknown-linux-gnu
 ```
 
-There's also an option to install the latest snapshot release and get access to the latest features:
+최신 스냅샷 릴리스를 설치하여 최신 기능을 사용할 수도 있습니다:
 
 ```
 swiftly install --use main-snapshot
 ```
 
-Check for updates to swiftly and install them by running the self-update command:
+self-update 명령을 실행하여 swiftly 업데이트를 확인하고 설치합니다:
 
 ```
 swiftly self-update
 ```
 
-You can discover more about swiftly in the [documentation](https://www.swift.org/swiftly/documentation/swiftlydocs/)
+swiftly에 대한 자세한 내용은 [공식 문서](https://www.swift.org/swiftly/documentation/swiftlydocs/)에서 확인할 수 있습니다.

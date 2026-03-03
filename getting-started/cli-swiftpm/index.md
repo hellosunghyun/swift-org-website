@@ -1,59 +1,59 @@
 ---
 layout: page
-title: Build a Command-line Tool
+title: 커맨드라인 도구 만들기
 ---
 
-> The source code for this guide can be found [on GitHub](https://github.com/apple/swift-getting-started-cli)
+> 이 가이드의 소스 코드는 [GitHub](https://github.com/apple/swift-getting-started-cli)에서 확인할 수 있습니다.
 
 {% include getting-started/_installing.md %}
 
-## Bootstrapping
+## 프로젝트 생성
 
-Let’s write a small application with our new Swift development environment.
-To start, we’ll use SwiftPM to make a new project for us. In your terminal of choice run:
+새로 구성한 Swift 개발 환경으로 간단한 애플리케이션을 만들어 보겠습니다.
+먼저 SwiftPM을 사용해 새 프로젝트를 생성합니다. 터미널에서 다음 명령을 실행하세요:
 
-~~~bash
+```bash
 $ mkdir MyCLI
 $ cd MyCLI
 $ swift package init --name MyCLI --type executable
-~~~
+```
 
-This will generate a new directory called MyCLI with the following files:
+이 명령은 다음과 같은 파일 구조의 MyCLI 디렉터리를 생성합니다:
 
-~~~no-highlight
+```no-highlight
 .
 ├── Package.swift
 └── Sources
-    └── main.swift
-~~~
+    └── main.swift
+```
 
-`Package.swift` is the manifest file for Swift. It’s where you keep metadata for your project, as well as dependencies.
+`Package.swift`는 Swift의 매니페스트 파일입니다. 프로젝트의 메타데이터와 의존성 정보를 관리하는 곳입니다.
 
-`Sources/main.swift` is the application entry point and where we’ll write our application code.
+`Sources/main.swift`는 애플리케이션의 진입점이자, 애플리케이션 코드를 작성할 파일입니다.
 
-In fact, SwiftPM generated a "Hello, world!" project for us!
+SwiftPM이 "Hello, world!" 프로젝트를 자동으로 생성해 줍니다!
 
-We can run the program by running  `swift run`  in our terminal.
+터미널에서 `swift run`을 실행하면 프로그램을 바로 실행할 수 있습니다.
 
-~~~bash
+```bash
 $ swift run MyCLI
 Building for debugging...
 [3/3] Linking MyCLI
 Build complete! (0.68s)
 Hello, world!
-~~~
+```
 
-## Adding dependencies
+## 의존성 추가
 
-Swift based applications are usually composed from libraries that provide useful functionality.
+Swift 기반 애플리케이션은 보통 유용한 기능을 제공하는 라이브러리들로 구성됩니다.
 
-In this project, we’ll use a package called [example-package-figlet](https://github.com/apple/example-package-figlet) which will help us make ASCII art.
+이 프로젝트에서는 ASCII 아트를 만들어 주는 [example-package-figlet](https://github.com/apple/example-package-figlet) 패키지를 사용하겠습니다.
 
-You can find more interesting libraries on [Swift Package Index](https://swiftpackageindex.com) -- the unofficial package index for Swift.
+더 다양한 라이브러리는 Swift의 비공식 패키지 인덱스인 [Swift Package Index](https://swiftpackageindex.com)에서 찾아볼 수 있습니다.
 
-To do so, we extend our `Package.swift` file with the following information:
+`Package.swift` 파일에 다음과 같이 의존성 정보를 추가합니다:
 
-~~~swift
+```swift
 // swift-tools-version: 5.8
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
@@ -75,18 +75,18 @@ let package = Package(
             path: "Sources"),
     ]
 )
-~~~
+```
 
-Running `swift build` will instruct SwiftPM to download the new dependencies and then proceed to build the code.
+`swift build`를 실행하면 SwiftPM이 새 의존성을 다운로드한 후 코드를 빌드합니다.
 
-Running this command also created a new file for us, `Package.resolved`.
-This file is a snapshot of the exact versions of the dependencies we are using locally.
+이 명령을 실행하면 `Package.resolved`라는 파일도 생성됩니다.
+이 파일은 현재 로컬에서 사용 중인 의존성의 정확한 버전을 기록한 스냅샷입니다.
 
-## A small application
+## 간단한 애플리케이션
 
-Start by removing `main.swift`. We’ll replace it with a new file called `MyCLI.swift`. Add the following code to it:
+먼저 `main.swift`를 삭제합니다. 그 자리에 `MyCLI.swift`라는 새 파일을 만들고 다음 코드를 추가하세요:
 
-~~~swift
+```swift
 import Figlet
 
 @main
@@ -95,33 +95,33 @@ struct FigletTool {
     Figlet.say("Hello, Swift!")
   }
 }
-~~~
+```
 
-This provides a new entrypoint to the app which could be asynchronous if required. You can either have a `main.swift` file or a `@main` entrypoint, but not both.
+이렇게 하면 필요에 따라 비동기로도 동작할 수 있는 새로운 앱 진입점이 만들어집니다. `main.swift` 파일과 `@main` 진입점 중 하나만 사용할 수 있으며, 둘 다 동시에 사용할 수는 없습니다.
 
-With `import Figlet` we can now use the `Figlet` module that the `example-package-figlet` package exports.
+`import Figlet`을 통해 `example-package-figlet` 패키지가 제공하는 `Figlet` 모듈을 사용할 수 있습니다.
 
-Once we save that, we can run our application with `swift run`
-Assuming everything went well, you should see your application print this to the screen:
+저장한 후 `swift run`으로 애플리케이션을 실행하면,
+문제없이 실행되었다면 화면에 다음과 같이 출력됩니다:
 
-~~~no-highlight
-  _   _          _   _                 ____               _    __   _     _ 
+```no-highlight
+  _   _          _   _                 ____               _    __   _     _
  | | | |   ___  | | | |   ___         / ___|  __      __ (_)  / _| | |_  | |
  | |_| |  / _ \ | | | |  / _ \        \___ \  \ \ /\ / / | | | |_  | __| | |
  |  _  | |  __/ | | | | | (_) |  _     ___) |  \ V  V /  | | |  _| | |_  |_|
  |_| |_|  \___| |_| |_|  \___/  ( )   |____/    \_/\_/   |_| |_|    \__| (_)
-                                |/                                          
-~~~
+                                |/
+```
 
-## Argument parsing
+## 인자 파싱
 
-Most command line tools need to be able to parse command line arguments.
+대부분의 커맨드라인 도구는 커맨드라인 인자를 파싱할 수 있어야 합니다.
 
-To add this capability to our application, we add a dependency on [swift-argument-parser](https://github.com/apple/swift-argument-parser).
+이 기능을 추가하기 위해 [swift-argument-parser](https://github.com/apple/swift-argument-parser) 의존성을 추가합니다.
 
-To do so, we extend our `Package.swift` file with the following information:
+`Package.swift` 파일을 다음과 같이 수정합니다:
 
-~~~swift
+```swift
 // swift-tools-version: 5.8
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
@@ -145,11 +145,11 @@ let package = Package(
             path: "Sources"),
     ]
 )
-~~~
+```
 
-We can now import the argument parsing module provided by `swift-argument-parser` and use it in our application:
+이제 `swift-argument-parser`가 제공하는 인자 파싱 모듈을 import하여 애플리케이션에서 사용할 수 있습니다:
 
-~~~swift
+```swift
 import Figlet
 import ArgumentParser
 
@@ -162,25 +162,25 @@ struct FigletTool: ParsableCommand {
     Figlet.say(self.input)
   }
 }
-~~~
+```
 
-For more information about how [swift-argument-parser](https://github.com/apple/swift-argument-parser) parses command line options, see [swift-argument-parser documentation](https://github.com/apple/swift-argument-parser) documentation.
+[swift-argument-parser](https://github.com/apple/swift-argument-parser)의 커맨드라인 옵션 파싱 방법에 대한 자세한 내용은 [swift-argument-parser 문서](https://github.com/apple/swift-argument-parser)를 참고하세요.
 
-Once we save that, we can run our application with `swift run MyCLI --input 'Hello, world!'`
+저장한 후 `swift run MyCLI --input 'Hello, world!'`로 애플리케이션을 실행합니다.
 
-Note we need to specify the executable in this case, so we can pass the `input` argument to it.
+이 경우 실행 파일 이름을 명시해야 `input` 인자를 전달할 수 있습니다.
 
-Assuming everything went well, you should see your application print this to the screen:
+문제없이 실행되었다면 화면에 다음과 같이 출력됩니다:
 
-~~~no-highlight
-  _   _          _   _                                           _       _   _ 
+```no-highlight
+  _   _          _   _                                           _       _   _
  | | | |   ___  | | | |   ___         __      __   ___    _ __  | |   __| | | |
  | |_| |  / _ \ | | | |  / _ \        \ \ /\ / /  / _ \  | '__| | |  / _` | | |
  |  _  | |  __/ | | | | | (_) |  _     \ V  V /  | (_) | | |    | | | (_| | |_|
  |_| |_|  \___| |_| |_|  \___/  ( )     \_/\_/    \___/  |_|    |_|  \__,_| (_)
-                                |/                                             
-~~~
+                                |/
+```
 
 ---
 
-> The source code for this guide can be found [on GitHub](https://github.com/apple/swift-getting-started-cli)
+> 이 가이드의 소스 코드는 [GitHub](https://github.com/apple/swift-getting-started-cli)에서 확인할 수 있습니다.

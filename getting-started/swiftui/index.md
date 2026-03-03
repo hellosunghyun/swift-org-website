@@ -1,36 +1,36 @@
 ---
 layout: page
-title: Build an iOS app with SwiftUI
+title: SwiftUI로 iOS 앱 만들기
 ---
 
-> The source code for this guide can be found [on GitHub](https://github.com/0xTim/swift-org-swiftui-tutorial)
+> 이 가이드의 소스 코드는 [GitHub](https://github.com/0xTim/swift-org-swiftui-tutorial)에서 확인할 수 있습니다.
 
-In this tutorial you’re going to use Swift and SwiftUI to build a small app to recommend fun new activities to users. Along the way you’ll meet several of the basic components of a SwiftUI app, including text, images, buttons, shapes, stacks, and program state.
+이 튜토리얼에서는 Swift와 SwiftUI를 사용해 사용자에게 새로운 활동을 추천하는 간단한 앱을 만들어 봅니다. 이 과정에서 텍스트, 이미지, 버튼, 도형, 스택, 프로그램 상태 등 SwiftUI 앱의 기본 구성 요소들을 살펴보게 됩니다.
 
-To get started, you’ll need to [download Xcode from the Mac App Store](https://apps.apple.com/app/xcode/id497799835?mt=12). It’s free, and comes with Swift and all the other tools you need to follow this tutorial.
+시작하려면 [Mac App Store에서 Xcode를 다운로드](https://apps.apple.com/app/xcode/id497799835?mt=12)해야 합니다. Xcode는 무료이며, Swift와 이 튜토리얼에 필요한 모든 도구가 포함되어 있습니다.
 
-Go ahead and launch Xcode once it’s installed, then select Create a new Xcode Project. Select the iOS tab at the top, then select the App template and press Next.
+설치가 완료되면 Xcode를 실행하고 Create a new Xcode Project를 선택하세요. 상단의 iOS 탭을 선택한 다음 App 템플릿을 선택하고 Next를 누르세요.
 
-**Tip:** Although we’ll be targeting iOS 16, our code will also work great on macOS Ventura and beyond.
+**팁:** iOS 16을 대상으로 하지만, 이 코드는 macOS Ventura 이후 버전에서도 잘 동작합니다.
 
-When making a new project, Xcode will ask you for a few pieces of information:
+새 프로젝트를 만들 때 Xcode가 몇 가지 정보를 요청합니다:
 
-- For Product Name, enter “WhyNotTry”.
-- For Organization Identifier you can enter com.example. In real apps we’d normally enter our own domain name here, e.g. org.swift.
-- For Interface make sure SwiftUI is selected.
-- You can uncheck the boxes for Core Data and Include Tests; we won’t be using them here.
+- Product Name에 "WhyNotTry"를 입력합니다.
+- Organization Identifier에는 com.example을 입력합니다. 실제 앱에서는 보통 자신의 도메인 이름(예: org.swift)을 입력합니다.
+- Interface가 SwiftUI로 선택되어 있는지 확인합니다.
+- Core Data와 Include Tests 체크박스는 해제하세요. 이 튜토리얼에서는 사용하지 않습니다.
 
 ![New Xcode Project]({{site.url}}/assets/images/getting-started-guides/swiftui-ios/new-project.png)
 
-When you press Next, Xcode will ask where you want to save the project. You’re welcome to choose wherever suits you, but you might find your Desktop is easiest. Once that’s done, Xcode will create the new project for you, then open ContentView.swift for editing. This is where we’ll write all our code, and you’ll see some default SwiftUI code in there for us.
+Next를 누르면 Xcode가 프로젝트를 저장할 위치를 묻습니다. 어디든 상관없지만, 데스크탑이 가장 편할 수 있습니다. 저장하면 Xcode가 새 프로젝트를 만들고 ContentView.swift 파일을 편집할 수 있도록 열어 줍니다. 모든 코드를 이 파일에 작성할 것이며, 기본 SwiftUI 코드가 이미 들어 있습니다.
 
 ![Initial SwiftUI project]({{site.url}}/assets/images/getting-started-guides/swiftui-ios/initial-view.png)
 
-The example code Xcode made for us creates a new view called `ContentView`. Views are how SwiftUI represents our app’s user interface on the screen, and we can add custom layout and logic in there.
+Xcode가 만든 예시 코드는 `ContentView`라는 새로운 뷰를 생성합니다. 뷰는 SwiftUI가 앱의 사용자 인터페이스를 화면에 표시하는 방식이며, 여기에 커스텀 레이아웃과 로직을 추가할 수 있습니다.
 
-On the right-hand side of Xcode, you’ll see a live preview of that code running – if you make a change to the code on the left, it will appear in the preview straight away. If you can't see the preview, follow [these instructions](https://developer.apple.com/documentation/swiftui/previews-in-xcode) to enable it.
+Xcode의 오른쪽에는 코드의 실시간 미리보기가 표시됩니다. 왼쪽의 코드를 수정하면 미리보기에 즉시 반영됩니다. 미리보기가 보이지 않으면 [이 안내](https://developer.apple.com/documentation/swiftui/previews-in-xcode)를 참고해서 활성화하세요.
 
-For example, try replacing the default `body` code with this:
+예를 들어, 기본 `body` 코드를 다음과 같이 바꿔 보세요:
 
 ```swift
 var body: some View {
@@ -40,14 +40,13 @@ var body: some View {
 
 ![Hello SwiftUI]({{site.url}}/assets/images/getting-started-guides/swiftui-ios/hello-swift-ui.png)
 
-You should see your preview update immediately, which makes for really fast prototyping while you work. This is a computed property called `body`, and SwiftUI will call that whenever it wants to display our user interface.
+미리보기가 즉시 업데이트되는 것을 볼 수 있습니다. 작업하면서 빠르게 프로토타이핑할 수 있어 매우 편리합니다. 이것은 `body`라는 연산 프로퍼티로, SwiftUI가 사용자 인터페이스를 표시할 때마다 호출합니다.
 
+## 정적 UI 만들기
 
-## Building a static UI
+이 앱에서는 농구, 골프, 하이킹 같은 새로운 운동 활동을 사용자에게 보여줍니다. 좀 더 보기 좋게 만들기 위해, 각 활동을 이름과 아이콘으로 표시하고 뒤에 색상 배경을 추가하겠습니다.
 
-In this app we’re going to show the user a new activity they could try to keep fit, such as basketball, golf, and hiking. To make it a little more attractive, we’ll display each activity using its name, and also an icon representing the activity, then add a splash of color behind it.
-
-The main part of our user interface will be a circle showing the currently recommended activity. We can draw circles just by writing `Circle`, so replace the `Text("Hello, SwiftUI!")` view with this:
+사용자 인터페이스의 주요 부분은 현재 추천 활동을 보여주는 원입니다. `Circle`이라고 쓰기만 하면 원을 그릴 수 있으므로, `Text("Hello, SwiftUI!")` 뷰를 다음으로 교체하세요:
 
 ```swift
 Circle()
@@ -55,9 +54,9 @@ Circle()
 
 ![SwiftUI Circle]({{site.url}}/assets/images/getting-started-guides/swiftui-ios/swiftui-circle.png)
 
-In your preview you’ll see a large black circle fills the available screen width. That’s a start, but it’s not quite right – we want some color in there, and ideally adding a little space on either side so it doesn’t look so tight.
+미리보기에서 큰 검은 원이 화면 너비를 가득 채우는 것을 볼 수 있습니다. 시작은 좋지만 아직 부족합니다. 색상을 넣고, 양쪽에 여백을 추가해서 답답해 보이지 않게 만들어야 합니다.
 
-Both of these can be accomplished by calling methods on the `Circle` view. We call these *view modifiers* in SwiftUI because they modify the way the circle looks or works, and in this case we need to use the `fill()` modifier to color the circle, then the `padding()` modifier to add some space around it, like this:
+두 가지 모두 `Circle` 뷰의 메서드를 호출하여 해결할 수 있습니다. SwiftUI에서는 이를 *뷰 수정자(view modifier)*라고 부르는데, 원의 모양이나 동작을 수정하기 때문입니다. 여기서는 `fill()` 수정자로 원에 색을 칠하고, `padding()` 수정자로 주변에 여백을 추가합니다:
 
 ```swift
 Circle()
@@ -67,11 +66,11 @@ Circle()
 
 ![SwiftUI Circle with Color and Padding]({{site.url}}/assets/images/getting-started-guides/swiftui-ios/swiftui-circle-color.png)
 
-The `.blue` color is one of several built-in options, such as `.red`, `.white`, and `.green`. These are all appearance aware, which means they look subtly different depending on the whether the device is in dark mode or light mode.
+`.blue` 색상은 `.red`, `.white`, `.green` 등 여러 내장 옵션 중 하나입니다. 이 색상들은 모두 외형 인식(appearance aware)이 적용되어 있어, 기기가 다크 모드인지 라이트 모드인지에 따라 미묘하게 다르게 보입니다.
 
-Over that blue circle we’re going to place an icon showing the activity we recommend. iOS comes with several thousand free icons called *SF Symbols*, and there’s a [free app you can download that shows you all the options](https://developer.apple.com/sf-symbols/). Each of these icons is available in multiple weights, can be scaled up or down smoothly, and many can also be colored.
+파란 원 위에 추천 활동을 나타내는 아이콘을 올려놓겠습니다. iOS에는 *SF Symbols*라는 수천 개의 무료 아이콘이 포함되어 있으며, [무료 앱을 다운로드하면 모든 옵션을 확인](https://developer.apple.com/sf-symbols/)할 수 있습니다. 각 아이콘은 여러 두께(weight)로 제공되고, 크기를 부드럽게 조절할 수 있으며, 다수는 색상도 변경할 수 있습니다.
 
-Here, though, we want something nice and simple: we want just one icon placed over our circle. This means using another modifier called `overlay()`, which places one view over another. Modify your code to this:
+여기서는 간단하게 원 위에 아이콘 하나만 올려놓겠습니다. 이를 위해 하나의 뷰를 다른 뷰 위에 배치하는 `overlay()` 수정자를 사용합니다. 코드를 다음과 같이 수정하세요:
 
 ```swift
 Circle()
@@ -84,11 +83,11 @@ Circle()
 
 ![SwiftUI Circle with Icon]({{site.url}}/assets/images/getting-started-guides/swiftui-ios/swiftui-circle-icon.png)
 
-You should see a small, black archery icon over our large, blue circle – it’s the right idea, but it doesn’t look great.
+큰 파란 원 위에 작은 검은 양궁 아이콘이 보일 것입니다. 방향은 맞지만 보기에는 좋지 않습니다.
 
-What we really want is the archery icon to be much bigger, and also much more visible on that background. For that we need another two modifiers: `font()` to control the size of the icon, and `foregroundColor()` to change its color. Yes, we use a font modifier to control the icon’s size – SF Symbols like this one automatically scale with the rest of our text, which makes them really flexible.
+양궁 아이콘을 훨씬 크고, 배경 위에서 더 잘 보이게 만들어야 합니다. 이를 위해 두 가지 수정자가 더 필요합니다: 아이콘 크기를 조절하는 `font()`과 색상을 바꾸는 `foregroundColor()`입니다. 아이콘 크기를 조절하는 데 font 수정자를 사용하는 이유는, 이런 SF Symbols이 텍스트와 함께 자동으로 크기가 조절되기 때문입니다. 덕분에 매우 유연하게 쓸 수 있습니다.
 
-Adjust your `Image` code to this:
+`Image` 코드를 다음과 같이 수정하세요:
 
 ```swift
 Image(systemName: "figure.archery")
@@ -98,20 +97,20 @@ Image(systemName: "figure.archery")
 
 ![SwiftUI Circle with Icon Sized]({{site.url}}/assets/images/getting-started-guides/swiftui-ios/swiftui-circle-icon-sized.png)
 
-**Tip:** That `font()` modifier asks for a 144-point system font, which is nice and big on all devices.
+**팁:** `font()` 수정자는 144포인트 시스템 폰트를 요청하며, 모든 기기에서 충분히 크게 표시됩니다.
 
-That should now look a lot better.
+이제 훨씬 나아 보일 것입니다.
 
-Next, let’s add some text below the image so it’s clear to the user what the suggestion is. You already met the `Text` view and the `font()` modifier, so you can add this code below the `Circle` code:
+다음으로, 이미지 아래에 텍스트를 추가하여 사용자에게 추천 내용을 명확히 알려줍시다. 이미 `Text` 뷰와 `font()` 수정자를 살펴봤으므로, `Circle` 코드 아래에 다음 코드를 추가하세요:
 
 ```swift
 Text("Archery!")
     .font(.title)
 ```
 
-Rather than using a fixed font size, that uses one of SwiftUI’s built in Dynamic Type sizes called `.title`. This means the font will grow or shrink depending on the user’s settings, which is usually a good idea.
+고정된 폰트 크기 대신, SwiftUI의 내장 Dynamic Type 크기 중 하나인 `.title`을 사용합니다. 이렇게 하면 사용자 설정에 따라 폰트가 커지거나 작아지므로, 일반적으로 좋은 선택입니다.
 
-If everything has gone to plan, your code should look like this:
+모든 것이 제대로 되었다면 코드가 다음과 같을 것입니다:
 
 ```swift
 var body: some View {
@@ -131,11 +130,11 @@ var body: some View {
 
 ![Circle With Title Text]({{site.url}}/assets/images/getting-started-guides/swiftui-ios/circle-with-title.png)
 
-However, what you see in Xcode’s preview probably won’t match what you were expecting: you’ll see the same icon as before, but no text. What gives?
+하지만 Xcode 미리보기에서 보이는 결과는 예상과 다를 수 있습니다: 아이콘은 이전과 같지만 텍스트가 보이지 않습니다. 왜 그럴까요?
 
-The problem here is that we’ve told SwiftUI our user interface will have two views inside – the circle and some text – but we haven’t told it how to arrange them. Do we want them side by side? One above the other? Or in some other kind of layout?
+문제는 SwiftUI에 사용자 인터페이스에 두 개의 뷰(원과 텍스트)가 있다고 알려주었지만, 어떻게 배치할지를 지정하지 않았기 때문입니다. 나란히 놓을 건지? 위아래로 쌓을 건지? 아니면 다른 레이아웃으로 할 건지?
 
-We get to choose, but I think here a vertical layout will look better. In SwiftUI we get that with a new view type called `VStack`, which is placed *around* our current code, like this:
+원하는 방식을 선택할 수 있지만, 여기서는 세로 레이아웃이 더 적합할 것입니다. SwiftUI에서는 `VStack`이라는 새로운 뷰 타입으로 이를 구현하며, 기존 코드를 _감싸는_ 형태로 배치합니다:
 
 ```swift
 VStack {
@@ -153,15 +152,15 @@ VStack {
 }
 ```
 
-And now you should see the layout you expected earlier: our archery icon above the text “Archery!”.
+이제 앞서 기대했던 레이아웃이 보일 것입니다: 양궁 아이콘 아래에 "Archery!" 텍스트가 표시됩니다.
 
 ![Circle With Title Text in a VStack]({{site.url}}/assets/images/getting-started-guides/swiftui-ios/circle-with-title-vstack.png)
 
-That’s much better!
+훨씬 낫습니다!
 
-To finish up our first pass at this user interface, we can add a title at the top. We already have a `VStack` that allows us to position views one above the other, but I don’t want the title inside there too because later on we’ll be adding some animation for that part of our screen.
+사용자 인터페이스의 첫 번째 버전을 마무리하기 위해, 상단에 제목을 추가하겠습니다. 이미 뷰를 위아래로 배치하는 `VStack`이 있지만, 나중에 화면의 일부에 애니메이션을 추가할 것이므로 제목은 그 안에 넣고 싶지 않습니다.
 
-Fortunately, SwiftUI lets us nest stacks freely, meaning that we can place a `VStack` inside another `VStack` to get the exact behavior we want. So, change your code to this:
+다행히 SwiftUI에서는 스택을 자유롭게 중첩할 수 있으므로, `VStack` 안에 또 다른 `VStack`을 넣어 원하는 동작을 구현할 수 있습니다. 코드를 다음과 같이 변경하세요:
 
 ```swift
 VStack {
@@ -184,18 +183,17 @@ VStack {
 }
 ```
 
-That makes the new text have a large title font, and also makes it bold so it stands out better as a real title for our screen.
+새 텍스트에 큰 제목 폰트를 적용하고, 굵게(bold) 표시하여 화면의 제목으로서 더 잘 보이게 합니다.
 
 ![Why Not Try Title Added]({{site.url}}/assets/images/getting-started-guides/swiftui-ios/why-not-try-title.png)
 
-Now we have two `VStack` views: an inner one that holds the circle and “Archery!” text, and an outer one that adds a title around the inner `VStack`. This will be very helpful later on when we add animation!
+이제 두 개의 `VStack`이 있습니다: 원과 "Archery!" 텍스트를 담는 안쪽 VStack, 그리고 안쪽 VStack 주위에 제목을 추가하는 바깥쪽 VStack입니다. 이 구조는 나중에 애니메이션을 추가할 때 매우 유용할 것입니다!
 
+## 생동감 불어넣기
 
-## Bringing it to life
+양궁이 아무리 재미있다 해도, 이 앱은 항상 같은 활동을 보여주는 것이 아니라 랜덤으로 활동을 추천해야 합니다. 이를 위해 뷰에 두 개의 새 프로퍼티를 추가합니다: 하나는 가능한 활동 목록을 저장하고, 다른 하나는 현재 추천 중인 활동을 나타냅니다.
 
-As much fun as archery is, this app really needs to suggest a random activity to users rather than always showing the same thing. That means adding two new properties to our view: one to store the array of possible activities, and one to show whichever one is currently being recommended.
-
-SF Symbols has lots of interesting activities to choose from, so I’ve picked out a handful that work well here. Our `ContentView` struct already has a `body` property containing our SwiftUI code, but we want to add new properties outside that. So, change your code to this:
+SF Symbols에는 흥미로운 활동이 많아서, 여기에 잘 맞는 몇 가지를 골랐습니다. `ContentView` 구조체에는 이미 SwiftUI 코드를 담고 있는 `body` 프로퍼티가 있지만, 새 프로퍼티는 그 밖에 추가해야 합니다. 코드를 다음과 같이 변경하세요:
 
 ```swift
 struct ContentView: View {
@@ -209,26 +207,26 @@ struct ContentView: View {
 }
 ```
 
-**Important:** Notice how the `activities` and `selected` properties are *inside* the struct – that means they belong to `ContentView`, rather than just being free-floating variables in our program.
+**중요:** `activities`와 `selected` 프로퍼티가 구조체 _안에_ 있다는 점에 주목하세요. 이는 프로그램에서 자유롭게 떠다니는 변수가 아니라 `ContentView`에 속한다는 것을 의미합니다.
 
-That creates an array of various activity names, and selects archery as the default. Now we can use the selected activity in our UI using string interpolation – we can place the `selected` variable directly inside strings.
+이렇게 하면 다양한 활동 이름으로 구성된 배열이 만들어지고, 기본값으로 양궁이 선택됩니다. 이제 문자열 보간(string interpolation)을 사용하여 선택된 활동을 UI에 표시할 수 있습니다. `selected` 변수를 문자열 안에 직접 넣을 수 있습니다.
 
-For the activity name this is straightforward:
+활동 이름은 간단합니다:
 
 ```swift
 Text("\(selected)!")
     .font(.title)
 ```
 
-For the image this is a little more complicated, because we need to prefix it with `figure.` then lowercase the activity name – we want `figure.archery` rather than `figure.Archery`, otherwise the SF Symbol won’t be loaded.
+이미지의 경우 조금 더 복잡합니다. `figure.` 접두사 뒤에 활동 이름을 소문자로 붙여야 하기 때문입니다. `figure.Archery`가 아니라 `figure.archery`여야 SF Symbol이 제대로 로드됩니다.
 
-So, change your `Image` code this:
+`Image` 코드를 다음과 같이 변경하세요:
 
 ```swift
 Image(systemName: "figure.\(selected.lowercased())")
 ```
 
-Those changes mean our UI will display whatever the `selected` property is set to, so can see it all change if you place a new string in that property:
+이 변경으로 UI는 `selected` 프로퍼티에 설정된 값을 표시하게 되므로, 프로퍼티에 새 문자열을 넣으면 모든 것이 바뀌는 것을 확인할 수 있습니다:
 
 ```swift
 var selected = "Baseball"
@@ -236,9 +234,9 @@ var selected = "Baseball"
 
 ![Showing Baseball]({{site.url}}/assets/images/getting-started-guides/swiftui-ios/baseball.png)
 
-Of course, we want that to change *dynamically* rather than having to edit the code each time, so we’re going to add a button below our inner `VStack` that will change the selected activity every time it’s pressed. This is still inside the outer `VStack`, though, which means it will be arranged below the title and activity icon.
+물론 매번 코드를 수정하는 것이 아니라 _동적으로_ 변경되어야 하므로, 안쪽 `VStack` 아래에 버튼을 추가하여 누를 때마다 선택된 활동이 바뀌도록 하겠습니다. 이 버튼은 여전히 바깥쪽 `VStack` 안에 있으므로, 제목과 활동 아이콘 아래에 배치됩니다.
 
-Add this code now:
+다음 코드를 추가하세요:
 
 ```swift
 Button("Try again") {
@@ -249,7 +247,7 @@ Button("Try again") {
 
 ![Try Again Button]({{site.url}}/assets/images/getting-started-guides/swiftui-ios/try-again-button.png)
 
-So, your structure should be this:
+따라서 구조는 다음과 같아야 합니다:
 
 ```swift
 VStack {
@@ -261,74 +259,74 @@ VStack {
 }
 ```
 
-The new button code does three things:
+새 버튼 코드는 세 가지 일을 합니다:
 
-1. We create the `Button` by passing in a title to show as the button’s label.
-2. The `// change activity` comment is code that will be run when the button is pressed.
-3. The `buttonStyle()` modifier tells SwiftUI we want this button to stand out, so you’ll see it appear in a blue rectangle with white text.
+1. 버튼의 레이블로 표시할 제목을 전달하여 `Button`을 생성합니다.
+2. `// change activity` 주석은 버튼을 누를 때 실행될 코드가 들어갈 자리입니다.
+3. `buttonStyle()` 수정자는 SwiftUI에 이 버튼을 눈에 띄게 만들라고 지시하여, 흰색 텍스트가 있는 파란 사각형으로 표시됩니다.
 
-Just having a comment as the button’s action isn’t very interesting – really we want to make it set `selected` to a random element from the `activities` array. We can pick a random element from the array by calling the helpfully named `randomElement()` method on it, so replace the comment with this:
+버튼의 액션에 주석만 있으면 재미없으니, `selected`를 `activities` 배열에서 랜덤으로 선택한 요소로 설정하겠습니다. 배열에서 랜덤 요소를 고르려면 이름 그대로인 `randomElement()` 메서드를 호출하면 됩니다. 주석을 다음으로 교체하세요:
 
 ```swift
 selected = activities.randomElement()
 ```
 
-That code *looks* right, but it will actually cause compiler errors. We’re telling Swift to pick a random element from the array and place it into the `selected` property, but there’s no way for Swift to be sure there’s anything in that array – it could be empty, in which case there’s no random element to return.
+이 코드가 맞아 _보이지만_, 실제로는 컴파일러 오류가 발생합니다. Swift에게 배열에서 랜덤 요소를 골라 `selected` 프로퍼티에 넣으라고 했지만, Swift는 배열에 요소가 있는지 확신할 수 없습니다. 배열이 비어 있을 수 있고, 그러면 반환할 랜덤 요소가 없기 때문입니다.
 
 ![Random Element Error]({{site.url}}/assets/images/getting-started-guides/swiftui-ios/random-element-error.png)
 
-Swift calls these *optionals*: `randomElement()` won’t return a regular string, it will return an *optional* string. This means the string might not be there, so it’s not safe to assign to the `selected` property.
+Swift에서는 이를 *옵셔널(optional)*이라고 합니다: `randomElement()`는 일반 문자열이 아니라 *옵셔널 문자열*을 반환합니다. 이는 문자열이 없을 수도 있다는 의미이므로, `selected` 프로퍼티에 바로 할당하는 것이 안전하지 않습니다.
 
-Even though we know the array will never be empty – it will *always* have activities in there – we can give Swift a sensible default value to use just in case the array happens to be empty in the future, like this:
+배열이 절대 비지 않을 것이라는 걸 알고 있지만(항상 활동이 들어 있을 테니), 혹시 미래에 배열이 비게 될 경우를 대비해 Swift에 합리적인 기본값을 제공할 수 있습니다:
 
 ```swift
 selected = activities.randomElement() ?? "Archery"
 ```
 
-That partly fixes our code, but Xcode will still be showing an error. The problem now is that SwiftUI doesn’t like us changing our program’s state right inside our view structs without warning – it wants us to mark all the mutable state ahead of time, so it knows to watch for changes.
+이렇게 하면 일부 문제가 해결되지만, Xcode는 여전히 오류를 표시할 것입니다. 현재 문제는 SwiftUI가 경고 없이 뷰 구조체 내에서 바로 프로그램 상태를 변경하는 것을 허용하지 않는다는 점입니다. SwiftUI는 변경될 수 있는 모든 상태를 미리 표시해 두어야 변화를 감시할 수 있습니다.
 
 ![Non-@State mutating]({{site.url}}/assets/images/getting-started-guides/swiftui-ios/non-state-mutating.png)
 
-This is done by writing `@State` before any view properties that will change, like this:
+이는 변경될 뷰 프로퍼티 앞에 `@State`를 붙여서 해결합니다:
 
 ```swift
 @State var selected = "Baseball"
 ```
 
-This is called a *property wrapper*, meaning that it wraps our `selected` property with some extra logic. The `@State` property wrapper allows us to change view state freely, but it also automatically watches its property for changes so that it can make sure the user interface stays up to date with the latest values.
+이것을 *프로퍼티 래퍼(property wrapper)*라고 합니다. `selected` 프로퍼티를 추가 로직으로 감싸는 것입니다. `@State` 프로퍼티 래퍼는 뷰 상태를 자유롭게 변경할 수 있게 해주면서, 동시에 프로퍼티 변경을 자동으로 감시하여 사용자 인터페이스가 최신 값으로 유지되도록 합니다.
 
-That fixes the two errors in our code, so you can now press Cmd+R to build and run your app in the iOS simulator. It will suggest baseball by default, but every time you press “Try again” you’ll see it change.
+이제 두 오류가 모두 수정되었으니, Cmd+R을 눌러 iOS 시뮬레이터에서 앱을 빌드하고 실행할 수 있습니다. 기본으로 야구가 표시되지만, "Try again"을 누를 때마다 바뀌는 것을 확인할 수 있습니다.
 
 <img class="device-aspect-ratio" src="{{site.url}}/assets/images/getting-started-guides/swiftui-ios/running-in-simulator.png" alt="Running The App in the Simulator">
 
-## Adding some polish
+## 마무리 다듬기
 
-Before we’re done with this project, let’s add a handful more tweaks to make it better.
+프로젝트를 마치기 전에, 몇 가지 개선 사항을 추가하겠습니다.
 
-First, an easy one: Apple recommends that local view state always be marked with `private` access control. In larger projects, this means you can’t accidentally write code that reads one view’s local state from another, which helps keep your code easier to understand.
+첫째, 간단한 것부터: Apple은 로컬 뷰 상태에 항상 `private` 접근 제어를 붙이는 것을 권장합니다. 큰 프로젝트에서는 한 뷰의 로컬 상태를 다른 뷰에서 실수로 읽는 코드를 작성할 수 없게 되어, 코드를 이해하기가 쉬워집니다.
 
-This means modifying the `selected` property like so:
+`selected` 프로퍼티를 다음과 같이 수정합니다:
 
 ```swift
 @State private var selected = "Baseball"
 ```
 
-Second, rather than always showing a blue background, we can pick a random color each time. This takes two steps, starting with a new property of all the colors we want to select from – put this next to the `activities` property:
+둘째, 항상 파란 배경 대신 매번 랜덤 색상을 선택할 수 있습니다. 이를 위해 두 단계가 필요합니다. 먼저 선택할 수 있는 모든 색상을 담은 새 프로퍼티를 추가합니다. `activities` 프로퍼티 옆에 넣으세요:
 
 ```swift
 var colors: [Color] = [.blue, .cyan, .gray, .green, .indigo, .mint, .orange, .pink, .purple, .red]
 ```
 
-Now we can change our circle’s `fill()` modifier to use `randomElement()` on that array, or `.blue` if somehow the array ends up being empty:
+이제 원의 `fill()` 수정자를 배열에서 `randomElement()`를 사용하도록 변경하고, 배열이 비어 있을 경우 `.blue`를 기본값으로 사용합니다:
 
 ```swift
 Circle()
     .fill(colors.randomElement() ?? .blue)
 ```
 
-Third, we can separate the activity `VStack` and “Try again” button by adding a new SwiftUI view between them, called `Spacer`. This is a flexible space that automatically expands, which means it will push our activity icon to the top of the screen, and the button to the bottom.
+셋째, 활동 `VStack`과 "Try again" 버튼 사이에 `Spacer`라는 새 SwiftUI 뷰를 추가하여 분리할 수 있습니다. Spacer는 자동으로 늘어나는 유연한 공간이므로, 활동 아이콘을 화면 상단으로, 버튼을 하단으로 밀어줍니다.
 
-Insert it between the two, like this:
+둘 사이에 다음과 같이 삽입하세요:
 
 ```swift
 VStack {
@@ -342,11 +340,11 @@ Button("Try again") {
 }
 ```
 
-If you add multiple spacers, they will divide the space equally between them. If you try placing a second spacer before the “Why not try…” text you’ll see what I mean – SwiftUI will create and equal amount of space above the text and below the activity name.
+Spacer를 여러 개 추가하면 공간이 균등하게 나뉩니다. "Why not try…" 텍스트 앞에 두 번째 Spacer를 넣어 보면 무슨 뜻인지 알 수 있습니다. SwiftUI가 텍스트 위와 활동 이름 아래에 동일한 양의 공간을 만듭니다.
 
 ![View With Spacers]({{site.url}}/assets/images/getting-started-guides/swiftui-ios/spacers.png)
 
-And fourth, it would be nice if the change between activities was smoother, which we can do by animating the change. In SwiftUI, this is done by wrapping changes we want to animate with a call to the `withAnimation()` function, like this:
+넷째, 활동 전환이 더 부드러우면 좋겠습니다. SwiftUI에서는 변경 사항을 `withAnimation()` 함수로 감싸서 애니메이션을 적용할 수 있습니다:
 
 ```swift
 Button("Try again") {
@@ -357,7 +355,7 @@ Button("Try again") {
 .buttonStyle(.borderedProminent)
 ```
 
-That will cause our button press to move between activities with a gentle fade. If you want, you can customize that animation by passing the animation you want to the `withAnimation()` call, like this:
+이렇게 하면 버튼을 누를 때 부드러운 페이드로 활동이 전환됩니다. 원한다면 `withAnimation()` 호출에 원하는 애니메이션을 전달하여 커스터마이즈할 수 있습니다:
 
 ```swift
 withAnimation(.easeInOut(duration: 1)) {
@@ -365,19 +363,19 @@ withAnimation(.easeInOut(duration: 1)) {
 }
 ```
 
-That’s an improvement, but we can do better!
+개선되었지만, 더 잘할 수 있습니다!
 
-The fade happens because SwiftUI sees the background color, icon, and text changing, so it removes the old views and replaces it with new views. Earlier I made you create an inner `VStack` to house those three views, and now you can see why: we’re going to tell SwiftUI that these views can be identified as a single group, and that the group’s identifier can change over time.
+페이드가 발생하는 이유는 SwiftUI가 배경색, 아이콘, 텍스트가 변경되는 것을 감지하고, 기존 뷰를 제거한 후 새 뷰로 교체하기 때문입니다. 앞서 안쪽 `VStack`을 만들어 세 개의 뷰를 담도록 한 이유가 여기서 드러납니다: 이 뷰들을 하나의 그룹으로 식별할 수 있도록 하고, 그 그룹의 식별자가 시간에 따라 변경될 수 있다고 SwiftUI에 알려줄 것입니다.
 
-To make that happen, we need to start by defining some more program state inside our view. This will be the identifier for our inner `VStack`, and because it will change as our program runs we’ll use `@State`. Add this property next to `selected`:
+이를 위해 먼저 뷰 안에 프로그램 상태를 더 정의해야 합니다. 이것이 안쪽 `VStack`의 식별자가 되며, 프로그램 실행 중에 변경되므로 `@State`를 사용합니다. `selected` 옆에 다음 프로퍼티를 추가하세요:
 
 ```swift
 @State private var id = 1
 ```
 
-**Tip:** That’s more local view state, so it’s good practice to mark it with `private`.
+**팁:** 이것도 로컬 뷰 상태이므로, `private`으로 표시하는 것이 좋은 습관입니다.
 
-Next, we can tell SwiftUI to change that identifier every time our button is pressed, like this:
+다음으로, 버튼을 누를 때마다 이 식별자가 변경되도록 SwiftUI에 알려줍니다:
 
 ```swift
 Button("Try again") {
@@ -389,25 +387,25 @@ Button("Try again") {
 .buttonStyle(.borderedProminent)
 ```
 
-Finally, we can use SwiftUI’s `id()` modifier to attach that identifier to the whole inner `VStack`, meaning that when the identifier changes SwiftUI should consider the whole `VStack` as new. This will make it animate the old `VStack` being removed and a new `VStack` being added, rather than just the individual views inside it. Even better, we can control how that add and remove transition happens using a `transition()` modifier, which has various built-in transitions we can use.
+마지막으로, SwiftUI의 `id()` 수정자를 사용해 이 식별자를 안쪽 `VStack` 전체에 연결합니다. 식별자가 변경되면 SwiftUI는 `VStack` 전체를 새로운 것으로 간주합니다. 이렇게 하면 안에 있는 개별 뷰가 아니라, 기존 `VStack`이 제거되고 새 `VStack`이 추가되는 애니메이션이 적용됩니다. 더 나아가 `transition()` 수정자로 추가/제거 전환 방식도 제어할 수 있으며, 다양한 내장 전환 효과를 사용할 수 있습니다.
 
-So, add these two modifiers to the inner `VStack`, telling SwiftUI to identify the whole group using our `id` property, and animate its add and removal transitions with a slide:
+안쪽 `VStack`에 다음 두 수정자를 추가합니다. `id` 프로퍼티를 사용해 전체 그룹을 식별하고, 추가/제거 전환을 슬라이드 효과로 애니메이션합니다:
 
 ```swift
 .transition(.slide)
 .id(id)
 ```
 
-Press Cmd+R to run your app one last time, and you should see that pressing “Try Again” now smoothly animates the old activity off the screen, and replaces it with a new one. It even overlaps animations if you press “Try Again” repeatedly!
+Cmd+R을 눌러 앱을 마지막으로 한 번 실행해 보세요. "Try Again"을 누르면 이전 활동이 화면에서 부드럽게 사라지고, 새 활동으로 교체되는 것을 볼 수 있습니다. "Try Again"을 반복해서 빠르게 누르면 애니메이션이 겹치기도 합니다!
 
 <video class="device-aspect-ratio" autoplay loop muted>
   <source src="{{site.url}}/assets/videos/getting-started-guides/swiftui-app/demo.mp4" type="video/mp4">
 </video>
 
-## Where now?
+## 다음 단계
 
-We’ve covered a lot of SwiftUI basics in this tutorial, including text, images, buttons, stacks, animation, and even using `@State` to mark values that change over time. SwiftUI is capable of so much more, and can be used to build complex cross-platform apps if needed.
+이 튜토리얼에서 텍스트, 이미지, 버튼, 스택, 애니메이션, 그리고 시간에 따라 변하는 값을 표시하기 위한 `@State` 사용 등 SwiftUI의 기본 사항을 많이 다루었습니다. SwiftUI는 이보다 훨씬 더 많은 것이 가능하며, 필요하다면 복잡한 크로스 플랫폼 앱도 만들 수 있습니다.
 
-If you’d like to continue learning SwiftUI, there are lots of free resources available. For example, [Apple publishes a wide variety of tutorials](https://developer.apple.com/tutorials/swiftui) covering essential topics, drawing and animation, app design, and more. We’ll also post links here on Swift.org to some other popular tutorials – we’re a big and welcoming community, and we’re glad to have you join!
+SwiftUI를 계속 배우고 싶다면 다양한 무료 자료가 있습니다. 예를 들어 [Apple은 필수 주제, 드로잉과 애니메이션, 앱 디자인 등을 다루는 다양한 튜토리얼을 제공](https://developer.apple.com/tutorials/swiftui)합니다. Swift.org에서도 인기 있는 다른 튜토리얼 링크를 게시할 예정입니다. Swift는 크고 따뜻한 커뮤니티이며, 여러분이 함께하는 것을 환영합니다!
 
-> The source code for this guide can be found [on GitHub](https://github.com/0xTim/swift-org-swiftui-tutorial)
+> 이 가이드의 소스 코드는 [GitHub](https://github.com/0xTim/swift-org-swiftui-tutorial)에서 확인할 수 있습니다.

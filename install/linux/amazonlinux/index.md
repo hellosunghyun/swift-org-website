@@ -1,4 +1,4 @@
 ---
 layout: new-layouts/install-linux-version
-title: Install Swift
+title: Swift 설치
 ---
