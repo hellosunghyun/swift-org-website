@@ -1,161 +1,161 @@
-- header: Get Started
+- header: 시작하기
   url: /getting-started/
 # ------------------------------------------------------------------------------
-- header: Blog
+- header: 블로그
   url: /blog/
 # ------------------------------------------------------------------------------
-- header: Documentation
+- header: 문서
   url: /documentation/
 # ------------------------------------------------------------------------------
-- header: Packages
+- header: 패키지
   url: /packages/
 # ------------------------------------------------------------------------------
-- header: Tools
+- header: 도구
   url: /tools/
 # ------------------------------------------------------------------------------
-- header: Community
+- header: 커뮤니티
   url: /community/
   pages:
-    - title: Overview
+    - title: 개요
       url: /community/
     - title: Swift Evolution
       url: /swift-evolution/
-    - title: Diversity
+    - title: 다양성
       url: /diversity/
       sections:
-        - title: Mission
+        - title: 미션
           name: mission
-        - title: Workgroup
+        - title: 워크그룹
           name: workgroup
-        - title: Community Groups
+        - title: 커뮤니티 그룹
           name: community-groups
-        - title: Events
+        - title: 이벤트
           name: events
-        - title: Community-focused blog on Swift.org
+        - title: Swift.org 커뮤니티 블로그
           name: community-focused-blog-on-swiftorg
-        - title: Community Participation
+        - title: 커뮤니티 참여
           name: community-participation
-    - title: Mentorship
+    - title: 멘토십
       url: /mentorship/
       sections:
-        - title: Current Program
+        - title: 현재 프로그램
           name: current-program
-        - title: Frequently Asked Questions
+        - title: 자주 묻는 질문
           name: frequently-asked-questions
-    - title: Contributing
+    - title: 기여하기
       url: /contributing/
       sections:
-        - title: Answering Questions
+        - title: 질문에 답하기
           name: answering-questions
-        - title: Reporting Bugs
+        - title: 버그 보고
           name: reporting-bugs
-        - title: Triaging Bugs
+        - title: 버그 분류
           name: triaging-bugs
-        - title: Blog Post Contributions
+        - title: 블로그 글 기여
           name: website-and-blog-post-contributions
         - title: Swift Evolution
           name: evolution-process
-        - title: Good First Issues
+        - title: 첫 기여에 좋은 이슈
           name: good-first-issues
-        - title: Contributing Code
+        - title: 코드 기여
           name: contributing-code
-        - title: Adding External Library Dependencies
+        - title: 외부 라이브러리 의존성 추가
           name: adding-external-library-dependencies
-    - section: Steering Groups
-    - title: Ecosystem
+    - section: 운영 그룹
+    - title: 생태계
       url: /ecosystem-steering-group/
-    - title: Language
+    - title: 언어
       url: /language-steering-group/
       sections:
-        - title: Charter
+        - title: 헌장
           name: charter
-        - title: Membership
+        - title: 멤버십
           name: membership
-        - title: Decision making
+        - title: 의사 결정
           name: decision-making
-        - title: Communication
+        - title: 커뮤니케이션
           name: communication
-        - title: Evolution process
+        - title: Evolution 프로세스
           name: evolution-process
-        - title: Community participation
+        - title: 커뮤니티 참여
           name: community-participation
-    - title: Platform
+    - title: 플랫폼
       url: /platform-steering-group/
       sections:
-        - title: Charter
+        - title: 헌장
           name: charter
-        - title: Membership
+        - title: 멤버십
           name: membership
         - title: Evolution
           name: evolution
-        - title: Communication
+        - title: 커뮤니케이션
           name: communication
-        - title: Platform Evolution process
+        - title: 플랫폼 Evolution 프로세스
           name: platform-evolution-process
-        - title: Community participation
+        - title: 커뮤니티 참여
           name: community-participation
-    - section: Workgroups
-    - title: Contributor Experience
+    - section: 워크그룹
+    - title: 기여자 경험
       url: /contributor-experience-workgroup/
-    - title: Server
+    - title: 서버
       url: /sswg/
       sections:
-        - title: Community Participation
+        - title: 커뮤니티 참여
           name: community-participation
-        - title: Governance
+        - title: 거버넌스
           name: governance
-        - title: Website workgroup
+        - title: 웹사이트 워크그룹
           name: website-workgroup
-    - title: Website
+    - title: 웹사이트
       url: /website/
       sections:
-        - title: Community Participation
+        - title: 커뮤니티 참여
           name: community-participation
-        - title: Governance
+        - title: 거버넌스
           name: governance
-        - title: Website workgroup
+        - title: 웹사이트 워크그룹
           name: website-workgroup
-    - title: C++ Interoperability
+    - title: C++ 상호 운용성
       url: /cxx-interop-workgroup/
       sections:
-        - title: Charter
+        - title: 헌장
           name: charter
-        - title: Membership
+        - title: 멤버십
           name: membership
-        - title: Communication
+        - title: 커뮤니케이션
           name: communication
-    - title: Documentation
+    - title: 문서화
       url: /documentation-workgroup/
       sections:
-        - title: Charter
+        - title: 헌장
           name: charter
-        - title: Membership
+        - title: 멤버십
           name: membership
-        - title: Communication
+        - title: 커뮤니케이션
           name: communication
-        - title: Community Participation
+        - title: 커뮤니티 참여
           name: community-participation
     - title: Foundation
       url: /foundation-workgroup/
-    - title: Testing
+    - title: 테스팅
       url: /testing-workgroup/
     - title: Android
       url: /android-workgroup/
     - title: Windows
       url: /windows-workgroup/
-    - section: Governance
-    - title: Code of Conduct
+    - section: 거버넌스
+    - title: 행동 강령
       url: /code-of-conduct/
-    - title: License
+    - title: 라이선스
       url: /legal/license.html
-    - title: Security
+    - title: 보안
       url: /support/security.html
       sections:
-        - title: Security Process
+        - title: 보안 프로세스
           name: security-process
-        - title: Security Updates
+        - title: 보안 업데이트
           name: security-updates
 # ------------------------------------------------------------------------------
-- header: Install
+- header: 설치
   url: /install/
   isCta: true

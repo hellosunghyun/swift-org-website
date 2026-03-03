@@ -1,6 +1,6 @@
 url: https://swift.org
 title: Swift.org
-description: "Swift is a general-purpose programming language built using a modern approach to safety, performance, and software design patterns."
+description: "Swift는 안전성, 성능, 소프트웨어 설계 패턴에 대한 현대적 접근 방식으로 만들어진 범용 프로그래밍 언어입니다."
 timezone: America/Lower_Princes
 exclude: ["README.md", "config.ru", "Gemfile", "Gemfile.lock", "Procfile", "vendor", "get-started/storybook", "Makefile"]
 safe: false

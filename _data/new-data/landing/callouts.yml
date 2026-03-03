@@ -1,6 +1,6 @@
-- title: Fast
-  subtitle: Build with speed and performance.
-  text: Swift meets the most performance-critical needs, while allowing your code to remain expressive and approachable. Swift compiles directly to native code and provides predictable memory management.
+- title: 빠른 속도
+  subtitle: 속도와 성능을 갖춰 빌드하세요.
+  text: Swift는 코드의 표현력과 접근성을 유지하면서도 가장 높은 성능이 요구되는 환경을 충족합니다. Swift는 네이티브 코드로 직접 컴파일되며 예측 가능한 메모리 관리를 제공합니다.
   code: |-
     // Vectorized check that a utf8 buffer is all ASCII
     func isASCII(utf8: Span<SIMD16<UInt8>>) -> Bool {
@@ -13,9 +13,9 @@
       .max() < 0x80
     }
 
-- title: Expressive
-  subtitle: Concise code. Powerful results.
-  text: Swift empowers you to write advanced code in a concise, readable syntax that even a beginner can understand. Swift supports object-oriented, functional, and generic programming patterns that experienced developers are familiar with. Its progressive disclosure allows you to pick up the language quickly, taking advantage of power-user features as you need them.
+- title: 표현력
+  subtitle: 간결한 코드. 강력한 결과.
+  text: Swift는 초보자도 이해할 수 있는 간결하고 읽기 쉬운 문법으로 고급 코드를 작성할 수 있게 합니다. 경험 많은 개발자에게 익숙한 객체지향, 함수형, 제네릭 프로그래밍 패턴을 지원합니다. 점진적 공개 방식을 통해 언어를 빠르게 익히고, 필요에 따라 고급 기능을 활용할 수 있습니다.
   code: |-
     import ArgumentParser
 
@@ -37,9 +37,9 @@
       }
     }
 
-- title: Safe
-  subtitle: Protect memory safety.
-  text: Swift prioritizes safety and eliminates entire classes of bugs and vulnerabilities by its design. Memory safety and data race safety are core features of the language, making them straightforward to integrate into your codebase. Safety is required at compile time, before your applications are ever run.
+- title: 안전성
+  subtitle: 메모리 안전성을 보호하세요.
+  text: Swift는 안전성을 최우선으로 하며, 설계상 특정 부류의 버그와 취약점을 원천적으로 제거합니다. 메모리 안전성과 데이터 레이스 안전성은 언어의 핵심 기능으로, 코드베이스에 쉽게 통합할 수 있습니다. 안전성은 애플리케이션이 실행되기 전인 컴파일 시점에 보장됩니다.
   code: |-
     let transform = Affine2DTransformBuilder()
         .translate([10.0, 20.0].span)
@@ -53,8 +53,8 @@
       transform, rowCount, colCount, v.span, allocator)
     let uMagnitude = vec_mag(u.span)
 
-- title: Interoperable
-  subtitle: Adopt in existing code incrementally.
+- title: 상호 운용성
+  subtitle: 기존 코드에 점진적으로 도입하세요.
   text: Swift provides unmatched interoperability with its combination of natively understanding C and C++ types without the need for foreign function interfaces, and by providing bridging for bi-directional access. Swift’s interoperability features allow you to incrementally adopt the language into existing codebases without requiring a full code rewrite.
   code: |-
     import CxxStdlib
@@ -69,8 +69,8 @@
       cppstring.find(.init("juice")) != std.string.npos
     }
 
-- title: Adaptable
-  subtitle: From microcontrollers to servers.
+- title: 적응성
+  subtitle: 마이크로컨트롤러에서 서버까지.
   text: "The only language that can span from embedded and kernel, to server and apps. Swift excels no matter where it’s used: from constrained environments like firmware where every byte counts, to cloud services handling billions of requests a day."
   code: |-
     // Configure UART by direct register manipulation 
@@ -88,10 +88,10 @@
       rw.te = .Enabled
     }
 
-- title: Open Source
-  subtitle: Contribute and get involved.
+- title: 오픈 소스
+  subtitle: 기여하고 참여하세요.
   links:
     - link: https://github.com/swiftlang
-      text: View SwiftLang on GitHub
+      text: GitHub에서 SwiftLang 보기
     - link: https://forums.swift.org
-      text: Join the forums
+      text: 포럼 참여하기

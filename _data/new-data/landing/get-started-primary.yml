@@ -1,17 +1,17 @@
-- title: Cloud Services
-  subtitle: Run performant services on Linux and deploy to the cloud.
+- title: 클라우드 서비스
+  subtitle: Linux에서 고성능 서비스를 실행하고 클라우드에 배포하세요.
   icon: cloud
-  data-text: Cloud Services
+  data-text: 클라우드 서비스
   link: /get-started/cloud-services
 
-- title: Command Line
-  subtitle: Create powerful CLI tools that are fast and memory safe.
+- title: 커맨드 라인
+  subtitle: 빠르고 메모리 안전한 강력한 CLI 도구를 만드세요.
   icon: command-line
-  data-text: Command Line
+  data-text: 커맨드 라인
   link: /get-started/command-line-tools
 
-- title: Embedded
-  subtitle: Develop efficient, reliable firmware for devices like microcontrollers.
+- title: 임베디드
+  subtitle: 마이크로컨트롤러와 같은 장치를 위한 효율적이고 안정적인 펌웨어를 개발하세요.
   icon: chip
-  data-text: Embedded
+  data-text: 임베디드
   link: /get-started/embedded

@@ -1,15 +1,15 @@
-- title: iOS apps
-  data-text: iOS apps
+- title: iOS 앱
+  data-text: iOS 앱
   link: /getting-started/swiftui/
 
-- title: Windows apps
-  data-text: Windows apps
+- title: Windows 앱
+  data-text: Windows 앱
   link: /blog/swift-everywhere-windows-interop/
 
-- title: Machine Learning &amp; AI
-  data-text: Machine learning and AI
+- title: 머신 러닝 &amp; AI
+  data-text: 머신 러닝과 AI
   link: /blog/mlx-swift/
 
-- title: Packages
-  data-text: Packages
+- title: 패키지
+  data-text: 패키지
   link: /getting-started/library-swiftpm/

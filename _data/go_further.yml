@@ -1,33 +1,33 @@
-- title: "Value and Reference Types"
-  description: "This article describes the differences in behavior between _value types_ and _reference types_—a fundamental part of learning Swift and choosing between structures and classes."
+- title: "값 타입과 참조 타입"
+  description: "이 문서는 _값 타입_과 _참조 타입_의 동작 차이를 설명합니다. 이는 Swift를 배우고 구조체와 클래스 중 선택하는 데 핵심적인 부분입니다."
   content_type: article
   content_url: /documentation/articles/value-and-reference-types.html
   thumbnail_url: #TBD
   release_date: 2023-04-29
   external: false
-- title: "Generics"
-  description: "In Swift, generics are a fundamental way to write abstract code. This video walks through the basics of Swift Generics and introducing generics into your code."
+- title: "제네릭"
+  description: "Swift에서 제네릭은 추상적인 코드를 작성하는 기본적인 방법입니다. 이 영상은 Swift 제네릭의 기본 사항을 설명하고 코드에 제네릭을 도입하는 방법을 안내합니다."
   content_type: video
   content_url: https://developer.apple.com/videos/play/wwdc2022/110352/
   thumbnail_url: /assets/images/getting-started/swift-generics-thumbnail.jpg
   release_date: 2021-06-09
   external: true
-- title: "Concurrency"
-  description: "Swift has concurrency features built into the language making it easier to write concurrent code with the assistance of the compiler. This video introduces the async/await mechanism, a key part of Swift Concurrency."
+- title: "동시성"
+  description: "Swift는 컴파일러의 도움을 받아 동시성 코드를 더 쉽게 작성할 수 있도록 언어에 동시성 기능이 내장되어 있습니다. 이 영상은 Swift Concurrency의 핵심인 async/await 메커니즘을 소개합니다."
   content_type: video
   content_url: https://developer.apple.com/videos/play/wwdc2021/10132/
   thumbnail_url: /assets/images/getting-started/meet-async-await-thumbnail.jpg
   release_date: 2021-06-08
   external: true
-- title: "Regular Expressions"
-  description: "Swift provides first-class regular expression support, commonly known as regex, for effective string processing. This video gives an overview of the power and flexibility of Swift Regex."
+- title: "정규 표현식"
+  description: "Swift는 효과적인 문자열 처리를 위해 정규 표현식(regex)을 일급 지원합니다. 이 영상은 Swift Regex의 강력함과 유연성을 개괄적으로 소개합니다."
   content_type: video
   content_url: https://developer.apple.com/videos/play/wwdc2022/110357/
   thumbnail_url: /assets/images/getting-started/regular-expression-thumbnail.jpg
   release_date: 2022-06-07
   external: true
-- title: "Wrapping C/C++ Library in Swift"
-  description: "This article describes how to wrap a C or C++ library in Swift."
+- title: "Swift에서 C/C++ 라이브러리 래핑하기"
+  description: "이 문서는 C 또는 C++ 라이브러리를 Swift에서 래핑하는 방법을 설명합니다."
   content_type: article
   content_url: /documentation/articles/wrapping-c-cpp-library-in-swift.html
   thumbnail_url: #TBD

@@ -1,8 +1,8 @@
-headline: Latest Swift News
-read-more: Read more
+headline: 최신 Swift 소식
+read-more: 더 읽기
 category_titles:
-  - 'Community'
-  - 'Language'
-  - 'Developer Tools'
-  - 'Adopters'
-  - 'Digest'
+  - '커뮤니티'
+  - '언어'
+  - '개발자 도구'
+  - '도입 사례'
+  - '다이제스트'

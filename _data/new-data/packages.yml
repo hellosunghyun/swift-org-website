@@ -1,15 +1,15 @@
-- title: Package 1
-  description: This is the first package.
+- title: 패키지 1
+  description: 첫 번째 패키지입니다.
   link: /packages/package-1
-- title: Package 2
-  description: This is the second package.
+- title: 패키지 2
+  description: 두 번째 패키지입니다.
   link: /packages/package-2
-- title: Package 3
-  description: This is the third package.
+- title: 패키지 3
+  description: 세 번째 패키지입니다.
   link: /packages/package-3
-- title: Package 4
-  description: This is the fourth package.
+- title: 패키지 4
+  description: 네 번째 패키지입니다.
   link: /packages/package-4
-- title: Package 5
-  description: This is the fifth package.
+- title: 패키지 5
+  description: 다섯 번째 패키지입니다.
   link: /packages/package-5
