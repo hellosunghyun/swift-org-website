@@ -1,25 +1,35 @@
-url: https://swift.org
+url: https://hellosunghyun.github.io
+baseurl: /swift-org-website
 title: Swift.org
-description: "Swift는 안전성, 성능, 소프트웨어 설계 패턴에 대한 현대적 접근 방식으로 만들어진 범용 프로그래밍 언어입니다."
+description: 'Swift는 안전성, 성능, 소프트웨어 설계 패턴에 대한 현대적 접근 방식으로 만들어진 범용 프로그래밍 언어입니다.'
 timezone: America/Lower_Princes
-exclude: ["README.md", "config.ru", "Gemfile", "Gemfile.lock", "Procfile", "vendor", "get-started/storybook", "Makefile"]
+exclude:
+  [
+    'README.md',
+    'config.ru',
+    'Gemfile',
+    'Gemfile.lock',
+    'Procfile',
+    'vendor',
+    'get-started/storybook',
+    'Makefile',
+  ]
 safe: false
 future: true
 
 kramdown:
-    syntax_highlighter: rouge
+  syntax_highlighter: rouge
 
 sass:
-    style: compressed
-    sass_dir: "assets/stylesheets"
+  style: compressed
+  sass_dir: 'assets/stylesheets'
 
 defaults:
-    -
-        scope:
-            type: "posts"
-        values:
-            permalink: /blog/:title/
-            layout: "post"
+  - scope:
+      type: 'posts'
+    values:
+      permalink: /blog/:title/
+      layout: 'post'
 
 plugins:
   - jekyll-redirect-from
@@ -28,5 +38,5 @@ whitelist:
   - jekyll-redirect-from
 
 include:
- - .well-known
- - assets/fonts
+  - .well-known
+  - assets/fonts
