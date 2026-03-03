@@ -1,33 +1,32 @@
 ---
 layout: page
-title: C++ Interoperability Workgroup
+title: C++ 상호 운용성 워크그룹
 ---
 
-The C++ Interoperability workgroup is a team that works on adding the support for the bidirectional interoperability between Swift and C++.
+C++ 상호 운용성 워크그룹은 Swift와 C++ 간 양방향 상호 운용성 지원을 추가하는 작업을 수행하는 팀입니다.
 
-## Charter
+## 헌장
 
-The C++ Interoperability workgroup works to build and advance the interoperability support between Swift and C++, with the goal of making bidirectional interoperation with C++ a fully supported Swift language feature.
+C++ 상호 운용성 워크그룹은 C++와의 양방향 상호 운용성을 완전히 지원하는 Swift 언어 기능으로 만드는 것을 목표로 Swift와 C++ 간 상호 운용성 지원을 구축하고 발전시키는 작업을 합니다.
 
-The C++ Interoperability workgroup serves as an incubator for the design and implementation of Swift's interoperation with C++. It has no special technical or formal authority. Workgroup members design, implement, test, and document experimental features in the Swift tools that allow both Swift programs to import and use C++ APIs and C++ programs to import and use Swift APIs. When the workgroup feels that a feature is ready, workgroup members guide the feature through the normal Swift evolution process for discussion and formal review. It is a goal of the workgroup that all features will eventually be reviewed rather than remaining perpetually experimental.
+C++ 상호 운용성 워크그룹은 Swift의 C++ 상호 운용 설계와 구현을 위한 인큐베이터 역할을 합니다. 특별한 기술적 또는 공식적 권한은 없습니다. 워크그룹 멤버는 Swift 프로그램에서 C++ API를 임포트하여 사용하거나 C++ 프로그램에서 Swift API를 임포트하여 사용할 수 있는 실험적 기능을 Swift 도구에 설계, 구현, 테스트 및 문서화합니다. 기능이 준비되었다고 판단되면, 워크그룹 멤버는 일반적인 Swift Evolution 프로세스를 통해 토론 및 공식 검토를 진행합니다. 모든 기능이 영구적으로 실험 상태에 머무르지 않고 최종적으로 검토를 받는 것이 워크그룹의 목표입니다.
 
-As an incubator for language proposals, the C++ Interoperability workgroup works closely with the Language Steering Group to get early feedback on its ideas and to provide feedback to the Language Steering Group about general directions the language should take.
+언어 제안의 인큐베이터로서, C++ 상호 운용성 워크그룹은 Language Steering Group과 긴밀히 협력하여 아이디어에 대한 초기 피드백을 받고, 언어가 나아가야 할 전반적인 방향에 대해 Language Steering Group에 피드백을 제공합니다.
 
-The C++ Interoperability workgroup communicates with the broader Swift community in three primary ways:
+C++ 상호 운용성 워크그룹은 세 가지 주요 방식으로 더 넓은 Swift 커뮤니티와 소통합니다:
 
-* The workgroup proposes features for inclusion into Swift and guides them through the normal Swift evolution process.
+- 워크그룹은 Swift에 포함될 기능을 제안하고 일반적인 Swift Evolution 프로세스를 통해 안내합니다.
 
-* The workgroup writes design and technical documentation, such as manifestos that describe the high-level design approach it is considering or precise specifications of how complex features are handled.
+- 워크그룹은 고려 중인 상위 수준 설계 접근 방식을 설명하는 매니페스토나 복잡한 기능의 처리 방식에 대한 정밀한 사양과 같은 설계 및 기술 문서를 작성합니다.
 
-* After every major and minor release of Swift, the workgroup publishes a report about its recent work (whether or not that work was incorporated into the release) and its plans for the upcoming releases to the [C++ interoperability Swift.org website forum section](https://forums.swift.org/c/development/c-interoperability/82).
+- Swift의 주요 및 부 릴리스 이후, 워크그룹은 최근 작업(해당 릴리스에 포함되었든 아니든)과 향후 릴리스 계획에 대한 보고서를 [C++ 상호 운용성 Swift.org 웹사이트 포럼 섹션](https://forums.swift.org/c/development/c-interoperability/82)에 게시합니다.
 
-## Membership
+## 멤버십
 
-Membership in the C++ Interoperability workgroup is open to anyone who wishes to contribute. Members communicate with each other over regular video calls and on the Swift forums. Community members interested in participating in the workgroup should reach out to a current member of the workgroup, or request to be added to the [C++ Interop workgroup](https://forums.swift.org/g/cxx-interop-workgroup) directly.
+C++ 상호 운용성 워크그룹 멤버십은 기여하고자 하는 누구에게나 열려 있습니다. 멤버들은 정기 화상 회의와 Swift 포럼을 통해 소통합니다. 워크그룹 참여에 관심 있는 커뮤니티 멤버는 현재 워크그룹 멤버에게 연락하거나, [C++ Interop 워크그룹](https://forums.swift.org/g/cxx-interop-workgroup)에 직접 추가를 요청할 수 있습니다.
 
-The C++ Interoperability workgroup adheres to the Swift code of conduct. If community members have any concerns about the adherence of the workgroup or one of its members to the code of conduct, they should contact a member of the Swift Core Team.
+C++ 상호 운용성 워크그룹은 Swift 행동 강령을 준수합니다. 커뮤니티 멤버가 워크그룹이나 그 구성원의 행동 강령 준수에 대해 우려 사항이 있으면 Swift Core Team 구성원에게 연락해야 합니다.
 
+## 소통
 
-## Communication
-
-The C++ Interoperability workgroup uses the [C++ interoperability Swift.org website forum section](https://forums.swift.org/c/development/c-interoperability/82) for general discussions. It can also be contacted privately by messaging [@cxx-interop-workgroup](https://forums.swift.org/g/cxx-interop-workgroup) on the Swift Forums.
+C++ 상호 운용성 워크그룹은 일반적인 논의에 [C++ 상호 운용성 Swift.org 웹사이트 포럼 섹션](https://forums.swift.org/c/development/c-interoperability/82)을 사용합니다. Swift 포럼에서 [@cxx-interop-workgroup](https://forums.swift.org/g/cxx-interop-workgroup)으로 비공개 메시지를 보낼 수도 있습니다.

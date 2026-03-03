@@ -1,34 +1,32 @@
-## Contributing Code
+## 코드 기여
 
-### Getting Started
+### 시작하기
 
-It is highly recommended that you become familiar with using Swift in your own projects before contributing directly to the language itself. We put together handy [Getting Started][get_started] guides with step-by-step instructions to get you up and running.
+언어 자체에 직접 기여하기 전에 먼저 자신의 프로젝트에서 Swift를 사용해 보는 것을 강력히 권장합니다. 시작하는 데 도움이 되는 단계별 지침이 포함된 [시작하기][get_started] 가이드를 준비했습니다.
 
-### Incremental Development
+### 점진적 개발
 
-The Swift project uses *small, incremental changes* as its preferred development model.  Sometimes these changes are small bug fixes. Other times, these changes are small steps along the path to reaching larger stated goals.  In contrast, long-term development branches can leave the community without a voice during development. Some additional problems with long-term branches include:
+Swift 프로젝트는 *작고 점진적인 변경*을 선호하는 개발 모델을 사용합니다. 때로는 작은 버그 수정이고, 때로는 더 큰 목표를 향한 작은 단계입니다. 반면, 장기 개발 브랜치는 개발 중에 커뮤니티의 목소리를 반영하지 못할 수 있습니다. 장기 브랜치의 추가 문제점은 다음과 같습니다:
 
-* Resolving merge conflicts can take a lot of time if branch development and mainline development occur in the same pieces of code.
-* People in the community tend to ignore work on branches.
-* Very large changes are difficult to code review.
-* Branches are not routinely tested by the continuous integration infrastructure.
+- 브랜치 개발과 메인라인 개발이 동일한 코드 영역에서 이루어지면 머지 충돌 해결에 많은 시간이 소요될 수 있습니다.
+- 커뮤니티 구성원들은 브랜치 작업을 무시하는 경향이 있습니다.
+- 매우 큰 변경 사항은 코드 리뷰가 어렵습니다.
+- 브랜치는 지속적 통합 인프라에 의해 정기적으로 테스트되지 않습니다.
 
+이러한 문제를 해결하기 위해 Swift는 점진적 개발 스타일을 사용합니다. 가능한 한 작은 변경이 선호됩니다. 크거나 광범위한 변경을 할 때 이 방식을 따르도록 기여자에게 요구합니다. 다음은 몇 가지 팁입니다:
 
-To address these problems, Swift uses an incremental development style.  Small changes are preferred whenever possible.  We require contributors to follow this practice when making large or otherwise invasive changes. Some tips follow:
+- 크거나 광범위한 변경에는 대체로 주요 변경 전에 수행해야 하는 부수적인 변경(예: API 정리 또는 추가)이 있습니다. 이러한 변경은 주요 변경과 독립적으로 먼저 커밋하세요.
 
+- 가능하다면 나머지 상호 연관된 작업을 서로 관련 없는 변경 세트로 분해하세요. 그런 다음 첫 번째 증분을 정의하고 변경의 개발 목표에 대한 합의를 얻으세요.
 
-* Large or invasive changes usually have secondary changes that must be made before the large change (for example, API cleanup or addition). Commit these changes before the major change, independently of that work.
+- 각 변경을 독립적인 것(예: 버그 수정)이거나 개발 목표를 향한 계획된 변경 시리즈의 일부로 만드세요. 이러한 관계를 커뮤니티에 설명하면 도움이 될 수 있습니다.
 
-* If possible, decompose the remaining interrelated work into unrelated sets of changes. Next, define the first increment and get consensus on the development goal of the change.
-
-* Make each change in the set either stand alone (for example, to fix a bug) or part of a planned series of changes that work toward the development goal. Explaining these relationships to the community can be helpful.
-
-
-If you are interested in making a large change and feel unsure about its overall effect, please make sure to first discuss the change and reach a consensus through the [developer forums](/community/#swift-development). Then ask about the best way to go about making the change.
+큰 변경을 고려하고 있으며 전체적인 영향이 확실하지 않다면, 먼저 [개발자 포럼](/community/#swift-development)에서 변경 사항을 논의하고 합의를 이루세요. 그런 다음 변경을 진행하는 가장 좋은 방법에 대해 물어보세요.
 
 [email-devs]: mailto:swift-dev@swift.org
 
 {% comment %}
+
 ### Contributing a Change
 
 When contributing a change, please do to the following:
@@ -42,38 +40,38 @@ When your change is ready, submit a [pull request](https://help.github.com/artic
 Please do not add confidentiality or non-disclosure notices to the changes themselves as these conflict with the Swift license.
 {% endcomment %}
 
-### Commit Messages
+### 커밋 메시지
 
-Although we don't enforce a strict format for commit messages, we prefer that you follow the guidelines below, which are common among open source projects.  Following these guidelines helps with the review process, searching commit logs, and email formatting. At a high level, the contents of the commit message should be to convey the rationale of the change, without delving into much detail. For example, "bits were not set right" leaves the reviewer wondering about which bits and why they weren't "right". In contrast, "Correctly compute 'is dependent type' bits in 'Type'" conveys almost all there is to the change.
+엄격한 커밋 메시지 형식을 강제하지는 않지만, 오픈 소스 프로젝트에서 일반적인 아래 가이드라인을 따르는 것을 권장합니다. 이 가이드라인을 따르면 리뷰 프로세스, 커밋 로그 검색, 이메일 형식 지정에 도움이 됩니다. 높은 수준에서 커밋 메시지의 내용은 세부 사항보다는 변경의 근거를 전달해야 합니다. 예를 들어, "비트가 올바르게 설정되지 않았음"은 리뷰어에게 어떤 비트인지, 왜 "올바르지" 않은지 궁금증을 남깁니다. 반면, "Correctly compute 'is dependent type' bits in 'Type'"은 변경 사항의 거의 모든 것을 전달합니다.
 
-Below are some guidelines about the format of the commit message itself:
+다음은 커밋 메시지 형식에 대한 가이드라인입니다:
 
-* Separate the commit message into a single-line *title* and a separate *body* that describes the change.
-* Make the title concise to be easily read within a commit log and to fit in the subject line of a commit email.
-* In changes that are restricted to a specific part of the code, include a [tag] at the start of the line in square brackets---for example, "[stdlib] ..." or "[SILGen] ...". This tag helps email filters and searches for post-commit reviews.
-* When there is a body, separate it from the title by an empty line.
-* Make body concise, while including the complete reasoning. Unless required to understand the change, additional code examples or other details should be left to bug comments or the mailing list.
-* If the commit fixes an issue in the bug tracking system, include a link to the issue in the message.
-* For text formatting and spelling, follow the same rules as documentation and in-code comments---for example, the use of capitalization and periods.
-* If the commit is a bug fix on top of another recently committed change, or a revert or reapply of a patch, include the Git revision number of the prior related commit, e.g. "Revert abcdef because it caused bug#".
+- 커밋 메시지를 한 줄 *제목*과 변경을 설명하는 별도의 *본문*으로 분리하세요.
+- 제목은 커밋 로그에서 쉽게 읽히고 커밋 이메일의 제목 줄에 들어갈 수 있도록 간결하게 작성하세요.
+- 코드의 특정 부분에 제한된 변경에는 줄 시작 부분에 대괄호로 [태그]를 포함하세요. 예: "[stdlib] ..." 또는 "[SILGen] ...". 이 태그는 이메일 필터와 커밋 후 리뷰 검색에 도움이 됩니다.
+- 본문이 있는 경우 제목과 빈 줄로 분리하세요.
+- 본문은 완전한 근거를 포함하면서도 간결하게 작성하세요. 변경을 이해하는 데 필요하지 않은 추가 코드 예제나 기타 세부 사항은 버그 코멘트나 메일링 리스트에 남겨두세요.
+- 커밋이 버그 추적 시스템의 이슈를 수정하는 경우, 메시지에 이슈 링크를 포함하세요.
+- 텍스트 형식과 맞춤법은 문서 및 코드 내 주석과 동일한 규칙을 따르세요. 예를 들어, 대문자 사용과 마침표 사용.
+- 커밋이 최근에 커밋된 다른 변경 위에 적용되는 버그 수정이거나, 패치의 되돌리기 또는 재적용인 경우, 이전 관련 커밋의 Git 리비전 번호를 포함하세요. 예: "Revert abcdef because it caused bug#".
 
-For minor violations of these guidelines, the community normally favors reminding the contributor of this policy over reverting. Minor corrections and omissions can be handled by sending a reply to the commits mailing list.
+이 가이드라인의 경미한 위반에 대해서는 커뮤니티에서 일반적으로 되돌리기보다는 기여자에게 이 정책을 상기시키는 것을 선호합니다. 사소한 수정과 누락은 커밋 메일링 리스트에 답장을 보내어 처리할 수 있습니다.
 
-### Attribution of Changes
+### 변경 사항의 귀속
 
-When contributors submit a change to a Swift subproject, after that change is approved, other developers with commit access may commit it for the author. When doing so, it is important to retain correct attribution of the contribution. Generally speaking, Git handles attribution automatically.
+기여자가 Swift 서브프로젝트에 변경 사항을 제출하면, 해당 변경이 승인된 후 커밋 권한이 있는 다른 개발자가 작성자를 대신하여 커밋할 수 있습니다. 이때 기여의 올바른 귀속을 유지하는 것이 중요합니다. 일반적으로 Git이 귀속을 자동으로 처리합니다.
 
-We do not want the source code to be littered with random attributions like "this code written by J. Random Hacker", which is noisy and distracting. Do not add contributor names to the source code or documentation.
+소스 코드에 "이 코드는 J. Random Hacker가 작성함"과 같은 임의의 귀속을 흩뿌리는 것은 시끄럽고 산만하므로 원하지 않습니다. 소스 코드나 문서에 기여자 이름을 추가하지 마세요.
 
-In addition, don't commit changes authored by others unless they have submitted the change to the project or you have been authorized to submit on their behalf---for example, you work together and your company authorized you to contribute the changes. The author should first either submit the change through a pull request to the relevant project, email the development list, or add a bug tracker item. If someone sends you a change privately, encourage them to submit it to the appropriate list first.
+또한, 다른 사람이 프로젝트에 변경 사항을 제출했거나 대신 제출할 권한이 부여되지 않은 한, 다른 사람이 작성한 변경 사항을 커밋하지 마세요. 예를 들어, 함께 일하고 회사가 변경 사항을 기여하도록 승인한 경우입니다. 작성자는 먼저 관련 프로젝트에 Pull Request를 제출하거나, 개발 목록에 이메일을 보내거나, 버그 트래커 항목을 추가해야 합니다. 누군가가 비공개로 변경 사항을 보내면 적절한 목록에 먼저 제출하도록 권장하세요.
 
-### Code Templates
+### 코드 템플릿
 
-As mentioned in the [Community Overview][community], the license and copyright protections for Swift.org code are called out at the top of every source code file.  On the rare occasion you contribute a change that includes a new source file, ensure that the header is filled out appropriately.
+[커뮤니티 개요][community]에서 언급한 대로, Swift.org 코드의 라이선스와 저작권 보호는 모든 소스 코드 파일 상단에 명시되어 있습니다. 드물게 새 소스 파일을 포함하는 변경을 기여하는 경우, 헤더가 적절하게 작성되었는지 확인하세요.
 
-For Swift source files the code header should look this:
+Swift 소스 파일의 경우 코드 헤더는 다음과 같아야 합니다:
 
-~~~~swift
+```swift
 //===----------------------------------------------------------------------===//
 //
 // This source file is part of the Swift.org open source project
@@ -85,11 +83,11 @@ For Swift source files the code header should look this:
 // See https://swift.org/CONTRIBUTORS.txt for the list of Swift project authors
 //
 //===----------------------------------------------------------------------===//
-~~~~
+```
 
-For C or C++ source or header files, the code header should look this:
+C 또는 C++ 소스 또는 헤더 파일의 경우 코드 헤더는 다음과 같아야 합니다:
 
-~~~~cpp
+```cpp
 //===-- subfolder/Filename.h - Very brief description -----------*- C++ -*-===//
 //
 // This source file is part of the Swift.org open source project
@@ -107,142 +105,133 @@ For C or C++ source or header files, the code header should look this:
 /// be sure to keep up to date.
 ///
 //===----------------------------------------------------------------------===//
-~~~~
+```
 
-The divider lines should be exactly 80 characters wide to aid in adherence to the code style guidelines.  The bottom section contains an optional description intended for generated documentation (these lines begin with `///` rather than `//`).  If there is no description, this area can be skipped.
+구분선은 코드 스타일 가이드라인 준수를 돕기 위해 정확히 80자 너비여야 합니다. 하단 섹션에는 생성된 문서용 선택적 설명이 포함됩니다(이 줄은 `//`가 아닌 `///`로 시작). 설명이 없으면 이 영역을 건너뛸 수 있습니다.
 
-### Release Branch Pull Requests
+### 릴리스 브랜치 Pull Request
 
-A pull request targeting a release branch (`release/x.y` or `swift/release/x.y`)
-cannot be merged without a GitHub approval by a corresponding branch manager.
-In order for a change to be considered for inclusion in a release branch, the
-pull request must have:
+릴리스 브랜치(`release/x.y` 또는 `swift/release/x.y`)를 대상으로 하는 Pull Request는
+해당 브랜치 관리자의 GitHub 승인 없이 머지할 수 없습니다.
+릴리스 브랜치에 변경 사항을 포함하려면 Pull Request에 다음이 필요합니다:
 
-* A title starting with a designation containing the release version number of
-  the target branch.
+- 대상 브랜치의 릴리스 버전 번호를 포함하는 지정으로 시작하는 제목.
 
-* [This][form] form filled out in its description. An item that is not
-  applicable may be left blank or completed with an indication thereof, but must
-  not be omitted altogether.
+- 설명에 [이][form] 양식이 작성되어 있어야 합니다. 해당하지 않는 항목은 비워두거나 해당 없음으로 표시할 수 있지만, 완전히 생략해서는 안 됩니다.
 
-  To switch to this template when drafting a pull request in a
-  [swiftlang][swiftlang] repository in a browser, append the
-  `template=release.md` query parameter to the current URL and refresh.
-  For example:
+  브라우저에서 [swiftlang][swiftlang] 저장소의 Pull Request를 작성할 때 이 템플릿으로 전환하려면 현재 URL에 `template=release.md` 쿼리 파라미터를 추가하고 새로고침하세요.
+  예:
+
   ```diff
   -https://github.com/swiftlang/swift/compare/main...my-branch?quick_pull=1
   +https://github.com/swiftlang/swift/compare/main...my-branch?quick_pull=1&template=release.md
   ```
 
-[Here](https://github.com/swiftlang/swift/pull/73697) is an example.
+[여기](https://github.com/swiftlang/swift/pull/73697)에 예시가 있습니다.
 
 [swiftlang]: https://github.com/swiftlang
 [form]: https://github.com/swiftlang/.github/blob/main/PULL_REQUEST_TEMPLATE/release.md?plain=1
 
-### Code Review
+### 코드 리뷰
 
-The Swift project relies heavily on code review to improve software quality:
+Swift 프로젝트는 소프트웨어 품질을 향상시키기 위해 코드 리뷰에 크게 의존합니다:
 
+- 모든 개발자의 모든 중요한 변경 사항은 저장소에 커밋되기 전에 리뷰를 받아야 합니다. 작은 변경 사항(또는 개발자가 해당 컴포넌트를 담당하는 경우)은 커밋 후에 리뷰할 수 있습니다.
+- 코드 리뷰는 GitHub에서(Pull Request 또는 커밋에 대한 코멘트를 통해) 수행되며, 관련 프로젝트의 커밋 메일링 리스트에 반영됩니다.
+- 코드 변경을 담당하는 개발자는 리뷰 관련 변경 사항을 모두 처리할 책임도 있습니다.
 
-* All significant changes, by all developers, must be reviewed before they are committed to the repository.  Smaller changes (or changes where the developer owns the component) can be reviewed after being committed.
-* Code reviews are conducted on GitHub (through comments on pull requests or commits) and are reflected on the relevant project's commit mailing list.
-* The developer responsible for a code change is also responsible for making all necessary review-related changes.
+코드 리뷰는 변경이 커밋 준비가 될 때까지 계속되는 반복적인 프로세스일 수 있습니다. 리뷰를 위해 변경 사항을 보낸 후 제출하기 전에 명시적인 승인이 필요합니다. 마감일을 설정하여 패치에 대한 암묵적 승인이나 적극적인 이의 제기를 요청하지 마세요.
 
+때때로 코드 리뷰는 예상보다 오래 걸릴 수 있으며, 특히 큰 기능의 경우 그렇습니다. 패치의 리뷰 시간을 단축하는 몇 가지 공인된 방법은 다음과 같습니다:
 
-Code review can be an iterative process, which continues until the change is ready to be committed. After a change is sent out for review it needs an explicit approval before it's submitted. Do not assume silent approval or request active objections to the patch by setting a deadline.
+- **다른 사람의 변경 사항을 리뷰하세요.** 여러분이 도움을 주면 모든 사람이 여러분을 위해 같은 일을 할 의향이 높아집니다. 선의가 우리의 화폐입니다.
+- **변경 사항을 여러 개의 작은 변경으로 나누세요.** 변경이 작을수록 누군가가 빠르게 살펴볼 확률이 높아집니다.
+- **변경 사항에 대해 알리세요.** 긴급한 경우 이 변경이 중요한 이유를 설명하고 며칠마다 알려주세요. 긴급하지 않은 경우 일반적인 예의 있는 알림 주기는 일주일입니다. 다른 전문 개발자의 소중한 시간을 요청하고 있다는 것을 기억하세요.
 
-Sometimes code reviews will take longer than you would hope for, especially for larger features. Here are some accepted ways to speed up review times for your patches:
+누구나 변경 사항을 리뷰하고 피드백을 제공할 수 있지만, 저장소에 커밋 권한이 있는 사람만 승인할 수 있습니다.
 
+### 테스트
 
-* **Review other people's changes.** If you help out, everybody will be more willing to do the same for you.  Goodwill is our currency.
-* **Split your change into multiple smaller changes.** The smaller your change, the higher the probability that somebody will take a quick look at it.
-* **Ping the change.** If it is urgent, provide reasons why it is important to get this change landed and ping it every couple of days. If it is not urgent, the common courtesy ping rate is one week. Remember that you're asking for valuable time from other professional developers.
+개발자는 수정된 모든 버그와 추가된 모든 새 기능에 대한 테스트 케이스를 만들어 변경 사항과 함께 기여해야 합니다.
 
-Note that anyone is welcome to review and give feedback on a change, but only people with commit access to the repository can approve it.
+- 모든 기능 및 회귀 테스트 케이스는 적절한 테스트 디렉토리에 추가됩니다. 예: `swift/test` 디렉토리.
+- 실제 기능에 가장 가까운 추상화 수준에서 테스트 케이스를 작성하세요. 예를 들어, Swift 언어 기능이면 Swift로, SIL 최적화이면 SIL로 작성하세요.
+- 특히 회귀의 경우 테스트 케이스를 최대한 줄이세요. 실패하는 전체 프로그램을 `swift/test`에 넣는 것은 모든 개발자의 테스트를 느리게 하므로 허용되지 않습니다. 짧게 유지해 주세요.
 
-### Testing
+### 품질
 
-Developers are required to create test cases for any bugs fixed and any new features added, and to contribute them along with the changes.
+사람들은 Swift에 의존하여 프로덕션 소프트웨어를 만듭니다. 이는 Swift의 버그가 수천, 심지어 수백만 개발자의 제품에 버그를 유발할 수 있음을 의미합니다. 이 때문에 Swift 프로젝트는 높은 품질 기준을 유지합니다. 주요 개발 브랜치에 커밋되기 전에 모든 변경 사항이 충족해야 하는 최소 품질 표준은 다음과 같습니다:
 
-* All feature and regression test cases are added to the appropriate test directory---for example, the `swift/test` directory.
-* Write test cases at the abstraction level nearest to the actual feature. For example, if it's a Swift language feature, write it in Swift; if it's a SIL optimization, write it in SIL.
-* Reduce test cases as much as possible, especially for regressions. It's unacceptable to place an entire failing program into `swift/test` because this slows down testing for all developers. Please keep them short.
+1. 코드가 최소 하나의 플랫폼에서 에러나 경고 없이 컴파일되어야 합니다.
+2. 버그 수정과 새로운 기능에는 향후 회귀를 정확히 식별하기 위한 테스트 케이스가 포함되거나, 테스트 케이스가 비실용적인 이유에 대한 정당화가 포함되어야 합니다.
+3. 코드가 적절한 테스트 스위트를 통과해야 합니다. 예: Swift 컴파일러의 `swift/test` 및 `swift/validation-test` 테스트 스위트.
 
-### Quality
+또한, 코드 머저는 변경으로 인해 향후 발견되는 모든 문제를 해결할 책임이 있습니다. 이 책임은 다음을 위해 변경 사항을 업데이트해야 할 수 있음을 의미합니다:
 
-People depend on Swift to create their production software.  This means that a bug in Swift could cause bugs in thousands, even millions of developers' products.  Because of this, the Swift project maintains a high bar for quality.  The minimum quality standards that any change must satisfy before being committed to the main development branch include:
+- 모든 주요 플랫폼에서 코드가 깨끗하게 컴파일되도록 보장합니다.
+- 다른 테스트 스위트에서 발견된 정확성 회귀를 수정합니다.
+- 주요 성능 회귀를 수정합니다.
+- 다운스트림 Swift 도구의 성능 또는 정확성 회귀를 수정합니다.
+- Swift를 사용하는 고객 코드에서 발생하는 성능 또는 정확성 회귀를 수정합니다.
+- 변경의 결과로 버그 트래커에 나타나는 모든 버그를 해결합니다.
 
-1. Code must compile without errors or warnings on at least one platform.
-2. Bug fixes and new features must include a test case to pinpoint any future regressions, or include a justification for why a test case would be impractical.
-3. Code must pass the appropriate test suites---for example, the `swift/test` and `swift/validation-test` test suites in the Swift compiler.
+이러한 문제가 제출 전에 처리되는 것이 좋지만, 모든 제출에 대해 이 모든 것을 테스트하는 것은 불가능하다는 것을 이해합니다. 지속적 통합(CI) 인프라가 일반적으로 이러한 문제를 발견합니다. 회귀를 찾기 위해 다음 날까지 CI 인프라를 주시하는 것을 권장합니다. 여러분의 커밋이 포함된 커밋 그룹이 실패를 유발하면 CI 인프라가 직접 이메일을 보냅니다. 해당 메시지를 확인하여 본인의 문제인지 확인하고, 그렇다면 문제를 수정하세요.
 
-Additionally, the code merger is responsible for addressing any problems found in the future that the change may cause. This responsibility means that you may need to update your change in order to:
+이러한 품질 기준을 명백히 위반하는 커밋은 되돌려질 수 있으며, 특히 해당 변경이 다른 개발자의 진행을 방해하는 경우에 그렇습니다. 개발자는 문제가 수정된 후 변경 사항을 다시 커밋할 수 있습니다.
 
-* Ensure the code compiles cleanly on all primary platforms.
-* Fix any correctness regressions found in other test suites.
-* Fix any major performance regressions.
-* Fix any performance or correctness regressions in the downstream Swift tools.
-* Fix any performance or correctness regressions that result in customer code that uses Swift.
-* Address any bugs that appear in the bug tracker as a result from your change.
+### 기여자 단계
 
-We prefer that these issues be handled before submission, but we understand that it isn’t possible to test all of this for every submission. Our continuous integration (CI) infrastructure normally finds these problems. We recommend watching the CI infrastructure throughout the next day to look for regressions. The CI infrastructure will directly email you if a group of commits that included yours caused a failure. You are expected to check those messages to see whether they are your fault and, if so, fix the breakage.
+이 기여자 단계는 GitHub에서 Swift에 기여하면서 얻을 수 있는 역할을 정의합니다. 각 역할에는 커뮤니티와의 신뢰를 쌓아야 하는 관련 권한이 있습니다. Swift에는 다양한 유형의 기여자가 있으며 모든 기여자에게 감사드립니다! 오픈 소스 Swift 프로젝트에 참여한 모든 사람은 *기여자*입니다: 코드를 작성하거나, 포럼에서 질문에 답변하거나, 버그를 보고 또는 분류하거나, Swift evolution 프로세스에 참여하는 등의 활동을 포함합니다.
 
-Commits that clearly violate these quality standards may be reverted, in particular when the change blocks other developers from making progress. The developer is welcome to recommit the change after the problem has been fixed.
-
-### Contributor Ladder
-
-This contributor ladder defines the roles you might gain while contributing to Swift on GitHub. Each role has privileges associated, which requires building trust with the community of contributors. We recognize there are many different types of contributors to Swift and we appreciate every single one! Everyone who has participated in the open source Swift project is a *Contributor*: This can be by writing code, answering questions on the forums, reporting or triaging bugs, or participating in the Swift evolution process.
-
-As you climb the contributor ladder by contributing to Swift on GitHub, you gain new privileges but also gain trust and responsibilities that you are expected to fulfill. If a contributor violates this trust and these responsibilities, the Core Team may give them a notice and upon repeated infringements revoke their level. We believe in a healthy community and hope this action will never be necessary.
+GitHub에서 Swift에 기여하여 기여자 단계를 오르면 새로운 권한을 얻지만, 이행해야 할 신뢰와 책임도 얻게 됩니다. 기여자가 이 신뢰와 책임을 위반하면 Core Team이 통지를 보낼 수 있으며, 반복적인 위반 시 해당 수준을 취소할 수 있습니다. 건강한 커뮤니티를 지향하며 이러한 조치가 필요하지 않기를 바랍니다.
 
 #### Member
 
-A *Member* has constructively contributed to Swift multiple times. This role is held across the entire organization, becoming a *Member* allows you to trigger CI on all repositories in the swiftlang organization on GitHub.
+*Member*는 Swift에 여러 번 건설적으로 기여한 사람입니다. 이 역할은 조직 전체에 적용되며, *Member*가 되면 GitHub의 swiftlang 조직 내 모든 저장소에서 CI를 트리거할 수 있습니다.
 
-- Requirements
-  - Make multiple constructive contributions to the Swift projects. This can be in the form of PRs, engagement on the Swift Forums, filing valuable issue, triaging them, or similar.
-- Privileges
-  - Ability to trigger CI testing
-  - Show your membership in the swiftlang organization on your GitHub profile
-- Nomination
-  - If you would like to become a *Member*, please send a message to [the code-owners group](https://forums.swift.org/g/code-owners) on the Swift forums that includes your contribution and the GitHub user name that you want to use
-- Growth
-  - Show that you use the privileges constructively and continue contributing to gain commit access.
+- 요건
+  - Swift 프로젝트에 여러 번 건설적으로 기여해야 합니다. PR 제출, Swift 포럼 참여, 가치 있는 이슈 제출, 이슈 분류 등이 해당됩니다.
+- 권한
+  - CI 테스트 트리거 기능
+  - GitHub 프로필에 swiftlang 조직 멤버십 표시
+- 추천
+  - *Member*가 되고 싶다면 Swift 포럼에서 [code-owners 그룹](https://forums.swift.org/g/code-owners)에 기여 내역과 사용할 GitHub 사용자 이름을 포함한 메시지를 보내주세요.
+- 성장
+  - 권한을 건설적으로 사용하고 계속 기여하여 커밋 권한을 획득하세요.
 
 #### Code Merger
 
-A *Code Merger* has made several high-quality contributions, has enough knowledge to review PRs in their area, and is trusted to merge changes after getting approvals. The *Code Merger* level is granted on a per-repository basis.
+*Code Merger*는 여러 건의 고품질 기여를 했고, 해당 영역의 PR을 리뷰할 만한 충분한 지식이 있으며, 승인을 받은 후 변경 사항을 머지할 수 있는 신뢰를 받은 사람입니다. _Code Merger_ 수준은 저장소별로 부여됩니다.
 
-- Requirements
-  - Author 5 small to medium-sized, non-trivial, high-quality PRs (or equivalent) that needed little guidance.
-- Responsibilities
-  - Provide PR reviews, answer questions, and triage issues in your area.
-- Privileges
-  - Merge PRs in the repository that you’re a *Code Merger* of, including PRs authored by other contributors. You are expected to only merge PRs after you have received an approving review from a *Code Owner*. *Code Owners* might approve with comments, with the expectation that you, as a *Code Merger*, will re-request a review if you make major adjustments after the approving review and ensure that the comments are addressed in a timely manner.
-  - Ability to label/triage issues and assign them to contributors.
-- Nomination
-  - Like for a *Member*, please send a message to [the code-owners group](https://forums.swift.org/g/code-owners) on the Swift forums that includes your contributions, the GitHub user name that you want to use and the repositories you want to become a *Code Merger* for. At the discretion of the code owner list, you may also be granted the *Code Merger* role for repositories that you have not contributed to but that are conceptually linked to your contributions, like `swift-syntax` and `swift-driver` after having contributed to the compiler.
-- Growth
-  - As an *Code Merger*, you are trusted not just with your own work but with helping others. In reviews, you can show that you are able to take care of a code area to become a *Code Owner*.
+- 요건
+  - 최소한의 가이드만 필요했던 5개 이상의 소~중 규모, 비자명, 고품질 PR(또는 이에 상응하는 기여)을 작성해야 합니다.
+- 책임
+  - 해당 영역에서 PR 리뷰, 질문 답변, 이슈 분류를 제공합니다.
+- 권한
+  - 본인이 *Code Merger*인 저장소에서 다른 기여자의 PR을 포함하여 PR을 머지할 수 있습니다. *Code Owner*의 승인 리뷰를 받은 후에만 PR을 머지해야 합니다. *Code Owner*는 코멘트와 함께 승인할 수 있으며, *Code Merger*로서 승인 리뷰 후 주요 수정을 한 경우 다시 리뷰를 요청하고 코멘트가 적시에 처리되도록 해야 합니다.
+  - 이슈에 라벨을 지정하고, 이슈를 분류하고, 기여자에게 할당하는 기능.
+- 추천
+  - *Member*와 마찬가지로 Swift 포럼에서 [code-owners 그룹](https://forums.swift.org/g/code-owners)에 기여 내역, 사용할 GitHub 사용자 이름, *Code Merger*가 되고 싶은 저장소를 포함한 메시지를 보내주세요. 코드 오너 목록의 재량에 따라 기여한 저장소와 개념적으로 연관된 저장소(예: 컴파일러에 기여한 후 `swift-syntax`와 `swift-driver`)에 대해서도 _Code Merger_ 역할이 부여될 수 있습니다.
+- 성장
+  - *Code Merger*로서 본인의 작업뿐 아니라 다른 사람을 돕는 것에 대한 신뢰를 받습니다. 리뷰에서 코드 영역을 관리할 수 있음을 보여주면 *Code Owner*가 될 수 있습니다.
 
 #### Code Owner
 
-A *Code Owner* has the expertise to decide whether a PR affecting their area should be merged.
+*Code Owner*는 해당 영역에 영향을 미치는 PR의 머지 여부를 결정할 수 있는 전문 지식을 갖춘 사람입니다.
 
-* Requirements
-  * As a *Code Owner*, you must have detailed knowledge of your area. You should be able to review PRs, be confident to judge whether they have the necessary quality to be merged and be able to assess the risk of a change, and to decide whether it should be cherry-picked to a release branch.
-* Responsibilities
-  * Ensure that PRs get reviewed in a timely manner.
-  * Be a point of contact for any questions and issues regarding your area.
-  * Fix issues in your area or have the capacity to delegate the issues to somebody else.
-  * Upkeep a high-quality bar for contributions.
-  * Help *Code Mergers* grow by providing actionable feedback on their PR reviews.
-  * Encourage active *Code Mergers* who fulfill the *Code Owner* requirements to nominate themselves as a *Code Owner*.
-* Nomination
-  * Send a private message to the existing *Code Owners* of the area you want to own on the [Swift Forums](https://forums.swift.org), communicating your intent.
-  * After you have received positive feedback, formalize your nomination by creating a pull request that modifies the `.github/CODEOWNERS` file to add your username to the area you want to own and request a review from all existing *Code Owners* of that area. The request must be approved by at least one and must not be declined by any other of these *Code Owners*. All *Code Owners* of the area should have one week to formally reply to the nomination.
-  * The position of a *Code Owner* is voluntary and can be resigned at any time.
+- 요건
+  - *Code Owner*로서 해당 영역에 대한 상세한 지식이 있어야 합니다. PR을 리뷰하고, 머지에 필요한 품질을 갖추었는지 판단하며, 변경의 위험성을 평가하고, 릴리스 브랜치에 체리픽해야 하는지 결정할 수 있어야 합니다.
+- 책임
+  - PR이 적시에 리뷰되도록 보장합니다.
+  - 해당 영역에 관한 질문과 이슈에 대한 연락 창구가 됩니다.
+  - 해당 영역의 이슈를 수정하거나 다른 사람에게 위임할 수 있는 역량을 갖춥니다.
+  - 기여에 대한 높은 품질 기준을 유지합니다.
+  - PR 리뷰에 대한 실행 가능한 피드백을 제공하여 *Code Merger*의 성장을 돕습니다.
+  - _Code Owner_ 요건을 충족하는 활성 *Code Merger*가 *Code Owner*로 자진 추천하도록 장려합니다.
+- 추천
+  - 담당하고 싶은 영역의 기존 *Code Owner*에게 [Swift 포럼](https://forums.swift.org)에서 비공개 메시지를 보내 의사를 전달하세요.
+  - 긍정적인 피드백을 받은 후 `.github/CODEOWNERS` 파일을 수정하여 담당하고 싶은 영역에 사용자 이름을 추가하는 Pull Request를 생성하고, 해당 영역의 모든 기존 *Code Owner*에게 리뷰를 요청하여 추천을 공식화하세요. 해당 _Code Owner_ 중 최소 한 명의 승인이 필요하며 다른 *Code Owner*의 거부가 없어야 합니다. 해당 영역의 모든 *Code Owner*는 추천에 공식적으로 답변할 수 있는 일주일의 기간이 주어집니다.
+  - _Code Owner_ 직위는 자발적이며 언제든지 사임할 수 있습니다.
 
-[community]: /community  "Swift.org community overview"
-[get_started]: /getting-started/ "How to setup your own version of Swift"
-
+[community]: /community 'Swift.org 커뮤니티 개요'
+[get_started]: /getting-started/ 'Swift를 직접 설정하는 방법'

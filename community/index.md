@@ -1,113 +1,105 @@
 ---
 layout: page
-title: Community Overview
+title: 커뮤니티 개요
 ---
 
-The Swift.org community has the singular goal of making the world's best general purpose programming language.  Collectively we will develop the language in the open, with contributions from anyone who wishes to participate.  This guideline document describes how the Swift community is organized so that we can work together to add amazing new capabilities to Swift, and make it available to even more developers across more platforms.
+Swift.org 커뮤니티는 세계 최고의 범용 프로그래밍 언어를 만드는 것을 목표로 합니다. 참여를 원하는 누구의 기여와 함께 언어를 공개적으로 발전시켜 나갈 것입니다. 이 가이드라인 문서는 Swift 커뮤니티가 어떻게 조직되어 있는지 설명하여, Swift에 놀라운 새 기능을 추가하고 더 많은 플랫폼의 더 많은 개발자가 사용할 수 있도록 함께 노력할 수 있게 합니다.
 
+## 소통
 
-## Communication
+Swift 언어는 공개적으로 개발되며, 언어 또는 커뮤니티 프로세스에 관한 모든 기술적 또는 관리적 주제는 Swift 공개 포럼으로 보내야 합니다. 공개 대화를 권장하며, Swift 언어의 활발한 개발자는 관련 포럼 카테고리를 모니터링해야 합니다.
 
-The Swift language is developed in the open, and all technical or administrative topics about the language or community processes should be directed to the Swift public forums. Public conversations are encouraged, and active developers of the Swift language should monitor the relevant forum categories.
+- 포럼 카테고리 목록과 이메일 안내는 [포럼 섹션](#forums)에 있습니다.
+- Swift 프로젝트의 소스 코드는 GitHub의 [github.com/swiftlang][github]에서 확인할 수 있습니다.
+- Swift 버그 추적 시스템은 [github.com/swiftlang/swift/issues][bugtracker]에서 관리됩니다.
 
-* Directory of forum categories and email instructions are in the [forum section](#forums).
-* Source code for Swift projects can be found on GitHub at [github.com/swiftlang][github].
-* The Swift bug tracking system is maintained at [github.com/swiftlang/swift/issues][bugtracker].
+프로젝트 공간 내의 모든 소통은 Swift 프로젝트의 [행동 강령](/code-of-conduct)을 준수해야 합니다.
 
-All communication within project spaces should adhere to Swift project's [Code of Conduct](/code-of-conduct).
+## 커뮤니티 구조
 
-## Community Structure
+일관되고 명확한 비전으로 Swift 프로그래밍 언어를 발전시키려면 강력한 리더십이 필요합니다. 리더십은 커뮤니티에서 나오며, 훨씬 더 넓은 기여자와 사용자 그룹과 긴밀하게 협력합니다. 커뮤니티 내의 역할은 다음과 같습니다:
 
-Advancing the Swift programming language with a coherent, clear view of its evolution requires strong leadership.  The leadership is taken from the community, and works closely with the much broader group of contributors and users. Roles within the community include:
+- **[프로젝트 리드](#project-lead)**는 커뮤니티에서 기술 리더를 임명합니다. Apple Inc.가 프로젝트 리드이며, 대표를 통해 커뮤니티와 상호작용합니다.
+- **[Core Team](#core-team)**은 Swift 프로젝트의 전략적 방향과 감독을 담당하는 소규모 그룹입니다.
+- **[Code Owner](/contributing/#code-owner)**는 Swift 코드베이스의 특정 영역을 담당하는 개인입니다.
+- **[Code Merger](/contributing/#code-merger)**는 Swift 코드베이스에 커밋 권한이 있는 사람입니다.
+- **[Member](/contributing/#member)**는 GitHub swiftlang 조직의 멤버인 사람입니다.
+- **[기여자](/contributing/#contributor)**는 코드 작성, 포럼에서 질문 답변, 버그 보고 또는 분류, Swift evolution 프로세스 참여 등의 방법으로 Swift에 기여한 모든 사람입니다.
+- **운영 그룹**
+  - **[Ecosystem](/ecosystem-steering-group)**은 Swift 패키지와 도구의 방향에 집중하는 소규모 전문가 그룹입니다.
+  - **[Language](#language-steering-group)**는 일관된 방향으로 Swift 언어를 발전시키는 소규모 전문가 그룹입니다.
+  - **[Platforms](/platform-steering-group)**는 Swift 언어와 도구를 새로운 환경에서 사용할 수 있게 하는 소규모 전문가 그룹입니다.
+- **워크그룹**
+  - **[Android](/android-workgroup)**는 Android 애플리케이션 개발에 Swift를 사용하는 작업을 하는 팀입니다.
+  - **[Build and Packaging](/build-and-packaging-workgroup)**은 Swift 생태계에서 빌드 및 패키징 커뮤니티를 대표하는 팀입니다.
+  - **[C++ Interoperability](/cxx-interop-workgroup)**는 Swift와 C++ 간의 양방향 상호운용성 지원을 추가하는 작업을 하는 팀입니다.
+  - **[Contributor Experience](/contributor-experience-workgroup)**는 Swift 포럼 기여를 포함하여 Swift 프로젝트 기여자를 지원하는 팀입니다.
+  - **[Documentation Tooling](/documentation-workgroup)**은 Swift의 문서화 경험을 안내하는 팀입니다.
+  - **[Foundation](/foundation-workgroup)**은 Foundation 및 기타 저수준 Swift 라이브러리의 방향을 안내하는 팀입니다.
+  - **[Swift on Server](/sswg)**는 서버 애플리케이션 개발 및 배포에 Swift 사용을 촉진하는 팀입니다.
+  - **[Testing](/testing-workgroup)**은 Swift 코드 테스트를 위한 경험, 라이브러리, 도구를 안내하는 팀입니다.
+  - **[Website](/website-workgroup/)**는 Swift.org 웹사이트의 발전을 안내하는 팀입니다.
+  - **[Windows](/windows-workgroup/)**는 Windows 애플리케이션 개발에 Swift를 사용하는 작업을 하는 팀입니다.
 
+가장 중요한 것은 Swift를 사용하는 모든 사람이 확장된 커뮤니티의 소중한 구성원이라는 것입니다.
 
-* __[Project Lead](#project-lead)__ appoints technical leaders from the community.  Apple Inc. is the project lead, and interacts with the community through its representative.
-* __[Core Team](#core-team)__ is the small group responsible for strategic direction and oversight of the Swift project.
-* __[Code Owner](/contributing/#code-owner)__ is an individual responsible for a specific area of the Swift codebase.
-* __[Code Merger](/contributing/#code-merger)__ is anyone that has commit access to the Swift code base.
-* __[Member](/contributing/#member)__ is anyone who is a member of the swiftlang organization on GitHub.
-* __[Contributor](/contributing/#contributor)__ is anyone who has contributed to Swift by writing code, answering questions on the forums, reporting or triaging bugs, participating in the Swift evolution process, or other ways.
-* __Steering Groups__
-   * __[Ecosystem](/ecosystem-steering-group)__ is a small group of experts who focus on the direction of Swift packages and tooling.
-   * __[Language](#language-steering-group)__ is a small group of experts that drive the Swift language forward in a coherent direction.
-   * __[Platforms](/platform-steering-group)__ is a small group of experts that enables the Swift language and its tools to be used in new environments.
-* __Workgroups__
-   * __[Android](/android-workgroup)__ is a team that works on the use of Swift for developing Android applications.
-   * __[Build and Packaging](/build-and-packaging-workgroup)__ is a team that represents the build and packaging community in the Swift ecosystem.
-   * __[C++ Interoperability](/cxx-interop-workgroup)__ is a team that works on adding the support for the bidirectional interoperability between Swift and C++.
-   * __[Contributor Experience](/contributor-experience-workgroup)__ is a team that supports contributors to the Swift project, including contributions on the Swift Forums.
-   * __[Documentation Tooling](/documentation-workgroup)__ is a team that helps guide the documentation experience for Swift.
-   * __[Foundation](/foundation-workgroup)__ is a team that helps guide the direction of Foundation and other low-level Swift libraries.
-   * __[Swift on Server](/sswg)__ is a team that promotes the use of Swift for developing and deploying server applications.
-   * __[Testing](/testing-workgroup)__ is a team that helps guide the experience, libraries, and tools for testing Swift code.
-   * __[Website](/website-workgroup/)__ is a team that helps guide the evolution on the Swift.org website.
-   * __[Windows](/windows-workgroup/)__ is a team that works on the use of Swift for developing Windows applications.
+#### 프로젝트 리드
 
-Most importantly, everyone that uses Swift is a valued member of our extended community.
+[포럼을 통한 연락](https://forums.swift.org/new-message?username=tkremenek)
 
-#### Project Lead
+Apple Inc.가 프로젝트 리드이며 프로젝트의 중재자 역할을 합니다. 프로젝트 리드는 전 세계 Swift 기여자 커뮤니티에서 리더십 역할에 시니어를 임명합니다. 커뮤니티 리더와 코드 기여자가 함께 Swift를 지속적으로 개선하며, 참여하는 모든 사람의 노력으로 언어가 발전합니다.
 
-[Contact via Forums](https://forums.swift.org/new-message?username=tkremenek)
-
-Apple Inc. is the project lead and serves as the arbiter for the project.  The project lead makes senior appointments to leadership roles, with those leaders coming from the worldwide Swift community of contributors.  The community leaders and code contributors work together to continually improve Swift, and the language will advance by the good works of everyone involved.
-
-[Ted Kremenek](mailto:kremenek@apple.com) is the appointed representative from Apple, and acts as the voice of the project lead.
+[Ted Kremenek](mailto:kremenek@apple.com)이 Apple에서 임명한 대표이며, 프로젝트 리드의 목소리를 대변합니다.
 
 #### Core Team
 
-[Contact via Forums](https://forums.swift.org/new-message?groupname=core-team)
+[포럼을 통한 연락](https://forums.swift.org/new-message?groupname=core-team)
 
-The Core Team provides cohesion across the Swift community's various workgroups and initiatives, providing support and strategic alignment. The Project Lead appoints members of the Core Team to bring a mixture of experience, expertise, and leadership so the group may together act as effective stewards for the Swift project and its community. The Core Team membership is expected to change over time.
+Core Team은 Swift 커뮤니티의 다양한 워크그룹과 이니셔티브 전반에 걸쳐 응집력을 제공하고, 지원과 전략적 방향을 맞춥니다. 프로젝트 리드는 그룹이 Swift 프로젝트와 커뮤니티의 효과적인 관리자 역할을 할 수 있도록 경험, 전문성, 리더십이 혼합된 Core Team 멤버를 임명합니다. Core Team 멤버십은 시간이 지남에 따라 변경될 것으로 예상됩니다.
 
-The current Core Team members are:
+현재 Core Team 멤버는 다음과 같습니다:
 
 {% assign people = site.data.core_team | sort: "name" %}
-{% for person in people %}* {{ person.name }}
+{% for person in people %}\* {{ person.name }}
 {% endfor %}
 
-We are grateful for the service of the following emeritus Core Team members:
+다음 명예 Core Team 멤버의 봉사에 감사드립니다:
 
 {% assign people = site.data.core_team_emeriti | sort: "name" %}
-{% for person in people %}* {{ person.name }}
+{% for person in people %}\* {{ person.name }}
 {% endfor %}
-
 
 #### Language Steering Group
 
-[Contact via Forums](https://forums.swift.org/new-message?groupname=language-workgroup)
+[포럼을 통한 연락](https://forums.swift.org/new-message?groupname=language-workgroup)
 
-The Language Steering Group comprises experts that the Swift Project Lead and the Core Team have identified as possessing a balance of perspectives and expertise to review, guide, and strategically align changes to the language mindfully.  The Language Steering Group reviews and helps iterate [language evolution proposals](/contributing/#evolution-process) from the community, acting as the approver of these proposals.  Workgroup members help drive the Swift language forward coherently to create the best possible general-purpose programming language.  The Language Steering Group membership is expected to change over time.
+Language Steering Group은 Swift 프로젝트 리드와 Core Team이 언어에 대한 변경을 신중하게 검토, 안내, 전략적으로 조정할 수 있는 균형 잡힌 관점과 전문성을 갖춘 것으로 식별한 전문가들로 구성됩니다. Language Steering Group은 커뮤니티의 [언어 evolution 제안](/contributing/#evolution-process)을 검토하고 반복하도록 돕고, 이러한 제안의 승인자 역할을 합니다. 워크그룹 멤버는 최고의 범용 프로그래밍 언어를 만들기 위해 일관된 방향으로 Swift 언어를 발전시키는 데 기여합니다. Language Steering Group 멤버십은 시간이 지남에 따라 변경될 것으로 예상됩니다.
 
-The current Language Steering Group members are:
+현재 Language Steering Group 멤버는 다음과 같습니다:
 
 {% assign people = site.data.language_wg | sort: "name" %}
-{% for person in people %}* {{ person.name }}
+{% for person in people %}\* {{ person.name }}
 {% endfor %}
 
 {% include_relative _forums.md %}
 
-
-[homepage]: ./index.html "Swift.org home page"
-[community]: ./community.html  "Swift.org community overview"
-[contributing_code]: /contributing/#contributing-code  "Contributing Code"
-[test_guide]: ./test_guide.html "Detailed guide to writing good Swift tests"
-[blog]: ./blog_home.html  "Swift.org engineering blog"
-[faq]: ./faq.html  "The FAQ for all things Swift.org"
-[downloads]: ./downloads.html  "Download recent builds of Swift tools"
-[forums]:  ./forums.html
-[contributors]: ./CONTRIBUTORS.txt "View all Swift project authors"
-[owners]: ./CODE_OWNERS.txt "View all Swift project code owners"
-[license]: ./LICENSE.txt "View the Swift license"
-
-
-[email-conduct]: mailto:conduct@swift.org  "Send email to the code of conduct working group"
-[email-owners]: mailto:code-owners@forums.swift.org  "Send email to the code owners"
-[email-users]: mailto:swift-users@swift.org  "Email other users of Swift"
-[email-devs]: mailto:swift-dev@swift.org  "Email the developer discussion list"
-[email-lead]: mailto:project-lead@swift.org "The leaders at Apple responsible for Swift.org"
-
-[github]: https://github.com/swiftlang "The Swift organization on GitHub"
-[repo]: git+ssh://github.com/apple "Link to the repo hosted on GitHub"
-[bugtracker]:  http://github.com/swiftlang/swift/issues
-
-[swift-apple]: https://developer.apple.com/swift  "Apple developer home page for Swift"
+[homepage]: ./index.html 'Swift.org 홈페이지'
+[community]: ./community.html 'Swift.org 커뮤니티 개요'
+[contributing_code]: /contributing/#contributing-code '코드 기여'
+[test_guide]: ./test_guide.html '좋은 Swift 테스트 작성 가이드'
+[blog]: ./blog_home.html 'Swift.org 엔지니어링 블로그'
+[faq]: ./faq.html 'Swift.org에 관한 FAQ'
+[downloads]: ./downloads.html '최신 Swift 도구 빌드 다운로드'
+[forums]: ./forums.html
+[contributors]: ./CONTRIBUTORS.txt '모든 Swift 프로젝트 저자 보기'
+[owners]: ./CODE_OWNERS.txt '모든 Swift 프로젝트 코드 오너 보기'
+[license]: ./LICENSE.txt 'Swift 라이선스 보기'
+[email-conduct]: mailto:conduct@swift.org '행동 강령 워킹 그룹에 이메일 보내기'
+[email-owners]: mailto:code-owners@forums.swift.org '코드 오너에게 이메일 보내기'
+[email-users]: mailto:swift-users@swift.org '다른 Swift 사용자에게 이메일 보내기'
+[email-devs]: mailto:swift-dev@swift.org '개발자 토론 목록에 이메일 보내기'
+[email-lead]: mailto:project-lead@swift.org 'Swift.org 담당 Apple 리더'
+[github]: https://github.com/swiftlang 'GitHub의 Swift 조직'
+[repo]: git+ssh://github.com/apple 'GitHub에 호스팅된 저장소 링크'
+[bugtracker]: http://github.com/swiftlang/swift/issues
+[swift-apple]: https://developer.apple.com/swift 'Swift에 대한 Apple 개발자 홈페이지'

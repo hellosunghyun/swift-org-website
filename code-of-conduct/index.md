@@ -1,41 +1,41 @@
 ---
 layout: page
-title: Code of Conduct
+title: 행동 강령
 ---
 
-To be a truly great community, Swift.org needs to welcome developers from all walks of life, with different backgrounds, and with a wide range of experience. A diverse and friendly community will have more great ideas, more unique perspectives, and produce more great code.  We will work diligently to make the Swift community welcoming to everyone.
+진정으로 훌륭한 커뮤니티가 되려면, Swift.org는 다양한 배경과 폭넓은 경험을 가진 모든 분야의 개발자를 환영해야 합니다. 다양하고 친근한 커뮤니티는 더 많은 훌륭한 아이디어, 더 독특한 관점, 더 훌륭한 코드를 만들어낼 것입니다. Swift 커뮤니티를 모든 사람에게 환영하는 곳으로 만들기 위해 최선을 다하겠습니다.
 
-To give clarity of what is expected of our members, Swift.org is based on the code of conduct defined by [contributor-covenant.org](http://contributor-covenant.org). This document is used across many open source communities, and we think it articulates our values well.
+멤버에게 기대되는 바를 명확히 하기 위해 Swift.org는 [contributor-covenant.org](http://contributor-covenant.org)에서 정의한 행동 강령을 기반으로 합니다. 이 문서는 많은 오픈 소스 커뮤니티에서 사용되며, 우리의 가치를 잘 표현한다고 생각합니다.
 
-### Contributor Code of Conduct v1.4
+### 기여자 행동 강령 v1.4
 
-In the interest of fostering an open and welcoming environment, we as contributors and maintainers pledge to make participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.
+개방적이고 환영하는 환경을 조성하기 위해, 기여자와 유지보수자는 나이, 체형, 장애, 민족, 성별 특성, 성별 정체성 및 표현, 경험 수준, 교육, 사회경제적 지위, 국적, 외모, 인종, 종교, 성적 정체성 및 지향에 관계없이 프로젝트와 커뮤니티 참여가 모든 사람에게 괴롭힘 없는 경험이 되도록 약속합니다.
 
-Examples of behavior that contributes to creating a positive environment include:
+긍정적인 환경을 만드는 데 기여하는 행동의 예:
 
-* Using welcoming and inclusive language (e.g., prefer non-gendered words like “folks” to “guys”, non-ableist words like “soundness check” to “sanity check”, etc.).
-* Being respectful of differing viewpoints and experiences.
-* Gracefully accepting constructive criticism.
-* Focusing on what is best for the community.
-* Showing empathy towards other community members.
+- 환영하고 포용적인 언어 사용(예: "guys" 대신 성별 중립적인 "folks", "sanity check" 대신 비장애인 중심적이지 않은 "soundness check" 등을 선호).
+- 다른 관점과 경험을 존중합니다.
+- 건설적인 비판을 우아하게 받아들입니다.
+- 커뮤니티에 최선인 것에 집중합니다.
+- 다른 커뮤니티 구성원에 대한 공감을 보여줍니다.
 
-Examples of unacceptable behavior by participants include:
+참가자의 허용되지 않는 행동의 예:
 
-* The use of sexualized language or imagery and unwelcome sexual attention or advances.
-* Trolling, insulting/derogatory comments, and personal or political attacks.
-* Public or private harassment.
-* Publishing others’ private information, such as a physical or electronic address, without explicit permission.
-* Other conduct which could reasonably be considered inappropriate in a professional setting.
+- 성적인 언어나 이미지의 사용, 원치 않는 성적 관심이나 접근.
+- 트롤링, 모욕적/경멸적 코멘트, 개인적 또는 정치적 공격.
+- 공개적 또는 사적 괴롭힘.
+- 명시적 허가 없이 다른 사람의 물리적 또는 전자적 주소와 같은 개인 정보 게시.
+- 전문적 환경에서 합리적으로 부적절하다고 여겨질 수 있는 기타 행위.
 
-Project maintainers are responsible for clarifying the standards of acceptable behavior and are expected to take appropriate and fair corrective action in response to any instances of unacceptable behavior.
+프로젝트 유지보수자는 수용 가능한 행동 표준을 명확히 하고, 허용되지 않는 행동의 모든 인스턴스에 대해 적절하고 공정한 시정 조치를 취할 책임이 있습니다.
 
-Project maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct, or to ban temporarily or permanently any contributor for other behaviors that they deem inappropriate, threatening, offensive, or harmful.
+프로젝트 유지보수자는 이 행동 강령에 부합하지 않는 코멘트, 커밋, 코드, 위키 편집, 이슈 및 기타 기여를 제거, 편집, 거부할 권리와 책임이 있으며, 부적절하거나 위협적이거나 공격적이거나 해로운 행동을 하는 기여자를 일시적 또는 영구적으로 차단할 수 있습니다.
 
-This Code of Conduct applies within all project spaces managed by Swift.org, including (but not limited to) source code repositories, bug trackers, web sites, documentation, and online forums. It also applies when an individual is representing the project or its community in public spaces. Examples of representing a project or community include using an official project e-mail address, posting via an official social media account, or acting as an appointed representative at an online or offline event.
+이 행동 강령은 소스 코드 저장소, 버그 트래커, 웹사이트, 문서, 온라인 포럼을 포함(하지만 이에 국한되지 않는) Swift.org가 관리하는 모든 프로젝트 공간에 적용됩니다. 또한 개인이 공개 공간에서 프로젝트나 커뮤니티를 대표하는 경우에도 적용됩니다. 프로젝트나 커뮤니티를 대표하는 예로는 공식 프로젝트 이메일 주소 사용, 공식 소셜 미디어 계정을 통한 게시, 온라인 또는 오프라인 이벤트에서 임명된 대표로 활동하는 것이 포함됩니다.
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting a member of the [Swift Core Team](/community/#community-structure) or by flagging the behavior for moderation (e.g., in the Forums), whether you are the target of that behavior or not. All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances. Maintainers are obligated to maintain confidentiality with regard to the reporter of an incident. The site of the disputed behavior is usually not an acceptable place to discuss moderation decisions, and moderators may move or remove any such discussion.
+학대적, 괴롭히는 또는 기타 허용되지 않는 행동의 인스턴스는 해당 행동의 대상이든 아니든 [Swift Core Team](/community/#community-structure)의 멤버에게 연락하거나 중재를 위해 행동을 신고(예: 포럼에서)하여 보고할 수 있습니다. 모든 불만 사항은 검토 및 조사되며, 상황에 적합하고 적절하다고 판단되는 응답을 받게 됩니다. 유지보수자는 사건 보고자에 관한 기밀을 유지할 의무가 있습니다. 분쟁이 발생한 행동의 사이트는 일반적으로 중재 결정을 논의하기에 적합한 장소가 아니며, 중재자는 그러한 논의를 이동하거나 제거할 수 있습니다.
 
-Project maintainers are held to a higher standard, and project maintainers who do not follow or enforce the Code of Conduct in good faith may face temporary or permanent repercussions as determined by other members of the project’s leadership.
-If you disagree with a moderation action, you can appeal to the Core Team (or individual Core Team members) privately.
+프로젝트 유지보수자는 더 높은 기준이 적용되며, 행동 강령을 성실하게 따르지 않거나 시행하지 않는 프로젝트 유지보수자는 프로젝트 리더십의 다른 구성원이 결정한 일시적 또는 영구적 조치에 직면할 수 있습니다.
+중재 조치에 동의하지 않는 경우 Core Team(또는 개별 Core Team 멤버)에게 비공개로 항소할 수 있습니다.
 
-This policy is adapted from the Contributor Code of Conduct [version 1.4](https://www.contributor-covenant.org/version/1/4/code-of-conduct/).
+이 정책은 기여자 행동 강령 [버전 1.4](https://www.contributor-covenant.org/version/1/4/code-of-conduct/)에서 수정되었습니다.

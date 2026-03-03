@@ -1,26 +1,26 @@
 ---
 layout: page
-title: SSWG - Security requirements for packages on the index
+title: SSWG - 인덱스 등록 패키지의 보안 요구 사항
 ---
 
-## SSWG security requirements for packages on the index
+## SSWG 인덱스 등록 패키지의 보안 요구 사항
 
-This information is intended for package authors who have packages incubated by the SSWG and listed on the package index or are looking into pitching/proposing their package to be listed. If instead you found (or have heard of) a security vulnerability you’d like to report, please have a look over [here](/sswg/security/contributor-found-vulnerability.html).
+이 정보는 SSWG가 인큐베이션하고 패키지 인덱스에 등록된 패키지를 보유하거나 패키지 등록을 피치/제안하려는 패키지 작성자를 대상으로 합니다. 보안 취약점을 발견했거나 알게 되어 신고하고 싶으시면 [여기](/sswg/security/contributor-found-vulnerability.html)를 참고하세요.
 
 ---
 
-Packages that are incubated by the SSWG and are listed on the [SSWG's package index](server/#projects) are required to follow the following guidelines around security.
+SSWG가 인큐베이션하고 [SSWG 패키지 인덱스](server/#projects)에 등록된 패키지는 보안에 관한 다음 지침을 따라야 합니다.
 
-Where security vulnerabilities are involved, it is key to ensure that somebody who discovers a vulnerability in your package can quickly find information on how to report it. As the package author, you know best where to put important information about your software. Bear in mind that many of your users will see your repository's readme file (usually `README.md`) first. So make sure to link to your security policy from there.
+보안 취약점과 관련하여, 패키지에서 취약점을 발견한 사람이 신고 방법을 신속하게 찾을 수 있도록 하는 것이 핵심입니다. 패키지 작성자로서 소프트웨어에 대한 중요한 정보를 어디에 둘지 가장 잘 알고 계실 것입니다. 대부분의 사용자가 저장소의 README 파일(보통 `README.md`)을 먼저 확인한다는 점을 유의하세요. 따라서 README에서 보안 정책으로의 링크를 반드시 포함하세요.
 
-A file named `SECURITY.md` in the root of your repository is the recommended place to put your full security policy. It is also worth noting that some vendors (like GitHub) automatically discover and promote `SECURITY.md` which make the relevant information even easier to find for your users.
+저장소 루트에 `SECURITY.md`라는 파일을 두는 것이 전체 보안 정책을 기술하는 데 권장되는 위치입니다. 일부 벤더(GitHub 등)가 `SECURITY.md`를 자동으로 감지하고 홍보하여 관련 정보를 사용자가 더 쉽게 찾을 수 있도록 한다는 점도 참고할 만합니다.
 
-Project authors are also encouraged to make use of their source control system security features (for example: [GitHub's "Security Advisories"](https://docs.github.com/en/github/managing-security-vulnerabilities/about-github-security-advisories) and [GitLab's "Confidential Issues"](https://docs.gitlab.com/ee/user/project/issues/confidential_issues.html)) to manage the vulnerabilities and inform their users.
+프로젝트 작성자는 소스 컨트롤 시스템의 보안 기능(예: [GitHub의 "Security Advisories"](https://docs.github.com/en/github/managing-security-vulnerabilities/about-github-security-advisories) 및 [GitLab의 "Confidential Issues"](https://docs.gitlab.com/ee/user/project/issues/confidential_issues.html))을 활용하여 취약점을 관리하고 사용자에게 알리는 것이 권장됩니다.
 
-#### The key requirements are:
+#### 핵심 요구 사항:
 
-- In your security policy (usually `SECURITY.md`), describe as easily and precisely as possible how the security process of your package works. This includes where and how to report as well as expected timelines for a fix.
-- Make sure your security policy is easy to find. For example by naming it `SECURITY.md` and linking to it from your main readme file.
-- List a clear point of contact (e.g. an email address) for security vulnerability reports in your security policy.
-- The point of contact for security vulnerabilities should be private. That means it is only accessible to you and your maintainers, and in particular that it is _not_ publicly accessible on the internet. It is also good practice to describe exactly who can access the information alongside the point of contact.
-- The goal is to make it as easy as possible for a user to report a security vulnerability to you. Try to remove all ambiguity and difficulty from reporting vulnerabilities. In many cases you will rely on somebody's spare time to report vulnerabilities.
+- 보안 정책(보통 `SECURITY.md`)에 패키지의 보안 프로세스가 어떻게 작동하는지 가능한 한 쉽고 정확하게 설명하세요. 여기에는 신고 위치와 방법, 수정 예상 일정이 포함됩니다.
+- 보안 정책을 찾기 쉽도록 하세요. 예를 들어 `SECURITY.md`로 명명하고 메인 README 파일에서 링크를 걸어 두세요.
+- 보안 정책에 보안 취약점 신고를 위한 명확한 연락처(예: 이메일 주소)를 기재하세요.
+- 보안 취약점 연락처는 비공개여야 합니다. 이는 본인과 메인테이너만 접근할 수 있으며, 특히 인터넷에 공개적으로 접근 가능하지 _않아야_ 합니다. 연락처와 함께 정확히 누가 해당 정보에 접근할 수 있는지 명시하는 것도 좋은 관행입니다.
+- 목표는 사용자가 보안 취약점을 가능한 한 쉽게 신고할 수 있도록 하는 것입니다. 취약점 신고의 모든 모호함과 어려움을 제거하도록 노력하세요. 많은 경우 취약점 신고는 누군가의 여가 시간에 이루어집니다.

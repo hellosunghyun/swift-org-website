@@ -1,21 +1,20 @@
 ---
 layout: page
-title: Contributing
+title: 기여하기
 ---
 
-Everyone is welcome to contribute to Swift.
-Contributing doesn't just mean submitting pull requests---there
-are many different ways for you to get involved,
-including answering questions on the forums,
-reporting or triaging bugs, and participating in the Swift evolution process.
+모든 사람이 Swift에 기여할 수 있습니다.
+기여한다는 것은 Pull Request를 제출하는 것만을 의미하지 않습니다.
+포럼에서 질문에 답변하거나,
+버그를 보고하거나 분류하거나,
+Swift evolution 프로세스에 참여하는 등 다양한 방법으로 참여할 수 있습니다.
 
-No matter how you want to get involved,
-we ask that you first learn what's expected
-of anyone who participates in the project
-by reading the [Community Overview](/community).
-If you're contributing code, you should also know how to build and run
-Swift from the repository,
-as described in [Source Code](/documentation/source-code).
+어떤 방식으로 참여하든,
+먼저 [커뮤니티 개요](/community)를 읽고
+프로젝트 참여자에게 기대되는 사항을 확인해 주세요.
+코드를 기여하는 경우,
+[소스 코드](/documentation/source-code)에 설명된 대로
+저장소에서 Swift를 빌드하고 실행하는 방법도 알아야 합니다.
 
 {% include_relative _answering-questions.md %}
 {% include_relative _reporting-bugs.md %}
@@ -25,8 +24,8 @@ as described in [Source Code](/documentation/source-code).
 {% include_relative _good-first-issues.md %}
 {% include_relative _contributing-code.md %}
 
-### LLVM and Swift
+### LLVM과 Swift
 
-For more information about the clone of the LLVM repository, see
-[LLVM and Swift](https://github.com/swiftlang/project-operations/blob/main/llvm-and-swift.md)
-in the [project-operations](https://github.com/swiftlang/project-operations/) repository.
+LLVM 저장소의 클론에 대한 자세한 내용은
+[project-operations](https://github.com/swiftlang/project-operations/) 저장소의
+[LLVM and Swift](https://github.com/swiftlang/project-operations/blob/main/llvm-and-swift.md)를 참고하세요.

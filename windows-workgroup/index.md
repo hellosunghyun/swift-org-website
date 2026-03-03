@@ -1,57 +1,57 @@
 ---
 layout: page
-title: Windows Workgroup
+title: Windows 워크그룹
 ---
 
-The Windows workgroup is a team that promotes the use of Swift for developing Windows applications.
+Windows 워크그룹은 Swift를 사용한 Windows 애플리케이션 개발을 촉진하는 팀입니다.
 
-## Charter
+## 헌장
 
-The goal of the Windows workgroup is to maintain Swift support for Windows, allowing users to develop Windows applications using the Swift language and its associated tools.
+Windows 워크그룹의 목표는 사용자가 Swift 언어와 관련 도구를 사용하여 Windows 애플리케이션을 개발할 수 있도록 Swift의 Windows 지원을 유지 관리하는 것입니다.
 
-The Windows workgroup will:
+Windows 워크그룹은 다음 활동을 수행합니다:
 
-* Improve and maintain Windows support for the official Swift distribution.
-* Recommend enhancements to core Swift packages such as Foundation and Dispatch to work better with Windows idioms.
-* Make recommendations to the Swift Project about the direction of future Windows support in Swift.
-* Identify and recommend best practices for bridging between Swift and the Windows API, and for shipping Swift libraries with Windows applications.
-* Improve and maintain support for debugging and profiling Swift applications on Windows.
-* Improve and maintain support for Windows-specific tooling.
-* Advise and assist with adding support for Windows to various community Swift packages.
+- 공식 Swift 배포판의 Windows 지원을 개선하고 유지 관리합니다.
+- Foundation, Dispatch 등 핵심 Swift 패키지가 Windows 관용구에 맞게 더 잘 동작하도록 개선 사항을 제안합니다.
+- Swift 프로젝트에 향후 Windows 지원 방향에 대한 제안을 합니다.
+- Swift와 Windows API 간 브리징 및 Windows 애플리케이션에 Swift 라이브러리를 배포하는 모범 사례를 파악하고 제안합니다.
+- Windows에서 Swift 애플리케이션의 디버깅 및 프로파일링 지원을 개선하고 유지 관리합니다.
+- Windows 전용 도구 지원을 개선하고 유지 관리합니다.
+- 다양한 커뮤니티 Swift 패키지에 Windows 지원을 추가하도록 조언하고 지원합니다.
 
-## Communication
+## 소통
 
-The Swift Windows workgroup uses the [Swift Windows forum](https://forums.swift.org/c/platform/windows/67) for general discussions. It can also be contacted privately by messaging [@windows-workgroup](https://forums.swift.org/g/windows-workgroup) on the Swift Forums.
+Swift Windows 워크그룹은 일반적인 논의에 [Swift Windows 포럼](https://forums.swift.org/c/platform/windows/67)을 사용합니다. Swift 포럼에서 [@windows-workgroup](https://forums.swift.org/g/windows-workgroup)으로 비공개 메시지를 보낼 수도 있습니다.
 
-## Membership
+## 멤버십
 
-Membership in the Windows workgroup is open to anyone who wishes to contribute. Members communicate with each other over regular video calls and on the Swift forums.
+Windows 워크그룹 멤버십은 기여하고자 하는 누구에게나 열려 있습니다. 멤버들은 정기 화상 회의와 Swift 포럼을 통해 소통합니다.
 
-The Windows workgroup adheres to the Swift code of conduct. If community members have any concerns about the adherence of the workgroup or one of its members to the code of conduct, they should contact a member of the Swift Core Team.
+Windows 워크그룹은 Swift 행동 강령을 준수합니다. 커뮤니티 멤버가 워크그룹이나 그 구성원의 행동 강령 준수에 대해 우려 사항이 있으면 Swift Core Team 구성원에게 연락해야 합니다.
 
-The Platform Steering Group selects one member of the Windows workgroup as the chair. The chair has no special authority over the workgroup, but they are responsible for ensuring its smooth functioning, including by:
+Platform Steering Group이 Windows 워크그룹의 의장을 선출합니다. 의장은 워크그룹에 대한 특별한 권한은 없지만, 다음을 포함하여 원활한 운영을 책임집니다:
 
-* organizing and leading regular meetings,
-* ensuring that the workgroup communicates effectively with the community, and
-* coordinating meetings between workgroup representatives and other Swift workgroups or teams when necessary.
+- 정기 회의를 조직하고 주도합니다.
+- 워크그룹이 커뮤니티와 효과적으로 소통하도록 합니다.
+- 필요한 경우 워크그룹 대표와 다른 Swift 워크그룹 또는 팀 간 회의를 조율합니다.
 
-Where the workgroup is uncertain of or unable to agree on the way forward, members may raise issues to the relevant Steering Group(s) for consideration. Significant decisions should be made following the usual Swift Evolution process to allow for community participation and Steering Group oversight.
+워크그룹이 방향을 확신하지 못하거나 합의에 이르지 못하는 경우, 멤버는 관련 Steering Group에 안건을 상정하여 검토를 요청할 수 있습니다. 중요한 결정은 커뮤니티 참여와 Steering Group 감독을 위해 일반적인 Swift Evolution 프로세스를 따라야 합니다.
 
-## Meetings
+## 회의
 
-The Windows workgroup meets biweekly on Wednesday at 9am PST (U.S. Pacific Time).
+Windows 워크그룹은 격주 수요일 오전 9시(미국 태평양 표준시)에 회의를 진행합니다.
 
-Workgroup meetings are meant for open discussion and any Swift community member may attend by sending a message to [@windows-workgroup](https://forums.swift.org/new-message?groupname=windows-workgroup) beforehand to request an invite.
+워크그룹 회의는 공개 토론을 위한 것으로, Swift 커뮤니티 멤버라면 누구나 [@windows-workgroup](https://forums.swift.org/new-message?groupname=windows-workgroup)으로 사전에 메시지를 보내 초대를 요청할 수 있습니다.
 
-## Community Participation
+## 커뮤니티 참여
 
-Everyone is welcome to contribute in the following ways:
+누구나 다음과 같은 방법으로 기여할 수 있습니다:
 
-* Participating in design discussions.
-* Asking or answering questions on the forums.
-* Reporting or triaging bugs.
-* Submitting pull requests to any of the Windows support library projects.
-* Discussing ideas on the Swift Forums. You can create new topics in the [Windows](https://forums.swift.org/c/platform/windows/67) category, or add the windows tag to any topic.
-* Developing new tools to aid the Windows experience or improve existing ones.
-* Providing feedback to the members of the Windows workgroup directly by sending a message to [@windows-workgroup](https://forums.swift.org/new-message?groupname=windows-workgroup) on the Forums. The workgroup chair brings outstanding issues and topics to the workgroup to discuss during regular meetings. The workgroup decides the actions for the issues.
-* Joining the Windows workgroup’s regular video meetings. Send a message to [@windows-workgroup](https://forums.swift.org/new-message?groupname=windows-workgroup) to request access.
+- 설계 논의에 참여합니다.
+- 포럼에서 질문하거나 답변합니다.
+- 버그를 신고하거나 분류합니다.
+- Windows 지원 라이브러리 프로젝트에 풀 리퀘스트를 제출합니다.
+- Swift 포럼에서 아이디어를 논의합니다. [Windows](https://forums.swift.org/c/platform/windows/67) 카테고리에서 새 주제를 만들거나, 기존 주제에 windows 태그를 추가할 수 있습니다.
+- Windows 경험을 개선하는 새로운 도구를 개발하거나 기존 도구를 개선합니다.
+- Windows 워크그룹 멤버에게 포럼의 [@windows-workgroup](https://forums.swift.org/new-message?groupname=windows-workgroup)으로 직접 피드백을 제공합니다. 워크그룹 의장은 주요 안건과 주제를 정기 회의에서 논의하도록 가져옵니다. 워크그룹이 해당 안건에 대한 조치를 결정합니다.
+- Windows 워크그룹의 정기 화상 회의에 참여합니다. [@windows-workgroup](https://forums.swift.org/new-message?groupname=windows-workgroup)으로 메시지를 보내 접근 권한을 요청하세요.

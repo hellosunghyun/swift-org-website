@@ -1,28 +1,28 @@
-## Triaging Bugs
+## 버그 분류
 
-Reporting bugs is an important part of improving software.
-Nearly as important is triaging those bugs
-to ensure that they are reproducible, small, and unique.
+버그를 보고하는 것은 소프트웨어를 개선하는 중요한 부분입니다.
+그에 못지않게 중요한 것은 버그가
+재현 가능하고, 작고, 고유한지 확인하는 분류 작업입니다.
 
-There are a number of things you can do to help triage bugs
-in the [bug tracker][bugtracker].
+[버그 트래커][bugtracker]에서 버그를 분류하는 데 도움을 줄 수 있는
+여러 가지 방법이 있습니다.
 
-- **Reproduce bugs**.
-  For a bug to be actionable,
-  it needs to be reproducible.
-  If you can't reproduce the bug,
-  try to figure out why.
-  Get in touch with the submitter if you need more information.
+- **버그를 재현합니다**.
+  버그가 조치될 수 있으려면
+  재현 가능해야 합니다.
+  버그를 재현할 수 없다면
+  그 이유를 파악해 보세요.
+  더 많은 정보가 필요하면 제출자에게 연락하세요.
 
-- **Reduce bugs**.
-  Once a bug can be reproduced,
-  reduce it to the smallest amount of code possible.
-  Reasoning about a sample that reproduces a bug in just a few lines of Swift code
-  is easier than reasoning about a longer sample.
+- **버그를 축소합니다**.
+  버그를 재현할 수 있게 되면
+  가능한 한 최소한의 코드로 줄이세요.
+  긴 샘플보다 몇 줄의 Swift 코드로 버그를 재현하는 샘플을
+  분석하는 것이 더 쉽습니다.
 
-- **Eliminate duplicate bugs**.
-  If two bug reports refer to the same underlying problem,
-  mark the newer one as a duplicate of the older one.
-  Doing so allows others to work more effectively.
+- **중복 버그를 제거합니다**.
+  두 개의 버그 보고서가 동일한 근본 문제를 가리키는 경우,
+  최신 보고서를 이전 보고서의 중복으로 표시하세요.
+  이렇게 하면 다른 사람들이 더 효율적으로 작업할 수 있습니다.
 
 [bugtracker]: https://github.com/swiftlang/swift/issues

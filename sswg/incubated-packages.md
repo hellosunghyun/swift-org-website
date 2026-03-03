@@ -1,19 +1,19 @@
 ---
 layout: page
-title: SSWG Incubated packages
+title: SSWG 인큐베이션 패키지
 ---
 
-The Swift Server Workgroup ([SSWG](/sswg/)) has a [process](/sswg/incubation-process.html) which allows a project to go through incubation stages until it graduates and becomes a recommended project.
+Swift Server 워크그룹([SSWG](/sswg/))은 프로젝트가 인큐베이션 단계를 거쳐 졸업하고 추천 프로젝트가 되는 [프로세스](/sswg/incubation-process.html)를 운영합니다.
 
-## Graduated Projects
+## 졸업 프로젝트
 
 <table>
   <thead>
     <tr>
-      <th>Project</th>
-      <th>Description</th>
-      <th>Pitched</th>
-      <th>Accepted</th>
+      <th>프로젝트</th>
+      <th>설명</th>
+      <th>피치 일자</th>
+      <th>승인 일자</th>
     </tr>
   </thead>
   <tbody>
@@ -31,15 +31,15 @@ The Swift Server Workgroup ([SSWG](/sswg/)) has a [process](/sswg/incubation-pro
   </tbody>
 </table>
 
-## Incubating Projects
+## 인큐베이팅 프로젝트
 
 <table>
   <thead>
     <tr>
-      <th>Project</th>
-      <th>Description</th>
-      <th>Pitched</th>
-      <th>Accepted</th>
+      <th>프로젝트</th>
+      <th>설명</th>
+      <th>피치 일자</th>
+      <th>승인 일자</th>
     </tr>
   </thead>
   <tbody>
@@ -57,15 +57,15 @@ The Swift Server Workgroup ([SSWG](/sswg/)) has a [process](/sswg/incubation-pro
   </tbody>
 </table>
 
-## Sandbox Projects
+## Sandbox 프로젝트
 
 <table>
   <thead>
     <tr>
-      <th>Project</th>
-      <th>Description</th>
-      <th>Pitched</th>
-      <th>Accepted</th>
+      <th>프로젝트</th>
+      <th>설명</th>
+      <th>피치 일자</th>
+      <th>승인 일자</th>
     </tr>
   </thead>
   <tbody>
@@ -83,5 +83,4 @@ The Swift Server Workgroup ([SSWG](/sswg/)) has a [process](/sswg/incubation-pro
   </tbody>
 </table>
 
-The SSWG publishes a [package collection](/blog/package-collections/) that contains the projects incubated by the workgroup. The collection is available at `https://swiftserver.group/collection/sswg.json`.
-
+SSWG는 워크그룹이 인큐베이션한 프로젝트를 포함하는 [패키지 컬렉션](/blog/package-collections/)을 게시합니다. 이 컬렉션은 `https://swiftserver.group/collection/sswg.json`에서 이용할 수 있습니다.
