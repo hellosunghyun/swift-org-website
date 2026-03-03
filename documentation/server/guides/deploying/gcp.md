@@ -1,54 +1,48 @@
 ---
-redirect_from: "server/guides/deploying/gcp"
+redirect_from: 'server/guides/deploying/gcp'
 layout: page
-title: Deploying to Google Cloud Platform (GCP)
+title: Google Cloud Platform(GCP)에 배포하기
 ---
 
-This guide describes how to build and run your Swift Server on serverless
-architecture with [Google Cloud Build](https://cloud.google.com/build) and
-[Google Cloud Run](https://cloud.google.com/run). We'll use
-[Artifact Registry](https://cloud.google.com/artifact-registry/docs/docker/quickstart)
-to store the Docker images.
+이 가이드에서는 [Google Cloud Build](https://cloud.google.com/build)와
+[Google Cloud Run](https://cloud.google.com/run)을 사용하여 서버리스
+아키텍처에서 Swift 서버를 빌드하고 실행하는 방법을 설명합니다. Docker 이미지를 저장하기 위해
+[Artifact Registry](https://cloud.google.com/artifact-registry/docs/docker/quickstart)를
+사용합니다.
 
-## Google Cloud Platform Setup
+## Google Cloud Platform 설정
 
-You can read about
-[Getting Started with GCP](https://cloud.google.com/gcp/getting-started/) in
-more detail. In order to run Swift Server applications, we need to:
+[GCP 시작하기](https://cloud.google.com/gcp/getting-started/)에서
+자세한 내용을 확인할 수 있습니다. Swift 서버 애플리케이션을 실행하려면 다음이 필요합니다:
 
-- enable [Billing](https://console.cloud.google.com/billing) (requires a credit
-  card). Note that when creating a new account, GCP provides you with $300 of
-  free credit to use in the first 90 days. You can follow this guide for free
-  for a new account. Everything in this guide should fall into the "Free Tier"
-  category at GCP (120 build minutes per day, 2 million Cloud Run requests per
-  month
-  [Free Tier Usage Limits](https://cloud.google.com/free/docs/gcp-free-tier#free-tier-usage-limits))
-- enable the
-  [Cloud Build API](https://console.cloud.google.com/apis/api/cloudbuild.googleapis.com/overview)
-- enable the
-  [Cloud Run Admin API](https://console.cloud.google.com/apis/api/run.googleapis.com/overview)
-- enable the
-  [Artifact Registry API](https://console.cloud.google.com/apis/api/artifactregistry.googleapis.com/overview)
-- [create a Repository in the Artifact Registry](https://console.cloud.google.com/artifacts/create-repo)
-  (Format: Docker, Region: your choice)
+- [결제](https://console.cloud.google.com/billing) 활성화(신용카드 필요).
+  새 계정을 생성하면 GCP에서 처음 90일 동안 사용할 수 있는 $300의
+  무료 크레딧을 제공합니다. 새 계정이라면 이 가이드를 무료로 따라할 수 있습니다.
+  이 가이드의 모든 내용은 GCP의 "무료 등급" 범위에 해당합니다(하루 120분 빌드 시간,
+  월 200만 Cloud Run 요청
+  [무료 등급 사용 한도](https://cloud.google.com/free/docs/gcp-free-tier#free-tier-usage-limits)).
+- [Cloud Build API](https://console.cloud.google.com/apis/api/cloudbuild.googleapis.com/overview) 활성화
+- [Cloud Run Admin API](https://console.cloud.google.com/apis/api/run.googleapis.com/overview) 활성화
+- [Artifact Registry API](https://console.cloud.google.com/apis/api/artifactregistry.googleapis.com/overview) 활성화
+- [Artifact Registry에서 저장소 생성](https://console.cloud.google.com/artifacts/create-repo)
+  (형식: Docker, 리전: 원하는 리전)
 
-## Project Requirements
+## 프로젝트 요구사항
 
-Please verify that your server listens on `0.0.0.0`, not `127.0.0.1` and it's
-recommended to use the environment variable `$PORT` instead of a hard-coded
-value. For the workflow to pass, two files are essential, both need to be in the
-project root:
+서버가 `127.0.0.1`이 아닌 `0.0.0.0`에서 수신 대기하는지 확인하고,
+하드코딩된 값 대신 환경 변수 `$PORT`를 사용하는 것이 좋습니다.
+워크플로가 통과하려면 두 개의 파일이 필수이며, 둘 다 프로젝트 루트에 있어야 합니다:
 
 1. Dockerfile
 2. cloudbuild.yaml
 
 ### `Dockerfile`
 
-You should test your Dockerfile with `docker build . -t test` and
-`docker run -p 8080:8080 test` and make sure it builds and runs locally.
+`docker build . -t test`와 `docker run -p 8080:8080 test`로
+Dockerfile이 로컬에서 빌드되고 실행되는지 테스트해야 합니다.
 
-The _Dockerfile_ is the same as in the [packaging guide](/server/guides/packaging.html#docker).
-Replace `<executable-name>` with your `executableTarget` (ie. "Server"):
+*Dockerfile*은 [패키징 가이드](/server/guides/packaging.html#docker)와 동일합니다.
+`<executable-name>`을 사용하는 `executableTarget`(예: "Server")으로 교체하세요:
 
 ```Dockerfile
 #------- build -------
@@ -74,13 +68,12 @@ CMD ["<executable-name>"]
 
 ### `cloudbuild.yaml`
 
-The `cloudbuild.yaml` files contains a set of steps to build the server image
-directly in the cloud and deploy a new Cloud Run instance after the successful
-build. `${_VAR}` are
-["substitution variables"](https://cloud.google.com/cloud-build/docs/configuring-builds/substitute-variable-values)
-that are available during build time and can be passed on into the runtime
-environment in the "deploy" phase. We will set the variables later when we
-configure the [Build Trigger](#deployment) (Step 5).
+`cloudbuild.yaml` 파일에는 클라우드에서 서버 이미지를 직접 빌드하고
+빌드 성공 후 새 Cloud Run 인스턴스를 배포하는 일련의 단계가 포함되어 있습니다.
+`${_VAR}`는 빌드 시점에 사용할 수 있는
+["대체 변수"](https://cloud.google.com/cloud-build/docs/configuring-builds/substitute-variable-values)이며,
+"deploy" 단계에서 런타임 환경에 전달할 수 있습니다.
+[빌드 트리거](#배포)(5단계)를 구성할 때 변수를 설정합니다.
 
 ```yaml
 steps:
@@ -104,7 +97,7 @@ steps:
     args:
       [
         'push',
-        '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY_NAME}/${_SERVICE_NAME}:$SHORT_SHA'
+        '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY_NAME}/${_SERVICE_NAME}:$SHORT_SHA',
       ]
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
@@ -125,85 +118,83 @@ images:
 timeout: 1800s
 ```
 
-### The steps in detail
+### 단계 상세 설명
 
-1. Pull the latest image from the Artifact Registry to retrieve cached layers
-2. Build the image with `$SHORT_SHA` and `latest` tag
-3. Push the image to the Artifact Registry
-4. Deploy the image to Cloud Run
+1. Artifact Registry에서 최신 이미지를 풀링하여 캐시된 레이어를 가져옵니다
+2. `$SHORT_SHA`와 `latest` 태그로 이미지를 빌드합니다
+3. Artifact Registry에 이미지를 푸시합니다
+4. Cloud Run에 이미지를 배포합니다
 
-`images` specifies the build images to store in the registry. The default
-`timeout` is 10 minutes, so we'll need to increase it for Swift builds. We use
-`8080` as the default port here, though it's recommended to remove this line and
-have the server listen on `$PORT`.
+`images`는 레지스트리에 저장할 빌드 이미지를 지정합니다. 기본
+`timeout`은 10분이므로 Swift 빌드를 위해 늘려야 합니다.
+기본 포트로 `8080`을 사용하지만, 이 줄을 제거하고 서버가
+`$PORT`에서 수신 대기하도록 하는 것이 좋습니다.
 
-## Deployment
+## 배포
 
-![cloud build trigger settings and how to connect a code repository](/assets/images/server-guides/gcp-connect-repo.png)
+![Cloud Build 트리거 설정 및 코드 저장소 연결 방법](/assets/images/server-guides/gcp-connect-repo.png)
 
-Push all files to a remote repository. Cloud Build currently supports, GitHub,
-Bitbucket and GitLab. now) and head to
-[Cloud Build Triggers](https://console.cloud.google.com/cloud-build/triggers)
-and click "Create Trigger":
+모든 파일을 원격 저장소에 푸시합니다. Cloud Build는 현재 GitHub,
+Bitbucket, GitLab을 지원합니다.
+[Cloud Build 트리거](https://console.cloud.google.com/cloud-build/triggers)로
+이동하여 "Create Trigger"를 클릭합니다:
 
-1. Add a name and description
-2. Event: "Push to a branch" is active
-3. Source: "Connect New Repository" and authorize with your code provider, and
-   add the repository where your Swift server code is hosted. Note that you need
-   to configure
+1. 이름과 설명을 추가합니다
+2. Event: "Push to a branch"가 활성화되어 있습니다
+3. Source: "Connect New Repository"로 코드 제공자에 인증하고,
+   Swift 서버 코드가 호스팅된 저장소를 추가합니다. 먼저
    [GitHub](https://cloud.google.com/build/docs/automating-builds/build-repos-from-github),
    [GitLab](https://cloud.google.com/build/docs/automating-builds/build-repos-from-gitlab)
-   or
-   [Bitbucket](https://cloud.google.com/build/docs/automating-builds/build-repos-from-bitbucket-cloud)
-   to allow GCP access first.
+   또는
+   [Bitbucket](https://cloud.google.com/build/docs/automating-builds/build-repos-from-bitbucket-cloud)에서
+   GCP 접근을 허용하도록 구성해야 합니다.
 4. Configuration: "Cloud Build configuration file" / Location: Repository
 5. Advanced:
-   [Substitution variables](https://cloud.google.com/cloud-build/docs/configuring-builds/substitute-variable-values):
-   You need to set the variables for region, repository name and service name
-   here. You can pick a
-   [region of your choice](https://cloud.google.com/about/locations/) (ie.
-   `us-central1`). All custom variables must start with an underscore
-   (`_REGION`). `_REPOSITORY_NAME` and `_SERVICE_NAME` are up to you. If you use
-   environment variables for example to connect to a database or 3rd party
-   services, you can set the values here too.
+   [대체 변수](https://cloud.google.com/cloud-build/docs/configuring-builds/substitute-variable-values):
+   여기서 리전, 저장소 이름, 서비스 이름에 대한 변수를 설정해야 합니다.
+   원하는 [리전](https://cloud.google.com/about/locations/)을 선택할 수 있습니다(예:
+   `us-central1`). 모든 사용자 정의 변수는 밑줄로 시작해야 합니다
+   (`_REGION`). `_REPOSITORY_NAME`과 `_SERVICE_NAME`은 자유롭게 지정할 수 있습니다.
+   데이터베이스나 서드파티 서비스에 연결하기 위해 환경 변수를 사용하는 경우
+   여기서 값을 설정할 수도 있습니다.
 6. "Create"
 
-As a last step before deploying the new service, go to the
-[Cloud Build Settings](https://console.cloud.google.com/cloud-build/settings)
-and make sure "Cloud Run" is enabled. This gives Cloud Build the necessary IAM
-permissions to deploy Cloud Run services.
+새 서비스를 배포하기 전 마지막 단계로,
+[Cloud Build 설정](https://console.cloud.google.com/cloud-build/settings)으로
+이동하여 "Cloud Run"이 활성화되어 있는지 확인합니다. 이를 통해 Cloud Build에
+Cloud Run 서비스를 배포하는 데 필요한 IAM 권한이 부여됩니다.
 
-![cloud build settings](/assets/images/server-guides/gcp-cloud-build-settings.png)
+![Cloud Build 설정](/assets/images/server-guides/gcp-cloud-build-settings.png)
 
-In the Trigger overview page, you should see your new "swift-service" trigger.
-Click on "RUN" on the right to start the trigger manually from the `main`
-branch. With a simple Hummingbird project the build takes about 7-8 minutes.
-Vapor takes about 25 minutes on the standard/small build machines, which are
-fairly slow. "Jordane" from the Vapor Discord community
-[recommends using `machineType: E2_HIGHCPU_8`](https://discord.com/channels/431917998102675485/447893851374616576/915819735738888222)
-in the `cloudbuild.yaml` to speed up deployments:
+트리거 개요 페이지에서 새 "swift-service" 트리거를 확인할 수 있습니다.
+오른쪽의 "RUN"을 클릭하여 `main` 브랜치에서 수동으로 트리거를 시작합니다.
+간단한 Hummingbird 프로젝트의 경우 빌드에 약 7-8분이 소요됩니다.
+Vapor는 표준/소형 빌드 머신에서 약 25분이 소요되며, 이 머신은 상당히
+느립니다. Vapor Discord 커뮤니티의 "Jordane"은 배포 속도를 높이기 위해
+`cloudbuild.yaml`에서
+[`machineType: E2_HIGHCPU_8`을 사용할 것을 권장](https://discord.com/channels/431917998102675485/447893851374616576/915819735738888222)합니다:
 
 ```yaml
 options:
   machineType: 'E2_HIGHCPU_8'
 ```
 
-After a successful build you should see the service URL in the build logs:
+빌드가 성공하면 빌드 로그에서 서비스 URL을 확인할 수 있습니다:
 
-![successful build and deployment to cloud run](/assets/images/server-guides/gcp-cloud-build.png)
+![Cloud Run에 성공적으로 빌드 및 배포](/assets/images/server-guides/gcp-cloud-build.png)
 
-You can head over to Cloud Run and see your service running there:
+Cloud Run으로 이동하여 서비스가 실행 중인 것을 확인할 수 있습니다:
 
-![cloud run overview](/assets/images/server-guides/gcp-cloud-run.png)
+![Cloud Run 개요](/assets/images/server-guides/gcp-cloud-run.png)
 
-The trigger will deploy every new commit on `main`. You can also enable Pull
-Request triggers for feature-driven workflows. Cloud Build also allows
-blue/green builds, auto-scaling and much more.
+트리거는 `main`에 대한 모든 새 커밋을 배포합니다. 기능 중심 워크플로를 위해
+Pull Request 트리거를 활성화할 수도 있습니다. Cloud Build는 블루/그린
+빌드, 자동 스케일링 등 다양한 기능도 지원합니다.
 
-You can now connect your custom domain to the new service and go live.
+이제 커스텀 도메인을 새 서비스에 연결하고 서비스를 시작할 수 있습니다.
 
-## Cleanup
+## 정리
 
-- delete the Cloud Run service
-- delete the Cloud Build trigger
-- delete the Artifact Registry repository
+- Cloud Run 서비스를 삭제합니다
+- Cloud Build 트리거를 삭제합니다
+- Artifact Registry 저장소를 삭제합니다

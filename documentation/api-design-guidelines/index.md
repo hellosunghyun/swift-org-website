@@ -1,9 +1,10 @@
 ---
 layout: page
-title: API Design Guidelines
+title: API 디자인 가이드라인
 official_url: https://swift.org/documentation/api-design-guidelines/
 redirect_from: /documentation/api-design-guidelines.html
 ---
+
 <!-- {% comment %}
 The width of <pre> elements on this page is carefully regulated, so we
 can afford to drop the scrollbar boxes.
@@ -22,6 +23,7 @@ without too much boilerplate.  We use checkboxes instead of
   * Write CSS ensuring that details aren't hidden when printing.
   * Add a button that expands or collapses all sections at once.
 {% endcomment %} -->
+
 {% capture expand %}{::nomarkdown}
 <input type="checkbox" class="detail">
 {:/nomarkdown}{% endcapture %}
@@ -29,81 +31,76 @@ without too much boilerplate.  We use checkboxes instead of
 {% assign enddetail = '</div>' %}
 
 <div class="info screenonly" markdown="1">
-To facilitate use as a quick reference, the details of many guidelines
-can be expanded individually. Details are never hidden when this page
-is printed.
-<input type="button" id="toggle" value="Expand all details now" onClick="show_or_hide_all()" />
+빠른 참조를 위해 많은 가이드라인의 세부 내용을 개별적으로 펼칠 수 있습니다. 이 페이지를 인쇄할 때는 세부 내용이 절대 숨겨지지 않습니다.
+<input type="button" id="toggle" value="모든 세부 내용 펼치기" onClick="show_or_hide_all()" />
 </div>
 
-## Table of Contents
+## 목차
+
 {:.no_toc}
 
-* TOC
-{:toc}
+- TOC
+  {:toc}
 
-## Introduction
+## 소개
 
-Delivering a clear, consistent developer experience when writing Swift code is largely defined by the names and idioms that appear in APIs.
-These design guidelines explain how to make sure that your code feels like a part of the larger Swift ecosystem.
+Swift 코드를 작성할 때 명확하고 일관된 개발자 경험을 제공하는 것은 API에 나타나는 이름과 관용구에 의해 크게 결정됩니다.
+이 디자인 가이드라인은 여러분의 코드가 더 큰 Swift 생태계의 일부처럼 느껴지도록 하는 방법을 설명합니다.
 
-## Fundamentals
+## 기본 원칙
 
-* **Clarity at the point of use** is your most important goal.
-  Entities such as methods and properties are declared only once but
-  *used* repeatedly.  Design APIs to make those uses clear and
-  concise.  When evaluating a design, reading a declaration is seldom
-  sufficient; always examine a use case to make sure it looks
-  clear in context.
+- **사용 시점에서의 명확성**이 가장 중요한 목표입니다.
+  메서드나 프로퍼티 같은 엔터티는 한 번만 선언되지만
+  _반복적으로_ 사용됩니다. 사용이 명확하고
+  간결하도록 API를 설계하세요. 설계를 평가할 때 선언을 읽는 것만으로는
+  충분하지 않습니다. 항상 사용 사례를 검토하여 문맥에서
+  명확해 보이는지 확인하세요.
   {:#clarity-at-the-point-of-use}
 
-* **Clarity is more important than brevity.**  Although Swift
-  code can be compact, it is a *non-goal*
-  to enable the smallest possible code with the fewest characters.
-  Brevity in Swift code, where it occurs, is a side-effect of the
-  strong type system and features that naturally reduce boilerplate.
+- **명확성이 간결성보다 중요합니다.** Swift
+  코드는 간결할 수 있지만, 가능한 적은 문자로 가장 작은 코드를
+  만드는 것은 _목표가 아닙니다_.
+  Swift 코드의 간결성은 강력한 타입 시스템과
+  자연스럽게 보일러플레이트를 줄이는 기능의 부수적 효과입니다.
   {:#clarity-over-brevity}
 
-* **Write a documentation comment**
-  for every declaration. Insights gained by writing documentation can
-  have a profound impact on your design, so don't put it off.
+- 모든 선언에 **문서화 주석을 작성하세요**.
+  문서를 작성하면서 얻는 통찰은 설계에 심대한 영향을 줄 수 있으므로
+  미루지 마세요.
   {:#write-doc-comment}
 
   <div class="warning" markdown="1">
-  If you are having trouble describing your API's
-  functionality in simple terms, **you may have designed the wrong API.**
+  API의 기능을 간단한 말로 설명하기 어렵다면,
+  **잘못된 API를 설계한 것일 수 있습니다.**
   </div>
 
   {{expand}}
   {{detail}}
   {% assign ref = 'https://developer.apple.com/library/prerelease/mac/documentation/Xcode/Reference/xcode_markup_formatting_ref/' %}
   {% capture SymbolDoc %}{{ref}}SymbolDocumentation.html#//apple_ref/doc/uid/TP40016497-CH51-{% endcapture %}
+  - **Swift의 [Markdown 방언]({{ref}})을 사용하세요.**
 
-  * **Use Swift's [dialect of Markdown]({{ref}}).**
+  - 선언되는 엔터티를 설명하는 **요약으로 시작하세요**.
+    종종 API는 선언과 요약만으로 완전히 이해할 수 있습니다.
 
-  * **Begin with a summary** that describes the entity being declared.
-    Often, an API can be completely understood from its declaration and
-    its summary.
-
-    ~~~ swift
+    ```swift
     /// **Returns a "view" of `self` containing the same elements in**
     /// **reverse order.**
     func reversed() -> ReverseCollection<Self>
-    ~~~
+    ```
 
     {{expand}}
     {{detail}}
+    - **요약에 집중하세요**; 가장 중요한 부분입니다. 많은
+      훌륭한 문서화 주석은 뛰어난 요약만으로 구성됩니다.
 
-    * **Focus on the summary**; it's the most important part. Many
-      excellent documentation comments consist of nothing more than a
-      great summary.
+    - 가능하면 **마침표로 끝나는 단일 문장 단편**을 사용하세요.
+      완전한 문장을 사용하지 마세요.
 
-    * **Use a single sentence fragment** if possible, ending with a
-      period.  Do not use a complete sentence.
+    - 함수나 메서드가 **무엇을 *하는지*와 무엇을
+      _반환하는지_** 설명하세요. null 효과와 `Void` 반환은 생략합니다:
 
-    * **Describe what a function or method *does* and what it
-      *returns***, omitting null effects and `Void` returns:
-
-      ~~~ swift
+      ```swift
       /// **Inserts** `newHead` at the beginning of `self`.
       mutating func prepend(_ newHead: Int)
 
@@ -114,28 +111,28 @@ These design guidelines explain how to make sure that your code feels like a par
       /// **Removes and returns** the first element of `self` if non-empty;
       /// returns `nil` otherwise.
       mutating func popFirst() -> Element?
-      ~~~
+      ```
 
-      Note: in rare cases like `popFirst` above, the summary is formed
-      of multiple sentence fragments separated by semicolons.
+      참고: 위의 `popFirst`처럼 드문 경우 요약이 세미콜론으로 구분된
+      여러 문장 단편으로 구성됩니다.
 
-    * **Describe what a subscript *accesses***:
+    - 서브스크립트가 **무엇에 _접근하는지_** 설명하세요:
 
-      ~~~ swift
+      ```swift
       /// **Accesses** the `index`th element.
       subscript(index: Int) -> Element { get set }
-      ~~~
+      ```
 
-    * **Describe what an initializer *creates***:
+    - 이니셜라이저가 **무엇을 _생성하는지_** 설명하세요:
 
-      ~~~ swift
+      ```swift
       /// **Creates** an instance containing `n` repetitions of `x`.
       init(count n: Int, repeatedElement x: Element)
-      ~~~
+      ```
 
-    * For all other declarations, **describe what the declared entity *is***.
+    - 다른 모든 선언의 경우, **선언된 엔터티가 _무엇인지_** 설명하세요.
 
-      ~~~ swift
+      ```swift
       /// **A collection that** supports equally efficient insertion/removal
       /// at any position.
       struct List {
@@ -144,47 +141,44 @@ These design guidelines explain how to make sure that your code feels like a par
         /// empty.
         var first: Element?
         ...
-      ~~~
+      ```
 
     {{enddetail}}
 
-  * **Optionally, continue** with one or more paragraphs and bullet
-    items.  Paragraphs are separated by blank lines and use complete
-    sentences.
+  - **선택적으로** 하나 이상의 단락과 글머리 기호
+    항목으로 계속합니다. 단락은 빈 줄로 구분하고 완전한
+    문장을 사용합니다.
 
-    ~~~ swift
-    /// Writes the textual representation of each    <span class="graphic">←</span><span class="commentary"> Summary</span>
+    ```swift
+    /// Writes the textual representation of each    <span class="graphic">←</span><span class="commentary"> 요약</span>
     /// element of `items` to the standard output.
-    ///                                              <span class="graphic">←</span><span class="commentary"> Blank line</span>
-    /// The textual representation for each item `x` <span class="graphic">←</span><span class="commentary"> Additional discussion</span>
+    ///                                              <span class="graphic">←</span><span class="commentary"> 빈 줄</span>
+    /// The textual representation for each item `x` <span class="graphic">←</span><span class="commentary"> 추가 설명</span>
     /// is generated by the expression `String(x)`.
     ///
     /// - **Parameter separator**: text to be printed    <span class="graphic">⎫</span>
     ///   between items.                             <span class="graphic">⎟</span>
-    /// - **Parameter terminator**: text to be printed   <span class="graphic">⎬</span><span class="commentary"> <a href="{{SymbolDoc}}SW14">Parameters section</a></span>
+    /// - **Parameter terminator**: text to be printed   <span class="graphic">⎬</span><span class="commentary"> <a href="{{SymbolDoc}}SW14">매개변수 섹션</a></span>
     ///   at the end.                                <span class="graphic">⎟</span>
     ///                                              <span class="graphic">⎭</span>
     /// - **Note**: To print without a trailing          <span class="graphic">⎫</span>
     ///   newline, pass `terminator: ""`             <span class="graphic">⎟</span>
-    ///                                              <span class="graphic">⎬</span><span class="commentary"> <a href="{{SymbolDoc}}SW13">Symbol commands</a></span>
+    ///                                              <span class="graphic">⎬</span><span class="commentary"> <a href="{{SymbolDoc}}SW13">심볼 명령</a></span>
     /// - **SeeAlso**: `CustomDebugStringConvertible`,   <span class="graphic">⎟</span>
     ///   `CustomStringConvertible`, `debugPrint`.   <span class="graphic">⎭</span>
     public func print<Target: OutputStreamType>(
       _ items: Any..., separator: String = " ", terminator: String = "\n")
-    ~~~
+    ```
 
     {{expand}}
     {{detail}}
+    - 적절한 경우 요약 이상의 정보를 추가하기 위해 인식된
+      **[심볼 문서화 마크업]({{SymbolDoc}}SW1)
+      요소를 사용하세요**.
 
-    * **Use recognized
-      [symbol documentation markup]({{SymbolDoc}}SW1)
-      elements** to add information beyond the summary, whenever
-      appropriate.
-
-    * **Know and use recognized bullet items with
-      [symbol command syntax]({{SymbolDoc}}SW13).** Popular development
-      tools such as Xcode give special treatment to bullet items that
-      start with the following keywords:
+    - **[심볼 명령 구문]({{SymbolDoc}}SW13)의 인식된 글머리 기호 항목을
+      알고 사용하세요.** Xcode 같은 인기 있는 개발
+      도구는 다음 키워드로 시작하는 글머리 기호 항목을 특별히 처리합니다:
 
       | [Attention]({{ref}}Attention.html) | [Author]({{ref}}Author.html) | [Authors]({{ref}}Authors.html) | [Bug]({{ref}}Bug.html) |
       | [Complexity]({{ref}}Complexity.html) | [Copyright]({{ref}}Copyright.html) | [Date]({{ref}}Date.html) | [Experiment]({{ref}}Experiment.html) |
@@ -197,80 +191,80 @@ These design guidelines explain how to make sure that your code feels like a par
 
   {{enddetail}}
 
-## Naming
+## 이름 짓기
 
-### Promote Clear Usage
+### 명확한 사용 촉진
 
-* **Include all the words needed to avoid ambiguity** for a person
-  reading code where the name is used.
+- 이름이 사용되는 코드를 읽는 사람이 모호하지 않도록 **필요한 모든 단어를 포함하세요**.
   {:#include-words-to-avoid-ambiguity}
 
   {{expand}}
   {{detail}}
-  For example, consider a method that removes the element at a
-  given position within a collection.
+  예를 들어, 컬렉션 내 주어진 위치의 요소를 제거하는
+  메서드를 생각해 봅시다.
 
-  ~~~ swift
+  ```swift
   extension List {
     public mutating func remove(at position: Index) -> Element
   }
   employees.remove(at: x)
-  ~~~
+  ```
+
   {:.good}
 
-  If we were to omit the word `at` from the method signature, it could
-  imply to the reader that the method searches for and removes an
-  element equal to `x`, rather than using `x` to indicate the
-  position of the element to remove.
+  메서드 시그니처에서 `at`을 생략하면, 독자에게 `x`로
+  제거할 요소의 위치를 나타내는 것이 아니라 `x`와 같은
+  요소를 검색하여 제거하는 것으로 오해할 수 있습니다.
 
-  ~~~ swift
-  employees.remove(x) // unclear: are we removing x?
-  ~~~
+  ```swift
+  employees.remove(x) // 불명확: x를 제거하는 건가?
+  ```
+
   {:.bad}
 
   {{enddetail}}
 
-* **Omit needless words.** Every word in a name should convey salient
-  information at the use site.
+- **불필요한 단어를 생략하세요.** 이름의 모든 단어는 사용 시점에서 핵심적인
+  정보를 전달해야 합니다.
   {:#omit-needless-words}
 
   {{expand}}
   {{detail}}
-  More words may be needed to clarify intent or disambiguate
-  meaning, but those that are redundant with information the reader
-  already possesses should be omitted. In particular, omit words that
-  *merely repeat* type information.
+  의도를 명확히 하거나 의미를 구별하기 위해 더 많은 단어가 필요할 수
+  있지만, 독자가 이미 가지고 있는 정보와 중복되는 단어는
+  생략해야 합니다. 특히 타입 정보를 *단순히 반복*하는 단어를 생략하세요.
 
-  ~~~ swift
+  ```swift
   public mutating func removeElement(_ member: Element) -> Element?
 
   allViews.removeElement(cancelButton)
-  ~~~
+  ```
+
   {:.bad}
 
-  In this case, the word `Element` adds nothing salient at the call
-  site. This API would be better:
+  이 경우 `Element`이라는 단어는 호출 시점에서 핵심적인 내용을 추가하지 않습니다. 다음 API가 더 좋습니다:
 
-  ~~~ swift
+  ```swift
   public mutating func remove(_ member: Element) -> Element?
 
-  allViews.remove(cancelButton) // clearer
-  ~~~
+  allViews.remove(cancelButton) // 더 명확함
+  ```
+
   {:.good}
 
-  Occasionally, repeating type information is necessary to avoid
-  ambiguity, but in general it is better to use a word that
-  describes a parameter's *role* rather than its type. See the next
-  item for details.
+  가끔 모호성을 피하기 위해 타입 정보를 반복해야 할 수 있지만,
+  일반적으로 매개변수의 *역할*을 설명하는 단어가
+  타입보다 낫습니다. 자세한 내용은 다음 항목을 참고하세요.
   {{enddetail}}
 
-* **Name variables, parameters, and associated types according to
-  their roles,** rather than their type constraints.
+- **변수, 매개변수, 연관 타입의 이름은 타입 제약이 아닌
+  역할에 따라** 지으세요.
   {:#name-according-to-roles}
 
   {{expand}}
   {{detail}}
-  ~~~ swift
+
+  ```swift
   var **string** = "Hello"
   protocol ViewController {
     associatedtype **View**Type : View
@@ -278,14 +272,15 @@ These design guidelines explain how to make sure that your code feels like a par
   class ProductionLine {
     func restock(from **widgetFactory**: WidgetFactory)
   }
-  ~~~
+  ```
+
   {:.bad}
 
-  Repurposing a type name in this way fails to optimize clarity and
-  expressivity. Instead, strive to choose a name that expresses the
-  entity's *role*.
+  이런 식으로 타입 이름을 재사용하면 명확성과 표현력이
+  최적화되지 않습니다. 대신 엔터티의 *역할*을 표현하는
+  이름을 선택하세요.
 
-  ~~~ swift
+  ```swift
   var **greeting** = "Hello"
   protocol ViewController {
     associatedtype **ContentView** : View
@@ -293,154 +288,159 @@ These design guidelines explain how to make sure that your code feels like a par
   class ProductionLine {
     func restock(from **supplier**: WidgetFactory)
   }
-  ~~~
+  ```
+
   {:.good}
 
-  If an associated type is so tightly bound to its protocol constraint
-  that the protocol name *is* the role, avoid collision by appending
-  `Protocol` to the protocol name:
+  연관 타입이 프로토콜 제약에 매우 밀접하게 연결되어
+  프로토콜 이름 _자체가_ 역할인 경우, 프로토콜 이름에
+  `Protocol`을 추가하여 충돌을 피하세요:
 
-  ~~~ swift
+  ```swift
   protocol Sequence {
     associatedtype Iterator : Iterator**Protocol**
   }
   protocol Iterator**Protocol** { ... }
-  ~~~
+  ```
+
   {{enddetail}}
 
-* **Compensate for weak type information** to clarify a parameter's role.
+- **약한 타입 정보를 보완**하여 매개변수의 역할을 명확히 하세요.
   {:#weak-type-information}
 
   {{expand}}
   {{detail}}
-  Especially when a parameter type is `NSObject`, `Any`, `AnyObject`,
-  or a fundamental type such as `Int` or `String`, type information and
-  context at the point of use may not fully convey intent. In this
-  example, the declaration may be clear, but the use site is vague.
+  특히 매개변수 타입이 `NSObject`, `Any`, `AnyObject`이거나
+  `Int`나 `String` 같은 기본 타입인 경우, 사용 시점의 타입 정보와
+  문맥이 의도를 완전히 전달하지 못할 수 있습니다. 다음
+  예에서 선언은 명확할 수 있지만 사용 시점은 모호합니다.
 
-  ~~~ swift
+  ```swift
   func add(_ observer: NSObject, for keyPath: String)
 
-  grid.add(self, for: graphics) // vague
-  ~~~
+  grid.add(self, for: graphics) // 모호함
+  ```
+
   {:.bad}
 
-  To restore clarity, **precede each weakly typed parameter with a
-  noun describing its role**:
+  명확성을 회복하려면, **약한 타입의 각 매개변수 앞에
+  역할을 설명하는 명사를 붙이세요**:
 
-  ~~~ swift
+  ```swift
   func add**Observer**(_ observer: NSObject, for**KeyPath** path: String)
-  grid.addObserver(self, forKeyPath: graphics) // clear
-  ~~~
+  grid.addObserver(self, forKeyPath: graphics) // 명확함
+  ```
+
   {:.good}
   {{enddetail}}
 
+### 유창한 사용을 위해 노력하세요
 
-### Strive for Fluent Usage
-
-* **Prefer method and function names that make use sites form
-  grammatical English phrases.**
+- **메서드와 함수 이름이 사용 시점에서
+  문법적인 영어 구문을 형성하도록** 하세요.
   {:#methods-and-functions-read-as-phrases}
 
   {{expand}}
   {{detail}}
-  ~~~swift
-  x.insert(y, at: z)          <span class="commentary">“x, insert y at z”</span>
-  x.subviews(havingColor: y)  <span class="commentary">“x's subviews having color y”</span>
-  x.capitalizingNouns()       <span class="commentary">“x, capitalizing nouns”</span>
-  ~~~
+
+  ```swift
+  x.insert(y, at: z)          <span class="commentary">"x, insert y at z"</span>
+  x.subviews(havingColor: y)  <span class="commentary">"x's subviews having color y"</span>
+  x.capitalizingNouns()       <span class="commentary">"x, capitalizing nouns"</span>
+  ```
+
   {:.good}
 
-  ~~~swift
+  ```swift
   x.insert(y, position: z)
   x.subviews(color: y)
   x.nounCapitalize()
-  ~~~
+  ```
+
   {:.bad}
 
-  It is acceptable for fluency to degrade after the first argument or
-  two when those arguments are not central to the call's meaning:
+  첫 번째 또는 두 번째 인수 이후에는 호출의 의미에 핵심적이지 않은
+  경우 유창성이 저하되어도 괜찮습니다:
 
-  ~~~swift
+  ```swift
   AudioUnit.instantiate(
     with: description,
     **options: [.inProcess], completionHandler: stopProgressBar**)
-  ~~~
+  ```
+
   {{enddetail}}
 
-* **Begin names of factory methods with “`make`”,**
-  e.g. `x.makeIterator()`.
+- **팩토리 메서드의 이름은 "`make`"로 시작하세요**,
+  예: `x.makeIterator()`.
   {:#begin-factory-name-with-make}
 
-* The first argument to **initializer and
-  [factory methods](https://en.wikipedia.org/wiki/Factory_method_pattern) calls**
-  should not form a phrase starting with the base name,
-  e.g. `x.makeWidget(cogCount: 47)`
+- **이니셜라이저와
+  [팩토리 메서드](https://en.wikipedia.org/wiki/Factory_method_pattern) 호출**의
+  첫 번째 인수는 기본 이름으로 시작하는 구문을 형성하지 않아야 합니다,
+  예: `x.makeWidget(cogCount: 47)`
   {:#init-factory-phrase-ends-with-basename}
 
   {{expand}}
   {{detail}}
-  For example, the first arguments to these calls do not read as part of the same
-  phrase as the base name:
+  예를 들어, 이 호출의 첫 번째 인수는 기본 이름과 같은 구문의
+  일부로 읽히지 않습니다:
 
-  ~~~swift
+  ```swift
   let foreground = **Color**(red: 32, green: 64, blue: 128)
   let newPart = **factory.makeWidget**(gears: 42, spindles: 14)
   let ref = **Link**(target: destination)
-  ~~~
+  ```
+
   {:.good}
 
-  In the following, the API author has tried to create grammatical
-  continuity with the first argument.
+  다음에서 API 작성자는 첫 번째 인수와의 문법적
+  연속성을 만들려고 했습니다.
 
-  ~~~swift
+  ```swift
   let foreground = **Color(havingRGBValuesRed: 32, green: 64, andBlue: 128)**
   let newPart = **factory.makeWidget(havingGearCount: 42, andSpindleCount: 14)**
   let ref = **Link(to: destination)**
-  ~~~
+  ```
+
   {:.bad}
 
-  In practice, this guideline along with those for
-  [argument labels](#argument-labels) means the first argument will
-  have a label unless the call is performing a
-  [value preserving type conversion](#type-conversion).
+  실제로 이 가이드라인과 [인수 레이블](#argument-labels)에 대한
+  가이드라인을 함께 적용하면, 호출이 [값 보존 타입 변환](#type-conversion)을
+  수행하는 경우를 제외하고 첫 번째 인수에 레이블이 있게 됩니다.
 
-  ~~~swift
+  ```swift
   let rgbForeground = RGBColor(cmykForeground)
-  ~~~
+  ```
+
   {{enddetail}}
 
-* **Name functions and methods according to their side-effects**
+- **함수와 메서드 이름은 부수 효과에 따라** 지으세요
   {:#name-according-to-side-effects}
+  - 부수 효과가 없는 것은 명사구로 읽혀야 합니다,
+    예: `x.distance(to: y)`, `i.successor()`.
 
-  * Those without side-effects should read as noun phrases,
-    e.g. `x.distance(to: y)`, `i.successor()`.
+  - 부수 효과가 있는 것은 명령형 동사구로 읽혀야 합니다,
+    예: `print(x)`, `x.sort()`, `x.append(y)`.
 
-  * Those with side-effects should read as imperative verb phrases,
-    e.g., `print(x)`, `x.sort()`, `x.append(y)`.
+  - **변경/비변경 메서드 쌍**의 이름을 일관되게 지으세요.
+    변경 메서드에는 종종 유사한 의미를 가지지만 인스턴스를
+    제자리에서 업데이트하는 대신 새 값을 반환하는 비변경 변형이 있습니다.
+    - 연산이 **자연스럽게 동사로 설명**되는 경우, 변경 메서드에는
+      동사의 명령형을 사용하고 비변경 대응물의 이름에는 "ed" 또는
+      "ing" 접미사를 적용하세요.
 
-  * **Name Mutating/nonmutating method pairs** consistently.
-    A mutating method will often have a nonmutating variant with
-    similar semantics, but that returns a new value rather than
-    updating an instance in-place.
-
-    * When the operation is **naturally described by a verb**, use the
-      verb's imperative for the mutating method and apply the “ed” or
-      “ing” suffix to name its nonmutating counterpart.
-
-      |Mutating|Nonmutating|
+      |변경|비변경|
       |-
       |`x.sort()`|`z = x.sorted()`|
       |`x.append(y)`|`z = x.appending(y)`|
 
       {{expand}}
       {{detail}}
+      - 비변경 변형의 이름은 동사의 과거
+        [분사](https://en.wikipedia.org/wiki/Participle)(보통
+        "ed" 추가)를 사용하는 것이 좋습니다:
 
-      * Prefer to name the nonmutating variant using the verb's past
-        [participle](https://en.wikipedia.org/wiki/Participle) (usually
-        appending “ed”):
-
-        ~~~ swift
+        ```swift
         /// Reverses `self` in-place.
         mutating func reverse()
 
@@ -449,14 +449,14 @@ These design guidelines explain how to make sure that your code feels like a par
         ...
         x.reverse()
         let y = x.reversed()
-        ~~~
+        ```
 
-      * When adding “ed” is not grammatical because the verb has a direct
-        object, name the nonmutating variant using the verb's present
-        [participle](https://en.wikipedia.org/wiki/Participle), by
-        appending “ing.”
+      - 동사에 직접 목적어가 있어 "ed"를 추가하는 것이
+        문법적이지 않은 경우, 동사의 현재
+        [분사](https://en.wikipedia.org/wiki/Participle)를 사용하여
+        "ing"를 추가하세요.
 
-        ~~~ swift
+        ```swift
         /// Strips all the newlines from `self`
         mutating func stripNewlines()
 
@@ -465,183 +465,176 @@ These design guidelines explain how to make sure that your code feels like a par
         ...
         s.stripNewlines()
         let oneLine = t.strippingNewlines()
-        ~~~
+        ```
 
       {{enddetail}}
 
-    * When the operation is **naturally described by a noun**, use the
-      noun for the nonmutating method and apply the “form” prefix to
-      name its mutating counterpart.
+    - 연산이 **자연스럽게 명사로 설명**되는 경우, 비변경 메서드에
+      명사를 사용하고 변경 대응물의 이름에 "form" 접두사를 적용하세요.
 
-      |Nonmutating|Mutating|
+      |비변경|변경|
       |-
       |`x = y.union(z)`|`y.formUnion(z)`|
       |`j = c.successor(i)`|`c.formSuccessor(&i)`|
 
-* **Uses of Boolean methods and properties should read as assertions
-  about the receiver** when the use is nonmutating, e.g. `x.isEmpty`,
+- **Boolean 메서드와 프로퍼티의 사용은 수신자에 대한 단언문으로
+  읽혀야 합니다**(비변경인 경우), 예: `x.isEmpty`,
   `line1.intersects(line2)`.
   {:#boolean-assertions}
 
-* **Protocols that describe *what something is* should read as
-  nouns** (e.g. `Collection`).
+- ***무엇인지*를 설명하는 프로토콜은
+  명사로 읽혀야 합니다** (예: `Collection`).
   {:#protocols-describing-what-is-should-read-as-nouns}
 
-* **Protocols that describe a *capability*
-  should be named using the suffixes `able`, `ible`, or `ing`**
-  (e.g. `Equatable`, `ProgressReporting`).
+- ***능력*을 설명하는
+  프로토콜은 `able`, `ible`, `ing` 접미사를 사용하여 이름을 지어야 합니다**
+  (예: `Equatable`, `ProgressReporting`).
   {:#protocols-describing-capability-should-use-suffixes}
 
-* The names of other **types, properties, variables, and constants
-  should read as nouns.**
+- 그 외 **타입, 프로퍼티, 변수, 상수의
+  이름은 명사로 읽혀야 합니다.**
   {:#name-of-others-should-read-as-nouns}
 
-### Use Terminology Well
+### 용어의 올바른 사용
 
-**Term of Art**
-: *noun* - a word or phrase that has a precise, specialized meaning
-  within a particular field or profession.
+**전문 용어**
+: _명사_ - 특정 분야나 직업에서 정확하고 전문적인 의미를 가진
+단어 또는 구문.
 
-* **Avoid obscure terms** if a more common word conveys meaning just
-  as well.  Don't say “epidermis” if “skin” will serve your purpose.
-  Terms of art are an essential communication tool, but should only be
-  used to capture crucial meaning that would otherwise be lost.
+- 더 일반적인 단어가 의미를 동일하게 전달한다면 **생소한 용어를 피하세요**.
+  "skin"으로 충분하다면 "epidermis"라고 하지 마세요.
+  전문 용어는 필수적인 소통 도구이지만, 그렇지 않으면 놓칠
+  중요한 의미를 포착하는 데만 사용해야 합니다.
   {:#avoid-obscure-terms}
 
-* **Stick to the established meaning** if you do use a term of art.
+- 전문 용어를 사용한다면 **확립된 의미를 고수하세요**.
   {:#stick-to-established-meaning}
 
   {{expand}}
   {{detail}}
-  The only reason to use a technical term rather than a more common
-  word is that it *precisely* expresses something that would
-  otherwise be ambiguous or unclear.  Therefore, an API should use
-  the term strictly in accordance with its accepted meaning.
-
-  * **Don't surprise an expert**: anyone already familiar with the term
-    will be surprised and probably angered if we appear to have
-    invented a new meaning for it.
+  기술 용어를 더 일반적인 단어 대신 사용하는 유일한 이유는
+  그렇지 않으면 모호하거나 불분명할 것을 _정확하게_ 표현하기
+  때문입니다. 따라서 API는 용어를 엄격하게 허용된 의미에 따라
+  사용해야 합니다.
+  - **전문가를 놀라게 하지 마세요**: 해당 용어에 이미 익숙한 사람은
+    새로운 의미를 만들어낸 것처럼 보이면 놀라고 화를 낼 것입니다.
     {:#do-not-surprise-an-expert}
 
-  * **Don't confuse a beginner**: anyone trying to learn the term is
-    likely to do a web search and find its traditional meaning.
+  - **초보자를 혼란스럽게 하지 마세요**: 용어를 배우려는 사람은
+    웹 검색을 하여 전통적인 의미를 찾을 가능성이 높습니다.
     {:#do-not-confuse-a-beginner}
-  {{enddetail}}
+    {{enddetail}}
 
-* **Avoid abbreviations.** Abbreviations, especially non-standard
-  ones, are effectively terms-of-art, because understanding depends on
-  correctly translating them into their non-abbreviated forms.
+- **약어를 피하세요.** 약어, 특히 비표준적인 것은 사실상
+  전문 용어입니다. 이해가 약어를 풀어쓴 형태로 올바르게
+  변환하는 데 달려 있기 때문입니다.
   {:#avoid-abbreviations}
 
-  > The intended meaning for any abbreviation you use should be
-  > easily found by a web search.
+  > 사용하는 약어의 의도된 의미는 웹 검색으로 쉽게
+  > 찾을 수 있어야 합니다.
 
-* **Embrace precedent.** Don't optimize terms for the total beginner
-  at the expense of conformance to existing culture.
+- **관례를 수용하세요.** 기존 문화에 대한 순응을 희생하면서
+  완전한 초보자를 위해 용어를 최적화하지 마세요.
   {:#embrace-precedent}
 
   {{expand}}
   {{detail}}
-  It is better to name a contiguous data structure `Array` than to
-  use a simplified term such as `List`, even though a beginner
-  might grasp the meaning of `List` more easily.  Arrays are
-  fundamental in modern computing, so every programmer knows—or
-  will soon learn—what an array is.  Use a term that most
-  programmers are familiar with, and their web searches and
-  questions will be rewarded.
+  초보자가 `List`의 의미를 더 쉽게 파악할 수 있더라도
+  연속된 데이터 구조의 이름을 `List` 같은 단순화된 용어보다
+  `Array`로 짓는 것이 더 좋습니다. 배열은
+  현대 컴퓨팅에서 기본적이므로 모든 프로그래머가 알고 있거나
+  곧 배울 것입니다. 대부분의 프로그래머에게 익숙한 용어를 사용하면
+  웹 검색과 질문에 대한 보상을 받을 것입니다.
 
-  Within a particular programming *domain*, such as mathematics, a
-  widely precedented term such as `sin(x)` is preferable to an
-  explanatory phrase such as
-  `verticalPositionOnUnitCircleAtOriginOfEndOfRadiusWithAngle(x)`.
-  Note that in this case, precedent outweighs the guideline to
-  avoid abbreviations: although the complete word is `sine`,
-  “sin(*x*)” has been in common use among programmers for decades,
-  and among mathematicians for centuries.
+  수학 같은 특정 프로그래밍 _도메인_ 내에서는 널리
+  선례가 있는 용어 `sin(x)`가
+  `verticalPositionOnUnitCircleAtOriginOfEndOfRadiusWithAngle(x)`
+  같은 설명적 구문보다 좋습니다. 이 경우 선례가
+  약어를 피하라는 가이드라인보다 우선합니다: 완전한 단어는 `sine`이지만,
+  "sin(_x_)"는 프로그래머 사이에서 수십 년간, 수학자 사이에서
+  수 세기 동안 일반적으로 사용되어 왔습니다.
   {{enddetail}}
 
-## Conventions
+## 관례
 
-### General Conventions
+### 일반 관례
 
-* **Document the complexity of any computed property that is not
-  O(1).**  People often assume that property access involves no
-  significant computation, because they have stored properties as a
-  mental model. Be sure to alert them when that assumption may be
-  violated.
+- **O(1)이 아닌 계산 프로퍼티의 복잡도를 문서화하세요.**
+  사람들은 저장 프로퍼티를 멘탈 모델로 삼기 때문에
+  프로퍼티 접근에 상당한 계산이 포함되지 않는다고 흔히 가정합니다.
+  이 가정이 위반될 수 있을 때 반드시 알려주세요.
   {:#document-computed-property-complexity}
 
-* **Prefer methods and properties to free functions.**  Free functions
-  are used only in special cases:
+- **자유 함수보다 메서드와 프로퍼티를 선호하세요.** 자유 함수는
+  특별한 경우에만 사용됩니다:
   {:#prefer-method-and-properties-to-functions}
 
   {{expand}}
   {{detail}}
+  1. 명확한 `self`가 없는 경우:
 
-  1. When there's no obvious `self`:
-
-     ~~~
+     ```
      min(x, y, z)
-     ~~~
+     ```
 
-  2. When the function is an unconstrained generic:
+  2. 함수가 제약 없는 제네릭인 경우:
 
-     ~~~
+     ```
      print(x)
-     ~~~
+     ```
 
-  3. When function syntax is part of the established domain notation:
+  3. 함수 구문이 확립된 도메인 표기법의 일부인 경우:
 
-     ~~~
+     ```
      sin(x)
-     ~~~
+     ```
 
   {{enddetail}}
 
-* **Follow case conventions.** Names of types and protocols are
-  `UpperCamelCase`.  Everything else is `lowerCamelCase`.
+- **대소문자 관례를 따르세요.** 타입과 프로토콜의 이름은
+  `UpperCamelCase`. 그 외 모든 것은 `lowerCamelCase`.
   {:#follow-case-conventions}
 
   {{expand}}
   {{detail}}
 
-  [Acronyms and initialisms](https://en.wikipedia.org/wiki/Acronym)
-  that commonly appear as all upper case in American English should be
-  uniformly up- or down-cased according to case conventions:
+  미국 영어에서 흔히 모두 대문자로 나타나는
+  [두문자어와 이니셜리즘](https://en.wikipedia.org/wiki/Acronym)은
+  대소문자 관례에 따라 일관되게 모두 대문자 또는 모두 소문자로 표기해야 합니다:
 
-  ~~~swift
+  ```swift
   var **utf8**Bytes: [**UTF8**.CodeUnit]
   var isRepresentableAs**ASCII** = true
   var user**SMTP**Server: Secure**SMTP**Server
-  ~~~
+  ```
 
-  Other acronyms should be treated as ordinary words:
+  다른 두문자어는 일반 단어처럼 취급해야 합니다:
 
-  ~~~swift
+  ```swift
   var **radar**Detector: **Radar**Scanner
   var enjoys**Scuba**Diving = true
-  ~~~
+  ```
+
   {{enddetail}}
 
-
 {% comment %}
-* **Be conscious of grammatical ambiguity**. Many words can act as
-   either a noun or a verb, e.g. “insert,” “record,” “contract,” and
-   “drink.”  Consider how these dual roles may affect the clarity of
-   your API.
-  {:#be-conscious-of-grammatical-ambiguity}
-{% endcomment %}
 
-* **Methods can share a base name** when they share the same basic
-  meaning or when they operate in distinct domains.
+- **Be conscious of grammatical ambiguity**. Many words can act as
+  either a noun or a verb, e.g. "insert," "record," "contract," and
+  "drink." Consider how these dual roles may affect the clarity of
+  your API.
+  {:#be-conscious-of-grammatical-ambiguity}
+  {% endcomment %}
+
+- **메서드는 기본 이름을 공유할 수 있습니다**(같은 기본 의미를
+  가지거나 서로 다른 도메인에서 동작하는 경우).
   {:#similar-methods-can-share-a-base-name}
 
   {{expand}}
   {{detail}}
-  For example, the following is encouraged, since the methods do essentially
-  the same things:
+  예를 들어, 다음은 메서드가 본질적으로 같은 것을 하므로 권장됩니다:
 
-  ~~~ swift
+  ```swift
   extension Shape {
     /// Returns `true` if `other` is within the area of `self`;
     /// otherwise, `false`.
@@ -655,25 +648,27 @@ These design guidelines explain how to make sure that your code feels like a par
     /// otherwise, `false`.
     func **contains**(_ other: **LineSegment**) -> Bool { ... }
   }
-  ~~~
+  ```
+
   {:.good}
 
-  And since geometric types and collections are separate domains,
-  this is also fine in the same program:
+  기하학적 타입과 컬렉션은 별도의 도메인이므로,
+  같은 프로그램에서 이것도 괜찮습니다:
 
-  ~~~ swift
+  ```swift
   extension Collection where Element : Equatable {
     /// Returns `true` if `self` contains an element equal to
     /// `sought`; otherwise, `false`.
     func **contains**(_ sought: Element) -> Bool { ... }
   }
-  ~~~
+  ```
+
   {:.good}
 
-  However, these `index` methods have different semantics, and should
-  have been named differently:
+  하지만 다음 `index` 메서드는 서로 다른 의미를 가지므로
+  다르게 이름 지어야 합니다:
 
-  ~~~ swift
+  ```swift
   extension Database {
     /// Rebuilds the database's search index
     func **index**() { ... }
@@ -681,13 +676,14 @@ These design guidelines explain how to make sure that your code feels like a par
     /// Returns the `n`th row in the given table.
     func **index**(_ n: Int, inTable: TableID) -> TableRow { ... }
   }
-  ~~~
+  ```
+
   {:.bad}
 
-  Lastly, avoid “overloading on return type” because it causes
-  ambiguities in the presence of type inference.
+  마지막으로, 타입 추론이 있을 때 모호성을 유발하므로
+  "반환 타입 오버로딩"을 피하세요.
 
-  ~~~ swift
+  ```swift
   extension Box {
     /// Returns the `Int` stored in `self`, if any, and
     /// `nil` otherwise.
@@ -697,41 +693,44 @@ These design guidelines explain how to make sure that your code feels like a par
     /// `nil` otherwise.
     func **value**() -> String? { ... }
   }
-  ~~~
+  ```
+
   {:.bad}
 
   {{enddetail}}
 
-### Parameters
+### 매개변수
+
 {:#parameter-names}
 
-~~~swift
+```swift
 func move(from **start**: Point, to **end**: Point)
-~~~
+```
 
-* **Choose parameter names to serve documentation**. Even though
-  parameter names do not appear at a function or method's point of
-  use, they play an important explanatory role.
+- **매개변수 이름은 문서화에 도움이 되도록 선택하세요**. 매개변수
+  이름은 함수나 메서드의 사용 시점에 나타나지 않지만,
+  중요한 설명 역할을 합니다.
   {:#choose-parameter-names-to-serve-doc}
 
   {{expand}}
   {{detail}}
-  Choose these names to make documentation easy to read.  For example,
-  these names make documentation read naturally:
+  문서를 읽기 쉽게 만드는 이름을 선택하세요. 예를 들어,
+  다음 이름은 문서가 자연스럽게 읽히게 합니다:
 
-  ~~~swift
+  ```swift
   /// Return an `Array` containing the elements of `self`
   /// that satisfy `**predicate**`.
   func filter(_ **predicate**: (Element) -> Bool) -> [Generator.Element]
 
   /// Replace the given `**subRange**` of elements with `**newElements**`.
   mutating func replaceRange(_ **subRange**: Range<Index>, with **newElements**: [E])
-  ~~~
+  ```
+
   {:.good}
 
-  These, however, make the documentation awkward and ungrammatical:
+  반면 다음은 문서가 어색하고 비문법적입니다:
 
-  ~~~swift
+  ```swift
   /// Return an `Array` containing the elements of `self`
   /// that satisfy `**includedInResult**`.
   func filter(_ **includedInResult**: (Element) -> Bool) -> [Generator.Element]
@@ -739,39 +738,41 @@ func move(from **start**: Point, to **end**: Point)
   /// Replace the **range of elements indicated by `r`** with
   /// the contents of `**with**`.
   mutating func replaceRange(_ **r**: Range<Index>, **with**: [E])
-  ~~~
+  ```
+
   {:.bad}
 
   {{enddetail}}
 
-* **Take advantage of defaulted parameters** when it simplifies common
-  uses.  Any parameter with a single commonly-used value is a
-  candidate for a default.
+- 일반적인 사용을 단순화할 때 **기본값이 있는 매개변수를 활용하세요**.
+  자주 사용되는 단일 값을 가진 매개변수는 기본값의 후보입니다.
   {:#take-advantage-of-defaulted-parameters}
 
   {{expand}}
   {{detail}}
-  Default arguments improve readability by
-  hiding irrelevant information.  For example:
+  기본 인수는 관련 없는 정보를 숨겨 가독성을 향상시킵니다.
+  예를 들어:
 
-  ~~~ swift
+  ```swift
   let order = lastName.compare(
     royalFamilyName**, options: [], range: nil, locale: nil**)
-  ~~~
+  ```
+
   {:.bad}
 
-  can become the much simpler:
+  훨씬 더 간단해질 수 있습니다:
 
-  ~~~ swift
+  ```swift
   let order = lastName.**compare(royalFamilyName)**
-  ~~~
+  ```
+
   {:.good}
 
-  Default arguments are generally preferable to the use of method
-  families, because they impose a lower cognitive burden on anyone
-  trying to understand the API.
+  기본 인수는 메서드 패밀리를 사용하는 것보다 일반적으로
+  선호됩니다. API를 이해하려는 사람에게 더 낮은
+  인지 부하를 부과하기 때문입니다.
 
-  ~~~ swift
+  ```swift
   extension String {
     /// *...description...*
     public func compare(
@@ -779,12 +780,13 @@ func move(from **start**: Point, to **end**: Point)
        range: Range<Index>? **= nil**, locale: Locale? **= nil**
     ) -> Ordering
   }
-  ~~~
+  ```
+
   {:.good}
 
-  The above may not be simple, but it is much simpler than:
+  위 코드는 단순하지 않을 수 있지만, 다음보다 훨씬 단순합니다:
 
-  ~~~ swift
+  ```swift
   extension String {
     /// *...description 1...*
     public func **compare**(_ other: String) -> Ordering
@@ -798,167 +800,166 @@ func move(from **start**: Point, to **end**: Point)
        _ other: String, options: StringCompareOptions,
        range: Range<Index>, locale: Locale) -> Ordering
   }
-  ~~~
+  ```
+
   {:.bad}
 
-  Every member of a method family needs to be separately documented
-  and understood by users. To decide among them, a user needs to
-  understand all of them, and occasional surprising relationships—for
-  example, `foo(bar: nil)` and `foo()` aren't always synonyms—make
-  this a tedious process of ferreting out minor differences in
-  mostly identical documentation.  Using a single method with
-  defaults provides a vastly superior programmer experience.
+  메서드 패밀리의 모든 멤버는 별도로 문서화되어야 하고
+  사용자가 이해해야 합니다. 선택하려면 모두를 이해해야 하며,
+  가끔 놀라운 관계(예: `foo(bar: nil)`과 `foo()`가 항상
+  동의어가 아닌 경우)로 인해 대부분 동일한 문서에서
+  사소한 차이를 찾아내는 지루한 과정이 됩니다. 기본값이 있는
+  단일 메서드를 사용하면 훨씬 우수한 프로그래머 경험을 제공합니다.
   {{enddetail}}
 
-* **Prefer to locate parameters with defaults toward the end** of the
-  parameter list.  Parameters without defaults are usually more
-  essential to the semantics of a method, and provide a stable initial
-  pattern of use where methods are invoked.
+- **기본값이 있는 매개변수는 매개변수 목록의 끝에 배치하세요**.
+  기본값이 없는 매개변수는 보통 메서드의 의미에 더 핵심적이며,
+  메서드가 호출되는 안정적인 초기 사용 패턴을 제공합니다.
   {:#parameter-with-defaults-towards-the-end}
 
-* **If your API will run in production, prefer `#fileID`** over alternatives.
-  `#fileID` saves space and protects developers’ privacy. Use `#filePath` in
-  APIs that are never run by end users (such as test helpers and scripts) if
-  the full path will simplify development workflows or be used for file I/O.
-  Use `#file` to preserve source compatibility with Swift 5.2 or earlier.
+- **API가 프로덕션에서 실행될 경우, 대안보다 `#fileID`를 선호하세요.**
+  `#fileID`는 공간을 절약하고 개발자의 프라이버시를 보호합니다.
+  최종 사용자가 실행하지 않는 API(예: 테스트 헬퍼와 스크립트)에서는
+  전체 경로가 개발 워크플로우를 단순화하거나 파일 I/O에 사용되는 경우
+  `#filePath`를 사용하세요. Swift 5.2 이전과의 소스 호환성을 유지하려면
+  `#file`을 사용하세요.
 
-### Argument Labels
+### 인수 레이블
 
-~~~swift
+```swift
 func move(**from** start: Point, **to** end: Point)
 x.move(**from:** x, **to:** y)
-~~~
+```
 
-* **Omit all labels when arguments can't be usefully distinguished**,
-  e.g. `min(number1, number2)`, `zip(sequence1, sequence2)`.
+- **인수를 유용하게 구분할 수 없으면 모든 레이블을 생략하세요**,
+  예: `min(number1, number2)`, `zip(sequence1, sequence2)`.
   {:#no-labels-for-indistinguishable-arguments}
 
-* **In initializers that perform value preserving type conversions, omit the
-  first argument label**, e.g. `Int64(someUInt32)`
+- **값 보존 타입 변환을 수행하는 이니셜라이저에서는 첫 번째
+  인수 레이블을 생략하세요**, 예: `Int64(someUInt32)`
   {:#type-conversion}
 
   {{expand}}
   {{detail}}
-  The first argument should always be the source of the conversion.
+  첫 번째 인수는 항상 변환의 소스여야 합니다.
 
-  ~~~
+  ```
   extension String {
     // Convert `x` into its textual representation in the given radix
-    init(**_** x: BigInt, radix: Int = 10)   <span class="commentary">← Note the initial underscore</span>
+    init(**_** x: BigInt, radix: Int = 10)   <span class="commentary">← 초기 밑줄 참고</span>
   }
 
   text = "The value is: "
   text += **String(veryLargeNumber)**
   text += " and in hexadecimal, it's"
   text += **String(veryLargeNumber, radix: 16)**
-  ~~~
+  ```
 
-  In “narrowing” type conversions, though, a label that describes
-  the narrowing is recommended.
+  "축소" 타입 변환에서는 축소를 설명하는 레이블이
+  권장됩니다.
 
-  ~~~ swift
+  ```swift
   extension UInt32 {
     /// Creates an instance having the specified `value`.
-    init(**_** value: Int16)            <span class="commentary">← Widening, so no label</span>
+    init(**_** value: Int16)            <span class="commentary">← 확대, 레이블 없음</span>
     /// Creates an instance having the lowest 32 bits of `source`.
     init(**truncating** source: UInt64)
     /// Creates an instance having the nearest representable
     /// approximation of `valueToApproximate`.
     init(**saturating** valueToApproximate: UInt64)
   }
-  ~~~
+  ```
 
-  > A value preserving type conversion is a
-  > [monomorphism](https://en.wikipedia.org/wiki/Monomorphism), i.e.
-  > every difference in the
-  > value of the source results in a difference in the value of the
-  > result.
-  > For example, conversion from `Int8` to `Int64` is value
-  > preserving because every distinct `Int8` value is converted to a
-  > distinct `Int64` value.  Conversion in the other direction, however,
-  > cannot be value preserving: `Int64` has more possible values than
-  > can be represented in an `Int8`.
+  > 값 보존 타입 변환은
+  > [단사사상](https://en.wikipedia.org/wiki/Monomorphism), 즉
+  > 소스 값의 모든 차이가 결과 값의 차이로 이어지는 것입니다.
+  > 예를 들어, `Int8`에서 `Int64`로의 변환은 모든 고유한
+  > `Int8` 값이 고유한 `Int64` 값으로 변환되므로 값 보존입니다.
+  > 반대 방향의 변환은 `Int64`가 `Int8`에 표현할 수 있는 것보다
+  > 더 많은 가능한 값을 가지므로 값 보존이 될 수 없습니다.
   >
-  > Note: the ability to retrieve the original value has no bearing
-  > on whether a conversion is value preserving.
+  > 참고: 원래 값을 복원할 수 있는지 여부는
+  > 변환이 값 보존인지와 무관합니다.
 
   {{enddetail}}
 
-* **When the first argument forms part of a
-  [prepositional phrase](https://en.wikipedia.org/wiki/Adpositional_phrase#Prepositional_phrases),
-  give it an argument label**.  The argument label should normally begin at the
-  [preposition](https://en.wikipedia.org/wiki/Preposition),
-  e.g. `x.removeBoxes(havingLength: 12)`.
+- **첫 번째 인수가
+  [전치사구](https://en.wikipedia.org/wiki/Adpositional_phrase#Prepositional_phrases)의
+  일부를 형성하면 인수 레이블을 지정하세요**. 인수 레이블은 보통
+  [전치사](https://en.wikipedia.org/wiki/Preposition)에서 시작해야 합니다,
+  예: `x.removeBoxes(havingLength: 12)`.
   {:#give-prepositional-phrase-argument-label}
 
   {{expand}}
   {{detail}}
-  An exception arises when the first two arguments represent parts of
-  a single abstraction.
+  처음 두 인수가 단일 추상화의 부분을 나타내는 경우
+  예외가 발생합니다.
 
-  ~~~swift
+  ```swift
   a.move(**toX:** b, **y:** c)
   a.fade(**fromRed:** b, **green:** c, **blue:** d)
-  ~~~
+  ```
+
   {:.bad}
 
-  In such cases, begin the argument label *after* the preposition, to
-  keep the abstraction clear.
+  이 경우 추상화를 명확하게 유지하기 위해
+  전치사 _다음에_ 인수 레이블을 시작하세요.
 
-  ~~~swift
+  ```swift
   a.moveTo(**x:** b, **y:** c)
   a.fadeFrom(**red:** b, **green:** c, **blue:** d)
-  ~~~
+  ```
+
   {:.good}
   {{enddetail}}
 
-* **Otherwise, if the first argument forms part of a grammatical
-  phrase, omit its label**, appending any preceding words to the base
-  name, e.g. `x.addSubview(y)`
+- **그 외 첫 번째 인수가 문법적 구문의
+  일부를 형성하면 레이블을 생략하세요**, 선행 단어를 기본
+  이름에 추가합니다, 예: `x.addSubview(y)`
   {:#omit-first-argument-if-partial-phrase}
 
   {{expand}}
   {{detail}}
-  This guideline implies that if the first argument *doesn't* form
-  part of a grammatical phrase, it should have a label.
+  이 가이드라인은 첫 번째 인수가 문법적 구문의 일부를
+  형성하지 _않으면_ 레이블이 있어야 함을 의미합니다.
 
-  ~~~swift
+  ```swift
   view.dismiss(**animated:** false)
   let text = words.split(**maxSplits:** 12)
   let studentsByName = students.sorted(**isOrderedBefore:** Student.namePrecedes)
-  ~~~
+  ```
+
   {:.good}
 
-  Note that it's important that the phrase convey the correct meaning.
-  The following would be grammatical but would express the wrong
-  thing.
+  구문이 올바른 의미를 전달하는 것이 중요합니다.
+  다음은 문법적으로 맞지만 잘못된 의미를 표현합니다.
 
-  ~~~swift
-  view.dismiss(false)   <span class="commentary">Don't dismiss? Dismiss a Bool?</span>
-  words.split(12)       <span class="commentary">Split the number 12?</span>
-  ~~~
+  ```swift
+  view.dismiss(false)   <span class="commentary">해제하지 말라고? Bool을 해제?</span>
+  words.split(12)       <span class="commentary">숫자 12를 분할?</span>
+  ```
+
   {:.bad}
 
-  Note also that arguments with default values can be omitted, and
-  in that case do not form part of a grammatical phrase, so they
-  should always have labels.
+  기본값이 있는 인수는 생략할 수 있으므로
+  문법적 구문의 일부를 형성하지 않아 항상 레이블이
+  있어야 합니다.
   {{enddetail}}
 
-* **Label all other arguments**.
+- **그 외 모든 인수에 레이블을 지정하세요**.
 
-## Special Instructions
+## 특별 지침
 
-* **Label tuple members and name closure parameters** where they
-  appear in your API.
+- **API에 나타나는 튜플 멤버에 레이블을 지정하고 클로저 매개변수에
+  이름을 지정하세요**.
   {:#label-closure-parameters}
 
   {{expand}}
   {{detail}}
-  These names have
-  explanatory power, can be referenced from documentation comments,
-  and provide expressive access to tuple members.
+  이 이름은 설명력을 가지며, 문서화 주석에서 참조할 수 있고,
+  튜플 멤버에 대한 표현력 있는 접근을 제공합니다.
 
-  ~~~ swift
+  ```swift
   /// Ensure that we hold uniquely-referenced storage for at least
   /// `requestedCapacity` elements.
   ///
@@ -975,23 +976,23 @@ x.move(**from:** x, **to:** y)
     minimumCapacity requestedCapacity: Int,
     allocate: (_ **byteCount**: Int) -> UnsafePointer&lt;Void&gt;
   ) -> (**reallocated:** Bool, **capacityChanged:** Bool)
-  ~~~
+  ```
 
-  Names used for closure parameters should be chosen like
-  [parameter names](#parameter-names) for top-level functions. Labels for
-  closure arguments that appear at the call site are not supported.
+  클로저 매개변수에 사용되는 이름은 최상위 함수의
+  [매개변수 이름](#parameter-names)처럼 선택해야 합니다. 호출 시점에
+  나타나는 클로저 인수의 레이블은 지원되지 않습니다.
   {{enddetail}}
 
-* **Take extra care with unconstrained polymorphism** (e.g. `Any`,
-  `AnyObject`, and unconstrained generic parameters) to avoid
-  ambiguities in overload sets.
+- **제약 없는 다형성**(예: `Any`,
+  `AnyObject`, 제약 없는 제네릭 매개변수)에 특히 주의하여
+  오버로드 집합에서의 모호성을 피하세요.
   {:#unconstrained-polymorphism}
 
   {{expand}}
   {{detail}}
-  For example, consider this overload set:
+  예를 들어, 다음 오버로드 집합을 생각해 봅시다:
 
-  ~~~ swift
+  ```swift
   struct Array<Element> {
     /// Inserts `newElement` at `self.endIndex`.
     public mutating func append(_ newElement: Element)
@@ -1001,24 +1002,26 @@ x.move(**from:** x, **to:** y)
     public mutating func append<S: SequenceType>(_ newElements: S)
       where S.Generator.Element == Element
   }
-  ~~~
+  ```
+
   {:.bad}
 
-  These methods form a semantic family, and the argument types
-  appear at first to be sharply distinct.  However, when `Element`
-  is `Any`, a single element can have the same type as a sequence of
-  elements.
+  이 메서드들은 의미적 패밀리를 형성하며, 인수 타입은
+  처음에 날카롭게 구별되는 것처럼 보입니다. 하지만 `Element`가
+  `Any`인 경우, 단일 요소가 요소의 시퀀스와 같은 타입을
+  가질 수 있습니다.
 
-  ~~~ swift
+  ```swift
   var values: [Any] = [1, "a"]
-  values.append([2, 3, 4]) // [1, "a", [2, 3, 4]] or [1, "a", 2, 3, 4]?
-  ~~~
+  values.append([2, 3, 4]) // [1, "a", [2, 3, 4]] 인가 [1, "a", 2, 3, 4] 인가?
+  ```
+
   {:.bad}
 
-  To eliminate the ambiguity, name the second overload more
-  explicitly.
+  모호성을 제거하려면 두 번째 오버로드의 이름을 더
+  명시적으로 지정하세요.
 
-  ~~~ swift
+  ```swift
   struct Array {
     /// Inserts `newElement` at `self.endIndex`.
     public mutating func append(_ newElement: Element)
@@ -1028,14 +1031,14 @@ x.move(**from:** x, **to:** y)
     public mutating func append<S: SequenceType>(**contentsOf** newElements: S)
       where S.Generator.Element == Element
   }
-  ~~~
+  ```
+
   {:.good}
 
-  Notice how the new name better matches the documentation comment.
-  In this case, the act of writing the documentation comment
-  actually brought the issue to the API author's attention.
+  새 이름이 문서화 주석과 더 잘 일치하는 것에 주목하세요.
+  이 경우 문서화 주석을 작성하는 행위가 실제로
+  API 작성자에게 문제를 알려주었습니다.
   {{enddetail}}
-
 
 <script>
 var elements = document.querySelectorAll("pre code");
@@ -1051,16 +1054,16 @@ function show_or_hide_all(){
     var checkboxes = document.getElementsByClassName('detail');
     var button = document.getElementById('toggle');
 
-    if(button.value == 'Expand all details now'){
+    if(button.value == '모든 세부 내용 펼치기'){
         for (var i in checkboxes){
             checkboxes[i].checked = 'FALSE';
         }
-        button.value = 'Collapse all details now'
+        button.value = '모든 세부 내용 접기'
     }else{
         for (var i in checkboxes){
             checkboxes[i].checked = '';
         }
-        button.value = 'Expand all details now';
+        button.value = '모든 세부 내용 펼치기';
     }
 }
 if (location.search.match(/[?&]expand=true\b/)) {

@@ -1,107 +1,107 @@
 ---
-redirect_from: "server/guides/libraries/log-levels"
+redirect_from: 'server/guides/libraries/log-levels'
 layout: page
-title: Log Levels
+title: 로그 레벨
 ---
 
-This guide serves as guidelines for library authors with regard to what [SwiftLog](https://github.com/apple/swift-log) log levels are appropriate for use in libraries, and in what situations to use what level.
+이 가이드는 라이브러리 작성자가 [SwiftLog](https://github.com/apple/swift-log)의 어떤 로그 레벨이 라이브러리에서 사용하기 적절한지, 그리고 어떤 상황에서 어떤 레벨을 사용해야 하는지에 대한 지침을 제공합니다.
 
-Libraries need to be well-behaved across various use cases, and cannot assume a specific style of logging backend will be used with them. It is up to developers implementing specific applications and systems to configure those specifics of their application, and some may choose to log to disk, some to memory, or some may employ sophisticated log aggregators. In all those cases a library should behave "well", meaning that it should not overwhelm typical ("stdout") log backends by logging too much, alerting too much by over-using `error` level log statements etc.
+라이브러리는 다양한 사용 사례에서 잘 작동해야 하며, 특정 스타일의 로깅 백엔드가 사용될 것이라고 가정할 수 없습니다. 특정 애플리케이션과 시스템을 구현하는 개발자가 세부 사항을 구성하는 것이 적절하며, 일부는 디스크에 로깅하고, 일부는 메모리에, 일부는 정교한 로그 수집기를 사용할 수 있습니다. 이 모든 경우에 라이브러리는 "잘" 동작해야 합니다. 즉, 일반적인("stdout") 로그 백엔드에 너무 많이 로깅하여 압도하거나, `error` 레벨 로그 문을 과도하게 사용하여 너무 많이 경고하는 등의 행동을 해서는 안 됩니다.
 
-This is aimed for library authors with regards to what [SwiftLog](https://github.com/apple/swift-log) log levels are appropriate for use in libraries, and also general logging style hints.
+이것은 라이브러리 작성자를 위한 것으로, [SwiftLog](https://github.com/apple/swift-log)의 어떤 로그 레벨이 라이브러리에서 사용하기 적절한지와 일반적인 로깅 스타일 힌트에 관한 것입니다.
 
-## Guidelines for Libraries
+## 라이브러리를 위한 가이드라인
 
-SwiftLog defines the following 7 log levels via the [`Logger.Level` enum](https://apple.github.io/swift-log/docs/current/Logging/Structs/Logger/Level.html), ordered from least to most severe:
+SwiftLog는 [`Logger.Level` 열거형](https://apple.github.io/swift-log/docs/current/Logging/Structs/Logger/Level.html)을 통해 다음 7가지 로그 레벨을 정의하며, 가장 낮은 심각도부터 가장 높은 심각도 순입니다:
 
-* `trace`
-* `debug`
-* `info`
-* `notice`
-* `warning`
-* `error`
-* `critical`
+- `trace`
+- `debug`
+- `info`
+- `notice`
+- `warning`
+- `error`
+- `critical`
 
-Out of those, only levels _less severe than_ `info` (exclusively) are generally okay to be used by libraries: `debug` and `trace`.
+이 중 `info`보다 _덜 심각한_ 레벨(배타적으로)만 일반적으로 라이브러리에서 사용해도 괜찮습니다: `debug`와 `trace`.
 
-In the following section we'll explore how to use them in practice.
+다음 섹션에서 실제로 사용하는 방법을 살펴보겠습니다.
 
-### Recommended log levels
+### 권장 로그 레벨
 
-It is always fine for a library to log at `trace` and `debug` levels, and these two should be the primary levels any library is logging at.
+라이브러리에서 `trace`와 `debug` 레벨로 로깅하는 것은 항상 괜찮으며, 이 두 레벨이 라이브러리가 로깅하는 주요 레벨이어야 합니다.
 
-`trace` is the finest log level, and end-users of a library will not usually use it unless debugging very specific issues. You should consider it as a way for library developers to "log everything we could possibly need to diagnose a hard to reproduce bug."  Unrestricted logging at `trace` level may take a toll on the performance of a system, and developers can assume trace level logging will not be used in production deployments, unless enabled specifically to locate some specific issue.
+`trace`는 가장 세밀한 로그 레벨이며, 라이브러리의 최종 사용자는 매우 특정한 문제를 디버깅하지 않는 한 일반적으로 사용하지 않습니다. "재현하기 어려운 버그를 진단하는 데 필요할 수 있는 모든 것을 로깅하는" 방법으로 생각하세요. `trace` 레벨에서의 무제한 로깅은 시스템 성능에 부담을 줄 수 있으며, 개발자는 특정 문제를 찾기 위해 활성화하지 않는 한 프로덕션 배포에서 trace 레벨 로깅을 사용하지 않을 것이라고 가정할 수 있습니다.
 
-This is in contrast with `debug` which some users _may_ choose to run enabled on their production systems.
+이는 일부 사용자가 프로덕션 시스템에서 활성화하여 실행할 _수도_ 있는 `debug`와 대조적입니다.
 
-> Debug level logging should be not "too" noisy. Developers should assume some production deployments may need to (or want to) run with debug level logging enabled.
+> debug 레벨 로깅은 "너무" 시끄러워서는 안 됩니다. 개발자는 일부 프로덕션 배포가 debug 레벨 로깅을 활성화한 상태로 실행해야 할 수도(또는 원할 수도) 있다고 가정해야 합니다.
 >
-> Debug level logging should not completely undermine the performance of a production system.
+> debug 레벨 로깅이 프로덕션 시스템의 성능을 완전히 저해해서는 안 됩니다.
 
-As such, `debug` logging should provide a high value understanding of what is going on in the library for end users, using domain relevant language.  Logging at `debug` level should not be overly noisy or dive deep into internals; this is what `trace` is intended for.
+따라서 `debug` 로깅은 도메인 관련 용어를 사용하여 라이브러리에서 무슨 일이 일어나고 있는지에 대한 높은 가치의 이해를 최종 사용자에게 제공해야 합니다. `debug` 레벨에서의 로깅은 지나치게 시끄럽거나 내부 구현에 깊이 들어가서는 안 됩니다. 이것은 `trace`의 목적입니다.
 
-Use `warning` level sparingly. Whenever possible, try to rather return or throw `Error` to end users that are descriptive enough so they can inspect, log them and figure out the issue. Potentially, they may then enable debug logging to find out more about the issue.
+`warning` 레벨은 아껴서 사용하세요. 가능하면 최종 사용자에게 `Error`를 반환하거나 던져서 충분히 설명적인 정보를 제공하여 검사, 로깅, 문제 파악을 할 수 있도록 하세요. 그 후에 더 자세한 정보를 알기 위해 debug 로깅을 활성화할 수 있습니다.
 
-It is okay to log a `warning` "once", for example on system startup. This may include some one off "more secure configuration is available, try upgrading to it!" log statement upon a server's startup. You may also log warnings from background processes, which otherwise have no other means of informing the end user about some issue.
+시스템 시작 시 "한 번" 경고를 로깅하는 것은 괜찮습니다. 예를 들어 서버 시작 시 "더 안전한 구성이 사용 가능합니다, 업그레이드를 시도해 보세요!"와 같은 일회성 로그 문을 포함할 수 있습니다. 최종 사용자에게 문제를 알릴 다른 수단이 없는 백그라운드 프로세스에서도 경고를 로깅할 수 있습니다.
 
-Logging on `error` level is similar to warnings: prefer to avoid doing so whenever possible. Instead, report errors via your library's API. For example, it is _not_ a good idea to log "connection failed" from an HTTP client. Perhaps the end-user intended to make this request to a known offline server to _confirm_ it is offline? From their perspective, this connection error is not a "real" error, it is just what they expected -- as such the HTTP client should return or throw such an error, but _not_ log it.
+`error` 레벨 로깅은 경고와 유사합니다: 가능하면 피하세요. 대신 라이브러리의 API를 통해 오류를 보고하세요. 예를 들어, HTTP 클라이언트에서 "connection failed"를 로깅하는 것은 좋은 생각이 _아닙니다_. 최종 사용자가 이미 오프라인이라고 알려진 서버에 요청을 보내 오프라인임을 *확인*하려고 했을 수 있습니다. 그들의 관점에서 이 연결 오류는 "실제" 오류가 아니라 예상한 것입니다 — 따라서 HTTP 클라이언트는 이러한 오류를 반환하거나 던져야 하지만 로깅해서는 _안 됩니다_.
 
-Do also note that in situations when you decide to log an error, be mindful of error rates. Will this error potentially be logged for every single operation while some network failure is happening? Some teams and companies have alerting systems set up based on the rate of errors logged in a system, and if it exceeds some threshold it may start calling and paging people in the middle of the night. When logging at error level, consider if the issue indeed is something that should be waking up people at night. You may also want to consider offering configuration in your library: "at what log level should this issue be reported?" This can come in handy in clustered systems which may log network failures themselves, or depend on external systems detecting and reporting this.
+또한 오류를 로깅하기로 결정했을 때 오류 빈도에 유의하세요. 네트워크 장애가 발생하는 동안 모든 단일 작업에 대해 이 오류가 로깅될 수 있나요? 일부 팀과 회사는 시스템에서 로깅된 오류 빈도를 기반으로 경고 시스템을 설정하며, 특정 임계값을 초과하면 한밤중에 사람들에게 전화하고 호출할 수 있습니다. 오류 레벨로 로깅할 때 그 문제가 실제로 한밤중에 사람들을 깨워야 하는 것인지 고려하세요. 라이브러리에서 "이 문제를 어떤 로그 레벨에서 보고할지" 구성을 제공하는 것도 고려할 수 있습니다. 이는 네트워크 장애를 자체적으로 로깅하거나 외부 시스템에 의존하여 보고하는 클러스터 시스템에서 유용할 수 있습니다.
 
-Logging `critical` logs is allowed for libraries, however as the name implies - only in the most critical situations. Most often this implies that the library will *stop functioning* after such log has been issued. End users are thought to expect that a logged critical error is _very_ important, and they may have set up their systems to page people in the middle of the night to investigate the production system _right now_ when such log statements are detected. So please be careful about logging these kinds of errors.
+`critical` 로그를 로깅하는 것은 라이브러리에서 허용되지만, 이름에서 알 수 있듯이 가장 중대한 상황에서만 사용해야 합니다. 대부분 이는 해당 로그가 발행된 후 라이브러리가 *작동을 멈출 것*을 의미합니다. 최종 사용자는 기록된 치명적 오류가 _매우_ 중요하다고 기대하며, 이러한 로그 문이 감지될 때 프로덕션 시스템을 _즉시_ 조사하기 위해 한밤중에 사람들을 호출하도록 시스템을 설정했을 수 있습니다. 따라서 이러한 종류의 오류를 로깅할 때 주의하세요.
 
-Some libraries and situations may not be entirely clear with regard to what log level is "best" for them. In such situations, it sometimes is worth it to allow the end-users of the library to be able to configure the levels of specific groups of messages. You can see this in action in the Soto library [here](https://github.com/soto-project/soto-core/pull/423/files#diff-4a8ca7e54da5b22287900dd8cf6b47ded38a94194c1f0b544119030c81a2f238R649) where an `Options` object allows end users to configure the level at which requests are logged (`options.requestLogLevel`) which is then used as `log.log(self.options.requestLogLevel)`.
+일부 라이브러리와 상황에서는 어떤 로그 레벨이 "가장 좋은"지 완전히 명확하지 않을 수 있습니다. 이런 상황에서는 최종 사용자가 특정 메시지 그룹의 레벨을 구성할 수 있도록 하는 것이 가치 있을 때가 있습니다. Soto 라이브러리의 [이 예제](https://github.com/soto-project/soto-core/pull/423/files#diff-4a8ca7e54da5b22287900dd8cf6b47ded38a94194c1f0b544119030c81a2f238R649)에서 `Options` 객체가 최종 사용자에게 요청이 로깅되는 레벨을 구성할 수 있게 하며(`options.requestLogLevel`), 이후 `log.log(self.options.requestLogLevel)`로 사용되는 것을 볼 수 있습니다.
 
-#### Examples
+#### 예제
 
-`trace` level logging:
+`trace` 레벨 로깅:
 
-- Could include various additional information about a request, such as various diagnostics about created data structures, the state of caches or similar, which are created in order to serve a request.
-- Could include "begin operation" and "end operation" logging statements.
+- 요청에 대한 다양한 추가 정보를 포함할 수 있습니다. 예를 들어 생성된 데이터 구조, 캐시 상태 등 요청을 처리하기 위해 생성된 다양한 진단 정보.
+- "작업 시작"과 "작업 종료" 로그 문을 포함할 수 있습니다.
 
-`debug` level logging:
+`debug` 레벨 로깅:
 
-- May include a single log statement for opening a connection, accepting a request, and so on.
-- It can include a _high level_ overview of control flow in an operation. For example: "started work, processing step X, made X decision, finished work X, result code 200".  This overview may consist of high cardinality structured data.
+- 연결 열기, 요청 수락 등에 대한 단일 로그 문을 포함할 수 있습니다.
+- 작업에서의 제어 흐름에 대한 _높은 수준의_ 개요를 포함할 수 있습니다. 예: "작업 시작, X 단계 처리, X 결정, 작업 X 완료, 결과 코드 200". 이 개요에는 높은 카디널리티의 구조화된 데이터가 포함될 수 있습니다.
 
-> You may also want to consider using [swift-distributed-tracing](https://github.com/apple/swift-distributed-tracing) to instrument "begin" and "end" events, as tracing may give you additional insights into your system behavior you would have missed with just manually analysing log statements.
+> "시작"과 "종료" 이벤트를 기록하기 위해 [swift-distributed-tracing](https://github.com/apple/swift-distributed-tracing)의 사용을 고려할 수도 있습니다. 트레이싱은 수동으로 로그 문을 분석하는 것만으로는 놓쳤을 시스템 동작에 대한 추가적인 인사이트를 제공할 수 있습니다.
 
-### Log levels to avoid
+### 피해야 할 로그 레벨
 
-All these rules are only _general_ guidelines, and as such may have exceptions. Consider the following examples and rationale for why logging at severe log levels by a library may not be desirable:
+이 모든 규칙은 _일반적인_ 가이드라인이므로 예외가 있을 수 있습니다. 다음 예제와 심각한 로그 레벨로의 라이브러리 로깅이 바람직하지 않을 수 있는 이유를 고려하세요:
 
-It is generally _not acceptable_ for a service client (for example, an http client) to log an `error` when a request has failed. End-users may be using the client to probe if an endpoint is even responsive or not, and a failure to respond may be _expected_ behavior. Logging errors would only confuse and pollute their logs.
+서비스 클라이언트(예: HTTP 클라이언트)가 요청 실패 시 `error`를 로깅하는 것은 일반적으로 _허용되지 않습니다_. 최종 사용자가 엔드포인트가 응답하는지 여부를 확인하기 위해 클라이언트를 사용할 수 있으며, 응답 실패가 _예상된_ 동작일 수 있습니다. 오류 로깅은 그들의 로그를 혼란스럽게 하고 오염시킬 뿐입니다.
 
-Instead, libraries should either `throw`, or return an `Error` value that users of the library will have enough knowledge about if they should log or ignore it.
+대신, 라이브러리는 `throw`하거나 `Error` 값을 반환하여 라이브러리 사용자가 로깅할지 무시할지에 대한 충분한 지식을 갖게 해야 합니다.
 
-It is even less acceptable for a library to log any successful operations at a more severe log level than `debug`. This leads to flooding server side systems, especially if, for example, one were to log every successfully handled request. In a server side application, this can easily flood and overwhelm logging systems when deployed to production where many end users are connected to the same server. Such issues are rarely found in development time, because of only a single peer requesting things from the service-under-test.
+라이브러리가 성공적인 작업을 `debug`보다 더 심각한 로그 레벨로 로깅하는 것은 더더욱 허용되지 않습니다. 이는 서버사이드 시스템을 범람시키며, 예를 들어 성공적으로 처리된 모든 요청을 로깅하는 경우 특히 그렇습니다. 서버사이드 애플리케이션에서 이는 많은 최종 사용자가 동일한 서버에 연결된 프로덕션 배포 시 로깅 시스템을 쉽게 범람시키고 압도할 수 있습니다. 개발 시에는 서비스 테스트 중에 단일 피어만 요청하므로 이러한 문제가 드물게 발견됩니다.
 
-#### Examples (of things to avoid)
+#### 예제 (피해야 할 것들)
 
-Avoid using `info` or any more severe log level for:
+`info` 또는 더 심각한 로그 레벨 사용을 피하세요:
 
-- "Normal operation" of the library, there is no need to log on info level "accepted a request" as this is the normal operation of a web service.
+- 라이브러리의 "정상 작동". info 레벨에서 "요청을 수락했습니다"를 로깅할 필요가 없습니다. 이것은 웹 서비스의 정상적인 작동이기 때문입니다.
 
-Avoid using `error` or `warning`:
+`error` 또는 `warning` 사용을 피하세요:
 
-- To report errors which the end-user of the library has the means of logging themselves. For example, if a database driver fails to fetch all rows of a query, it should not log an error or warning, but instead return or throw an error on the stream of values (or function, async function, or even the async sequence) that was providing the returned values.
-  - Since the end-user is consuming these values, and has a mean of reporting (or swallowing) this error, the library should not log anything on their behalf.
-- Never report as warnings which is merely an information. For example. "weird header detected" may look like a good idea to log as a warning at first sight, however if the "weird header" is simply a misconfigured client (or just a "weird browser") you may be accidentally completely flooding an end-users logs with these "weird header" warnings (!)
-  - Only log warnings about actionable things which the end-user of your library can do something about. Using the "weird header detected" log statement as an example: it would not be a good candidate to log as a warning because the server developer has no way to fix the users of their service to stop sending weird headers, so the server should not be logging this information as a warning. It might still be appropriate to log it at a `debug` level, however.
-- It may be tempting to implement a "log as warning only once" technique for per-request style situations which may be almost important enough to be a warning, but should not be logged repeatedly after all. Authors may think of smart techniques to log a warning only once per "weird header discovered" and later on log the same issue on a different level, such as trace... Such techniques result in confusing hard to debug logs, where developers of a system unaware of the stateful nature of the logging would be left confused when trying to reproduce the issue.
-  - For example, if a developer spots such a warning in a production system, they may attempt to reproduce it — thinking that it only happens in the production environment. However, if the logging system's log level choice is _stateful_ they may actually be successfully reproducing the issue but never seeing it manifest. For this, and related performance reasons (as implementing "only once per X" implies growing storage and per-request additional checking requirements), it is not recommended to apply this pattern.
+- 라이브러리의 최종 사용자가 스스로 로깅할 수 있는 오류를 보고하는 것. 예를 들어, 데이터베이스 드라이버가 쿼리의 모든 행을 가져오지 못한 경우, 오류나 경고를 로깅해서는 안 되며, 대신 반환된 값을 제공하는 값 스트림(또는 함수, async 함수, 또는 async 시퀀스)에서 오류를 반환하거나 던져야 합니다.
+  - 최종 사용자가 이러한 값을 소비하고 있으며 이 오류를 보고(또는 무시)할 수단이 있으므로, 라이브러리는 그들을 대신하여 아무것도 로깅해서는 안 됩니다.
+- 단순히 정보인 것을 경고로 보고하지 마세요. 예를 들어, "이상한 헤더 감지"는 처음에는 경고로 로깅하기 좋아 보일 수 있지만, "이상한 헤더"가 단순히 잘못 구성된 클라이언트(또는 "이상한 브라우저")라면 최종 사용자의 로그를 이러한 "이상한 헤더" 경고로 실수로 완전히 범람시킬 수 있습니다(!)
+  - 라이브러리의 최종 사용자가 조치할 수 있는 것에 대해서만 경고를 로깅하세요. "이상한 헤더 감지" 로그 문을 예로 들면: 서버 개발자가 서비스 사용자들이 이상한 헤더를 보내는 것을 중단시킬 방법이 없으므로, 서버가 이 정보를 경고로 로깅해서는 안 됩니다. 하지만 `debug` 레벨에서 로깅하는 것은 여전히 적절할 수 있습니다.
+- 거의 경고만큼 중요하지만 반복적으로 로깅해서는 안 되는 요청별 상황에 대해 "이 경고를 한 번만 로깅" 기법을 구현하고 싶을 수 있습니다. 작성자는 "이상한 헤더 발견"에 대해 한 번만 경고를 로깅하고 나중에 동일한 문제를 다른 레벨(예: trace)로 로깅하는 영리한 기법을 생각할 수 있습니다... 이러한 기법은 혼란스럽고 디버깅하기 어려운 로그를 생성합니다. 로깅의 상태 저장 특성을 모르는 시스템 개발자는 문제를 재현하려고 할 때 혼란에 빠질 것입니다.
+  - 예를 들어, 개발자가 프로덕션 시스템에서 이러한 경고를 발견하면 프로덕션 환경에서만 발생한다고 생각하고 재현하려고 할 수 있습니다. 그러나 로깅 시스템의 로그 레벨 선택이 *상태 저장*이라면 실제로 문제를 성공적으로 재현하고 있지만 그것이 나타나는 것을 결코 보지 못할 수 있습니다. 이러한 이유와 관련된 성능 문제(X당 한 번"을 구현하려면 스토리지 증가와 요청당 추가 검사 요구사항이 필요하므로)로 인해 이 패턴은 권장되지 않습니다.
 
-Exceptions to the "avoid logging warnings" rule:
+"경고 로깅 피하기" 규칙의 예외:
 
-- "Background processes" such as tasks scheduled on a periodic timer, may not have any other means of communicating a failure or warning to the end user of the library other than through logging.
-  - Consider offering an API that would collect errors at runtime, and then you can avoid logging errors manually. This can often take the form of a customizable "on error" hook that the library accepts when constructing the scheduled job. If the handler is not customized, we can log the errors, but if it was, it again is up to the end-user of the library to decide what to do with them.
-- An exception to the "log a warning only once" rule is when things do not happen very frequently. For example, if a library is warning about an outdated license or something similar during _its initialization_ this isn't necessarily a bad idea. After all, we'd rather see this warning once during initialization rather during every request made to the library. Use your best judgement and consider the developers using your library when designing how often and where from to log such information.
+- 주기적 타이머에 예약된 작업과 같은 "백그라운드 프로세스"는 로깅 외에는 라이브러리 최종 사용자에게 실패나 경고를 전달할 다른 수단이 없을 수 있습니다.
+  - 런타임에 오류를 수집하는 API를 제공하는 것을 고려하세요. 그러면 수동 오류 로깅을 피할 수 있습니다. 이는 종종 라이브러리가 예약된 작업을 구성할 때 받아들이는 사용자 정의 가능한 "on error" 후크의 형태를 취할 수 있습니다. 핸들러가 사용자 정의되지 않으면 오류를 로깅할 수 있지만, 사용자 정의된 경우 다시 라이브러리의 최종 사용자가 결정합니다.
+- "한 번만 경고 로깅" 규칙의 예외는 매우 자주 발생하지 않는 경우입니다. 예를 들어, 라이브러리가 _초기화_ 중에 오래된 라이선스에 대해 경고하는 것은 반드시 나쁜 생각이 아닙니다. 결국, 라이브러리에 대한 모든 요청마다가 아니라 초기화 중에 한 번 이 경고를 보는 것이 낫습니다. 최선의 판단을 사용하고 라이브러리를 사용하는 개발자와 그러한 정보를 어디서 얼마나 자주 로깅할지 고려하세요.
 
-### Avoid mutating the log level or log handler
+### 로그 레벨이나 로그 핸들러 변경 피하기
 
-Library code should emit informative logs, and let the current `Logger`'s `LogHandler` handle filtering and actually exporting the logs to a backend system. The executable target that links the library is responsible for configuring `LogHandler`'s and log levels.
+라이브러리 코드는 유익한 로그를 내보내고, 현재 `Logger`의 `LogHandler`가 필터링과 실제 백엔드 시스템으로의 로그 내보내기를 처리하도록 해야 합니다. 라이브러리를 링크하는 실행 타겟이 `LogHandler`와 로그 레벨을 구성할 책임이 있습니다.
 
-It is an anti-pattern for a library to mutate the log level or `LogHandler` of a `Logger`, so avoid code like this:
+라이브러리가 `Logger`의 로그 레벨이나 `LogHandler`를 변경하는 것은 안티패턴이므로 다음과 같은 코드를 피하세요:
 
 ```swift
 // ⚠️ Avoid mutating log levels in libraries
@@ -110,7 +110,7 @@ localLogger.logLevel = .warning
 // ...
 ```
 
-And like this:
+그리고 이런 코드도:
 
 ```swift
 // ⚠️ Avoid creating loggers with a log handler factory in libraries
@@ -118,13 +118,13 @@ let localLogger = Logger(label: "Local", factory: ...)
 // ...
 ```
 
-Any such code should be included in the executable target instead.
+이러한 코드는 대신 실행 타겟에 포함되어야 합니다.
 
-### Suggested logging style
+### 권장 로깅 스타일
 
-While libraries are free to use whichever logging message style they choose, here are some best practices to follow if you want users of your libraries to *love* the logs your library produces.
+라이브러리는 원하는 로깅 메시지 스타일을 자유롭게 사용할 수 있지만, 라이브러리 사용자가 라이브러리가 생성하는 로그를 _좋아하도록_ 따를 수 있는 모범 사례가 있습니다.
 
-Firstly, it is important to remember that both the message of a log statement as well as the metadata in [swift-log](https://github.com/apple/swift-log) are [autoclosures](https://docs.swift.org/swift-book/LanguageGuide/Closures.html#ID543), which are only invoked if the logger has a log level set such that it must emit a message for the message given. As such, messages logged at `trace` do not "materialize" their string and metadata representation unless they are actually needed:
+먼저, [swift-log](https://github.com/apple/swift-log)에서 로그 문의 메시지와 메타데이터 모두 [autoclosure](https://docs.swift.org/swift-book/LanguageGuide/Closures.html#ID543)라는 점을 기억하는 것이 중요합니다. 이는 logger의 로그 레벨이 해당 메시지에 대해 메시지를 내보내야 하는 경우에만 호출됩니다. 따라서 `trace`에서 로깅된 메시지는 실제로 필요하지 않는 한 문자열 및 메타데이터 표현을 "구체화"하지 않습니다:
 
 ```swift
     public func debug(_ message: @autoclosure () -> Logger.Message,
@@ -133,31 +133,31 @@ Firstly, it is important to remember that both the message of a log statement as
                       file: String = #file, function: String = #function, line: UInt = #line) {
 ```
 
-And a minor yet important hint: avoid inserting newlines and other control characters into log statements (!). Many log aggregation systems assume that a single line in a logged output is specifically "one log statement" which can accidentally break if we log not sanitized, potentially multi-line, strings. This isn't a problem for _all_ log backends. For example, some will automatically sanitize and form a JSON payload with `{message: "..."}` before emitting it to a backend service collecting the logs, but plain old stream (or file) loggers usually assume that one line equals one log statement. It also makes grepping through logs more reliable.
+사소하지만 중요한 힌트: 로그 문에 줄바꿈 및 기타 제어 문자를 삽입하지 마세요(!). 많은 로그 수집 시스템은 로그 출력의 한 줄이 특정 "하나의 로그 문"이라고 가정하며, 정제되지 않은 잠재적 여러 줄 문자열을 로깅하면 실수로 깨질 수 있습니다. 이는 _모든_ 로그 백엔드에 문제가 되는 것은 아닙니다. 예를 들어, 일부는 백엔드 서비스에 내보내기 전에 `{message: "..."}` JSON 페이로드를 자동으로 정제하고 형성하지만, 일반 스트림(또는 파일) 로거는 보통 한 줄이 하나의 로그 문이라고 가정합니다. 로그를 grep하는 것도 더 신뢰할 수 있게 됩니다.
 
-#### Structured Logging (Semantic Logging)
+#### 구조화된 로깅 (시맨틱 로깅)
 
-Libraries may want to embrace the structured logging style, which renders logs in a [semi-structured data format](https://en.wikipedia.org/wiki/Semi-structured_data).
+라이브러리는 [반구조화된 데이터 형식](https://en.wikipedia.org/wiki/Semi-structured_data)으로 로그를 렌더링하는 구조화된 로깅 스타일을 수용할 수 있습니다.
 
-It is a fantastic pattern which makes it easier and more reliable for automated code to process logged information.
+이는 자동화된 코드가 로깅된 정보를 처리하는 것을 더 쉽고 신뢰할 수 있게 만드는 훌륭한 패턴입니다.
 
-Consider the following "not structured" log statement:
+다음 "구조화되지 않은" 로그 문을 고려하세요:
 
 ```swift
 // NOT structured logging style
 log.info("Accepted connection \(connection.id) from \(connection.peer), total: \(connections.count)")
 ```
 
-It contains 4 pieces of information:
+여기에는 4가지 정보가 포함되어 있습니다:
 
-- We accepted a connection.
-- This is its string representation.
-- It is from this peer.
-- We currently have `connections.count` active connections.
+- 연결을 수락했습니다.
+- 이것이 연결의 문자열 표현입니다.
+- 이 피어에서 온 것입니다.
+- 현재 `connections.count`개의 활성 연결이 있습니다.
 
-While this log statement contains all useful information that we meant to relay to end users, it is hard to visually and mechanically parse the detailed information it contains. For example, if we know connections start failing around the time when we reach a total of 100 concurrent connections, it is not trivial to find the specific log statement at which we hit this number. We would have to `grep 'total: 100'` for example, however perhaps there are many other `"total: "` strings present in all of our log systems.
+이 로그 문은 전달하려는 모든 유용한 정보를 포함하고 있지만, 포함된 세부 정보를 시각적으로나 기계적으로 파싱하기 어렵습니다. 예를 들어, 동시 연결이 100에 도달했을 때 연결이 실패하기 시작한다는 것을 알고 있다면, 이 숫자에 도달한 특정 로그 문을 찾는 것이 간단하지 않습니다. 예를 들어 `grep 'total: 100'`을 해야 하지만, 모든 로그 시스템에 다른 `"total: "` 문자열이 많이 있을 수 있습니다.
 
-Instead, we can express the same information using the structured logging pattern, as follows:
+대신 구조화된 로깅 패턴을 사용하여 동일한 정보를 다음과 같이 표현할 수 있습니다:
 
 ```swift
 log.info("Accepted connection", metadata: [
@@ -170,24 +170,24 @@ log.info("Accepted connection", metadata: [
 // <date> info [connection.id:?,connection.peer:?, connections.total:?] Accepted connection
 ```
 
-This structured log can be formatted, depending on the logging backend, slightly differently on various systems. Even in the simple string representation of such a log, we'd be able to grep for `connections.total: 100` rather than having to guess the correct string.
+이 구조화된 로그는 로깅 백엔드에 따라 다양한 시스템에서 약간 다르게 포맷될 수 있습니다. 간단한 문자열 표현에서도 문자열을 추측하는 대신 `connections.total: 100`으로 grep할 수 있습니다.
 
-Also, since the message now does not contain all that much "human readable wording", it is less prone to randomly change from "Accepted" to "We have accepted" or vice versa. This kind of change could break alerting systems which are set up to parse and alert on specific log messages.
+또한 메시지에 더 이상 많은 "사람이 읽을 수 있는 표현"이 포함되지 않으므로 "Accepted"에서 "We have accepted"로 또는 그 반대로 임의로 변경될 가능성이 줄어듭니다. 이러한 변경은 특정 로그 메시지를 파싱하고 경고하도록 설정된 경고 시스템을 깨뜨릴 수 있습니다.
 
-Structured logs are very useful in combination with [swift-distributed-tracing](https://github.com/apple/swift-distributed-tracing)'s `LoggingContext`, which automatically populates the metadata with any present trace information. Thanks to this, all logs made in response to some specific request will automatically carry the same TraceID.
+구조화된 로그는 [swift-distributed-tracing](https://github.com/apple/swift-distributed-tracing)의 `LoggingContext`와 결합하면 매우 유용합니다. 이는 메타데이터에 트레이스 정보를 자동으로 채웁니다. 덕분에 특정 요청에 대한 응답으로 만들어진 모든 로그는 자동으로 동일한 TraceID를 전달합니다.
 
-You can see more examples of structured logging on the following pages, and example implementations thereof:
+구조화된 로깅의 더 많은 예제와 구현 예시는 다음 페이지에서 볼 수 있습니다:
 
 - <https://tersesystems.com/blog/2020/05/26/why-i-wrote-a-logging-library/>
 - <https://cloud.google.com/logging/docs/structured-logging>
 - <https://stackify.com/what-is-structured-logging-and-why-developers-need-it/>
 - <https://kubernetes.io/blog/2020/09/04/kubernetes-1-19-introducing-structured-logs/>
 
-#### Logging with Correlation IDs / Trace IDs
+#### 상관 ID / 트레이스 ID를 사용한 로깅
 
-A very common pattern is to log messages with some "correlation id". The best approach in general here is to use a `LoggingContext` from [swift-distributed-tracing](https://github.com/apple/swift-distributed-tracing) as then your library will be able to be traced and used with correlation contexts regardless what tracing system the end-user is using (such as open telemetry, zipkin, xray, and other tracing systems) The concept though can be explained well with just a manually logged `requestID` which we'll explain below.
+매우 일반적인 패턴은 "상관 ID"와 함께 메시지를 로깅하는 것입니다. 가장 좋은 접근 방식은 [swift-distributed-tracing](https://github.com/apple/swift-distributed-tracing)의 `LoggingContext`를 사용하는 것입니다. 그러면 최종 사용자가 어떤 트레이싱 시스템(open telemetry, zipkin, xray 및 기타 트레이싱 시스템)을 사용하든 라이브러리를 트레이싱하고 상관 컨텍스트와 함께 사용할 수 있습니다. 그러나 개념은 수동으로 로깅된 `requestID`만으로도 잘 설명할 수 있으며, 아래에서 설명하겠습니다.
 
-Consider an HTTP client as an example of a library that has a lot of metadata about some request, perhaps something like this:
+요청에 대한 많은 메타데이터가 있는 HTTP 클라이언트를 예로 들어보겠습니다:
 
 ```swift
 log.trace("Received response", metadata: [
@@ -200,11 +200,11 @@ log.trace("Received response", metadata: [
 ])
 ```
 
-The exact metadata does not matter, they're just some placeholder in this example. What matters is that there's "a lot of it".
+정확한 메타데이터는 중요하지 않으며, 이 예제에서는 단순한 플레이스홀더입니다. 중요한 것은 "많은 양"이 있다는 것입니다.
 
-> Side note on metadata keys: while there is no single right way to structure metadata keys, we recommend thinking of them as-if JSON keys: camelCased and `.` separated identifiers. This allows many log analysis backends to treat them as such nested structure.
+> 메타데이터 키에 대한 부가 설명: 메타데이터 키를 구조화하는 단일 올바른 방법은 없지만, JSON 키처럼 생각하는 것을 권장합니다: 카멜 케이스와 `.`으로 구분된 식별자. 이를 통해 많은 로그 분석 백엔드가 중첩된 구조로 처리할 수 있습니다.
 
-Now, we would like to avoid logging _all_ this information in every single log statement. Instead, we are able to just repeatedly log the `"id"` metadata, like this:
+이제 모든 단일 로그 문에서 이 _모든_ 정보를 로깅하는 것은 피하고 싶습니다. 대신 `"id"` 메타데이터만 반복적으로 로깅할 수 있습니다:
 
 ```swift
 // ...
@@ -212,31 +212,31 @@ log.trace("Something something...", metadata: ["id": "..."])
 log.trace("Finished streaming response", metadata: ["id": "..."]) // good, the same ID is propagated
 ```
 
-Thanks to the correlation ID (or a tracing provided ID, in which case we'd log as `context.log.trace("...")` as the ID is propagated automatically), in each following log statement after the initial log statement we're able to correlate all those log statements. Then we know that this `"Finished streaming response"` message was about a response with a `responseCode` that we're able to look up from the `"Received response"` log message.
+상관 ID(또는 트레이싱이 제공한 ID, 이 경우 `context.log.trace("...")`로 로깅하면 ID가 자동으로 전파됨)를 통해 초기 로그 문 이후의 각 후속 로그 문에서 모든 로그 문을 상관시킬 수 있습니다. 그러면 이 "Finished streaming response" 메시지가 "Received response" 로그 메시지에서 조회할 수 있는 `responseCode`를 가진 응답에 대한 것임을 알 수 있습니다.
 
-This pattern is somewhat advanced and may not always be the right approach, but consider it in high performance code where logging the same information repeatedly can be too costly.
+이 패턴은 다소 고급이며 항상 올바른 접근 방식은 아닐 수 있지만, 동일한 정보를 반복적으로 로깅하는 것이 너무 비용이 많이 드는 고성능 코드에서 고려하세요.
 
-##### Things to avoid with Correlation ID logging
+##### 상관 ID 로깅에서 피해야 할 것
 
-When logging with correlation contexts make sure to never "drop the ID". It is easiest to get this right when using distributed tracing's `LoggingContext` since propagating it ensures the carrying of identifiers, however the same applies to any kind of correlation identifier.
+상관 컨텍스트로 로깅할 때 "ID를 잃어버리지" 않도록 하세요. 분산 트레이싱의 `LoggingContext`를 사용하면 전파가 식별자의 전달을 보장하므로 가장 쉽게 올바르게 할 수 있지만, 이는 모든 종류의 상관 식별자에 동일하게 적용됩니다.
 
-Specifically, avoid situations like these:
+구체적으로 다음과 같은 상황을 피하세요:
 
 ```swift
 debug: connection established [connection-id: 7]
 debug: connection closed unexpectedly [error: foobar] // BAD, the connection-id was dropped
 ```
 
-On the second line, we don't know which connection had the error since the `connection-id` was dropped. Make sure to audit your logging code to ensure all relevant log statements carry necessary correlation identifiers.
+두 번째 줄에서 `connection-id`가 누락되어 어떤 연결에서 오류가 발생했는지 알 수 없습니다. 모든 관련 로그 문에 필요한 상관 식별자가 포함되어 있는지 로깅 코드를 검토하세요.
 
-### Exceptions to the rules
+### 규칙의 예외
 
-These are only general guidelines, and there always will be exceptions to these rules and other situations where these suggestions will be broken, for good reason. Please use your best judgement, and always consider the end-user of a system, and how they'll be interacting with your library and decide case-by-case depending on the library and situation at hand how to handle each situation.
+이것들은 일반적인 가이드라인일 뿐이며, 이 규칙과 기타 제안에 대한 예외와 정당한 이유로 깨지는 다른 상황이 항상 있을 것입니다. 최선의 판단을 사용하고, 항상 시스템의 최종 사용자와 그들이 라이브러리와 어떻게 상호 작용할지를 고려하며, 라이브러리와 현재 상황에 따라 각 상황을 사례별로 처리 방법을 결정하세요.
 
-Here are a few examples of situations when logging a message on a relatively high level might still be tolerable for a library.
+다음은 비교적 높은 레벨에서 메시지를 로깅하는 것이 라이브러리에서 여전히 허용될 수 있는 상황의 몇 가지 예입니다.
 
-It's permissible for a library to log at `critical` level right before a _hard_ crash of the process, as a last resort of informing the log collection systems or end-user about additional information detailing the reason for the crash. This should be _in addition to_ the message from a `fatalError` and can lead to an improved diagnosis/debugging experience for end users.
+프로세스의 _하드_ 크래시 직전에 `critical` 레벨로 로깅하는 것은 라이브러리에서 허용됩니다. 이는 로그 수집 시스템이나 최종 사용자에게 크래시 원인에 대한 추가 정보를 알리는 최후의 수단입니다. 이는 `fatalError`의 메시지에 _추가적으로_ 제공되어야 하며, 최종 사용자의 진단/디버깅 경험을 개선할 수 있습니다.
 
-Sometimes libraries may be able to detect a harmful misconfiguration of the library. For example, selecting deprecated protocol versions. In such situations it may be useful to inform users in production by issuing a `warning`. However you should ensure that the warning is not logged repeatedly! For example, it is not acceptable for an HTTP client to log a warning on every single http request using some misconfiguration of the client. It _may_ be acceptable however for the client to log such a warning, for example, _once_ at configuration time, if the library has a good way to do this.
+때때로 라이브러리는 라이브러리의 유해한 잘못된 구성을 감지할 수 있습니다. 예를 들어 더 이상 사용되지 않는 프로토콜 버전 선택. 이러한 상황에서 `warning`을 발행하여 프로덕션 사용자에게 알리는 것이 유용할 수 있습니다. 그러나 경고가 반복적으로 로깅되지 않도록 해야 합니다! 예를 들어, HTTP 클라이언트가 클라이언트의 잘못된 구성에 대해 모든 단일 HTTP 요청에서 경고를 로깅하는 것은 허용되지 않습니다. 그러나 라이브러리가 이를 수행할 좋은 방법이 있다면, 예를 들어 구성 시에 _한 번_ 이러한 경고를 로깅하는 것은 허용될 _수도_ 있습니다.
 
-Some libraries may implement a "log this warning only once", "log this warning only at startup", "log this error only once an hour", or similar tricks to keep the noise level low but still informative enough to not be missed. This is, however, usually a pattern reserved for stateful long running libraries, rather than clients of databases and related persistent stores.
+일부 라이브러리는 "이 경고를 한 번만 로깅", "이 경고를 시작 시에만 로깅", "이 오류를 시간당 한 번만 로깅" 등의 기법을 구현하여 노이즈 레벨을 낮추면서도 놓치지 않을 만큼 충분히 정보를 제공할 수 있습니다. 그러나 이는 보통 데이터베이스 및 관련 영구 저장소의 클라이언트가 아니라 상태를 유지하는 장시간 실행 라이브러리에서 사용되는 패턴입니다.

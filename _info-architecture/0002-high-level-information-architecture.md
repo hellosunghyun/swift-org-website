@@ -3,7 +3,7 @@
 * Proposal: [SIAP-0002](0002-high-level-information-architecture.md)
 * Author: [James Dempsey](https://github.com/dempseyatgithub)
 
-## Overview
+## 개요
 
 The Swift project consists of a very large surface area of information across a number of software projects, audiences, and specializations.
 
@@ -17,7 +17,7 @@ The intent is for this document to define a general approach for each focus area
 
 Note also that the focus areas are not strictly divided along audience or channel boundaries. Each focus area is as granular as practical.
 
-## Terms
+## 용어
 
 For purposes of discussion, this document and the Swift Information Architecture Project will use the following terms:
 
@@ -30,7 +30,7 @@ a. Potential Contributors
 * *Specialization*: A Swift use case such as Embedded Swift, Server, C++ Interoperability, etc. with information and typically a community of developers specific to that use case.
 * *Focus Area*: A well-defined piece of the Swift information architecture that can be worked on largely independently of other focus areas.
 
-## Sources Of Truth
+## 단일 출처(Source of Truth)
 
 One of the [design principles](0001-swift-information-architecture-project.md) in the initial project document is that the project should strive to have a single source of truth for each piece of information across all official Swift project channels.
 

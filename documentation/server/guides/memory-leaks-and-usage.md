@@ -1,62 +1,63 @@
 ---
-redirect_from: "server/guides/memory-leaks-and-usage"
+redirect_from: 'server/guides/memory-leaks-and-usage'
 layout: page
-title: Debugging Memory Leaks and Usage
+title: 메모리 누수 및 사용량 디버깅
 ---
 
-# Overview
+# 개요
 
-Debugging memory leaks and usage helps you identify and resolve issues related to memory management in an application. Memory leaks occur when memory is allocated but not properly deallocated, leading to a gradual increase in memory usage over time. This can severely impact an application's performance and stability.
+메모리 누수 및 사용량 디버깅은 애플리케이션의 메모리 관리와 관련된 문제를 식별하고 해결하는 데 도움이 됩니다. 메모리 누수는 메모리가 할당되었지만 적절히 해제되지 않을 때 발생하며, 시간이 지남에 따라 메모리 사용량이 점진적으로 증가합니다. 이는 애플리케이션의 성능과 안정성에 심각한 영향을 미칠 수 있습니다.
 
-It’s important to note, however, that a gradual increase in memory usage over time doesn’t always indicate a leak. Instead, it may be the memory profile of the application. For example, when an application’s cache gradually fills over time it shows the same gradual increase in memory. Accordingly, configuring the cache so it doesn’t expand beyond a designated limit will cause the memory usage to plateau. Additionally, allocator libraries don't always immediately return memory feedback to the system due to performance or other reasons. But it will stabilize over time.
+그러나 시간이 지남에 따라 메모리 사용량이 점진적으로 증가한다고 해서 항상 누수를 의미하지는 않습니다. 오히려 애플리케이션의 메모리 프로파일일 수 있습니다. 예를 들어, 애플리케이션의 캐시가 점진적으로 채워질 때 동일한 점진적 메모리 증가를 보여줍니다. 따라서 캐시가 지정된 한도를 초과하지 않도록 구성하면 메모리 사용량이 안정화됩니다. 또한 할당자 라이브러리는 성능이나 기타 이유로 메모리를 즉시 시스템에 반환하지 않을 수 있지만, 시간이 지나면 안정화됩니다.
 
-## Tools and techniques
+## 도구와 기법
 
-Debugging memory leaks in Swift on macOS and Linux environments can be done using different tools and techniques, each with distinct strengths and usability. 
+macOS와 Linux 환경에서 Swift의 메모리 누수를 디버깅하는 것은 서로 다른 도구와 기법을 사용하여 수행할 수 있으며, 각각 고유한 강점과 사용성을 가지고 있습니다.
 
-### Basic troubleshooting includes:
+### 기본 문제 해결 방법:
 
-* Using profiling tools.
-* Reviewing code and identifying potential leaks.
-* Enabling debug memory allocation features.
+- 프로파일링 도구 사용
+- 코드 검토 및 잠재적 누수 식별
+- 디버그 메모리 할당 기능 활성화
 
-**1. Using profiling tools** provided by the respective operating systems and development environments to identify and analyze memory usage.
+**1. 프로파일링 도구 사용**: 각 운영 체제와 개발 환경에서 제공하는 메모리 사용량 분석 도구를 활용합니다.
 
-*For macOS*: [Memory Graph Debugger](https://developer.apple.com/documentation/xcode/gathering-information-about-memory-use#Inspect-the-debug-memory-graph) and this [Detect and diagnose memory issues](https://developer.apple.com/videos/play/wwdc2021/10180/) video are helpful. You can also use the [Xcode Instruments](https://help.apple.com/instruments/mac/10.0/#/dev022f987b) tool for various profiling instruments including the [Allocations instrument](https://developer.apple.com/documentation/xcode/gathering-information-about-memory-use#Profile-your-app-using-the-Allocations-instrument) to track memory allocation and deallocation in your Swift code. 
-    
-*For Linux*: You can use tools like [Valgrind](https://valgrind.org/) or [Heaptrack](https://github.com/KDE/heaptrack) to profile your application as shown in the examples below. Although these tools are primarily used for C/C++ code, they can also work with Swift.
+_macOS의 경우_: [Memory Graph Debugger](https://developer.apple.com/documentation/xcode/gathering-information-about-memory-use#Inspect-the-debug-memory-graph)와 [메모리 문제 감지 및 진단](https://developer.apple.com/videos/play/wwdc2021/10180/) 영상이 도움이 됩니다. [Xcode Instruments](https://help.apple.com/instruments/mac/10.0/#/dev022f987b) 도구에서 [Allocations instrument](https://developer.apple.com/documentation/xcode/gathering-information-about-memory-use#Profile-your-app-using-the-Allocations-instrument)를 포함한 다양한 프로파일링 기능을 사용하여 Swift 코드의 메모리 할당 및 해제를 추적할 수도 있습니다.
 
-**2. Reviewing code and identifying potential leaks** to examine your code for any potential areas where memory leaks may occur. Common sources of leaks include retained references or unbalanced retain-release cycles, which rarely apply to Swift since it performs [automatic reference counting (ARC)](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/automaticreferencecounting/).
+_Linux의 경우_: [Valgrind](https://valgrind.org/)나 [Heaptrack](https://github.com/KDE/heaptrack)과 같은 도구를 사용하여 아래 예제와 같이 애플리케이션을 프로파일링할 수 있습니다. 이러한 도구는 주로 C/C++ 코드용이지만 Swift에서도 사용할 수 있습니다.
 
-> Note: Memory leaks can occur in Swift if there are substantial reference cycles between objects that involve closures or if objects hold references to external resources that are not released properly. However, the likelihood of such issues is significantly reduced through the automatic memory management's ability to add and remove references, making sources of leaks like retained references and unbalanced retain-release cycles less common in Swift code.
+**2. 코드 검토 및 잠재적 누수 식별**: 메모리 누수가 발생할 수 있는 잠재적 영역을 찾기 위해 코드를 검토합니다. 일반적인 누수 원인에는 참조 유지나 균형이 맞지 않는 retain-release 순환이 있지만, Swift는 [자동 참조 카운팅(ARC)](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/automaticreferencecounting/)을 수행하므로 이런 경우가 드뭅니다.
 
-**3. Enabling debug memory allocation features** allows you to get additional information about objects and their memory allocations.
-    
-*On macOS*: You can enable Zombie Objects using Xcode or use [MallocStackLogging](https://developer.apple.com/videos/play/wwdc2022/10106/) to detect over-released or accessed deallocated objects.
-    
-To enable Zombie Objects: 
-1. Open your Xcode project.
-2. Go to the **Edit Scheme** menu by clicking on the scheme dropdown in the toolbar. 
-3. In the scheme editor window, select the **Run** tab.
-4. Choose the **Diagnostics** tab.
-5. Under **Memory Management**, check the box next to **Enable Zombie Objects**.
-    
-*On Linux*: Swift has built-in LeakSanitizer support that can be enabled using the Address Sanitizer. For more information, read the section [Debugging Leaks with LeakSanitizer](#debugging-leaks-with-leaksanitizer).
+> 참고: Swift에서 객체 간에 클로저를 포함하는 상당한 참조 순환이 있거나 객체가 적절히 해제되지 않는 외부 리소스에 대한 참조를 보유하는 경우 메모리 누수가 발생할 수 있습니다. 그러나 자동 메모리 관리가 참조를 추가하고 제거하는 능력을 통해 이러한 문제의 가능성이 크게 줄어들어, 참조 유지 및 균형이 맞지 않는 retain-release 순환과 같은 누수 원인이 Swift 코드에서 덜 흔합니다.
 
-## Troubleshooting
+**3. 디버그 메모리 할당 기능 활성화**: 객체와 메모리 할당에 대한 추가 정보를 얻을 수 있습니다.
 
-This section aims to provide you with helpful server-side troubleshooting techniques to debug leaks and usage using **Valgrind**, **LeakSanitizer**, and **Heaptrack**.
+_macOS의 경우_: Xcode를 사용하여 Zombie Objects를 활성화하거나 [MallocStackLogging](https://developer.apple.com/videos/play/wwdc2022/10106/)을 사용하여 과도하게 해제되거나 이미 해제된 객체에 접근하는 경우를 감지할 수 있습니다.
 
-The following **example program** leaks memory. We are using it as an *example only* to illustrate the various troubleshooting methods mentioned below.
+Zombie Objects를 활성화하려면:
+
+1. Xcode 프로젝트를 엽니다.
+2. 도구 모음의 스킴 드롭다운을 클릭하여 **Edit Scheme** 메뉴로 이동합니다.
+3. 스킴 편집기 창에서 **Run** 탭을 선택합니다.
+4. **Diagnostics** 탭을 선택합니다.
+5. **Memory Management**에서 **Enable Zombie Objects** 옆의 체크박스를 선택합니다.
+
+_Linux의 경우_: Swift는 Address Sanitizer를 사용하여 활성화할 수 있는 내장 LeakSanitizer 지원을 제공합니다. 자세한 내용은 [LeakSanitizer로 누수 디버깅](#leaksanitizer로-누수-디버깅) 섹션을 참고하세요.
+
+## 문제 해결
+
+이 섹션에서는 **Valgrind**, **LeakSanitizer**, **Heaptrack**을 사용하여 누수 및 사용량을 디버깅하는 유용한 서버사이드 문제 해결 기법을 제공합니다.
+
+다음 **예제 프로그램**은 메모리를 누수합니다. 아래에 언급된 다양한 문제 해결 방법을 *설명하기 위한 예제*로만 사용합니다.
 
 ```
 public class MemoryLeaker {
    var closure: () -> Void = { () }
-   
+
    public init() {}
-   
+
    public func doNothing() {}
-   
+
    public func doSomethingThatLeaks() {
       self.closure = {
          // This will leak as it'll create a permanent reference cycle:
@@ -75,23 +76,27 @@ func myFunctionDoingTheAllocation() {
 myFunctionDoingTheAllocation()
 ```
 
-### Debugging leaks with Valgrind
-Valgrind is an open-source framework for debugging and profiling Linux applications. It provides several tools, including Memcheck, which can detect memory leaks, invalid memory accesses, and other memory errors. Although Valgrind is primarily focused on C/C++ applications, it can also be used with Swift on Linux.
+### Valgrind로 누수 디버깅
 
-To debug memory leaks for Swift on Linux using Valgrind, install it on your system. 
+Valgrind는 Linux 애플리케이션을 디버깅하고 프로파일링하기 위한 오픈소스 프레임워크입니다. Memcheck를 포함한 여러 도구를 제공하며, 메모리 누수, 잘못된 메모리 접근 및 기타 메모리 오류를 감지할 수 있습니다. Valgrind는 주로 C/C++ 애플리케이션에 초점을 맞추지만 Linux의 Swift에서도 사용할 수 있습니다.
 
-1. Install Swift on your Linux system. You can download and install Swift from the [official website](https://swift.org/download/).
-2. Install Valgrind on your Linux system by using your package manager. For example, if you are using Ubuntu, you can run the following command:
+Linux에서 Swift의 메모리 누수를 Valgrind로 디버깅하려면 시스템에 설치하세요.
+
+1. Linux 시스템에 Swift를 설치합니다. [공식 웹사이트](https://swift.org/download/)에서 Swift를 다운로드하고 설치할 수 있습니다.
+2. 패키지 관리자를 사용하여 Linux 시스템에 Valgrind를 설치합니다. 예를 들어 Ubuntu를 사용하는 경우 다음 명령을 실행할 수 있습니다:
+
 ```
 sudo apt-get install valgrind
 ```
 
-3. Once Valgrind is installed, run the following command:
+3. Valgrind가 설치되면 다음 명령을 실행합니다:
+
 ```
 valgrind --leak-check=full swift run
 ```
 
-The `valgrind` command analyzes the program for any memory leaks and shows the relevant information about the leak, including the stack trace where the allocation occurred as shown below:
+`valgrind` 명령은 프로그램에서 메모리 누수를 분석하고, 아래와 같이 할당이 발생한 스택 트레이스를 포함한 관련 정보를 보여줍니다:
+
 ```
 ==1== Memcheck, a memory error detector
 ==1== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
@@ -124,7 +129,8 @@ The `valgrind` command analyzes the program for any memory leaks and shows the r
 ==1== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
 ```
 
-The following trace block (from above) indicates a memory leak.
+다음 트레이스 블록(위에서 발췌)은 메모리 누수를 나타냅니다.
+
 ```
 ==1== 32 bytes in 1 blocks are definitely lost in loss record 1 of 4
 ==1==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
@@ -135,20 +141,22 @@ The following trace block (from above) indicates a memory leak.
 ==1==    by 0x108CA3: main (in /tmp/test)
 ```
 
-However, since Swift uses name mangling for function and symbol names, the stack traces may not be straightforward to understand. 
+그러나 Swift는 함수 및 심볼 이름에 네임 맹글링을 사용하므로 스택 트레이스를 이해하기 어려울 수 있습니다.
 
-To demangle the Swift symbols in the stack traces, run the `swift demangle` command:
+스택 트레이스에서 Swift 심볼을 디맹글하려면 `swift demangle` 명령을 실행합니다:
+
 ```
 swift demangle <mangled_symbol>
 ```
 
-Replace `<mangled_symbol>` with the mangled symbol name shown in the stack trace. For example:
+`<mangled_symbol>`을 스택 트레이스에 표시된 맹글된 심볼 이름으로 교체합니다. 예를 들어:
 
 `swift demangle $s4test12MemoryLeakerCACycfC`
 
-**Note:** `swift demangle` is a Swift command line utility and should be available if you have the Swift toolchain installed.
+**참고:** `swift demangle`은 Swift 명령줄 유틸리티이며 Swift 툴체인이 설치되어 있으면 사용할 수 있습니다.
 
-The utility will demangle the symbol and display a human-readable version as follows:
+이 유틸리티는 심볼을 디맹글하여 다음과 같이 사람이 읽을 수 있는 버전을 표시합니다:
+
 ```
 ==1== 32 bytes in 1 blocks are definitely lost in loss record 1 of 4
 ==1==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
@@ -159,33 +167,37 @@ The utility will demangle the symbol and display a human-readable version as fol
 ==1==    by 0x108CA3: main (in /tmp/test)
 ```
 
-By analyzing the demangled symbols, we can understand which part of the code is responsible for the memory leak. In this example, the `valgrind` command indicates the allocation that leaked is coming from:
+디맹글된 심볼을 분석하면 코드의 어떤 부분이 메모리 누수를 일으키는지 이해할 수 있습니다. 이 예제에서 `valgrind` 명령은 누수된 할당이 다음에서 발생했음을 나타냅니다:
 
-`test.myFunctionDoingTheAllocation` calling `test.MemoryLeaker.__allocating_init()`
+`test.myFunctionDoingTheAllocation`이 `test.MemoryLeaker.__allocating_init()`을 호출
 
-####  Limitations
+#### 제한 사항
 
-* The `valgrind` command doesn’t understand the bit-packing used in many Swift data types like `String` or when `enums` are created with associated values. Consequently, using the `valgrind` command sometimes reports memory errors or leaks that do not exist, and false negatives occur when it fails to detect actual issues.
-* The `valgrind` command makes your program run exceptionally slow (possibly 100x slower), which may hinder your ability to reproduce the problem and analyze the performance.
-* Valgrind is primarily supported on Linux. Its support for other platforms, such as macOS or iOS, may be limited or nonexistent.
+- `valgrind` 명령은 `String`이나 연관 값이 있는 `enum`과 같은 많은 Swift 데이터 타입에서 사용되는 비트 패킹을 이해하지 못합니다. 따라서 `valgrind` 명령은 때때로 존재하지 않는 메모리 오류나 누수를 보고하며, 실제 문제를 감지하지 못하는 위음성이 발생하기도 합니다.
+- `valgrind` 명령은 프로그램을 매우 느리게 실행하며(100배 이상 느릴 수 있음), 이로 인해 문제를 재현하고 성능을 분석하는 능력이 저하될 수 있습니다.
+- Valgrind는 주로 Linux에서 지원됩니다. macOS나 iOS와 같은 다른 플랫폼에 대한 지원은 제한적이거나 없을 수 있습니다.
 
-### Debugging leaks with LeakSanitizer
-LeakSanitizer is a memory leak detector that is integrated into [AddressSanitizer](https://developer.apple.com/documentation/xcode/diagnosing-memory-thread-and-crash-issues-early). To debug memory leaks using LeakSanitizer with Address Sanitizer enabled on Swift, you will need to set the appropriate environment variable, compile your Swift package with the necessary options, and then run your application.
+### LeakSanitizer로 누수 디버깅
 
-Here are the steps:
+LeakSanitizer는 [AddressSanitizer](https://developer.apple.com/documentation/xcode/diagnosing-memory-thread-and-crash-issues-early)에 통합된 메모리 누수 감지기입니다. Address Sanitizer가 활성화된 상태에서 LeakSanitizer를 사용하여 Swift의 메모리 누수를 디버깅하려면, 적절한 환경 변수를 설정하고, 필요한 옵션으로 Swift 패키지를 컴파일한 후 애플리케이션을 실행해야 합니다.
 
-1. Open a terminal session and navigate to your Swift package directory.
-2. Set the `ASAN_OPTIONS` environment variable to enable AddressSanitizer and configure its behavior. You can do this by running the command:
+단계는 다음과 같습니다:
+
+1. 터미널 세션을 열고 Swift 패키지 디렉터리로 이동합니다.
+2. `ASAN_OPTIONS` 환경 변수를 설정하여 AddressSanitizer를 활성화하고 동작을 구성합니다. 다음 명령을 실행하여 설정할 수 있습니다:
+
 ```
 export ASAN_OPTIONS=detect_leaks=1
 ```
 
-3. Run `swift build` with the additional option to enable [Address Sanitizer](https://developer.apple.com/documentation/xcode/diagnosing-memory-thread-and-crash-issues-early):
+3. [Address Sanitizer](https://developer.apple.com/documentation/xcode/diagnosing-memory-thread-and-crash-issues-early)를 활성화하는 추가 옵션과 함께 `swift build`를 실행합니다:
+
 ```
 swift build --sanitize=address
 ```
 
-The build process will compile your code with AddressSanitizer enabled, which automatically looks for leaked memory blocks. If any memory leaks during the build are detected, it will output the information (similar to Valgrind) as shown in the example below:
+빌드 프로세스는 AddressSanitizer가 활성화된 상태로 코드를 컴파일하며, 자동으로 누수된 메모리 블록을 찾습니다. 빌드 중 메모리 누수가 감지되면 아래 예제와 같이 정보를 출력합니다(Valgrind와 유사):
+
 ```
 =================================================================
 ==478==ERROR: LeakSanitizer: detected memory leaks
@@ -200,55 +212,61 @@ Direct leak of 32 byte(s) in 1 object(s) allocated from:
 SUMMARY: AddressSanitizer: 32 byte(s) leaked in 1 allocation(s).
 ```
 
-Currently, the output doesn’t provide a human-readable representation of the function names because [LeakSanitizer doesn't symbolicate stack traces on Linux](https://github.com/swiftlang/swift/issues/55046). However, you can symbolicate it using `llvm-symbolizer` or `addr2line` if you have `binutils` installed.
+현재 출력은 [LeakSanitizer가 Linux에서 스택 트레이스를 심볼화하지 않기 때문에](https://github.com/swiftlang/swift/issues/55046) 함수 이름의 사람이 읽을 수 있는 표현을 제공하지 않습니다. 그러나 `binutils`가 설치되어 있다면 `llvm-symbolizer` 또는 `addr2line`을 사용하여 심볼화할 수 있습니다.
 
-To install `binutils` for Swift on a server running Linux, follow these steps:
+Linux에서 실행되는 Swift 서버에 `binutils`를 설치하려면 다음 단계를 따르세요:
 
-Step 1: Connect to your Swift server through SSH using a terminal.
+1단계: 터미널을 통해 SSH로 Swift 서버에 연결합니다.
 
-Step 2: Update the package lists by running the following command:
+2단계: 다음 명령을 실행하여 패키지 목록을 업데이트합니다:
+
 ```
 sudo apt update
 ```
 
-Step 3: Install `binutils` by running the following command:
+3단계: 다음 명령을 실행하여 `binutils`를 설치합니다:
+
 ```
 sudo apt install binutils
 ```
 
-This will install `binutils` and its related tools for working with binaries, object files, and libraries, which can be useful for developing and debugging Swift applications on Linux.
+이렇게 하면 바이너리, 오브젝트 파일, 라이브러리 작업에 유용한 `binutils`와 관련 도구가 설치되며, Linux에서 Swift 애플리케이션을 개발하고 디버깅하는 데 유용합니다.
 
-You can now run the following command to demangle the symbols in the stack traces:
+이제 다음 명령을 실행하여 스택 트레이스의 심볼을 디맹글할 수 있습니다:
+
 ```
 # /tmp/test+0xc62ce
 addr2line -e /tmp/test -a 0xc62ce -ipf | swift demangle
 ```
 
-In this example, the allocation that leaked is coming from:
+이 예제에서 누수된 할당은 다음에서 발생했습니다:
+
 ```
 0x00000000000c62ce: test.myFunctionDoingTheAllocation() -> () at crtstuff.c:?
 ```
 
-#### Limitations
+#### 제한 사항
 
-* LeakSanitizer may not be as effective in detecting and reporting all types of memory leaks in Swift code compared to languages like C or C++.
-* False positives occur when LeakSanitizer reports a memory leak that does not exist. 
-* LeakSanitizer is primarily supported on macOS and Linux. While it is possible to use LeakSanitizer on iOS or other platforms that support Swift, there may be limitations or platform-specific issues that need to be considered.
-* Enabling Address Sanitizer and LeakSanitizer in your Swift project can have a performance impact. It is recommended to use LeakSanitizer for targeted analysis and debugging rather than continuously running it in production environments.
+- LeakSanitizer는 C나 C++와 같은 언어에 비해 Swift 코드의 모든 유형의 메모리 누수를 감지하고 보고하는 데 효과적이지 않을 수 있습니다.
+- LeakSanitizer가 존재하지 않는 메모리 누수를 보고하는 위양성이 발생합니다.
+- LeakSanitizer는 주로 macOS와 Linux에서 지원됩니다. iOS 또는 Swift를 지원하는 다른 플랫폼에서도 사용할 수 있지만, 제한 사항이나 플랫폼별 문제를 고려해야 할 수 있습니다.
+- Swift 프로젝트에서 Address Sanitizer와 LeakSanitizer를 활성화하면 성능에 영향을 미칠 수 있습니다. 프로덕션 환경에서 지속적으로 실행하기보다는 대상을 지정한 분석 및 디버깅에 사용하는 것이 좋습니다.
 
-### Debugging transient memory usage with Heaptrack
-[Heaptrack](https://github.com/KDE/heaptrack) is an open-source heap memory profiler tool that helps find and analyze memory leaks and usage with less overhead than Valgrind. It also allows for analyzing and debugging transient memory usage in your application. However, it may significantly impact performance by overloading the allocator.
+### Heaptrack으로 일시적 메모리 사용량 디버깅
 
-A GUI front-end analyzer `heaptrack_gui` is available in addition to command line access. The analyzer allows for diffing between two different runs of your application to troubleshoot variations in `malloc` behavior between the `feature branch` and `main`.
+[Heaptrack](https://github.com/KDE/heaptrack)은 Valgrind보다 적은 오버헤드로 메모리 누수 및 사용량을 찾고 분석하는 데 도움이 되는 오픈소스 힙 메모리 프로파일러 도구입니다. 또한 애플리케이션의 일시적 메모리 사용량을 분석하고 디버깅할 수 있습니다. 그러나 할당자에 과부하를 줄 수 있어 성능에 상당한 영향을 미칠 수 있습니다.
 
-Using a different example, here’s a short how-to using [Ubuntu](https://www.swift.org/download/) to analyze transient usage.
+명령줄 접근 외에도 GUI 프론트엔드 분석기 `heaptrack_gui`를 사용할 수 있습니다. 분석기를 사용하면 `feature branch`와 `main` 사이의 `malloc` 동작 변동을 문제 해결하기 위해 애플리케이션의 두 실행 결과를 비교(diff)할 수 있습니다.
 
-Step 1: Install `heaptrack` by running this command:
+다른 예제를 사용하여, 일시적 사용량을 분석하기 위한 [Ubuntu](https://www.swift.org/download/)에서의 간단한 사용법을 소개합니다.
+
+1단계: 다음 명령을 실행하여 `heaptrack`을 설치합니다:
+
 ```
 sudo apt-get install heaptrack
 ```
 
-Step 2: Run the binary twice using `heaptrack`. The first run provides a baseline for `main`.
+2단계: `heaptrack`을 사용하여 바이너리를 두 번 실행합니다. 첫 번째 실행은 `main`의 기준선을 제공합니다.
 
 ```
 heaptrack .build/x86_64-unknown-linux-gnu/release/test_1000_autoReadGetAndSet
@@ -264,7 +282,7 @@ Heaptrack finished! Now run the following to investigate the data:
   heaptrack --analyze "/tmp/.nio_alloc_counter_tests_GRusAy/heaptrack.test_1000_autoReadGetAndSet.84341.gz"
 ```
 
-Step 3: Then run it a second time for the `feature branch` by changing the branch and recompiling.
+3단계: 브랜치를 변경하고 재컴파일하여 `feature branch`에 대해 두 번째로 실행합니다.
 
 ```
 heaptrack .build/x86_64-unknown-linux-gnu/release/test_1000_autoReadGetAndSet
@@ -281,16 +299,18 @@ Heaptrack finished! Now run the following to investigate the data:
 ubuntu@ip-172-31-25-161 /t/.nio_alloc_counter_tests_GRusAy>
 ```
 
-The output shows `673989` allocations in the `feature branch` version and `319347` in `main`, indicating a regression.
+출력에서 `feature branch` 버전에서는 `673989`번의 할당이, `main`에서는 `319347`번의 할당이 있어 회귀가 있음을 나타냅니다.
 
-Step 4: Run the following command to analyze the output as a diff from these runs using `heaptrack_print` and pipe it through `swift demangle` for readability:
+4단계: 다음 명령을 실행하여 `heaptrack_print`를 사용하여 이 두 실행의 출력을 diff로 분석하고 가독성을 위해 `swift demangle`을 통해 파이프합니다:
+
 ```
 heaptrack_print -T -d heaptrack.test_1000_autoReadGetAndSet.84341.gz heaptrack.test_1000_autoReadGetAndSet.84372.gz | swift demangle
 ```
 
-**Note:** `-T` outputs the temporary allocations, providing transient allocations and not leaks. If leaks are detected, remove `-T`.
+**참고:** `-T`는 일시적 할당을 출력하며, 누수가 아닌 일시적 할당을 제공합니다. 누수가 감지되면 `-T`를 제거하세요.
 
-Scroll down to see the transient allocations (output may be long):
+일시적 할당을 보려면 아래로 스크롤합니다(출력이 길 수 있음):
+
 ```
 MOST TEMPORARY ALLOCATIONS
 307740 temporary allocations of 290324 allocations in total (106.00%) from
@@ -328,7 +348,8 @@ swift_slowAlloc
 22196 temporary allocations of 22276 allocations in total (99.64%) from:
 ```
 
-Looking at the output above, we can see the extra transient allocations were due to extra debug printing and querying of environment variables as shown below:
+위 출력을 보면 추가 일시적 할당이 아래와 같이 추가 디버그 출력과 환경 변수 쿼리 때문임을 알 수 있습니다:
+
 ```
 NIO.URing.getEnvironmentVar(Swift.String) -> Swift.String?
   at /home/ubuntu/swiftnio/swift-nio/Sources/NIO/LinuxURing.swift:291
@@ -336,11 +357,11 @@ NIO.URing.getEnvironmentVar(Swift.String) -> Swift.String?
 NIO.URing._debugPrint(@autoclosure () -> Swift.String) -> ()
 ```
 
-In this example, the debug prints are only for testing and would be removed from the code before the branch is merged.
+이 예제에서 디버그 출력은 테스트용으로만 사용되며, 브랜치를 병합하기 전에 코드에서 제거될 것입니다.
 
-**Tip:** Heaptrack can also be [installed on an RPM-based distribution](https://rhel.pkgs.org/8/epel-x86_64/heaptrack-1.2.0-7.el8.x86_64.rpm.html) to debug transient memory usage. You may need to consult the distribution's documentation for the specific repository setup steps. When Heaptrack is installed correctly, it should display its version and usage information.
+**팁:** Heaptrack은 [RPM 기반 배포판에도 설치](https://rhel.pkgs.org/8/epel-x86_64/heaptrack-1.2.0-7.el8.x86_64.rpm.html)하여 일시적 메모리 사용량을 디버깅할 수 있습니다. 특정 저장소 설정 단계는 배포판 문서를 참고해야 할 수 있습니다. Heaptrack이 올바르게 설치되면 버전 및 사용법 정보를 표시해야 합니다.
 
-#### Limitations
+#### 제한 사항
 
-* It's important to note that Heaptrack was primarily designed for C and C++ applications, so its support for Swift applications is limited. 
-* While Heaptrack can provide insights into memory allocations and deallocations in a Swift application, it may not capture certain Swift-specific memory management mechanisms like Swift's built-in Instruments profiler.
+- Heaptrack은 주로 C 및 C++ 애플리케이션을 위해 설계되었으므로 Swift 애플리케이션에 대한 지원이 제한적입니다.
+- Heaptrack은 Swift 애플리케이션의 메모리 할당 및 해제에 대한 인사이트를 제공할 수 있지만, Swift의 내장 Instruments 프로파일러와 같은 Swift 특화 메모리 관리 메커니즘을 캡처하지 못할 수 있습니다.

@@ -1,41 +1,40 @@
 ---
-redirect_from: "server/guides/deploying/aws-sam-lambda"
+redirect_from: 'server/guides/deploying/aws-sam-lambda'
 layout: page
-title: Deploying to AWS Lambda using the Serverless Application Model (SAM)
+title: Serverless Application Model(SAM)을 사용하여 AWS Lambda에 배포하기
 ---
 
-This guide illustrates how to deploy a Server-Side Swift workload on AWS using the [AWS Serverless Application Model (SAM)](https://aws.amazon.com/serverless/sam/) toolkit. The workload is a REST API for tracking a To Do List. It deploys the API using [Amazon API Gateway](https://aws.amazon.com/api-gateway/). The API methods store and retrieve data in a [Amazon DynamoDB](https://aws.amazon.com/dynamodb) database using [AWS Lambda](https://aws.amazon.com/lambda/) functions.
+이 가이드에서는 [AWS Serverless Application Model(SAM)](https://aws.amazon.com/serverless/sam/) 툴킷을 사용하여 AWS에 서버사이드 Swift 워크로드를 배포하는 방법을 설명합니다. 이 워크로드는 할 일 목록을 추적하는 REST API입니다. [Amazon API Gateway](https://aws.amazon.com/api-gateway/)를 사용하여 API를 배포합니다. API 메서드는 [AWS Lambda](https://aws.amazon.com/lambda/) 함수를 사용하여 [Amazon DynamoDB](https://aws.amazon.com/dynamodb) 데이터베이스에 데이터를 저장하고 검색합니다.
 
-## Architecture
+## 아키텍처
 
-![Architecture](/assets/images/server-guides/aws/aws-lambda-sam-arch.png)
+![아키텍처](/assets/images/server-guides/aws/aws-lambda-sam-arch.png)
 
-- Amazon API Gateway receives API requests
-- API Gateway invokes Lambda functions to process PUT and GET events
-- Lambda functions use the [AWS SDK for Swift](https://aws.amazon.com/sdk-for-swift/) and the [Swift AWS Lambda Runtime](https://github.com/swift-server/swift-aws-lambda-runtime) to retrieve and save items to the database
+- Amazon API Gateway가 API 요청을 수신합니다
+- API Gateway가 PUT 및 GET 이벤트를 처리하기 위해 Lambda 함수를 호출합니다
+- Lambda 함수는 [AWS SDK for Swift](https://aws.amazon.com/sdk-for-swift/)와 [Swift AWS Lambda Runtime](https://github.com/swift-server/swift-aws-lambda-runtime)을 사용하여 데이터베이스에서 항목을 검색하고 저장합니다
 
+## 사전 요구사항
 
-## Prerequisites
+이 샘플 애플리케이션을 빌드하려면 다음이 필요합니다:
 
-To build this sample application, you need:
+- [AWS 계정](https://console.aws.amazon.com/)
+- [AWS Command Line Interface(AWS CLI)](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) - CLI를 설치하고 AWS 계정의 자격 증명으로 [구성](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html)합니다
+- [AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-getting-started.html) - AWS에서 서버리스 워크로드를 생성하는 데 사용되는 명령줄 도구
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) - Swift 코드를 Docker 이미지로 컴파일하기 위해 필요
 
-- [AWS Account](https://console.aws.amazon.com/)
-- [AWS Command Line Interface (AWS CLI)](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) - install the CLI and [configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html) it with credentials to your AWS account
-- [AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-getting-started.html) - a command-line tool used to create serverless workloads on AWS
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/) - to compile your Swift code into a Docker image
+## 1단계: 새 SAM 프로젝트 생성
 
-## Step 1: Create a new SAM project
+SAM 프로젝트는 AWS 계정에 리소스(Lambda 함수, API Gateway, DynamoDB 테이블)를 생성합니다. YAML 템플릿에서 리소스를 정의합니다.
 
-The SAM project creates resources (Lambda functions, API Gateway, and DynamoDB table) in your AWS account. You define the resources in a YAML template.
-
-Create a folder for your project and a new **template.yml** file.
+프로젝트 폴더와 새 **template.yml** 파일을 생성합니다.
 
 ```
 mkdir swift-lambda-api && cd swift-lambda-api
 touch template.yml
 ```
 
-Open the **template.yml** file and add the following code. Review the comments in the code to determine what it created in each section.
+**template.yml** 파일을 열고 다음 코드를 추가합니다. 코드의 주석을 검토하여 각 섹션에서 생성되는 내용을 확인하세요.
 
 ```yml
 AWSTemplateFormatVersion: '2010-09-09'
@@ -109,17 +108,18 @@ Resources:
 # print API endpoint and name of database table
 Outputs:
   SwiftAPIEndpoint:
-    Description: "API Gateway endpoint URL for your application"
-    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com"
+    Description: 'API Gateway endpoint URL for your application'
+    Value: !Sub 'https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com'
   SwiftAPITable:
-    Description: "DynamoDB Table Name"
+    Description: 'DynamoDB Table Name'
     Value: !Ref SwiftAPITable
 ```
-## Step 2: Initialize Lambda functions with SwiftPM
 
-Lambda functions, written in Swift, process the API events. The *PutItem* function processes *POST* requests to add items to the database. The *GetItems* function processes *GET* requests to retrieve items from the database.
+## 2단계: SwiftPM으로 Lambda 함수 초기화
 
-Use the Swift Package Manager to initialize a project for each function. You also add a *Dockerfile* to each folder.
+Swift로 작성된 Lambda 함수가 API 이벤트를 처리합니다. _PutItem_ 함수는 _POST_ 요청을 처리하여 데이터베이스에 항목을 추가합니다. _GetItems_ 함수는 _GET_ 요청을 처리하여 데이터베이스에서 항목을 검색합니다.
+
+Swift Package Manager를 사용하여 각 함수에 대한 프로젝트를 초기화합니다. 각 폴더에 *Dockerfile*도 추가합니다.
 
 ```bash
 mkdir -p src/put-item
@@ -135,9 +135,9 @@ swift package init --type executable
 touch Dockerfile
 ```
 
-## Step 3: Update the Dockerfile
+## 3단계: Dockerfile 업데이트
 
-Docker is used to compile your Swift code and deploy the image to Lambda. Copy the following code into the Dockerfile you created in each function's folder.
+Docker를 사용하여 Swift 코드를 컴파일하고 이미지를 Lambda에 배포합니다. 각 함수의 폴더에 생성한 Dockerfile에 다음 코드를 복사합니다.
 
 ```Dockerfile
 # image used to compile your Swift code
@@ -169,16 +169,18 @@ WORKDIR /var/task
 CMD ["/var/task/lambdaExec"]
 ```
 
-## Step 4: Update the Swift dependencies
+## 4단계: Swift 의존성 업데이트
 
-Your project requires 3 libraries.
+프로젝트에는 3개의 라이브러리가 필요합니다.
+
 - swift-aws-lambda-runtime
 - swift-aws-lambda-events
 - aws-sdk-swift
 
-You define these in the *Package.swift* file. Replace the contents of the Package.swift file in each function's folder with the following code.
+이를 _Package.swift_ 파일에 정의합니다. 각 함수 폴더의 Package.swift 파일 내용을 다음 코드로 교체합니다.
 
 **src/put-item/Sources/put-item/Package.swift**
+
 ```swift
 // swift-tools-version: 5.7
 // The swift-tools-version declares the minimum version of Swift required to build this package.
@@ -209,6 +211,7 @@ let package = Package(
 ```
 
 **src/get-items/Sources/get-items/Package.swift**
+
 ```swift
 // swift-tools-version: 5.7
 // The swift-tools-version declares the minimum version of Swift required to build this package.
@@ -238,9 +241,9 @@ let package = Package(
 )
 ```
 
-## Step 5: Update the Lambda function source code
+## 5단계: Lambda 함수 소스 코드 업데이트
 
-Replace the contents of the main code file for each Swift project with the following code.
+각 Swift 프로젝트의 메인 코드 파일 내용을 다음 코드로 교체합니다.
 
 **src/put-item/Sources/put-item/put_item.swift**
 
@@ -353,35 +356,34 @@ struct GetItemsFunction: SimpleLambdaHandler {
 }
 ```
 
-## Step 6: Build the SAM project
+## 6단계: SAM 프로젝트 빌드
 
-Building your SAM project uses Docker on your machine to compile your Swift code into Docker images. From the root folder of your project *(swift-lambda-api)* run the following command.
+SAM 프로젝트를 빌드하면 머신의 Docker를 사용하여 Swift 코드를 Docker 이미지로 컴파일합니다. 프로젝트의 루트 폴더 *(swift-lambda-api)*에서 다음 명령을 실행합니다.
 
 ```bash
 sam build
 ```
 
-## Step 7: Deploy the SAM project
+## 7단계: SAM 프로젝트 배포
 
-Deploying your SAM project creates the Lambda functions, API Gateway, and DynamoDB database in your AWS account.
+SAM 프로젝트를 배포하면 AWS 계정에 Lambda 함수, API Gateway, DynamoDB 데이터베이스가 생성됩니다.
 
 ```bash
 sam deploy --guided
 ```
 
-Accept the default response to every prompt, except the following two:
+다음 두 가지를 제외한 모든 프롬프트에서 기본 응답을 수락합니다:
 
 ```bash
 PutItemFunction may not have authorization defined, Is this okay? [y/N]: y
 GetItemsFunction may not have authorization defined, Is this okay? [y/N]: y
 ```
 
-The project creates a publicly accessible API endpoint. These are warnings to inform you the API does not have authorization. If you are interested in adding authorization to the API, please refer to the [SAM Documentation](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-httpapi.html).
+프로젝트는 공개적으로 접근 가능한 API 엔드포인트를 생성합니다. 이는 API에 인가가 없다는 것을 알리는 경고입니다. API에 인가를 추가하는 데 관심이 있다면 [SAM 문서](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-httpapi.html)를 참고하세요.
 
+## 8단계: API 사용
 
-## Step 8: Use your API
-
-At the end of deployment, SAM displays the endpoint of your API Gateway:
+배포가 끝나면 SAM이 API Gateway의 엔드포인트를 표시합니다:
 
 ```bash
 Outputs
@@ -392,23 +394,23 @@ Value               https://[your-api-id].execute-api.[your-aws-region].amazonaw
 ----------------------------------------------------------------------------------------
 ```
 
-Use cURL or a tool such as [Postman](https://www.postman.com/) to interact with your API. Replace **[your-api-endpoint]** with the SwiftAPIEndpoint value from the deployment output.
+cURL이나 [Postman](https://www.postman.com/)과 같은 도구를 사용하여 API와 상호 작용합니다. **[your-api-endpoint]**를 배포 출력의 SwiftAPIEndpoint 값으로 교체합니다.
 
-Add a To Do List item
+할 일 항목 추가
 
 ```bash
 curl --request POST 'https://[your-api-endpoint]/item' --header 'Content-Type: application/json' --data-raw '{"itemName": "my todo item"}'
 ```
 
-Retrieve To Do List items
+할 일 항목 검색
 
 ```bash
 curl https://[your-api-endpoint]/items
 ```
 
-## Cleanup
+## 정리
 
-When finished with your application, use SAM to delete it from your AWS account. Answer **Yes (y)** to all prompts.
+애플리케이션 사용을 마치면 SAM을 사용하여 AWS 계정에서 삭제합니다. 모든 프롬프트에 **Yes(y)**로 응답합니다.
 
 ```bash
 sam delete

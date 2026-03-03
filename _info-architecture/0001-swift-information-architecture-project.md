@@ -3,7 +3,7 @@
 * Proposal: [SIAP-0001](0001-swift-information-architecture-project.md)
 * Author: [James Dempsey](https://github.com/dempseyatgithub)
 
-## Overview
+## 개요
 
 Over the past ten years, the Swift project has grown from a handful of GitHub repositories to a large number of projects, including the [Swift.org](http://Swift.org) website. Over that time there has been no unified information architecture—content and its organization has developed organically. This project aims to define underlying principles for information architecture and then apply those principles to existing and future content across all of the sites of the Swift project.
 
@@ -15,7 +15,7 @@ At a high level the development of the information architecture will have three 
 
 All architecture documents will be made available in the Swift forums for community review and feedback.
 
-### Principles
+### 원칙
 
 * **Organization-wide Architecture**
 The Swift project provides information in a variety of ways including [Swift.org](http://Swift.org) pages, DocC-generated documentation, GitHub repositories, and more. The information architecture needs to span all of these to provide a cohesive strategy for the entire project.
@@ -33,7 +33,7 @@ Where appropriate, content should present encouragement and next steps focusing 
   * Community Engagement
   * Contributing
 
-### Sites / Information Sources
+### 사이트 / 정보 출처
 
 In addition to [Swift.org](http://Swift.org), the Swift project has a number of online sources of information and community interaction:
 

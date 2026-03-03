@@ -1,11 +1,11 @@
 ## XCTest
 
-The XCTest library provides a common framework for writing unit tests in Swift, for Swift packages and applications.
+XCTest 라이브러리는 Swift 패키지와 애플리케이션을 위한 Swift 유닛 테스트 작성용 공통 프레임워크를 제공합니다.
 
-This version of XCTest uses the same API as the XCTest you may be familiar with from Xcode. Our goal is to enable your project's tests to run on all Swift platforms without having to rewrite them.
+이 버전의 XCTest는 Xcode에서 익숙할 수 있는 XCTest와 동일한 API를 사용합니다. 프로젝트의 테스트를 다시 작성하지 않고도 모든 Swift 플랫폼에서 실행할 수 있게 하는 것이 목표입니다.
 
-While XCTest remains supported, [Swift Testing](https://github.com/swiftlang/swift-testing) is the recommended framework for writing new tests. Swift Testing offers a modern, expressive, and extensible approach to testing in Swift, and represents the direction of future development.
+XCTest는 계속 지원되지만, 새 테스트 작성에는 [Swift Testing](https://github.com/swiftlang/swift-testing)이 권장됩니다. Swift Testing은 Swift에서의 테스트에 현대적이고 표현력 있으며 확장 가능한 접근 방식을 제공하며, 향후 개발 방향을 나타냅니다.
 
-If you already have tests written using XCTest, you can run them side-by-side with newer tests written using Swift Testing.
+XCTest로 작성된 테스트가 이미 있다면, Swift Testing으로 작성한 새 테스트와 나란히 실행할 수 있습니다.
 
-More information about XCTest on Linux is available on our [GitHub project page](http://www.github.com/swiftlang/swift-corelibs-xctest).
+Linux에서의 XCTest에 대한 자세한 정보는 [GitHub 프로젝트 페이지](http://www.github.com/swiftlang/swift-corelibs-xctest)에서 확인할 수 있습니다.

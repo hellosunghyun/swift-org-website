@@ -1,48 +1,47 @@
 ---
-redirect_from: "server/guides/performance"
+redirect_from: 'server/guides/performance'
 layout: page
-title: Debugging Performance Issues
+title: 성능 문제 디버깅
 ---
 
-## Overview
+## 개요
 
-This document aims to help you debug performance issues in Swift by identifying and resolving any bottlenecks or inefficiencies in the code that may cause the application to run slow or consume excessive system resources. By debugging performance issues, you can optimize your code and improve the overall speed and efficiency of your Swift application.
+이 문서는 코드의 병목 현상이나 비효율성을 식별하고 해결하여 Swift의 성능 문제를 디버깅하는 데 도움을 줍니다. 성능 문제 디버깅을 통해 코드를 최적화하고 Swift 애플리케이션의 전반적인 속도와 효율성을 개선할 수 있습니다.
 
-Here are some basic methods and tools to debug performance issues in Swift:
+Swift에서 성능 문제를 디버깅하기 위한 기본적인 방법과 도구는 다음과 같습니다:
 
-1. **Measure performance**: [Xcode’s Instruments](https://help.apple.com/instruments/mac/current/) and [Linux perf](https://www.swift.org/documentation/server/guides/linux-perf.html) provide profiling tools to track the performance of your application and help identify areas that consume excessive CPU, memory, or energy. For example, profiling and flame graphs show the consumption of CPU, and memory graphs the consumption of memory. It’s important to note that each platform manages the measuring of your application’s performance differently.
+1. **성능 측정**: [Xcode의 Instruments](https://help.apple.com/instruments/mac/current/)와 [Linux perf](https://www.swift.org/documentation/server/guides/linux-perf.html)는 애플리케이션의 성능을 추적하고 과도한 CPU, 메모리 또는 에너지를 소비하는 영역을 식별하는 데 도움이 되는 프로파일링 도구를 제공합니다. 예를 들어, 프로파일링과 플레임 그래프는 CPU 소비를 보여주고, 메모리 그래프는 메모리 소비를 보여줍니다. 각 플랫폼마다 애플리케이션 성능 측정 방법이 다르다는 점에 유의하세요.
+   - macOS의 경우 [Getting Started with Instruments](https://developer.apple.com/videos/play/wwdc2019/411/)를 참고하세요.
+   - Linux의 경우 [perf: Linux profiling with performance counters](https://perf.wiki.kernel.org/index.php/Main_Page)를 참고하세요.
 
-    - For macOS, see [Getting Started with Instruments](https://developer.apple.com/videos/play/wwdc2019/411/).
-    - For Linux, see [perf: Linux profiling with performance counters](https://perf.wiki.kernel.org/index.php/Main_Page).
-    
-2. **Profile memory usage**: Use Xcode’s [Memory Graph Debugger](https://developer.apple.com/documentation/xcode/gathering-information-about-memory-use) to identify and fix memory-related issues.
+2. **메모리 사용량 프로파일링**: Xcode의 [Memory Graph Debugger](https://developer.apple.com/documentation/xcode/gathering-information-about-memory-use)를 사용하여 메모리 관련 문제를 식별하고 수정합니다.
 
-3. **Benchmark and measure improvements**: Continue to iterate and optimize until the desired performance is achieved.
+3. **벤치마크 및 개선 측정**: 원하는 성능에 도달할 때까지 반복적으로 최적화합니다.
 
-> Tip: We recommend compiling your Swift code in `release` mode to ensure optimal performance. The performance difference between debug and release builds is significant. You can do this by running the command `swift build -c release` before configuring your code to collect data.
+> 팁: 최적의 성능을 보장하기 위해 Swift 코드를 `release` 모드로 컴파일하는 것을 권장합니다. 디버그 빌드와 릴리스 빌드의 성능 차이는 상당합니다. 데이터를 수집하도록 코드를 구성하기 전에 `swift build -c release` 명령을 실행하세요.
 
-## Tools
+## 도구
 
-Debugging performance issues can sometimes be a complex and iterative process. It requires a combination of techniques, tools, and analysis. We’ve compiled some tools and methods to help you identify and resolve bottlenecks effectively, such as:
+성능 문제 디버깅은 때때로 복잡하고 반복적인 과정이 될 수 있습니다. 기법, 도구, 분석의 조합이 필요합니다. 병목 현상을 효과적으로 식별하고 해결하는 데 도움이 되는 몇 가지 도구와 방법을 정리했습니다:
 
-- **Flame graphs**
-- **Malloc libraries**
-    
-### Flame graphs
+- **플레임 그래프**
+- **Malloc 라이브러리**
 
-[Flame graphs](https://www.brendangregg.com/flamegraphs.html) are a helpful tool for analyzing program performance. They show which parts of your program are taking up the most time which can help you find areas that need improvement. 
+### 플레임 그래프
 
-#### Flame graphs in Xcode
+[플레임 그래프](https://www.brendangregg.com/flamegraphs.html)는 프로그램 성능을 분석하는 데 유용한 도구입니다. 프로그램의 어떤 부분이 가장 많은 시간을 차지하는지 보여주어 개선이 필요한 영역을 찾는 데 도움이 됩니다.
 
-While there isn’t a built-in tool in Xcode specifically designed for creating flame graphs like Linux `perf`, you can use external tools to generate flame graphs for some apps developed using Xcode. 
+#### Xcode의 플레임 그래프
 
-One commonly used tool for creating flame graphs is Instruments, which is part of Xcode. You can use the Time Profiler instrument in Instruments to capture stacks and convert the captured data into a flame graph using tools like [flamegraph.pl](https://github.com/brendangregg/FlameGraph/blob/master/flamegraph.pl). Running the app with Instruments using the Time Profiler and then converting the collected data into a flame graph can give you insights into your application's performance profile.
+Linux `perf`처럼 플레임 그래프를 생성하도록 특별히 설계된 내장 도구는 Xcode에 없지만, 외부 도구를 사용하여 Xcode로 개발된 일부 앱의 플레임 그래프를 생성할 수 있습니다.
 
-#### Flame graphs in Linux
+플레임 그래프를 만드는 데 일반적으로 사용되는 도구는 Xcode에 포함된 Instruments입니다. Instruments의 Time Profiler를 사용하여 스택을 캡처하고 [flamegraph.pl](https://github.com/brendangregg/FlameGraph/blob/master/flamegraph.pl)과 같은 도구를 사용하여 캡처된 데이터를 플레임 그래프로 변환할 수 있습니다. Time Profiler로 앱을 실행한 후 수집된 데이터를 플레임 그래프로 변환하면 애플리케이션의 성능 프로파일에 대한 인사이트를 얻을 수 있습니다.
 
-Flame graphs can be created on most platforms, including Swift on Linux. In this section, we will focus on Linux.
+#### Linux의 플레임 그래프
 
-For discussion, here’s an *example flame graph program* on Linux that utilizes the `TerribleArray` data structure, leading to inefficient *O(n)* appends instead of the expected *O(1)* amortized time complexity for `Array`. This can cause performance issues and impact the overall efficiency of the program.
+플레임 그래프는 대부분의 플랫폼에서 생성할 수 있으며, Linux의 Swift에서도 가능합니다. 이 섹션에서는 Linux에 초점을 맞춥니다.
+
+설명을 위해, `TerribleArray` 데이터 구조를 활용하는 Linux의 *예제 플레임 그래프 프로그램*이 있습니다. 이 구조는 `Array`의 기대되는 _O(1)_ 분할 상환 시간 복잡도 대신 비효율적인 _O(n)_ 추가 연산을 수행합니다. 이로 인해 성능 문제가 발생하고 프로그램의 전반적인 효율성에 영향을 줄 수 있습니다.
 
 ```swift
 /* a terrible data structure which has a subset of the operations that Swift's
@@ -129,84 +128,88 @@ for f in 0..<2_000 {
 }
 ```
 
-**Generating a flame graph**
+**플레임 그래프 생성**
 
-To generate flame graphs in Swift on Linux, you can use various tools such as `perf` combined with `FlameGraph` scripts to collect data on CPU utilization and stack traces. They can then be visualized using flame graph tools to gain insights into the performance characteristics of the application as follows:
+Linux에서 Swift의 플레임 그래프를 생성하려면 `perf`와 `FlameGraph` 스크립트를 결합하여 CPU 사용량 및 스택 트레이스에 대한 데이터를 수집할 수 있습니다. 그런 다음 플레임 그래프 도구를 사용하여 시각화하여 애플리케이션의 성능 특성에 대한 인사이트를 얻을 수 있습니다:
 
-1. [Install and configure](https://www.swift.org/server/guides/linux-perf.html) `perf` for Linux to collect performance data.
-2. Compile the code using `swift build -c release` into a binary called `./slow` by using these steps:
+1. Linux용 `perf`를 [설치하고 구성](https://www.swift.org/server/guides/linux-perf.html)합니다.
+2. `swift build -c release`를 사용하여 코드를 `./slow`라는 바이너리로 컴파일합니다:
 
-   a. Open your Terminal and navigate to the directory containing your Swift code, typically the root directory of your Swift package.
+   a. 터미널을 열고 Swift 코드가 있는 디렉터리(보통 Swift 패키지의 루트 디렉터리)로 이동합니다.
 
-   b. Run the following command to compile the code in release mode, optimizing the build for performance:
-    ```
-    swift build -c release
-    ```
-        
-    After the build process completes successfully, you can find the compiled binary in the `.build/release/` directory within your Swift package’s directory.
+   b. 다음 명령을 실행하여 릴리스 모드로 코드를 컴파일하고 성능을 최적화합니다:
 
-    c. Copy the compiled binary to the current directory and rename it to `slow` using the following command:
-    ```
-    cp .build/release/YourExecutableName ./slow
-    ```
-    
-    Replace `YourExecutableName` with the actual name of your compiled binary.
-    
-3. Clone the repository in the `~/FlameGraph` directory using this command:
-    ```
-    git clone https://github.com/brendangregg/FlameGraph
-    ```
+   ```
+   swift build -c release
+   ```
 
-4. Run this command to record the stack frames with a 99 Hz sampling frequency:
-    ```
-    sudo perf record -F 99 --call-graph dwarf -- ./slow
-    ```
+   빌드 프로세스가 성공적으로 완료되면 Swift 패키지 디렉터리 내의 `.build/release/` 디렉터리에서 컴파일된 바이너리를 찾을 수 있습니다.
 
-Alternatively, to attach to an existing process use:
-    ```
-    sudo perf record -F 99 --call-graph dwarf -p PID_OF_SLOW
-    ```
+   c. 다음 명령을 사용하여 컴파일된 바이너리를 현재 디렉터리로 복사하고 `slow`로 이름을 변경합니다:
 
-5. Export the recording into `out.perf` by running this command:
-    ```
-    sudo perf script > out.perf
-    ```
+   ```
+   cp .build/release/YourExecutableName ./slow
+   ```
 
-6. Aggregate the recorded stacks and demangle the symbols using this command:
-    ```
-    ~/FlameGraph/stackcollapse-perf.pl out.perf | swift demangle > out.folded
-    ```
+   `YourExecutableName`을 실제 컴파일된 바이너리 이름으로 교체하세요.
 
-7. Export the result into an SVG file to visually represent the functions and their relative CPU usage using the following command:
-    ```
-    ~/FlameGraph/flamegraph.pl out.folded > out.svg # Produce
-    ```
+3. `~/FlameGraph` 디렉터리에 저장소를 클론합니다:
 
-The resulting Flamegraph file should look similar to the one below:
+   ```
+   git clone https://github.com/brendangregg/FlameGraph
+   ```
 
-![Flame graph](/assets/images/server-guides/perf-issues-flamegraph.svg)
+4. 99 Hz 샘플링 주파수로 스택 프레임을 기록하려면 다음 명령을 실행합니다:
+   ```
+   sudo perf record -F 99 --call-graph dwarf -- ./slow
+   ```
 
-We can see in the flame graph that `isFavouriteNumber` consumes most of the runtime, invoked from `addFavouriteNumber`. This outcome indicates where to look for improvements.
+또는 기존 프로세스에 연결하려면:
+`     sudo perf record -F 99 --call-graph dwarf -p PID_OF_SLOW
+    `
 
-> Note: If you use `Set<Int>` to store the `FavouriteNumber`, the by-product should indicate if a number is a `FavouriteNumber` in constant time *(O(1)*).
+5. 다음 명령을 실행하여 기록을 `out.perf`로 내보냅니다:
 
-### Malloc libraries
+   ```
+   sudo perf script > out.perf
+   ```
 
-In Swift, memory allocation and deallocation are primarily managed by the [automatic reference counting (ARC)](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/automaticreferencecounting/) mechanism. In certain cases, you may need to interface with C or other languages using *malloc* libraries or if you require finer control over memory management. For example, you can use a custom malloc library for workloads that put significant pressure on the memory allocation subsystem. Although no changes are required to the code, interposing it with an environment variable is necessary before running your server.
+6. 기록된 스택을 집계하고 심볼을 디맹글링합니다:
 
-> Tip: You may want to benchmark the default and a custom memory allocator to see how much it helps for the specified workload.
+   ```
+   ~/FlameGraph/stackcollapse-perf.pl out.perf | swift demangle > out.folded
+   ```
 
-Here are some specialized memory allocation libraries designed to address performance concerns, especially in multi-threaded environments:
+7. 함수와 상대적 CPU 사용량을 시각적으로 나타내는 SVG 파일로 결과를 내보냅니다:
+   ```
+   ~/FlameGraph/flamegraph.pl out.folded > out.svg # Produce
+   ```
 
-- [TCMalloc](https://github.com/google/tcmalloc) is tailored for speed and scalability within Google’s environments.
-- [Jemalloc](https://jemalloc.net/) emphasizes fragmentation reduction and efficiency for a wider range of applications.
+생성된 플레임 그래프 파일은 아래와 비슷해야 합니다:
 
-Other `malloc` implementations exist and can typically be enabled using LD_PRELOAD:
+![플레임 그래프](/assets/images/server-guides/perf-issues-flamegraph.svg)
+
+플레임 그래프에서 `isFavouriteNumber`가 런타임의 대부분을 소비하며 `addFavouriteNumber`에서 호출되는 것을 확인할 수 있습니다. 이 결과는 개선이 필요한 부분을 알려줍니다.
+
+> 참고: `Set<Int>`를 사용하여 `FavouriteNumber`를 저장하면 숫자가 `FavouriteNumber`인지 상수 시간 *(O(1))*으로 확인할 수 있습니다.
+
+### Malloc 라이브러리
+
+Swift에서 메모리 할당 및 해제는 주로 [자동 참조 카운팅(ARC)](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/automaticreferencecounting/) 메커니즘에 의해 관리됩니다. 특정 경우에는 C나 다른 언어와의 인터페이스에서 _malloc_ 라이브러리를 사용하거나 메모리 관리에 대한 더 세밀한 제어가 필요할 수 있습니다. 예를 들어, 메모리 할당 서브시스템에 상당한 부하를 주는 워크로드에 사용자 정의 malloc 라이브러리를 사용할 수 있습니다. 코드 변경은 필요 없지만, 서버를 실행하기 전에 환경 변수로 인터포즈해야 합니다.
+
+> 팁: 기본 메모리 할당자와 사용자 정의 메모리 할당자를 벤치마크하여 지정된 워크로드에 얼마나 도움이 되는지 확인하는 것이 좋습니다.
+
+멀티 스레드 환경에서 특히 성능 문제를 해결하기 위해 설계된 특수 메모리 할당 라이브러리가 있습니다:
+
+- [TCMalloc](https://github.com/google/tcmalloc)은 Google 환경에서의 속도와 확장성에 맞춰 조정되었습니다.
+- [Jemalloc](https://jemalloc.net/)은 더 넓은 범위의 애플리케이션에서 단편화 감소와 효율성을 강조합니다.
+
+다른 `malloc` 구현도 존재하며 일반적으로 LD_PRELOAD를 사용하여 활성화할 수 있습니다:
 
 ```bash
 > LD_PRELOAD=/usr/bin/libjemalloc.so  myprogram
 ```
 
-The choice between these libraries depends on the specific performance needs and characteristics of the application or system. 
+이러한 라이브러리 간의 선택은 애플리케이션이나 시스템의 구체적인 성능 요구사항과 특성에 따라 달라집니다.
 
-In summary, using performance tools for debugging Swift server applications helps optimize performance, enhance user experience, plan for scalability, and ensure the efficient operation of server applications in production environments.
+요약하면, Swift 서버 애플리케이션에 성능 도구를 사용하면 성능을 최적화하고, 사용자 경험을 향상시키며, 확장성을 계획하고, 프로덕션 환경에서 서버 애플리케이션의 효율적인 운영을 보장하는 데 도움이 됩니다.

@@ -1,76 +1,78 @@
 ---
 redirect_from:
-  - "/server/"
-  - "server/guides/"
-  - "/server-apis/"
+  - '/server/'
+  - 'server/guides/'
+  - '/server-apis/'
 layout: page
 title: Swift on Server
 ---
 
-## Overview
-[**Swift**](https://www.swift.org) is a general-purpose programming language built using a modern approach to safety, performance, and software design patterns. Originally developed by Apple for building iOS, macOS, watchOS, and tvOS applications, Swift’s project goal is to create the best available language for uses ranging from systems programming to mobile and desktop apps, scaling up to highly distributed cloud services. Swift’s rich ecosystem of libraries allows services to be developed and deployed on Linux or macOS. Most importantly, Swift is designed to make writing and maintaining correct programs simple for developers.
+## 개요
 
-**Swift on Server** refers to the ability to use the Swift programming language for server-side development. To deploy Swift applications on the server, developers can make use of web frameworks such as [Vapor](https://vapor.codes/) and [Hummingbird](https://swiftpackageindex.com/hummingbird-project/hummingbird) which provide a variety of tools and libraries to streamline the development process. These frameworks handle important aspects like routing, database integration, and request handling, allowing developers to focus on building the business logic of their applications.
+[**Swift**](https://www.swift.org)는 안전성, 성능, 소프트웨어 설계 패턴에 대한 현대적 접근 방식으로 만들어진 범용 프로그래밍 언어입니다. 원래 Apple에서 iOS, macOS, watchOS, tvOS 애플리케이션을 만들기 위해 개발했지만, Swift의 프로젝트 목표는 시스템 프로그래밍부터 모바일 및 데스크탑 앱, 그리고 고도로 분산된 클라우드 서비스까지 다양한 용도에 최적인 언어를 만드는 것입니다. Swift의 풍부한 라이브러리 생태계 덕분에 Linux나 macOS에서 서비스를 개발하고 배포할 수 있습니다. 가장 중요한 점은 Swift가 개발자에게 올바른 프로그램을 작성하고 유지하는 것을 간단하게 만들도록 설계되었다는 것입니다.
 
-Various companies and organizations have adopted Vapor and Hummingbird to power their production services.
+**Swift on Server**는 Swift 프로그래밍 언어를 서버 사이드 개발에 사용하는 것을 말합니다. 서버에 Swift 애플리케이션을 배포하기 위해 개발자는 [Vapor](https://vapor.codes/)와 [Hummingbird](https://swiftpackageindex.com/hummingbird-project/hummingbird) 같은 웹 프레임워크를 활용할 수 있으며, 이들은 개발 프로세스를 간소화하는 다양한 도구와 라이브러리를 제공합니다. 이 프레임워크들은 라우팅, 데이터베이스 통합, 요청 처리 같은 중요한 측면을 처리하여 개발자가 애플리케이션의 비즈니스 로직 구축에 집중할 수 있게 합니다.
 
-## Why Swift on Server?
+다양한 기업과 조직이 Vapor와 Hummingbird를 도입하여 프로덕션 서비스를 운영하고 있습니다.
 
-Swift on Server provides developers with a modern, safe, and efficient option for writing server-side code. Swift combines the simplicity and readability of a high-level language with the performance and safety features of a compiled language, allowing developers to leverage their existing Swift skills to build complete end-to-end solutions using a single programming language.
+## 왜 Swift on Server인가?
 
-In addition to the characteristics of Swift that make it an excellent general-purpose programming language, it also has unique characteristics that make it specifically suitable for server applications due to its:
+Swift on Server는 개발자에게 서버 사이드 코드를 작성하기 위한 현대적이고 안전하며 효율적인 선택지를 제공합니다. Swift는 고수준 언어의 단순성과 가독성을 컴파일 언어의 성능 및 안전성 기능과 결합하여, 개발자가 기존 Swift 기술을 활용해 단일 프로그래밍 언어로 완전한 엔드투엔드 솔루션을 구축할 수 있게 합니다.
 
-- Performance.
-- Quick start-up time.
-- Expressiveness and safety.
-- Supported ecosystem.
+Swift를 훌륭한 범용 프로그래밍 언어로 만드는 특성 외에도, 서버 애플리케이션에 특히 적합하게 만드는 고유한 특성이 있습니다:
 
-### Performance
-Swift offers fast performance and a low memory footprint. Instead of tracing garbage collection, it uses [Automatic Reference Counting (ARC)](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/automaticreferencecounting/) and ownership features, which allows precise control over resources. Swift’s use of ARC and its lack of just-in-time (JIT) compilation provides an edge in the cloud services space.
+- 성능.
+- 빠른 시작 시간.
+- 표현력과 안전성.
+- 지원되는 생태계.
 
-While tracing garbage collection technologies have improved, they still compete with the application for resources, triggering non-deterministic performance. Debugging non-deterministic performance and language-induced non-deterministic performance can confuse and mask application-level performance issues that can otherwise be addressed.
+### 성능
 
-One of the main goals of a modern cloud platform is to maximize resource utilization by efficiently packing services into a single machine. Cloud services built with Swift have a small memory footprint (measured in MB), especially compared to other popular server languages with automatic memory management. Services built with Swift are also CPU-efficient, given the language’s focus on performance.
+Swift는 빠른 성능과 낮은 메모리 사용량을 제공합니다. 추적 가비지 컬렉션 대신 [자동 참조 카운팅(ARC)](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/automaticreferencecounting/)과 소유권 기능을 사용하여 리소스를 정밀하게 제어할 수 있습니다. Swift의 ARC 사용과 JIT(Just-In-Time) 컴파일 부재는 클라우드 서비스 분야에서 장점을 제공합니다.
 
-While Java, PHP, Python, and JavaScript have their strengths and use cases, Swift offers several advantages over other programming languages. For example, Swift’s performance is comparable to languages like C and C++, making it well-suited for building high-performance server applications. Thanks to the progressive and efficient design of the language, Swift server-side applications can handle large-scale workloads with high performance and low resource consumption.
+추적 가비지 컬렉션 기술이 개선되었지만, 여전히 애플리케이션과 리소스를 놓고 경쟁하여 비결정적 성능을 유발합니다. 비결정적 성능과 언어로 인한 비결정적 성능을 디버깅하면 그렇지 않으면 해결할 수 있는 애플리케이션 수준의 성능 문제를 혼란스럽게 하고 가릴 수 있습니다.
 
-These characteristics make Swift ideal for use in modern cloud platforms when maximizing resource utilization is needed.
+현대 클라우드 플랫폼의 주요 목표 중 하나는 서비스를 단일 머신에 효율적으로 패킹하여 리소스 활용도를 극대화하는 것입니다. Swift로 구축된 클라우드 서비스는 특히 자동 메모리 관리를 사용하는 다른 인기 서버 언어에 비해 작은 메모리 사용량(MB 단위)을 가집니다. Swift로 구축된 서비스는 언어의 성능 중심 설계 덕분에 CPU 효율도 높습니다.
 
-### Quick start-up time
-Swift-based applications quickly start since there are almost no warm-up operations, making Swift an ideal fit for cloud services, which are often rescheduled onto new virtual machines (VMs) or containers to address platform formation changes. Other considerations include:
+Java, PHP, Python, JavaScript가 각각의 강점과 사용 사례를 가지고 있지만, Swift는 다른 프로그래밍 언어에 비해 여러 장점을 제공합니다. 예를 들어, Swift의 성능은 C나 C++ 같은 언어에 필적하여 고성능 서버 애플리케이션을 구축하는 데 적합합니다. 언어의 진보적이고 효율적인 설계 덕분에 Swift 서버 사이드 애플리케이션은 높은 성능과 낮은 리소스 소비로 대규모 워크로드를 처리할 수 있습니다.
 
-- Quick boot times make Swift ideal for serverless applications such as [Google Cloud Functions](https://cloud.google.com/functions#) or [AWS Lambda](https://aws.amazon.com/lambda/) with negligible cold start times. Additionally, the quick start-up time and low memory advantages make Swift a good choice for microservices that scale in the cloud.
-- Using Swift helps streamline continuous delivery pipelines, incurring less wait time for new versions of the service fleet to go online.
-- Swift allows you to rapidly respond to the need to scale up where services can dynamically adjust their number of instances.
+이러한 특성은 리소스 활용도 극대화가 필요한 현대 클라우드 플랫폼에서 Swift를 이상적으로 만듭니다.
 
+### 빠른 시작 시간
 
-### Expressive and safe
-Swift enforces type-safety, optionals, and memory safety features that help prevent common programming errors and improve code reliability. Swift on Server benefits from these robust language features, making it less prone to crashes and security vulnerabilities.
+Swift 기반 애플리케이션은 워밍업 작업이 거의 없어 빠르게 시작되므로, 플랫폼 구성 변경에 대응하기 위해 새 가상 머신(VM)이나 컨테이너로 재스케줄링되는 클라우드 서비스에 이상적입니다. 추가 고려 사항:
 
-Swift provides [built-in support for concurrency](https://developer.apple.com/documentation/swift/concurrency/), allowing developers to write scalable and responsive server applications. Swift’s concurrency model makes it suitable for developing highly concurrent server applications.
+- 빠른 부팅 시간은 콜드 스타트 시간이 무시할 수준인 [Google Cloud Functions](https://cloud.google.com/functions#)나 [AWS Lambda](https://aws.amazon.com/lambda/) 같은 서버리스 애플리케이션에 Swift를 이상적으로 만듭니다. 또한 빠른 시작 시간과 낮은 메모리 장점은 클라우드에서 스케일링하는 마이크로서비스에도 Swift를 좋은 선택지로 만듭니다.
+- Swift를 사용하면 새 버전의 서비스 플릿이 온라인 되기까지 대기 시간이 줄어들어 지속적 배포 파이프라인을 간소화하는 데 도움이 됩니다.
+- Swift를 사용하면 서비스가 인스턴스 수를 동적으로 조정할 수 있는 스케일 업 필요에 빠르게 대응할 수 있습니다.
 
-Swift's concurrency model introduces new language features and constructs to make it easier and safer to write concurrent code. The **Sendable** attribute is used to annotate types that are known to be safe to pass between tasks. By designating a type as Sendable, Swift ensures that it is safe to share and access that type across multiple concurrent tasks without causing data corruption or synchronization issues. This helps to prevent common concurrency problems, such as race conditions or access to stale data.
+### 표현력과 안전성
 
-The Sendable attribute is particularly useful in the context of Swift on the server, where concurrency and parallelism are frequently utilized. It provides a way to declare and enforce the safety of data accessed by multiple tasks simultaneously, helping to avoid data corruption and maintain data integrity.
+Swift는 일반적인 프로그래밍 오류를 방지하고 코드 신뢰성을 향상시키는 타입 안전성, 옵셔널, 메모리 안전성 기능을 적용합니다. Swift on Server는 이러한 강력한 언어 기능의 이점을 활용하여 크래시와 보안 취약점에 덜 취약합니다.
 
-### Supported ecosystem
-The Swift ecosystem contains many useful libraries and tools specifically designed for server-side development.
+Swift는 [동시성에 대한 내장 지원](https://developer.apple.com/documentation/swift/concurrency/)을 제공하여 개발자가 확장 가능하고 응답성이 좋은 서버 애플리케이션을 작성할 수 있게 합니다. Swift의 동시성 모델은 고도로 동시적인 서버 애플리케이션 개발에 적합합니다.
 
-Overall, Swift on Server opens up new opportunities for developers to build fast, scalable, and secure backend services. Swift's combination of performance, readability, interoperability, safety, and modern language features make it a compelling choice for many developers.
+Swift의 동시성 모델은 동시성 코드를 더 쉽고 안전하게 작성할 수 있도록 새로운 언어 기능과 구성 요소를 도입합니다. **Sendable** 속성은 태스크 간에 안전하게 전달할 수 있다고 알려진 타입에 어노테이션하는 데 사용됩니다. 타입을 Sendable로 지정하면 Swift는 데이터 손상이나 동기화 문제 없이 여러 동시 태스크에서 해당 타입을 안전하게 공유하고 접근할 수 있도록 보장합니다. 이는 경쟁 조건이나 오래된 데이터 접근 같은 일반적인 동시성 문제를 방지하는 데 도움이 됩니다.
 
-### Development guides
+Sendable 속성은 동시성과 병렬성이 자주 활용되는 Swift on Server 컨텍스트에서 특히 유용합니다. 여러 태스크가 동시에 접근하는 데이터의 안전성을 선언하고 강제할 수 있는 방법을 제공하여 데이터 손상을 방지하고 데이터 무결성을 유지하는 데 도움이 됩니다.
 
-The Swift Server Workgroup and Swift on Server community have developed a number of [guides](/documentation/server/guides/) for using Swift on the server. They are designed to help teams and individuals running Swift Server applications on Linux and to provide orientation for those who want to start with such development.
+### 지원되는 생태계
 
+Swift 생태계에는 서버 사이드 개발을 위해 특별히 설계된 많은 유용한 라이브러리와 도구가 있습니다.
+
+전반적으로 Swift on Server는 개발자에게 빠르고 확장 가능하며 안전한 백엔드 서비스를 구축할 수 있는 새로운 기회를 열어줍니다. Swift의 성능, 가독성, 상호 운용성, 안전성, 현대적 언어 기능의 조합은 많은 개발자에게 매력적인 선택지입니다.
+
+### 개발 가이드
+
+Swift Server Workgroup과 Swift on Server 커뮤니티에서 서버에서 Swift를 사용하기 위한 다양한 [가이드](/documentation/server/guides/)를 개발했습니다. 이 가이드는 Linux에서 Swift Server 애플리케이션을 운영하는 팀과 개인을 돕고, 이러한 개발을 시작하려는 분들에게 방향을 제시하기 위해 설계되었습니다.
 
 ## Swift Server Workgroup
 
-The Swift Server workgroup is a steering team that promotes the use of Swift for developing and deploying server applications.
-The workgroup:
+Swift Server Workgroup은 서버 애플리케이션 개발 및 배포에 Swift 사용을 촉진하는 운영 팀입니다.
+이 워크그룹은:
 
-* Defines and prioritizes efforts that address the needs of the Swift server community.
-* Defines and runs an incubation process for these efforts to reduce duplication of effort, increase compatibility, and promote best practices.
-* Channels feedback for Swift language features needed by the server development community to the Swift Core Team.
+- Swift 서버 커뮤니티의 요구를 충족하는 노력을 정의하고 우선순위를 정합니다.
+- 중복 노력을 줄이고 호환성을 높이며 모범 사례를 촉진하기 위해 이러한 노력에 대한 인큐베이션 프로세스를 정의하고 운영합니다.
+- 서버 개발 커뮤니티가 필요로 하는 Swift 언어 기능에 대한 피드백을 Swift Core Team에 전달합니다.
 
-Read more about the [workgroup](/sswg "Swift Server Workgroup") and server incubator it runs [here](/sswg/incubation-process.html "SSWG Incubation Process").
-
+[워크그룹](/sswg 'Swift Server Workgroup')과 운영하는 서버 인큐베이터에 대해 [여기](/sswg/incubation-process.html 'SSWG Incubation Process')에서 더 알아보세요.

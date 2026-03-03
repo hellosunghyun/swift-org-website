@@ -1,166 +1,101 @@
 ---
 layout: page
 date: 2024-06-04 12:00:00
-title: Getting Started with the Static Linux SDK
+title: Static Linux SDK 시작하기
 author: [al45tair, incertum, etcwilde]
 ---
 
-It's well known that Swift can be used to build software for Apple
-platforms such as macOS or iOS, but Swift is also supported on other
-platforms, including Linux and Windows.
+Swift가 macOS나 iOS 같은 Apple 플랫폼용 소프트웨어를 빌드하는 데 사용될 수 있다는 것은 잘 알려져 있지만, Swift는 Linux와 Windows를 포함한 다른 플랫폼에서도 지원됩니다.
 
-Building for Linux is especially interesting because, historically,
-Linux programs written in Swift needed to ensure that a copy of the
-Swift runtime---and all of its dependencies---was installed on the
-target system.  Additionally, a program built for a particular
-distribution, or even a particular major version of a particular
-distribution, would not necessarily run on any other distribution or
-in some cases even on a different major version of the same
-distribution.
+Linux용 빌드가 특히 흥미로운 이유는 역사적으로 Swift로 작성된 Linux 프로그램이 대상 시스템에 Swift 런타임과 모든 의존성의 복사본이 설치되어 있어야 했기 때문입니다. 또한 특정 배포판이나 특정 배포판의 특정 주요 버전용으로 빌드된 프로그램이 다른 배포판에서, 심지어 같은 배포판의 다른 주요 버전에서도 반드시 실행되지는 않았습니다.
 
-The Swift Static Linux SDK solves both of these problems by allowing
-you to build your program as a _fully statically linked_ executable,
-with no external dependencies at all (not even the C library), which
-means that it will run on _any_ Linux distribution as the only thing
-it depends on is the Linux system call interface.
+Swift Static Linux SDK는 프로그램을 외부 의존성이 전혀 없는(C 라이브러리조차 없는) _완전히 정적으로 링크된_ 실행 파일로 빌드할 수 있게 하여 이 두 가지 문제를 모두 해결합니다. 이는 Linux 시스템 콜 인터페이스에만 의존하므로 _어떤_ Linux 배포판에서든 실행됩니다.
 
-This portability comes at a cost, namely that everything your program
-depends on must be statically linked. There is no support for dynamic
-linking whatsoever — even the `dlopen()` function will not work.
+이러한 이식성에는 비용이 따르는데, 프로그램이 의존하는 모든 것이 정적으로 링크되어야 합니다. 동적 링크는 전혀 지원되지 않으며 `dlopen()` 함수도 작동하지 않습니다.
 
-A result of this design choice is that the Static Linux SDK uses a
-“bring your own dependencies” model, similar to that you might be used
-to with the Swift Package Manager. You cannot use system libraries,
-but must either rely on the handful of common libraries supplied with
-the Static SDK (see below), or build any extras yourself.
+이러한 설계 선택의 결과로 Static Linux SDK는 Swift Package Manager에서 익숙할 수 있는 "의존성 직접 관리" 모델을 사용합니다. 시스템 라이브러리는 사용할 수 없으며, Static SDK에 포함된 소수의 공통 라이브러리(아래 참조)에 의존하거나 추가로 필요한 것은 직접 빌드해야 합니다.
 
-Additionally, the Static Linux SDK can be used from any platform
-supported by the Swift compiler and package manager; this means that
-you can develop and test your program on macOS before building and
-deploying it to a Linux-based server, whether running locally or
-somewhere in the cloud.
+또한 Static Linux SDK는 Swift 컴파일러와 패키지 관리자가 지원하는 모든 플랫폼에서 사용할 수 있습니다. 즉, macOS에서 프로그램을 개발하고 테스트한 다음 로컬이든 클라우드든 Linux 기반 서버에 빌드하고 배포할 수 있습니다.
 
-Finally, for those wondering about an equivalent for Apple platforms,
-no such static SDK exists. Building a fully static executable is not
-possible on Apple's operating systems because, unlike Linux, the
-Darwin kernel's system call table is not part of the ABI. This design
-requires all system calls to be routed through the dynamic library
-`libsystem.dylib`, fundamentally preventing a 100% statically linked
-binary.
+마지막으로, Apple 플랫폼용 동등한 SDK가 있는지 궁금한 분들을 위해 말씀드리면, 그러한 정적 SDK는 존재하지 않습니다. Apple 운영체제에서는 완전히 정적인 실행 파일을 빌드하는 것이 불가능합니다. Linux와 달리 Darwin 커널의 시스템 콜 테이블이 ABI의 일부가 아니기 때문입니다. 이 설계로 인해 모든 시스템 콜이 동적 라이브러리 `libsystem.dylib`를 통해 라우팅되어야 하므로 100% 정적 링크된 바이너리를 근본적으로 만들 수 없습니다.
 
-### Static vs Dynamic Linking
+### 정적 링크 vs 동적 링크
 
-_Linking_ is the process of taking different pieces of a computer
-program and wiring up any references between those pieces.  For
-_static_ linking, generally speaking those pieces are _object files_,
-or _static libraries_ (which are really just collections of object
-files).
+*링크*는 컴퓨터 프로그램의 여러 조각을 가져와 조각 간의 참조를 연결하는 과정입니다. _정적_ 링크의 경우 일반적으로 이러한 조각은 _오브젝트 파일_ 또는 _정적 라이브러리_(실제로는 오브젝트 파일의 모음)입니다.
 
-For _dynamic_ linking, the pieces are _executables_ and _dynamic
-libraries_ (aka dylibs, shared objects, or DLLs).
+_동적_ 링크의 경우 조각은 *실행 파일*과 _동적 라이브러리_(dylib, shared object, DLL이라고도 함)입니다.
 
-There are two key differences between dynamic and static linking:
+동적 링크와 정적 링크 사이에는 두 가지 핵심적인 차이가 있습니다:
 
-* The time at which linking takes place.  Static linking happens when
-  you build your program; dynamic linking happens at runtime.
+- 링크가 수행되는 시점. 정적 링크는 프로그램을 빌드할 때, 동적 링크는 런타임에 수행됩니다.
 
-* The fact that a static library (or _archive_) is really a collection
-  of individual object files, whereas a dynamic library is monolithic.
+- 정적 라이브러리(또는 _아카이브_)는 실제로 개별 오브젝트 파일의 모음인 반면, 동적 라이브러리는 단일체라는 점.
 
-The latter is important because traditionally, the static linker will
-include every object explicitly listed on its command line, but it
-will _only_ include an object from a static library if doing so lets
-it resolve an unresolved symbolic reference.  If you statically link
-against a library that you do not actually use, a traditional static
-linker will completely discard that library and not include any code
-from it in your final binary.
+후자가 중요한 이유는 전통적으로 정적 링커가 커맨드 라인에 명시적으로 나열된 모든 오브젝트를 포함하지만, 정적 라이브러리에서는 미해결 심볼 참조를 해결할 수 있는 경우에*만* 오브젝트를 포함하기 때문입니다. 실제로 사용하지 않는 라이브러리에 정적으로 링크하면 전통적인 정적 링커는 해당 라이브러리를 완전히 폐기하고 최종 바이너리에 어떤 코드도 포함하지 않습니다.
 
-In practice, things can be more complicated---the static linker may
-actually work on the basis of individual _sections_ or _atoms_ from
-your object files, so it may in fact be able to discard individual
-functions or pieces of data rather than just whole objects.
+실제로는 더 복잡할 수 있습니다. 정적 링커는 실제로 오브젝트 파일의 개별 *섹션*이나 _원자_ 단위로 작업하여 전체 오브젝트가 아닌 개별 함수나 데이터 조각을 폐기할 수 있습니다.
 
-### Pros and Cons of Static Linking
+### 정적 링크의 장단점
 
-Pros of static linking:
+정적 링크의 장점:
 
-* No runtime overhead.
+- 런타임 오버헤드가 없습니다.
 
-* Only include code from libraries that is actually needed.
+- 실제로 필요한 라이브러리 코드만 포함합니다.
 
-* No need for separately installed dynamic libraries.
+- 별도로 설치된 동적 라이브러리가 필요 없습니다.
 
-* No versioning issues at runtime.
+- 런타임 버전 관리 문제가 없습니다.
 
-Cons of static linking:
+정적 링크의 단점:
 
-* Programs cannot share code (higher overall memory usage).
+- 프로그램이 코드를 공유할 수 없습니다(전체 메모리 사용량이 높아짐).
 
-* No way to update dependencies without rebuilding program.
+- 프로그램을 재빌드하지 않고는 의존성을 업데이트할 수 없습니다.
 
-* Larger executables (though this can be offset by not having to
-  install separate dynamic libraries).
+- 실행 파일이 더 커집니다(별도의 동적 라이브러리를 설치할 필요가 없다는 점으로 상쇄될 수 있음).
 
-On Linux in particular, it's also possible to use static linking to
-completely eliminate dependencies on system libraries supplied by the
-distribution, resulting in executables that work on any distribution
-and can be installed by simply copying.
+특히 Linux에서는 정적 링크를 사용하여 배포판이 제공하는 시스템 라이브러리에 대한 의존성을 완전히 제거할 수 있어, 어떤 배포판에서든 작동하고 단순히 복사하는 것만으로 설치할 수 있는 실행 파일을 만들 수 있습니다.
 
-### Installing the SDK
+### SDK 설치
 
-#### (1) Prerequisites
+#### (1) 사전 요구 사항
 
-Before starting, please note the following requirements:
+시작하기 전에 다음 요구 사항을 확인하세요:
 
-* You need to install an open-source [Swift toolchain](/install/) from
-  swift.org.
+- swift.org에서 오픈소스 [Swift 도구체인](/install/)을 설치해야 합니다.
 
-* If you are using macOS, note that you cannot use the toolchain
-  provided with Xcode to build programs using the SDK. Instead, you
-  must use the Swift compiler from the open-source toolchain (see
-  above).
+- macOS를 사용하는 경우, SDK로 프로그램을 빌드할 때 Xcode에 포함된 도구체인은 사용할 수 없습니다. 대신 오픈소스 도구체인의 Swift 컴파일러를 사용해야 합니다(위 참조).
 
-#### (2) Pre-Installation Notes
+#### (2) 설치 전 참고사항
 
-Please be aware of:
+다음 사항에 유의하세요:
 
-* Version compatibility: The Swift toolchain must match the version of
-  the Static Linux SDK that you install.
+- 버전 호환성: Swift 도구체인은 설치하는 Static Linux SDK의 버전과 일치해야 합니다.
 
-* Clean installation: If you previously installed an SDK for a
-  different Swift toolchain version, remove the old one before
-  installing the new one (see management commands below).
+- 클린 설치: 이전에 다른 Swift 도구체인 버전용 SDK를 설치한 경우, 새 것을 설치하기 전에 이전 것을 제거하세요(아래 관리 명령 참조).
 
-* Checksum verification: When installing Swift SDKs from remote URLs,
-  you must pass a `--checksum` option with the corresponding checksum
-  provided by the SDK author.
+- 체크섬 확인: 원격 URL에서 Swift SDK를 설치할 때 SDK 저자가 제공한 체크섬과 함께 `--checksum` 옵션을 전달해야 합니다.
 
-* Command pattern: The installation follows the pattern described in
-  the next sections.
+- 명령 패턴: 설치는 다음 섹션에 설명된 패턴을 따릅니다.
 
-#### (3) Download and Install the Static Linux SDK
+#### (3) Static Linux SDK 다운로드 및 설치
 
-To obtain the Static Linux SDK:
+Static Linux SDK를 가져오려면:
 
-* Visit the swift.org [installation
-  page](https://www.swift.org/install) for complete Static Linux SDK
-  installation instructions, where you can download directly or click
-  "Copy install command".
+- 전체 Static Linux SDK 설치 안내가 있는 swift.org [설치 페이지](https://www.swift.org/install)를 방문하여 직접 다운로드하거나 "설치 명령 복사"를 클릭하세요.
 
-* For previous releases, navigate to "Previous Releases" on the
-  installation page.
+- 이전 릴리스의 경우 설치 페이지에서 "이전 릴리스"로 이동하세요.
 
+#### (4) 설치 명령 패턴
 
-#### (4) Installation Commands Pattern
-
-The basic installation command follows this pattern:
+기본 설치 명령은 다음 패턴을 따릅니다:
 
 ```console
 $ swift sdk install <URL-or-filename-here> [--checksum <checksum-for-archive-URL>]
 ```
 
-You can provide either a URL (with corresponding checksum) or a local
-filename where the SDK can be found.
+URL(해당 체크섬과 함께) 또는 SDK가 있는 로컬 파일 이름을 제공할 수 있습니다.
 
 <!--
 {% assign platform = site.data.builds.swift_releases.last.platforms | where: 'name', 'Static SDK'| first %}
@@ -172,47 +107,46 @@ filename where the SDK can be found.
 {% comment %} Generate branch information - ONLY major.minor {% endcomment %}
 -->
 
-For example, if you have installed the {{ tag }} toolchain, you would enter:
+예를 들어, {{ tag }} 도구체인을 설치한 경우 다음을 입력합니다:
 
 ```console
 $ {{ command }}
 ```
 
-This will download and install the corresponding Static Linux SDK on
-your system.
+이 명령은 시스템에 해당하는 Static Linux SDK를 다운로드하고 설치합니다.
 
-#### (5) Managing Installed SDKs
+#### (5) 설치된 SDK 관리
 
-After installation, you can manage your SDKs using these commands:
+설치 후 다음 명령으로 SDK를 관리할 수 있습니다:
 
-List all installed SDKs:
+설치된 모든 SDK 목록 보기:
 
 ```console
 $ swift sdk list
 ```
 
-Remove an SDK:
+SDK 제거:
 
 ```console
 $ swift sdk remove <name-of-SDK>
 ```
 
-### Your first statically linked Linux program
+### 첫 번째 정적 링크된 Linux 프로그램
 
-First, create a directory to hold your code:
+먼저 코드를 담을 디렉토리를 만듭니다:
 
 ```console
 $ mkdir hello
 $ cd hello
 ```
 
-Next, ask Swift to create a new program package for you:
+다음으로 Swift에 새 프로그램 패키지를 만들도록 요청합니다:
 
 ```console
 $ swift package init --type executable
 ```
 
-You can build and run this locally:
+로컬에서 빌드하고 실행할 수 있습니다:
 
 ```console
 $ swift build
@@ -223,8 +157,7 @@ $ .build/debug/hello
 Hello, world!
 ```
 
-But with the Static Linux SDK installed, you can also build Linux
-binaries for x86-64 and ARM64 machines:
+Static Linux SDK가 설치되어 있으면 x86-64 및 ARM64 머신용 Linux 바이너리도 빌드할 수 있습니다:
 
 ```console
 $ swift build --swift-sdk x86_64-swift-linux-musl
@@ -244,7 +177,7 @@ $ file .build/aarch64-swift-linux-musl/debug/hello
 .build/aarch64-swift-linux-musl/debug/hello: ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, with debug_info, not stripped
 ```
 
-These can be copied to an appropriate Linux-based system and executed:
+이를 적절한 Linux 기반 시스템에 복사하여 실행할 수 있습니다:
 
 ```console
 $ scp .build/x86_64-swift-linux-musl/debug/hello linux:~/hello
@@ -252,12 +185,9 @@ $ ssh linux ~/hello
 Hello, world!
 ```
 
-### What about package dependencies?
+### 패키지 의존성은 어떻게 되나요?
 
-Swift packages that make use of Foundation or SwiftNIO should just
-work.  If you try to use a package that uses the C library, however,
-you may have a little work to do.  Such packages often contain files
-with code like the following:
+Foundation이나 SwiftNIO를 사용하는 Swift 패키지는 별다른 조치 없이 작동합니다. 하지만 C 라이브러리를 사용하는 패키지를 사용하려면 약간의 작업이 필요할 수 있습니다. 이러한 패키지에는 종종 다음과 같은 코드가 있는 파일이 포함되어 있습니다:
 
 ```swift
 #if os(macOS) || os(iOS)
@@ -271,18 +201,13 @@ import ucrt
 #endif
 ```
 
-The Static Linux SDK does not use Glibc; instead, it is built on top
-of an alternative C library for Linux called
-[Musl](https://musl-libc.org).  We chose this approach for two
-reasons:
+Static Linux SDK는 Glibc를 사용하지 않습니다. 대신 [Musl](https://musl-libc.org)이라는 Linux용 대체 C 라이브러리 위에 구축되었습니다. 이 방법을 선택한 이유는 두 가지입니다:
 
-1. Musl has excellent support for static linking.
+1. Musl은 정적 링크에 대한 지원이 뛰어납니다.
 
-2. Musl is permissively licensed, which makes it easy to distribute
-   executables statically linked with it.
+2. Musl은 허용적 라이선스를 사용하므로 정적으로 링크된 실행 파일을 배포하기 쉽습니다.
 
-If you are using such a dependency, you will therefore need to adjust
-it to import the `Musl` module instead of the `Glibc` module:
+이러한 의존성을 사용하는 경우, `Glibc` 모듈 대신 `Musl` 모듈을 import하도록 조정해야 합니다:
 
 ```swift
 #if os(macOS) || os(iOS)
@@ -298,54 +223,33 @@ import ucrt
 #endif
 ```
 
-Occasionally there might be a difference between the way a C library
-type gets imported between Musl and Glibc; this sometimes happens if
-someone has added nullability annotations, or where a pointer type is
-using a forward-declared `struct` for which no actual definition is
-ever provided.  Usually the problem will be obvious---a function
-argument or result will be `Optional` in one case and non-`Optional`
-in another, or a pointer type will be imported as `OpaquePointer`
-rather than `UnsafePointer<FOO>`.
+때때로 Musl과 Glibc 사이에 C 라이브러리 타입이 import되는 방식에 차이가 있을 수 있습니다. 이는 누군가 nullability 어노테이션을 추가했거나, 포인터 타입이 실제 정의가 제공되지 않는 전방 선언된 `struct`를 사용하는 경우에 발생합니다. 일반적으로 문제는 명확합니다 — 함수 인수나 결과가 한쪽에서는 `Optional`이고 다른 쪽에서는 비`Optional`이거나, 포인터 타입이 `UnsafePointer<FOO>` 대신 `OpaquePointer`로 import됩니다.
 
-If you do find yourself needing to make these kinds of adjustments,
-you can make your [local copy](https://developer.apple.com/documentation/xcode/editing-a-package-dependency-as-a-local-package) of the package dependency editable by
-doing
+이러한 종류의 조정이 필요한 경우, 패키지 의존성의 [로컬 복사본](https://developer.apple.com/documentation/xcode/editing-a-package-dependency-as-a-local-package)을 편집 가능하게 만들 수 있습니다:
 
 ```console
 $ swift package edit SomePackage
 ```
 
-and then editing the files in the `Packages` directory that appears in
-your program's source directory.  You may wish to consider raising PRs
-upstream with any fixes you may have.
+그런 다음 프로그램의 소스 디렉토리에 나타나는 `Packages` 디렉토리의 파일을 편집합니다. 수정 사항에 대해 업스트림 PR을 제출하는 것도 고려해 볼 만합니다.
 
-If your project makes use of C or C++ language libraries, you may need
-to take additional steps. The Static SDK for Linux includes a small
-handful of very common dependencies (e.g.
-[libxml2](https://gitlab.gnome.org/GNOME/libxml2/-/wikis/home),
-[zlib](https://www.zlib.net/) and [curl](https://curl.se/)). There is
-a high bar for adding dependencies to the SDK itself, because it makes
-the SDK image larger, and means the SDK must be updated to track the
-versions of those dependencies.
+프로젝트에서 C 또는 C++ 언어 라이브러리를 사용하는 경우 추가 단계가 필요할 수 있습니다. Static SDK for Linux에는 매우 일반적인 소수의 의존성이 포함되어 있습니다(예: [libxml2](https://gitlab.gnome.org/GNOME/libxml2/-/wikis/home), [zlib](https://www.zlib.net/), [curl](https://curl.se/)). SDK 자체에 의존성을 추가하는 데는 높은 기준이 적용되는데, SDK 이미지가 커지고 해당 의존성의 버전을 추적하기 위해 SDK를 업데이트해야 하기 때문입니다.
 
-The Static SDK includes an SBOM, in [SPDX format](https://spdx.dev/),
-that you can use to determine exactly what is present in any given
-release of the Static SDK for Linux. For instance, using the `bom`
-tool, you can display the SBOM using a command like:
+Static SDK에는 [SPDX 형식](https://spdx.dev/)의 SBOM이 포함되어 있어 Static SDK for Linux의 특정 릴리스에 정확히 무엇이 포함되어 있는지 확인할 수 있습니다. 예를 들어 `bom` 도구를 사용하면 다음과 같은 명령으로 SBOM을 표시할 수 있습니다:
 
 ```console
 $ bom document outline ~/.swiftpm/swift-sdks/swift-6.1.2-RELEASE-static-linux-0.0.1.artifactbundle/sbom.spdx.json
-              _      
+              _
  ___ _ __   __| |_  __
 / __| '_ \ / _` \ \/ /
-\__ \ |_) | (_| |>  < 
+\__ \ |_) | (_| |>  <
 |___/ .__/ \__,_/_/\_\
-    |_|               
+    |_|
 
  📂 SPDX Document SBOM-SPDX-648fa59a-9d9d-476f-9183-78d57d847c31
-  │ 
+  │
   │ 📦 DESCRIBES 1 Packages
-  │ 
+  │
   ├ Swift statically linked SDK for Linux@0.0.1
   │  │ 🔗 7 Relationships
   │  ├ GENERATED_FROM PACKAGE swift@6.1.2-RELEASE
@@ -355,32 +259,12 @@ $ bom document outline ~/.swiftpm/swift-sdks/swift-6.1.2-RELEASE-static-linux-0.
   │  ├ GENERATED_FROM PACKAGE curl@8.7.1
   │  ├ GENERATED_FROM PACKAGE boringssl@fips-20220613
   │  └ GENERATED_FROM PACKAGE zlib@1.3.1
-  │ 
+  │
   └ 📄 DESCRIBES 0 Files
 ```
 
-If your project has additional C/C++ dependencies, the process is the
-same as using any static library you’ve built yourself in any other
-context. You must ensure the static library (`.a` file) is in the
-linker’s search path. Additionally, if you intend to call the
-library's functions directly from your Swift code, you must also add
-its header files to the compiler's include path. The only
-Swift-specific part is that you will need a module map for the
-library, but this is also true outside of the Static SDK for Linux
-(see [Mixing Swift and
-C++](https://www.swift.org/documentation/cxx-interop/)).
+프로젝트에 추가적인 C/C++ 의존성이 있는 경우, 직접 빌드한 정적 라이브러리를 다른 컨텍스트에서 사용하는 것과 동일한 과정입니다. 정적 라이브러리(`.a` 파일)가 링커의 검색 경로에 있어야 합니다. 또한 라이브러리의 함수를 Swift 코드에서 직접 호출하려면 헤더 파일도 컴파일러의 include 경로에 추가해야 합니다. Swift 특유의 부분은 라이브러리에 대한 모듈 맵이 필요하다는 것뿐이지만, 이는 Static SDK for Linux 외부에서도 마찬가지입니다([Swift와 C++ 혼합 사용](https://www.swift.org/documentation/cxx-interop/) 참고).
 
-Some of the dependencies bundled in the Static SDK may be pulled in by
-Swift’s runtime libraries, if you use the functionality that requires
-them — for instance, Foundation Networking uses `libcurl` and
-`libcurl` uses `libz` — but because of the way static linking works,
-you will generally only “pay for what you use”.
+Static SDK에 번들된 일부 의존성은 해당 기능을 사용하면 Swift의 런타임 라이브러리에 의해 포함될 수 있습니다 — 예를 들어, Foundation Networking은 `libcurl`을 사용하고 `libcurl`은 `libz`를 사용합니다 — 하지만 정적 링크의 작동 방식 덕분에 일반적으로 "사용한 만큼만 비용을 지불"합니다.
 
-You may be able to override the versions of libraries that ship with
-the Static SDK by placing a newer build of the library earlier in the
-linker’s search path. Note however that where other libraries that
-ship with the Static SDK have been built against the library in
-question, your new build will need to be ABI compatible with the
-version that shipped in the Static SDK, since the other libraries in
-the Static SDK will have been built against the headers from the
-version that they ship with.
+Static SDK에 포함된 라이브러리의 버전을 링커의 검색 경로에서 더 앞에 새 빌드를 배치하여 오버라이드할 수 있습니다. 다만 Static SDK에 포함된 다른 라이브러리가 해당 라이브러리에 대해 빌드된 경우, 새 빌드는 Static SDK에 포함된 버전과 ABI 호환이 되어야 합니다. Static SDK의 다른 라이브러리들이 해당 버전의 헤더를 기준으로 빌드되었기 때문입니다.

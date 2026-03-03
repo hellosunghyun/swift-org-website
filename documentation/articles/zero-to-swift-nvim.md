@@ -1,73 +1,51 @@
 ---
 layout: page
 date: 2024-06-04 15:13:07
-title: Configuring Neovim for Swift Development
+title: Swift 개발을 위한 Neovim 설정
 author: [etcwilde]
 ---
 
-[Neovim](https://neovim.io) is a modern reimplementation of _Vim_, a popular terminal-based text
-editor.
-Neovim adds new features like asynchronous operations and powerful Lua bindings
-for a snappy editing experience, in addition to the improvements _Vim_ brings to
-the original _Vi_ editor.
+[Neovim](https://neovim.io)은 인기 있는 터미널 기반 텍스트 에디터인 *Vim*의 현대적인 재구현입니다.
+Neovim은 *Vim*이 원래 _Vi_ 에디터에 가져온 개선 사항에 더해 비동기 연산과 강력한 Lua 바인딩 같은 새로운 기능을 추가하여 빠른 편집 환경을 제공합니다.
 
-This article walks you through configuring Neovim for Swift development,
-providing configurations for various plugins to build a working Swift editing
-experience.
-The configuration files are built up step by step and the end of the article contains the
-fully assembled versions of those files.
-It is not a tutorial on how to use Neovim and assumes some familiarity
-with modal text editors like _Neovim_, _Vim_, or _Vi_.
-We are also assuming that you have already installed a Swift toolchain on your
-computer. If not, please see the
-[Swift installation instructions](https://www.swift.org/install).
+이 문서는 Swift 개발을 위한 Neovim 설정 과정을 안내하며, 다양한 플러그인에 대한 설정을 제공하여 Swift 편집 환경을 구축합니다.
+설정 파일은 단계별로 구성하며, 문서 끝에 완전히 조립된 최종 버전이 있습니다.
+이 문서는 Neovim 사용법 튜토리얼이 아니며 _Neovim_, _Vim_, _Vi_ 같은 모달 텍스트 에디터에 어느 정도 익숙하다고 가정합니다.
+또한 컴퓨터에 Swift 도구체인이 이미 설치되어 있다고 가정합니다. 아직 설치하지 않았다면 [Swift 설치 안내](https://www.swift.org/install)를 참고하세요.
 
-Although the article references Ubuntu 22.04, the configuration itself works on
-any operating system where a recent version of Neovim and a Swift toolchain is
-available.
+이 문서에서는 Ubuntu 22.04를 기준으로 설명하지만, 설정 자체는 최신 버전의 Neovim과 Swift 도구체인을 사용할 수 있는 모든 운영체제에서 작동합니다.
 
-Basic setup and configuration includes:
+기본 설정 및 구성 내용:
 
-1. Installing Neovim.
-2. Installing `lazy.nvim` to manage our plugins.
-3. Configuring the SourceKit-LSP server.
-4. Setting up Language-Server-driven code completion with _nvim-cmp_.
-5. Setting up snippets with _LuaSnip_.
+1. Neovim 설치.
+2. 플러그인을 관리하기 위한 `lazy.nvim` 설치.
+3. SourceKit-LSP 서버 설정.
+4. *nvim-cmp*를 사용한 Language-Server 기반 코드 완성 설정.
+5. *LuaSnip*을 사용한 스니펫 설정.
 
-The following sections are provided to help guide you through the setup:
+다음 섹션이 설정 과정을 안내합니다:
 
-- [Prerequisites](#prerequisites)
-- [Package Management](#packaging-with-lazynvim)
-- [Language Server Support](#language-server-support)
-    - [File Updates](#file-updating)
-- [Code Completion](#code-completion)
-- [Snippets](#snippets)
-- [Fully Assembled Configuration Files](#files)
+- [사전 요구 사항](#prerequisites)
+- [패키지 관리](#packaging-with-lazynvim)
+- [Language Server 지원](#language-server-support)
+  - [파일 업데이트](#file-updating)
+- [코드 완성](#code-completion)
+- [스니펫](#snippets)
+- [완성된 설정 파일](#files)
 
-> Tip: If you already have Neovim, Swift, and a package manager installed, you can skip to setting up [Language Server support](#language-server-support).
+> 팁: Neovim, Swift, 패키지 관리자가 이미 설치되어 있다면 [Language Server 지원](#language-server-support) 설정으로 바로 건너뛸 수 있습니다.
 
-> Note: If you are bypassing the [Prerequisites](#prerequisites) section, make sure your
-copy of Neovim is version v0.9.4 or higher, or you may experience issues with some
-of the Language Server Protocol (LSP) Lua APIs.
+> 참고: [사전 요구 사항](#prerequisites) 섹션을 건너뛰는 경우, Neovim 버전이 v0.9.4 이상인지 확인하세요. 그렇지 않으면 일부 Language Server Protocol(LSP) Lua API에서 문제가 발생할 수 있습니다.
 
-## Prerequisites
+## 사전 요구 사항
 
-To get started, you'll need to install Neovim. The Lua
-APIs exposed by Neovim are under rapid development. We will want to take
-advantage of the recent improvements in the integrated support for Language
-Server Protocol (LSP), so we will need a fairly recent version
-of Neovim.
+시작하려면 Neovim을 설치해야 합니다. Neovim이 제공하는 Lua API는 빠르게 발전하고 있습니다. Language Server Protocol(LSP) 통합 지원의 최신 개선 사항을 활용하려면 비교적 최신 버전의 Neovim이 필요합니다.
 
-I'm running Ubuntu 22.04 on an `x86_64` machine. Unfortunately, the
-version of Neovim shipped in the Ubuntu 22.04 `apt` repository is too old to
-support many of the APIs that we will be using.
+필자는 `x86_64` 머신에서 Ubuntu 22.04를 사용하고 있습니다. 안타깝게도 Ubuntu 22.04 `apt` 저장소에 포함된 Neovim 버전은 우리가 사용할 많은 API를 지원하기에 너무 오래되었습니다.
 
-For this install, I used `snap` to install Neovim v0.9.4.
-Ubuntu 24.04 has a new enough version of Neovim, so a normal
-`apt install neovim` invocation will work.
-For installing Neovim on other operating systems and Linux distributions,
-please see the
-[Neovim install page](https://github.com/neovim/neovim/blob/master/INSTALL.md).
+이 설치에서는 `snap`을 사용하여 Neovim v0.9.4를 설치했습니다.
+Ubuntu 24.04에는 충분히 새로운 버전의 Neovim이 포함되어 있으므로 일반적인 `apt install neovim` 명령으로 설치할 수 있습니다.
+다른 운영체제와 Linux 배포판에서 Neovim을 설치하려면 [Neovim 설치 페이지](https://github.com/neovim/neovim/blob/master/INSTALL.md)를 참고하세요.
 
 ```console
  $  sudo snap install nvim --classic
@@ -83,38 +61,28 @@ Compilation: /usr/bin/cc -O2 -g -Og -g -Wall -Wextra -pedantic -Wno-unused-pa...
 Run :checkhealth for more info
 ```
 
-## Getting Started
+## 시작하기
 
-We have working copies of Neovim and Swift on our path. While we can start with
-a `vimrc` file, Neovim is transitioning from using vimscript to Lua. Lua
-is easier to find documentation for since it's an actual programming language,
-tends to run faster, and pulls your configuration out of the main runloop so
-your editor stays nice and snappy.
-You can still use a `vimrc` with vimscript, but we'll use Lua.
+Neovim과 Swift가 경로에 정상적으로 설치되었습니다. `vimrc` 파일로 시작할 수도 있지만, Neovim은 vimscript에서 Lua로 전환하는 중입니다. Lua는 실제 프로그래밍 언어이므로 문서를 찾기 쉽고, 더 빠르게 실행되며, 설정을 메인 런루프에서 분리하여 에디터가 빠르게 반응합니다.
+vimscript로 `vimrc`를 계속 사용할 수도 있지만, 여기서는 Lua를 사용합니다.
 
-The main Neovim configuration file goes in `~/.config/nvim`. The other Lua files
-go in `~/.config/nvim/lua`. Go ahead and create an `init.lua` now;
+메인 Neovim 설정 파일은 `~/.config/nvim`에 위치합니다. 다른 Lua 파일은 `~/.config/nvim/lua`에 넣습니다. `init.lua`를 만들어 봅시다:
 
 ```console
  $  mkdir -p ~/.config/nvim/lua && cd ~/.config/nvim
  $  nvim init.lua
 ```
 
-> Note: The examples below contain a GitHub link to the plugin to help you readily access the documentation. You can also explore the plugin itself.
+> 참고: 아래 예제에는 문서를 쉽게 확인할 수 있도록 플러그인의 GitHub 링크가 포함되어 있습니다. 플러그인 자체를 탐색해 볼 수도 있습니다.
 
-## Packaging with _lazy.nvim_
+## *lazy.nvim*으로 패키지 관리
 
-While it's possible to set everything up manually, using a package manager helps
-keep your packages up-to-date, and ensures that everything is installed
-correctly when copy your configuration to a new computer. Neovim also has a
-built-in plugin manager, but I have found
-[_lazy.nvim_](https://github.com/folke/lazy.nvim) to work well.
+모든 것을 수동으로 설정할 수도 있지만, 패키지 관리자를 사용하면 패키지를 최신 상태로 유지하고 새 컴퓨터에 설정을 복사할 때 모든 것이 올바르게 설치되도록 보장합니다. Neovim에는 내장 플러그인 관리자도 있지만, [_lazy.nvim_](https://github.com/folke/lazy.nvim)이 잘 작동합니다.
 
-We will start with a little bootstrapping script to install _lazy.nvim_ if it
-isn't installed already, add it to our runtime path, and finally configure our
-packages.
+*lazy.nvim*이 아직 설치되지 않은 경우 설치하고, 런타임 경로에 추가한 다음, 패키지를 설정하는 부트스트래핑 스크립트부터 시작합니다.
 
-At the top of your `init.lua` write:
+`init.lua` 상단에 다음을 작성합니다:
+
 ```lua
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -130,60 +98,46 @@ end
 vim.opt.rtp:prepend(lazypath)
 ```
 
-This snippet clones _lazy.nvim_ if it doesn't already exist, and then adds it to the
-runtime path. Now we initialize _lazy.nvim_ and tell it where to look for the plugin
-specs.
+이 코드는 *lazy.nvim*이 존재하지 않으면 클론하고 런타임 경로에 추가합니다. 이제 *lazy.nvim*을 초기화하고 플러그인 스펙을 찾을 위치를 지정합니다.
 
 ```lua
 require("lazy").setup("plugins")
 ```
 
-This configures _lazy.nvim_ to look in a `plugins/` directory under our `lua/`
-directory for each plugin. We'll also want a place to put our own non-plugin
-related configurations, so we'll stick it in `config/`. Go ahead and create
-those directories now.
+이렇게 하면 *lazy.nvim*이 `lua/` 디렉토리 아래의 `plugins/` 디렉토리에서 각 플러그인을 찾도록 설정됩니다. 플러그인과 관련 없는 자체 설정을 넣을 장소도 필요하므로 `config/`에 넣겠습니다. 지금 디렉토리를 만듭니다.
 
 ```console
  $  mkdir lua/plugins lua/config
 ```
 
-See [lazy.nvim Configuration](https://lazy.folke.io/configuration) for details on configuring _lazy.nvim_.
+_lazy.nvim_ 설정에 대한 자세한 내용은 [lazy.nvim Configuration](https://lazy.folke.io/configuration)을 참고하세요.
 
-![_lazy.nvim_ package manger](/assets/images/zero-to-swift-nvim/Lazy.png)
+![_lazy.nvim_ 패키지 관리자](/assets/images/zero-to-swift-nvim/Lazy.png)
 
-Note that your configuration won't look exactly like this.
-We have only installed _lazy.nvim_, so that is the only plugin that is listed on
-your configuration at the moment.
-That's not very exciting to look at, so I've added a few additional plugins to
-make it look more appealing.
+설정이 정확히 이렇게 보이지는 않을 것입니다.
+*lazy.nvim*만 설치했으므로 현재 설정에는 이것만 표시됩니다.
+별로 흥미로워 보이지 않아서 몇 가지 추가 플러그인을 넣어 더 보기 좋게 만들었습니다.
 
-To check that it's working:
- - Launch Neovim.
+작동하는지 확인하려면:
 
-   You should first see an error saying that there were no specs found for
-   module plugins. This just means that there aren't any plugins.
+- Neovim을 실행합니다.
 
- - Press Enter and type, `:Lazy`.
+  먼저 module plugins에 대한 스펙이 없다는 오류가 표시됩니다. 이는 플러그인이 아직 없기 때문입니다.
 
-   _lazy.nvim_ lists the plugins installed. There should only be one right now:
-   "lazy.nvim". This is _lazy.nvim_ tracking and updating itself.
+- Enter를 누르고 `:Lazy`를 입력합니다.
 
- - We can manage our plugins through the _lazy.nvim_ menu.
-    - Pressing `I` will install new plugins.
-    - Pressing `U` will update installed plugins.
-    - Pressing `X` will delete any plugins that _lazy.nvim_ installed, but are
-      no longer tracked in your configuration.
+  *lazy.nvim*이 설치된 플러그인을 나열합니다. 지금은 "lazy.nvim" 하나만 있어야 합니다. 이는 *lazy.nvim*이 자기 자신을 추적하고 업데이트하는 것입니다.
 
-## Language Server Support
+- _lazy.nvim_ 메뉴를 통해 플러그인을 관리할 수 있습니다.
+  - `I`를 누르면 새 플러그인을 설치합니다.
+  - `U`를 누르면 설치된 플러그인을 업데이트합니다.
+  - `X`를 누르면 *lazy.nvim*이 설치했지만 설정에서 더 이상 추적하지 않는 플러그인을 삭제합니다.
 
-Language servers respond to editor requests providing language-specific support.
-Neovim has support for Language Server Protocol (LSP) built-in, so you don't
-need an external package for LSP, but adding a configuration for each LSP server
-manually is a lot of work. Neovim has a package for configuring LSP servers,
-[nvim-lspconfig](https://github.com/neovim/nvim-lspconfig).
+## Language Server 지원
 
-Go ahead and create a new file under `lua/plugins/lsp.lua`. In it, we'll start
-by adding the following snippet.
+Language Server는 에디터 요청에 응답하여 언어별 지원을 제공합니다. Neovim에는 Language Server Protocol(LSP) 지원이 내장되어 있으므로 LSP를 위한 외부 패키지가 필요 없지만, 각 LSP 서버에 대한 설정을 수동으로 추가하는 것은 많은 작업입니다. Neovim에는 LSP 서버를 설정하는 패키지인 [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)이 있습니다.
+
+`lua/plugins/lsp.lua` 아래에 새 파일을 만듭니다. 다음 코드를 추가합니다.
 
 ```lua
 return {
@@ -197,13 +151,9 @@ return {
 }
 ```
 
-While this gives us LSP support through SourceKit-LSP, there are no keybindings,
-so it's not very practical. Let's hook those up now.
+이렇게 하면 SourceKit-LSP를 통한 LSP 지원이 활성화되지만 키바인딩이 없어 실용적이지 않습니다. 키바인딩을 설정해 봅시다.
 
-We'll set up an auto command that fires when an LSP server attaches in the `config`
-function under where we set up the `sourcekit` server. The keybindings are
-applied to all LSP servers so you end up with a consistent experience across
-languages.
+`sourcekit` 서버 설정 아래의 `config` 함수에 LSP 서버가 연결될 때 실행되는 자동 명령을 설정합니다. 키바인딩은 모든 LSP 서버에 적용되어 언어 간 일관된 경험을 제공합니다.
 
 ```lua
 config = function()
@@ -220,26 +170,18 @@ config = function()
 end,
 ```
 
-![LSP powered live error messages](/assets/images/zero-to-swift-nvim/LSP-Error.png)
+![LSP 기반 실시간 오류 메시지](/assets/images/zero-to-swift-nvim/LSP-Error.png)
 
-I've created a little example Swift package that computes [Fibonacci
-numbers](https://oeis.org/A000045) asynchronously.
-Pressing `shift` + `k` on one of the references to the `fibonacci` function
-shows the documentation for that function, along with the function signature.
-The LSP integration is also showing that we have an error in the code.
+[피보나치 수열](https://oeis.org/A000045)을 비동기적으로 계산하는 작은 예제 Swift 패키지를 만들었습니다.
+`fibonacci` 함수의 참조 위에서 `shift` + `k`를 누르면 함수 시그니처와 함께 해당 함수의 문서가 표시됩니다.
+LSP 통합은 코드에 오류가 있다는 것도 보여주고 있습니다.
 
-### File Updating
+### 파일 업데이트
 
-SourceKit-LSP increasingly relies on the editor informing the server when
-certain files change. This need is communicated through _dynamic registration_.
-You don't have to understand what that means, but Neovim doesn't implement
-dynamic registration. You'll notice this when you update your package manifest,
-or add new files to your `compile_commands.json` file and LSP doesn't work without
-restarting Neovim.
+SourceKit-LSP는 에디터가 특정 파일이 변경될 때 서버에 알려주는 것에 점점 더 의존하고 있습니다. 이 필요성은 *동적 등록*을 통해 전달됩니다.
+무엇을 의미하는지 이해할 필요는 없지만, Neovim은 동적 등록을 구현하지 않습니다. 패키지 매니페스트를 업데이트하거나 `compile_commands.json` 파일에 새 파일을 추가했을 때 Neovim을 재시작하지 않으면 LSP가 작동하지 않는 것을 알아챌 것입니다.
 
-Instead, we know that SourceKit-LSP needs this functionality, so we'll enable it
-statically. We'll update our `sourcekit` setup configuration to manually set the
-`didChangeWatchedFiles` capability.
+대신, SourceKit-LSP에 이 기능이 필요하다는 것을 알고 있으므로 정적으로 활성화하겠습니다. `sourcekit` 설정 구성을 업데이트하여 `didChangeWatchedFiles` 기능을 수동으로 설정합니다.
 
 ```lua
 lspconfig.sourcekit.setup {
@@ -253,18 +195,17 @@ lspconfig.sourcekit.setup {
 }
 ```
 
-If you're interested in reading more about this issue, the conversations in the
-following issues describe the issue in more detail:
- - [LSP: Implement dynamicRegistration](https://github.com/neovim/neovim/issues/13634)
- - [add documentFormattingProvider to server capabilities response](https://github.com/microsoft/vscode-eslint/pull/1307)
+이 문제에 대해 더 자세히 알고 싶다면 다음 이슈의 대화에서 자세히 설명하고 있습니다:
 
-## Code Completion
+- [LSP: Implement dynamicRegistration](https://github.com/neovim/neovim/issues/13634)
+- [add documentFormattingProvider to server capabilities response](https://github.com/microsoft/vscode-eslint/pull/1307)
 
-![LSP-driven autocomplete completing the Foundation module](/assets/images/zero-to-swift-nvim/LSP-Autocomplete.png)
+## 코드 완성
 
-We will use [_nvim-cmp_](https://github.com/hrsh7th/nvim-cmp) to act as the code completion mechanism.
-We'll start by telling _lazy.nvim_ to download the package and to load it lazily when we enter insert
-mode since you don't need code completion if you're not editing the file.
+![Foundation 모듈을 완성하는 LSP 기반 자동완성](/assets/images/zero-to-swift-nvim/LSP-Autocomplete.png)
+
+코드 완성 메커니즘으로 [_nvim-cmp_](https://github.com/hrsh7th/nvim-cmp)를 사용하겠습니다.
+파일을 편집하지 않을 때는 코드 완성이 필요 없으므로 삽입 모드에 들어갈 때 지연 로드되도록 *lazy.nvim*에 설정합니다.
 
 ```lua
 -- lua/plugins/codecompletion.lua
@@ -277,15 +218,12 @@ return {
 }
 ```
 
-Next, we'll configure some completion sources to provide code completion results.
-_nvim-cmp_ doesn't come with completion sources, those are additional plugins.
-For this configuration, I want results based on LSP, filepath completion, and
-the text in my current buffer. For more, the _nvim-cmp_ Wiki has a [list of
-sources](https://github.com/hrsh7th/nvim-cmp/wiki/List-of-sources).
+다음으로 코드 완성 결과를 제공할 완성 소스를 설정합니다.
+*nvim-cmp*는 완성 소스를 포함하지 않으며, 추가 플러그인으로 제공됩니다.
+이 설정에서는 LSP 기반 결과, 파일 경로 완성, 현재 버퍼의 텍스트를 사용합니다. 더 많은 소스는 _nvim-cmp_ Wiki의 [소스 목록](https://github.com/hrsh7th/nvim-cmp/wiki/List-of-sources)을 참고하세요.
 
-To start, we will tell _lazy.nvim_ about the new plugins and that _nvim-cmp_ depends
-on them.
-This ensures that _lazy.nvim_ will initialize each of them when _nvim-cmp_ is loaded.
+먼저 *lazy.nvim*에 새 플러그인과 *nvim-cmp*의 의존성을 알려줍니다.
+이렇게 하면 *nvim-cmp*가 로드될 때 *lazy.nvim*이 각 플러그인을 초기화합니다.
 
 ```lua
 -- lua/plugins/codecompletion.lua
@@ -306,13 +244,8 @@ return {
 }
 ```
 
-Now we need to configure _nvim-cmp_ to take advantage of the code completion
-sources.
-Unlike many other plugins, _nvim-cmp_ hides many of its inner-workings, so
-configuring it is a little different from other plugins. Specifically, you'll
-notice the differences around setting key-bindings. We start out by requiring
-the module from within its own configuration function and will call the setup
-function explicitly.
+이제 *nvim-cmp*가 코드 완성 소스를 활용하도록 설정해야 합니다.
+다른 많은 플러그인과 달리 *nvim-cmp*는 내부 동작을 많이 숨기므로 설정 방식이 약간 다릅니다. 특히 키바인딩 설정 부분에서 차이를 느낄 것입니다. 자체 설정 함수 내에서 모듈을 require하고 setup 함수를 명시적으로 호출합니다.
 
 ```lua
 {
@@ -343,8 +276,7 @@ function explicitly.
 },
 ```
 
-Using the `tab` key to select completions is a fairly popular option, so we'll
-go ahead and set that up now.
+`tab` 키로 완성을 선택하는 것도 인기 있는 옵션이므로 설정해 봅시다.
 
 ```lua
 mapping = cmp.mapping.preset.insert({
@@ -366,18 +298,13 @@ mapping = cmp.mapping.preset.insert({
 }),
 ```
 
-Pressing `tab` while the completion menu is visible will select the next
-completion and `shift` + `tab` will select the previous item. The tab behavior
-falls back on whatever pre-defined behavior was there originally if the menu
-isn't visible.
+완성 메뉴가 표시된 상태에서 `tab`을 누르면 다음 완성 항목이 선택되고 `shift` + `tab`은 이전 항목을 선택합니다. 메뉴가 표시되지 않으면 tab은 기존에 정의된 동작으로 대체됩니다.
 
-## Snippets
+## 스니펫
 
-Snippets are a great way to improve your workflow by expanding short pieces of
-text into anything you like. Lets hook those up now. We'll use [_LuaSnip_](https://github.com/L3MON4D3/LuaSnip) as our
-snippet plugin.
+스니펫은 짧은 텍스트를 원하는 것으로 확장하여 워크플로우를 개선하는 좋은 방법입니다. 스니펫 플러그인으로 [_LuaSnip_](https://github.com/L3MON4D3/LuaSnip)을 사용하겠습니다.
 
-Create a new file in your plugins directory for configuring the snippet plugin.
+플러그인 디렉토리에 스니펫 플러그인을 설정하는 새 파일을 만듭니다.
 
 ```lua
 -- lua/plugins/snippets.lua
@@ -392,9 +319,7 @@ return {
 }
 ```
 
-Now we'll wire the snippet expansions into _nvim-cmp_. First, we'll add
-_LuaSnip_ as a dependency of _nvim-cmp_ to ensure that it gets loaded before
-_nvim-cmp_. Then we'll wire it into the tab key expansion behavior.
+이제 스니펫 확장을 *nvim-cmp*에 연결합니다. 먼저 *LuaSnip*을 *nvim-cmp*의 의존성으로 추가하여 _nvim-cmp_ 전에 로드되도록 합니다. 그런 다음 tab 키 확장 동작에 연결합니다.
 
 ```lua
 {
@@ -451,21 +376,15 @@ _nvim-cmp_. Then we'll wire it into the tab key expansion behavior.
 },
 ```
 
-Now our tab-key is thoroughly overloaded in super-tab fashion.
- - If the completion window is open, pressing tab selects the next item in the
-   list.
- - If you press tab over a snippet, the snippet will expand, and continuing to
-   press tab moves the cursor to the next selection point.
- - If you're neither code completing nor expanding a snippet, it will behave
-   like a normal `tab` key.
+이제 tab 키가 super-tab 방식으로 다양하게 오버로드되었습니다.
 
-Now we need to write up some snippets. _LuaSnip_ supports several snippet formats,
-including a subset of the popular
-[TextMate](https://macromates.com/textmate/manual/snippets),
-[Visual Studio Code](https://code.visualstudio.com/docs/editor/userdefinedsnippets) snippet format,
-and its own [Lua-based](https://github.com/L3MON4D3/LuaSnip/blob/master/Examples/snippets.lua) API.
+- 완성 창이 열려 있으면 tab을 누르면 목록의 다음 항목이 선택됩니다.
+- 스니펫 위에서 tab을 누르면 스니펫이 확장되고, 계속 tab을 누르면 커서가 다음 선택 지점으로 이동합니다.
+- 코드 완성도 스니펫 확장도 아닌 경우 일반 `tab` 키처럼 동작합니다.
 
-Here are some snippets that I've found to be useful:
+이제 스니펫을 작성해야 합니다. *LuaSnip*은 인기 있는 [TextMate](https://macromates.com/textmate/manual/snippets), [Visual Studio Code](https://code.visualstudio.com/docs/editor/userdefinedsnippets) 스니펫 형식의 부분 집합과 자체 [Lua 기반](https://github.com/L3MON4D3/LuaSnip/blob/master/Examples/snippets.lua) API를 포함한 여러 스니펫 형식을 지원합니다.
+
+다음은 유용하다고 느낀 스니펫들입니다:
 
 ```snipmate
 snippet pub "public access control"
@@ -517,21 +436,15 @@ snippet main
   }$0
 ```
 
-Another popular snippet plugin worth mentioning is
-[UltiSnips](https://github.com/SirVer/ultisnips) which allows you to use inline
-Python while defining the snippet, allowing you to write some very powerful
-snippets.
+언급할 만한 또 다른 인기 있는 스니펫 플러그인은 [UltiSnips](https://github.com/SirVer/ultisnips)로, 스니펫 정의 시 인라인 Python을 사용하여 매우 강력한 스니펫을 작성할 수 있습니다.
 
-# Conclusion
+# 결론
 
-Swift development with Neovim is a solid experience once everything is
-configured correctly. There are thousands of plugins for you to explore, this
-article gives you a solid foundation for building up your Swift development
-experience in Neovim.
+모든 것이 올바르게 설정되면 Neovim에서의 Swift 개발은 견고한 경험을 제공합니다. 탐색할 수 있는 수천 개의 플러그인이 있으며, 이 문서는 Neovim에서 Swift 개발 환경을 구축하는 단단한 기반을 제공합니다.
 
-# Files
+# 파일
 
-Here are the files for this configuration in their final form.
+다음은 최종 형태의 설정 파일입니다.
 
 ```lua
 -- init.lua

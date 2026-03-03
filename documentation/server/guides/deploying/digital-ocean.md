@@ -1,68 +1,68 @@
 ---
-redirect_from: "server/guides/deploying/digital-ocean"
+redirect_from: 'server/guides/deploying/digital-ocean'
 layout: page
-title: Deploying to DigitalOcean
+title: DigitalOcean에 배포하기
 ---
 
-This guide will walk you through setting up an Ubuntu virtual machine on a DigitalOcean [Droplet](https://www.digitalocean.com/products/droplets/). To follow this guide, you will need to have a [DigitalOcean](https://www.digitalocean.com) account with billing configured.
+이 가이드는 DigitalOcean [Droplet](https://www.digitalocean.com/products/droplets/)에서 Ubuntu 가상 머신을 설정하는 과정을 안내합니다. 이 가이드를 따르려면 결제가 설정된 [DigitalOcean](https://www.digitalocean.com) 계정이 필요합니다.
 
-## Create Server
+## 서버 생성
 
-Use the create menu to create a new Droplet.
+생성 메뉴를 사용하여 새 Droplet을 생성합니다.
 
-![Create Droplet](/assets/images/server-guides/digital-ocean-create-droplet.png)
+![Droplet 생성](/assets/images/server-guides/digital-ocean-create-droplet.png)
 
-Under distributions, select Ubuntu 18.04 LTS.
+배포판에서 Ubuntu 18.04 LTS를 선택합니다.
 
-![Ubuntu Distro](/assets/images/server-guides/digital-ocean-distributions-ubuntu-18.png)
+![Ubuntu 배포판](/assets/images/server-guides/digital-ocean-distributions-ubuntu-18.png)
 
-> Note: You may select any version of Linux that Swift supports. You can check which operating systems are officially supported on the [Swift Releases](/download/#releases) page.
+> 참고: Swift가 지원하는 모든 Linux 버전을 선택할 수 있습니다. 공식적으로 지원되는 운영 체제는 [Swift 릴리스](/download/#releases) 페이지에서 확인할 수 있습니다.
 
-After selecting the distribution, choose any plan and datacenter region you prefer. Then setup an SSH key to access the server after it is created. Finally, click create Droplet and wait for the new server to spin up.
+배포판을 선택한 후 원하는 플랜과 데이터센터 리전을 선택합니다. 그런 다음 서버가 생성된 후 접근하기 위한 SSH 키를 설정합니다. 마지막으로 Droplet 생성을 클릭하고 새 서버가 가동될 때까지 기다립니다.
 
-Once the new server is ready, hover over the Droplet's IP address and click copy.
+새 서버가 준비되면 Droplet의 IP 주소 위에 마우스를 올리고 복사를 클릭합니다.
 
-![Droplet List](/assets/images/server-guides/digital-ocean-droplet-list.png)
+![Droplet 목록](/assets/images/server-guides/digital-ocean-droplet-list.png)
 
-## Initial Setup
+## 초기 설정
 
-Open your terminal and connect to the server as root using SSH.
+터미널을 열고 SSH를 사용하여 root로 서버에 접속합니다.
 
 ```sh
 ssh root@<server_ip>
 ```
 
-DigitalOcean has an in-depth guide for [initial server setup on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04). This guide will quickly cover the basics.
+DigitalOcean에 [Ubuntu 18.04 초기 서버 설정](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04)에 대한 상세 가이드가 있습니다. 이 가이드에서는 기본 사항만 간략하게 다룹니다.
 
-### Configure Firewall
+### 방화벽 설정
 
-Allow OpenSSH through the firewall and enable it.
+방화벽에서 OpenSSH를 허용하고 활성화합니다.
 
 ```sh
 ufw allow OpenSSH
 ufw enable
 ```
 
-Then enable a non-root accessible HTTP port.
+그런 다음 root가 아닌 사용자가 접근할 수 있는 HTTP 포트를 활성화합니다.
 
 ```sh
 ufw allow 8080
 ```
 
-### Add User
+### 사용자 추가
 
-Create a new user besides `root` that will be responsible for running your application. This guide uses a non-root user without access to `sudo` for added security.
+애플리케이션을 실행할 `root` 외의 새 사용자를 생성합니다. 이 가이드에서는 보안 강화를 위해 `sudo` 접근 권한이 없는 비root 사용자를 사용합니다.
 
-The following guides assume the user is named `swift`.
+다음 가이드에서는 사용자 이름이 `swift`라고 가정합니다.
 
 ```sh
 adduser swift
 ```
 
-Copy the root user's authorized SSH keys to the newly created user. This will allow you to use SSH (`scp`) as the new user.
+root 사용자의 인증된 SSH 키를 새로 생성된 사용자에게 복사합니다. 이를 통해 새 사용자로 SSH(`scp`)를 사용할 수 있습니다.
 
 ```sh
 rsync --archive --chown=swift:swift ~/.ssh /home/swift
 ```
 
-Your DigitalOcean virtual machine is now ready. Continue using the [Ubuntu](/server/guides/deploying/ubuntu.html) guide.
+DigitalOcean 가상 머신이 준비되었습니다. [Ubuntu](/server/guides/deploying/ubuntu.html) 가이드를 계속 진행하세요.

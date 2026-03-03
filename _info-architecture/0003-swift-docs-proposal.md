@@ -2,7 +2,7 @@
 
 * Author: [Joe Heck](https://github.com/heckj)
 
-## Introduction
+## 소개
 
 Introduce a repository to host multiple DocC catalogs, aligned by broad use cases and with workgroups or steering groups, to collect guides, tutorial content, and explanatory or general documentation for the Swift project.
 The goal of this repository is to provide a structured, central location to collect documentation related to the Swift project.
@@ -11,7 +11,7 @@ This proposal suggests moving that content and converting it into a DocC/Markdow
 The content in this structure is expected to be generated into static DocC archives using Swift's documentation tool, and hosted through the project’s infrastructure at docs.swift.org, then linked and referenced from the swift.org website.
 This provides structure aligned to the Swift organization to support documentation growth, while maintaining links from the URLs where the content previously existed when referenced from swift.org that we can redirect as content is migrated.
 
-## Motivation
+## 동기
 
 The documentation for Swift has grown organically since its open-source release.
 That growth has resulted in fragmented locations to find information, little organization, and inconsistencies in updating content as the language grew.
@@ -26,7 +26,7 @@ The proposal's goal is to provide a consistent place to host a diversity of Swif
 - Provide a path to allow for community feedback and reviewed updates to maintain the documentation.
 - Enable relevant reviewers to maintain technical accuracy.
 
-## Proposed Solution
+## 제안 솔루션
 
 Leverage Swift's [documentation tooling](https://www.swift.org/documentation/docc/) to provide a means to collect and organize the documentation, grouped into common collections.
 For documentation content aligned with a tool or library, host the source of the documentation alongside the source for that tool or library.

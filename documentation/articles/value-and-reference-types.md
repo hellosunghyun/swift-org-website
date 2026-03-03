@@ -1,42 +1,43 @@
 ---
 layout: page
 date: 2023-04-29 12:00:00
-title: Value And Reference Types In Swift
+title: Swift의 값 타입과 참조 타입
 author: [jamesdempsey]
 ---
 
-Types in Swift are grouped in two categories: _value types_ and _reference types_. Each behave differently and understanding the difference is an important part of understanding Swift.
+Swift의 타입은 *값 타입*과 _참조 타입_ 두 가지로 분류됩니다. 각각 다르게 동작하며, 이 차이를 이해하는 것은 Swift를 이해하는 중요한 부분입니다.
 
-If you are new to programming or coming to Swift from another language, these concepts may be new to you.
+프로그래밍을 처음 시작하거나 다른 언어에서 Swift로 전환하는 경우, 이 개념이 생소할 수 있습니다.
 
-Before looking at some code, here are two variations of the same scenario that illustrate the basic differences between how value types and reference types behave.
+코드를 살펴보기 전에, 값 타입과 참조 타입의 기본적인 동작 차이를 보여주는 같은 시나리오의 두 가지 변형을 소개합니다.
 
-Imagine you are working on a document, maybe a report or a spreadsheet, and you want a friend to take a look at it. There are two common ways you might share this document with your friend:
+문서 작업을 하고 있고, 친구에게 보여주고 싶다고 상상해 보세요. 문서를 친구와 공유하는 두 가지 일반적인 방법이 있습니다:
 
-1. You could email your friend a copy of the document.
+1. 친구에게 문서의 사본을 이메일로 보낼 수 있습니다.
 
-2. If the document was in something like Google Docs or Pages for iCloud, you could email your friend a link to the document.
+2. 문서가 Google Docs나 iCloud용 Pages 같은 곳에 있다면, 문서 링크를 이메일로 보낼 수 있습니다.
 
-In both cases, your friend is able to read and make changes to your document, but there are significant differences.
+두 경우 모두 친구가 문서를 읽고 수정할 수 있지만, 큰 차이가 있습니다.
 
-When you send your friend a copy, your friend has a completely separate copy of the document. They can edit the document as much as they want, but it doesn’t affect your copy at all.
+친구에게 사본을 보내면, 친구는 문서의 완전히 별도의 사본을 갖게 됩니다. 친구가 문서를 아무리 수정해도 여러분의 사본에는 전혀 영향을 미치지 않습니다.
 
-When you send your friend a link, you’re not sending the actual document. You’re sending them a URL that points to the document in the cloud. Since you both have a link to the same document, whatever changes you or your friend make will be seen by both of you.
+친구에게 링크를 보내면, 실제 문서를 보내는 것이 아닙니다. 클라우드에 있는 문서를 가리키는 URL을 보내는 것입니다. 둘 다 같은 문서에 대한 링크를 가지고 있으므로, 여러분이나 친구가 변경한 내용은 둘 다 볼 수 있습니다.
 
-The difference in behavior between sharing a copy of a document or sharing a link to a shared document is very much like the difference in behavior between value types and reference types.
+문서 사본을 공유하는 것과 공유 문서 링크를 공유하는 것의 동작 차이는 값 타입과 참조 타입의 동작 차이와 매우 유사합니다.
 
-### Value Types
-In Swift, structures, enumerations, and tuples are all value types. They behave similar to sending your friend a copy of a document.
+### 값 타입
 
-Assigning a value to a constant or variable, or passing a value into a function or method, always makes a copy of the value.
+Swift에서 구조체, 열거형, 튜플은 모두 값 타입입니다. 친구에게 문서 사본을 보내는 것과 비슷하게 동작합니다.
 
-In the code below, a `struct` of type `Document` is declared with one property `text`.
+상수나 변수에 값을 할당하거나, 함수나 메서드에 값을 전달하면 항상 값의 사본이 만들어집니다.
 
-A `Document` instance is created and assigned to myDoc.
+아래 코드에서 `text` 프로퍼티 하나를 가진 `Document` 타입의 `struct`가 선언되어 있습니다.
 
-When `myDoc` is assigned to the variable `friendDoc`, the original instance is copied to a new instance.
+`Document` 인스턴스가 생성되어 myDoc에 할당됩니다.
 
-Since it is an independent instance, changing the `text` of `friendDoc` does not affect the `text` of `myDoc`.
+`myDoc`이 변수 `friendDoc`에 할당되면, 원래 인스턴스가 새 인스턴스로 복사됩니다.
+
+독립적인 인스턴스이므로, `friendDoc`의 `text`를 변경해도 `myDoc`의 `text`에는 영향을 미치지 않습니다.
 
 ```swift
 struct Document {
@@ -52,24 +53,25 @@ print(friendDoc.text) // prints "Blah blah blah"
 print(myDoc.text) // prints "Great new article"
 ```
 
-When you send your friend a copy of a document, you are in complete control of when *your* copy changes. You never have to worry about your friend making some unexpected change to your copy of the document.
+친구에게 문서 사본을 보내면, _여러분의_ 사본이 언제 변경되는지 완전히 제어할 수 있습니다. 친구가 여러분의 문서 사본을 예기치 않게 수정하는 것을 걱정할 필요가 없습니다.
 
-Similarly, with a value type, you never have to worry about some other part of your program changing the value.
+마찬가지로, 값 타입을 사용하면 프로그램의 다른 부분이 값에 영향을 줄 수 없다고 확신할 수 있습니다.
 
-### Reference Types
-In Swift, classes, actors, and closures are all reference types. They behave similar to sending your friend a link to a shared document.
+### 참조 타입
 
-Assigning a reference type to a constant or variable, or passing it into a function or method, it is always a reference to a shared instance that is assigned or passed in.
+Swift에서 클래스, 액터, 클로저는 모두 참조 타입입니다. 친구에게 공유 문서 링크를 보내는 것과 비슷하게 동작합니다.
 
-The code below is identical to the example above with one small but important change. Instead of declaring a `struct` the `Document` type is now declared as a `class`.
+참조 타입을 상수나 변수에 할당하거나, 함수나 메서드에 전달하면 항상 공유 인스턴스에 대한 참조가 할당되거나 전달됩니다.
 
-It is a small code change, but with a significant change in behavior.
+아래 코드는 위의 예시와 동일하지만 작지만 중요한 변경이 있습니다. `struct` 대신 `Document` 타입이 이제 `class`로 선언되었습니다.
 
-Like before a `Document` instance is created and assigned to `myDoc`.
+작은 코드 변경이지만, 동작에는 큰 변화가 있습니다.
 
-But now, when `myDoc` is assigned to the variable friendDoc, it is a reference to the instance that is assigned.
+이전처럼 `Document` 인스턴스가 생성되어 `myDoc`에 할당됩니다.
 
-Since it is a reference to the same instance, changing the `text` of `friendDoc` updates that shared instance including the value of `myDoc`.
+하지만 이제 `myDoc`이 변수 friendDoc에 할당되면, 인스턴스에 대한 참조가 할당됩니다.
+
+같은 인스턴스에 대한 참조이므로, `friendDoc`의 `text`를 변경하면 `myDoc`의 값을 포함한 공유 인스턴스가 업데이트됩니다.
 
 ```swift
 class Document {
@@ -85,50 +87,54 @@ print(friendDoc.text) // prints "Blah blah blah"
 print(myDoc.text) // prints "Blah blah blah"
 ```
 
-When you send your friend a link to a shared document, your friend can make changes to the document without you knowing about it. You might be relying on your document staying the same.
+친구에게 공유 문서 링크를 보내면, 친구가 여러분 모르게 문서를 변경할 수 있습니다. 문서가 그대로 유지되길 기대하고 있을 수도 있습니다.
 
-Similarly, with a reference type, any part of your program that has a reference can make a change. Sometimes unexpected changes can lead to bugs.
+마찬가지로, 참조 타입은 참조를 가진 프로그램의 어떤 부분에서든 변경할 수 있습니다. 때로는 예기치 않은 변경이 버그로 이어질 수 있습니다.
 
-### Local reasoning
-In the small code example above, you can read through the code line by line and see how the same reference is assigned to two different variables and how changing a property using one variables updates the instance referred to by both variables.
+### 로컬 추론
 
-Being able to look through code in a single spot and figure out what is going on is called _local reasoning_.
+위의 작은 코드 예시에서는 코드를 한 줄씩 읽으면서 같은 참조가 두 변수에 할당되고, 한 변수를 통해 프로퍼티를 변경하면 두 변수가 참조하는 인스턴스가 모두 업데이트되는 것을 볼 수 있습니다.
 
-Now imagine a larger program where different pieces of the program all have a reference to the same thing. Your code may set a value in place and rely on that value but then somewhere else, an unrelated part of your program could change the value out from under you.
+한 곳에서 코드를 보면서 무슨 일이 일어나는지 파악할 수 있는 것을 *로컬 추론*이라고 합니다.
 
-The formal name for having data that can be changed from multiple places is _shared mutable state_. Shared because it can be accessed from many places in the code, mutable because it can change a.k.a. mutate, and state as a synonym for data, as in ‘the current state of things’.
+이제 프로그램의 여러 부분이 모두 같은 것에 대한 참조를 가지고 있는 더 큰 프로그램을 상상해 보세요. 코드에서 값을 설정하고 그 값에 의존하고 있는데, 프로그램의 다른 관련 없는 부분이 여러분 모르게 값을 변경할 수 있습니다.
 
-In this case, you can’t fully understand what is going on in one part of your code without understanding what might be happening at many different places in your code. You lose the ability to do local reasoning, which makes your code harder to understand and harder to debug.
+여러 곳에서 변경할 수 있는 데이터를 공식적으로 *공유 가변 상태(shared mutable state)*라고 합니다. 코드의 여러 곳에서 접근할 수 있으므로 공유(Shared), 변경(mutate)할 수 있으므로 가변(Mutable), 데이터의 동의어로 상태(State)입니다.
 
-One advantage of using value types is that you can be certain no other place in your program can affect the value. You can reason about the code in front of you without needing to know what else is happening elsewhere.
+이 경우, 코드의 여러 다른 곳에서 무슨 일이 일어나는지 이해하지 않으면 코드의 한 부분에서 무슨 일이 일어나는지 완전히 이해할 수 없습니다. 로컬 추론 능력을 잃게 되어 코드를 이해하기 어렵고 디버깅하기도 어려워집니다.
 
-This makes your code easier to understand and prevents bugs from accidental or unexpected changes to shared mutable state.
+값 타입을 사용하면 프로그램의 다른 어떤 곳에서도 값에 영향을 줄 수 없다고 확신할 수 있다는 장점이 있습니다. 다른 곳에서 무슨 일이 일어나는지 알 필요 없이 눈앞의 코드에 대해 추론할 수 있습니다.
 
-### Choosing Value or Reference Types
-Going back to the example of sharing a document, it can be very useful for both you and your friend to be able to see and edit the same document.
+이를 통해 코드를 더 쉽게 이해할 수 있고, 공유 가변 상태의 우발적이거나 예기치 않은 변경으로 인한 버그를 방지할 수 있습니다.
 
-Similarly, in a program, sometimes the shared mutable state that reference types provide can be very useful. Reference types aren’t inherently bad, but as described above, they do add additional complexity and possibility for error.
+### 값 타입과 참조 타입 선택
 
-In general, prefer to use structs over classes. If you don’t need the behavior of a reference type, there’s no need to take on the added complexity and pitfalls.
+문서 공유 예시로 돌아가면, 여러분과 친구 모두 같은 문서를 보고 편집할 수 있는 것이 매우 유용할 수 있습니다.
 
-The article [Choosing Between Structures and Classes](https://developer.apple.com/documentation/swift/choosing-between-structures-and-classes) describes the tradeoffs in more detail.
+마찬가지로, 프로그램에서 참조 타입이 제공하는 공유 가변 상태가 매우 유용할 때가 있습니다. 참조 타입이 본질적으로 나쁜 것은 아니지만, 위에서 설명한 것처럼 추가적인 복잡성과 오류 가능성이 있습니다.
 
+일반적으로 클래스보다 구조체를 사용하는 것을 선호하세요. 참조 타입의 동작이 필요하지 않다면, 추가 복잡성과 함정을 감수할 필요가 없습니다.
 
-### Composing Value Types
-A common design pattern in code is _composition_ which is combining smaller elements together to create larger elements.
+[Choosing Between Structures and Classes](https://developer.apple.com/documentation/swift/choosing-between-structures-and-classes) 아티클에서 더 자세한 트레이드오프를 설명합니다.
 
-In Swift, you can easily compose value types together to create more complex value types.
+### 값 타입 합성
 
-So you could define a struct that contains some basic types like a String, an Int, a Bool, maybe an enumeration value. Since everything in the struct is a value type, the struct behaves like a value type.
+코드에서 일반적인 디자인 패턴 중 하나는 *합성(composition)*으로, 작은 요소들을 결합하여 더 큰 요소를 만드는 것입니다.
 
-You might have a type that is a more complex struct that contains an instance of the first struct and some other values. Again, since it is composed of value types, this struct is a value type.
+Swift에서는 값 타입을 쉽게 합성하여 더 복잡한 값 타입을 만들 수 있습니다.
 
-### Collections are Value Types
-But in Swift, composing value types doesn’t stop with structures and enumerations.
+String, Int, Bool, 열거형 값 같은 기본 타입을 포함하는 구조체를 정의할 수 있습니다. 구조체의 모든 것이 값 타입이므로, 구조체는 값 타입처럼 동작합니다.
 
-Although in many languages, collections such as arrays and dictionaries are reference types, in Swift the standard collections `Array`, `Dictionary` and `String` are all value types.
+첫 번째 구조체의 인스턴스와 다른 값을 포함하는 더 복잡한 구조체 타입이 있을 수 있습니다. 역시 값 타입으로 구성되어 있으므로, 이 구조체도 값 타입입니다.
 
-This means a struct can contain an array of structs, maybe a dictionary of key value pairs, a set of enums. As long as everything is composed of value types, an instance of even a complex type is treated as a value.
+### 컬렉션도 값 타입
 
-### Conclusion
-Understanding what value types and reference types are and the differences in how they behave is an important part of learning Swift and being able to reason about your code. The choice between the two often comes down to a choice between declaring a type as a `struct` or a `class`. You can learn more about structures and class in the [Structures and Classes](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/classesandstructures) chapter of *The Swift Programming Language*.
+Swift에서 값 타입 합성은 구조체와 열거형에서 그치지 않습니다.
+
+많은 언어에서 배열이나 딕셔너리 같은 컬렉션은 참조 타입이지만, Swift에서 표준 컬렉션인 `Array`, `Dictionary`, `String`은 모두 값 타입입니다.
+
+이는 구조체가 구조체의 배열, 키-값 쌍의 딕셔너리, 열거형의 집합을 포함할 수 있다는 의미입니다. 모든 것이 값 타입으로 구성되어 있다면, 복잡한 타입의 인스턴스도 값으로 취급됩니다.
+
+### 결론
+
+값 타입과 참조 타입이 무엇인지, 그리고 동작의 차이를 이해하는 것은 Swift를 배우고 코드에 대해 추론하는 데 중요한 부분입니다. 두 가지 사이의 선택은 보통 타입을 `struct`로 선언할지 `class`로 선언할지의 선택으로 귀결됩니다. 구조체와 클래스에 대해 더 알아보려면 *The Swift Programming Language*의 [Structures and Classes](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/classesandstructures) 장을 참고하세요.

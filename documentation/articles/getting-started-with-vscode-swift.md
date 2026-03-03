@@ -1,101 +1,79 @@
 ---
 layout: page
 date: 2024-05-28 12:00:00
-title: Configuring VS Code for Swift Development
+title: Swift 개발을 위한 VS Code 설정
 author: [matthewbastien, plemarquand]
 ---
 
-[Visual Studio Code](https://code.visualstudio.com/) (VS Code) is a popular general purpose editor that supports a
-variety of languages through extensibility. The Swift extension brings Swift
-language-specific features to the editor, providing a seamless experience for
-developing Swift applications on all platforms.
+[Visual Studio Code](https://code.visualstudio.com/)(VS Code)는 확장을 통해 다양한 프로그래밍 언어를 지원하는 범용 에디터입니다. Swift 확장은 에디터에 Swift 언어 전용 기능을 추가하여 모든 플랫폼에서 Swift 애플리케이션을 원활하게 개발할 수 있는 환경을 제공합니다.
 
-The Swift extension includes:
+Swift 확장에 포함된 기능:
 
-- Syntax highlighting and code completion
-- Code navigation features such as Go to Definition and Find All References
-- Refactoring and quick fixes to code
-- Package management and tasks with support for Swift Package Manager
-- Rich support for debugging
-- Testing with XCTest or Swift Testing frameworks
+- 구문 강조 및 코드 완성
+- 정의로 이동, 모든 참조 찾기 등의 코드 탐색 기능
+- 리팩토링 및 빠른 수정
+- Swift Package Manager를 활용한 패키지 관리 및 작업
+- 풍부한 디버깅 지원
+- XCTest 또는 Swift Testing 프레임워크를 사용한 테스트
 
-The Swift extension is designed to support the following projects:
+Swift 확장이 지원하는 프로젝트 유형:
 
-- Swift Package Manager projects (e.g. using a `Package.swift`)
-- Projects that can generate a `compile_commands.json` (e.g. using CMake)
+- Swift Package Manager 프로젝트 (예: `Package.swift` 사용)
+- `compile_commands.json`을 생성할 수 있는 프로젝트 (예: CMake 사용)
 
-## Install the Extension
+## 확장 설치
 
-1. First, install Swift. If you do not already have Swift installed on your system, see the
-   [Getting Started Guide on Swift.org](/getting-started/).
-2. Download and install [Visual Studio Code](https://code.visualstudio.com/Download).
-3. Install the Swift extension from the
-   [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=swiftlang.swift-vscode)
-   or directly from within the VS Code extensions pane.
+1. 먼저 Swift를 설치합니다. 시스템에 Swift가 아직 설치되어 있지 않다면 [Swift.org 시작하기 가이드](/getting-started/)를 참고하세요.
+2. [Visual Studio Code](https://code.visualstudio.com/Download)를 다운로드하고 설치합니다.
+3. [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=swiftlang.swift-vscode)에서 Swift 확장을 설치하거나 VS Code 확장 패널에서 직접 설치합니다.
 
-![Installing the vscode-swift extension from the extensions pane](/assets/images/getting-started-with-vscode-swift/installation.png)
+![확장 패널에서 vscode-swift 확장 설치하기](/assets/images/getting-started-with-vscode-swift/installation.png)
 
-## Creating a new Swift project
+## 새 Swift 프로젝트 만들기
 
-To create a new Swift project, you can use the `Swift: Create New Project...` command in
-the Swift extension to guide you through the process. You can find this command by opening
-the Command Palette and following the instructions below.
+새 Swift 프로젝트를 만들려면 Swift 확장의 `Swift: Create New Project...` 명령을 사용하세요. 커맨드 팔레트를 열고 아래 안내를 따릅니다.
 
-- For macOS: `CMD + Shift + P`
-- Other platforms: `Ctrl + Shift + P`
+- macOS: `CMD + Shift + P`
+- 다른 플랫폼: `Ctrl + Shift + P`
 
-1. In the command palette, search for the `Swift: Create New Project...` command.
-2. Choose the type of project you'd like to create from the list of templates.
+1. 커맨드 팔레트에서 `Swift: Create New Project...` 명령을 검색합니다.
+2. 템플릿 목록에서 만들고 싶은 프로젝트 유형을 선택합니다.
 
-![Create New Project command showing available project templates](/assets/images/getting-started-with-vscode-swift/create-new-project/select-project-template.png)
+![사용 가능한 프로젝트 템플릿을 보여주는 새 프로젝트 만들기 명령](/assets/images/getting-started-with-vscode-swift/create-new-project/select-project-template.png)
 
-3. Choose the directory where the project will be stored.
-4. Give your project a name.
-5. Open the newly created project. You will be prompted to open the project in
-   the current window, a new window, or add it to the current workspace. The
-   default behaviour can be configured by using the
-   `swift.openAfterCreateNewProject` setting.
+3. 프로젝트를 저장할 디렉토리를 선택합니다.
+4. 프로젝트 이름을 지정합니다.
+5. 새로 만든 프로젝트를 엽니다. 현재 창, 새 창, 또는 현재 워크스페이스에 추가할지 선택하라는 안내가 표시됩니다.
+   기본 동작은 `swift.openAfterCreateNewProject` 설정으로 변경할 수 있습니다.
 
-## Language Features
+## 언어 기능
 
-The Swift extension uses [SourceKit-LSP](https://github.com/swiftlang/sourcekit-lsp)
-to power language features. SourceKit-LSP provides the following features in the
-editor. Use these links to see the VS Code documentation for each topic:
+Swift 확장은 [SourceKit-LSP](https://github.com/swiftlang/sourcekit-lsp)를 사용하여 언어 기능을 구동합니다. SourceKit-LSP는 에디터에서 다음 기능을 제공합니다. 각 항목의 VS Code 문서를 보려면 링크를 클릭하세요:
 
-- [Code completion](https://code.visualstudio.com/docs/editor/intellisense)
-- [Go to definition](https://code.visualstudio.com/docs/editor/editingevolved#_go-to-definition)
-- [Find all references](https://code.visualstudio.com/Docs/editor/editingevolved#_peek)
-- [Rename refactoring](https://code.visualstudio.com/docs/editor/refactoring#_rename-symbol)
-- [Diagnostics](https://code.visualstudio.com/docs/editor/editingevolved#_errors-warnings)
-- [Quick Fixes](https://code.visualstudio.com/docs/editor/editingevolved#_code-action)
+- [코드 완성](https://code.visualstudio.com/docs/editor/intellisense)
+- [정의로 이동](https://code.visualstudio.com/docs/editor/editingevolved#_go-to-definition)
+- [모든 참조 찾기](https://code.visualstudio.com/Docs/editor/editingevolved#_peek)
+- [이름 변경 리팩토링](https://code.visualstudio.com/docs/editor/refactoring#_rename-symbol)
+- [진단](https://code.visualstudio.com/docs/editor/editingevolved#_errors-warnings)
+- [빠른 수정](https://code.visualstudio.com/docs/editor/editingevolved#_code-action)
 
-SourceKit-LSP also provides code actions to automate common tasks. Code actions in VS Code
-appear as a light bulb near the editor margin (see the below screenshot for an
-example of this). Clicking on the light bulb will show you the available actions
-which can include:
+SourceKit-LSP는 일반적인 작업을 자동화하는 코드 액션도 제공합니다. VS Code에서 코드 액션은 에디터 여백 근처에 전구 아이콘으로 표시됩니다(아래 스크린샷 참고). 전구를 클릭하면 사용 가능한 액션이 표시되며, 여기에는 다음이 포함됩니다:
 
-- Adding targets to your `Package.swift`
-- Converting JSON to protocols
-- Adding documentation to your functions
+- `Package.swift`에 타겟 추가
+- JSON을 프로토콜로 변환
+- 함수에 문서 추가
 
-![Package swift actions](/assets/images/getting-started-with-vscode-swift/language-features/package_actions.png)
+![Package.swift 액션](/assets/images/getting-started-with-vscode-swift/language-features/package_actions.png)
 
 <div class="warning" markdown="1">
-Prior to Swift 6.1 you must perform a `swift build` command on your project either
-on the command line or using a task in VS Code Before language features can be used.
-This populates the index in SourceKit-LSP.
+Swift 6.1 이전 버전에서는 언어 기능을 사용하기 전에 커맨드 라인이나 VS Code 작업을 통해 프로젝트에서 `swift build` 명령을 실행해야 합니다. 이를 통해 SourceKit-LSP의 인덱스가 구성됩니다.
 </div>
 
-## Swift Tasks
+## Swift 작업
 
-Visual Studio Code provides tasks as a way to run external tools. See the
-[Integrate with External Tools via Tasks](https://code.visualstudio.com/docs/editor/tasks)
-documentation to learn more.
+Visual Studio Code는 외부 도구를 실행하는 방법으로 작업을 제공합니다. 자세한 내용은 [외부 도구와의 통합](https://code.visualstudio.com/docs/editor/tasks) 문서를 참고하세요.
 
-The Swift extension provides some built-in tasks that you can use to build your project via
-the Swift Package Manager. You can also configure custom tasks by creating a
-`tasks.json` file in the root folder of your project. For example, this
-`tasks.json` builds of your Swift targets in release mode:
+Swift 확장은 Swift Package Manager를 통해 프로젝트를 빌드할 수 있는 기본 작업을 제공합니다. 프로젝트 루트 폴더에 `tasks.json` 파일을 만들어 사용자 정의 작업을 구성할 수도 있습니다. 예를 들어, 다음 `tasks.json`은 모든 Swift 타겟을 릴리스 모드로 빌드합니다:
 
 ```json
 {
@@ -114,30 +92,19 @@ the Swift Package Manager. You can also configure custom tasks by creating a
 }
 ```
 
-The above task is configured to be in the `build` group. This means it will
-appear in the `run build tasks` menu that can be opened with `CMD + Shift + B`
-on macOS or `Ctrl + Shift + B` on other platforms:
+위 작업은 `build` 그룹으로 설정되어 있어 macOS에서는 `CMD + Shift + B`, 다른 플랫폼에서는 `Ctrl + Shift + B`로 열 수 있는 `빌드 작업 실행` 메뉴에 표시됩니다:
 
-![Run build task menu](/assets/images/getting-started-with-vscode-swift/tasks/build-tasks.png)
+![빌드 작업 실행 메뉴](/assets/images/getting-started-with-vscode-swift/tasks/build-tasks.png)
 
-Any errors that occur during a build appear in the editor as diagnostics
-alongside those provided by SourceKit-LSP. Running another build task clears the
-diagnostics from the previous build task.
+빌드 중 발생하는 오류는 SourceKit-LSP가 제공하는 진단과 함께 에디터에 표시됩니다. 다른 빌드 작업을 실행하면 이전 빌드 작업의 진단이 지워집니다.
 
-## Debugging
+## 디버깅
 
-Visual Studio Code provides a rich debugging experience. See the
-[Debugging](https://code.visualstudio.com/docs/editor/debugging) documentation for
-more information.
+Visual Studio Code는 풍부한 디버깅 환경을 제공합니다. 자세한 내용은 [디버깅](https://code.visualstudio.com/docs/editor/debugging) 문서를 참고하세요.
 
-The Swift extension relies on the
-[LLDB DAP extension](https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.lldb-dap) to enable
-debugging support.
+Swift 확장은 [LLDB DAP 확장](https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.lldb-dap)을 사용하여 디버깅을 지원합니다.
 
-By default, the extension creates a launch configuration for each executable
-target in your Swift package. You may configure these yourself by adding a
-`launch.json` file to the root folder of your project. For example, this
-`launch.json` launches a Swift executable with custom arguments:
+기본적으로 확장은 Swift 패키지의 각 실행 가능 타겟에 대한 시작 구성을 생성합니다. 프로젝트 루트 폴더에 `launch.json` 파일을 추가하여 직접 구성할 수도 있습니다. 예를 들어, 다음 `launch.json`은 사용자 정의 인수로 Swift 실행 파일을 시작합니다:
 
 ```json
 {
@@ -155,89 +122,67 @@ target in your Swift package. You may configure these yourself by adding a
 }
 ```
 
-You can launch a debugging session via the Debug view in VS Code.
+VS Code의 디버그 뷰에서 디버깅 세션을 시작할 수 있습니다.
 
-1. Select the launch configuration you wish to debug.
-2. Click on the green play button to launch a debugging session.
+1. 디버깅할 시작 구성을 선택합니다.
+2. 녹색 재생 버튼을 클릭하여 디버깅 세션을 시작합니다.
 
-The executable will be launched and you can set breakpoints in
-your Swift code that will be hit as code executes.
+실행 파일이 시작되면 Swift 코드에 중단점을 설정하여 코드 실행 중 해당 지점에서 멈출 수 있습니다.
 
-The screenshot below shows an example of debugging a Hello World program. It
-is paused on a breakpoint and you can see that the Debug View shows the values
-of variables in scope. You can also hover over identifiers in the editor to see
-their variable values:
+아래 스크린샷은 Hello World 프로그램을 디버깅하는 예시입니다. 중단점에서 일시 정지된 상태이며, 디버그 뷰에서 스코프 내 변수 값을 확인할 수 있습니다. 에디터에서 식별자 위에 마우스를 올려 변수 값을 볼 수도 있습니다:
 
-![Debugging](/assets/images/getting-started-with-vscode-swift/debugging/debugging.png)
+![디버깅](/assets/images/getting-started-with-vscode-swift/debugging/debugging.png)
 
-## Test Explorer
+## 테스트 탐색기
 
-Visual Studio Code provides a Test Explorer view in the left sidebar which can
-be used:
+Visual Studio Code는 왼쪽 사이드바에 테스트 탐색기 뷰를 제공하며, 다음 용도로 사용할 수 있습니다:
 
-- To navigate to tests
-- To run tests
-- To Debug tests
+- 테스트로 이동
+- 테스트 실행
+- 테스트 디버깅
 
-The Swift extension supports [XCTest](https://developer.apple.com/documentation/xctest) as well as
-[Swift Testing](https://swiftpackageindex.com/swiftlang/swift-testing/main/documentation/testing).
-As you write tests they are automatically added to the Test Explorer.
+Swift 확장은 [XCTest](https://developer.apple.com/documentation/xctest)와 [Swift Testing](https://swiftpackageindex.com/swiftlang/swift-testing/main/documentation/testing)을 모두 지원합니다. 테스트를 작성하면 자동으로 테스트 탐색기에 추가됩니다.
 
-![Inline test errors](/assets/images/getting-started-with-vscode-swift/testing/inline_assertion_failures.png)
+![인라인 테스트 오류](/assets/images/getting-started-with-vscode-swift/testing/inline_assertion_failures.png)
 
-To debug a test:
+테스트를 디버깅하려면:
 
-1. Set a breakpoint
-2. Run the test, suite, or entire test target with the `Debug Test` profile.
+1. 중단점을 설정합니다.
+2. `Debug Test` 프로필로 테스트, 테스트 스위트, 또는 전체 테스트 타겟을 실행합니다.
 
-The `Run Test with Coverage` profile instruments the code under test and opens a
-code coverage report when the test run completes. As you browse covered files,
-line numbers that were executed during a test appear green, and those that were
-missed appear red. Hovering over a line number shows how many times covered
-lines were executed. Line execution counts can be shown or hidden using the
-`Test: Show Inline Coverage` command.
+`Run Test with Coverage` 프로필은 테스트 대상 코드를 계측하고 테스트 실행이 완료되면 코드 커버리지 보고서를 엽니다. 커버된 파일을 탐색하면 테스트 중 실행된 줄 번호는 녹색으로, 누락된 줄은 빨간색으로 표시됩니다. 줄 번호 위에 마우스를 올리면 커버된 줄이 몇 번 실행되었는지 확인할 수 있습니다. `Test: Show Inline Coverage` 명령으로 줄 실행 횟수를 표시하거나 숨길 수 있습니다.
 
-Swift Testing tests annotated with
-[tags](https://swiftpackageindex.com/swiftlang/swift-testing/main/documentation/testing/addingtags)
-can be filtered in the Test Explorer using `@TestTarget:tagName`. You can then
-run or debug the filtered list of tests.
+[태그](https://swiftpackageindex.com/swiftlang/swift-testing/main/documentation/testing/addingtags)가 지정된 Swift Testing 테스트는 테스트 탐색기에서 `@TestTarget:tagName`을 사용하여 필터링할 수 있습니다. 그런 다음 필터링된 테스트 목록을 실행하거나 디버깅할 수 있습니다.
 
 <div class="warning" markdown="1">
-The Swift extension does not support running Swift Testing tests in Swift 5.10 or earlier.
+Swift 확장은 Swift 5.10 이전 버전에서 Swift Testing 테스트 실행을 지원하지 않습니다.
 </div>
 
-## Advanced Toolchain Selection
+## 고급 도구체인 선택
 
-The Swift extension automatically detects your installed Swift toolchain.
-However, it also provides a command called `Swift: Select Toolchain...` which
-can be used to select between toolchains if you have multiple installed.
+Swift 확장은 설치된 Swift 도구체인을 자동으로 감지합니다. 하지만 여러 도구체인이 설치된 경우 `Swift: Select Toolchain...` 명령을 사용하여 선택할 수 있습니다.
 
 <div class="warning" markdown="1">
-This is an advanced feature used to configure VS Code with a toolchain other
-than the default on your machine. It is recommended to use `xcode-select` on
-macOS or `swiftly` on Linux to switch between toolchains globally.
+이 기능은 기본 도구체인이 아닌 다른 도구체인으로 VS Code를 구성하는 고급 기능입니다. macOS에서는 `xcode-select`, Linux에서는 `swiftly`를 사용하여 전역적으로 도구체인을 전환하는 것을 권장합니다.
 </div>
 
-You may be prompted to select where to configure this new path. Your options are
-to:
+새 경로를 어디에 저장할지 선택하라는 안내가 표시될 수 있습니다. 선택 옵션:
 
-- Save it in User Settings
-- Save it in Workspace Settings
+- 사용자 설정에 저장
+- 워크스페이스 설정에 저장
 
-Keep in mind that Workspace Settings take precedence over User Settings:
+워크스페이스 설정이 사용자 설정보다 우선 적용됩니다:
 
-![Settings selection](/assets/images/getting-started-with-vscode-swift/toolchain-selection/configuration.png)
+![설정 선택](/assets/images/getting-started-with-vscode-swift/toolchain-selection/configuration.png)
 
-The Swift extension will then prompt you to reload the extension in order to
-pick up the new toolchain. You must do so, otherwise the extension will not
-function correctly:
+그 다음 Swift 확장은 새 도구체인을 적용하기 위해 확장을 다시 로드하라는 안내를 표시합니다. 반드시 다시 로드해야 하며, 그렇지 않으면 확장이 올바르게 동작하지 않습니다:
 
-![Reload VS Code warning](/assets/images/getting-started-with-vscode-swift/toolchain-selection/reload.png)
+![VS Code 다시 로드 경고](/assets/images/getting-started-with-vscode-swift/toolchain-selection/reload.png)
 
-## Learn More and Contribute
+## 더 알아보기 및 기여
 
-The official documentation for this extension is [available on swift.org](https://docs.swift.org/vscode/documentation/userdocs).
+이 확장의 공식 문서는 [swift.org에서 확인](https://docs.swift.org/vscode/documentation/userdocs)할 수 있습니다.
 
-To propose new features, you can post on the Swift forums in the [VS Code Swift Extension category](https://forums.swift.org/c/related-projects/vscode-swift-extension/). If you run into something that doesn't work the way you'd expect, please [file an issue in the extension's GitHub repository](https://github.com/swiftlang/vscode-swift/issues/new).
+새로운 기능을 제안하려면 Swift 포럼의 [VS Code Swift Extension 카테고리](https://forums.swift.org/c/related-projects/vscode-swift-extension/)에 게시할 수 있습니다. 예상대로 동작하지 않는 부분이 있다면 [확장의 GitHub 저장소에 이슈를 등록](https://github.com/swiftlang/vscode-swift/issues/new)해 주세요.
 
-The project welcomes contributions, including code, tests, and documentation. For more details on how to contribute, please read the [contribution guide](https://github.com/swiftlang/vscode-swift/blob/HEAD/CONTRIBUTING.md).
+이 프로젝트는 코드, 테스트, 문서를 포함한 기여를 환영합니다. 기여 방법에 대한 자세한 내용은 [기여 가이드](https://github.com/swiftlang/vscode-swift/blob/HEAD/CONTRIBUTING.md)를 참고하세요.
