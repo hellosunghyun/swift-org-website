@@ -10,7 +10,7 @@ const heroAnimation = async (animContainer) => {
     return new Promise((resolve, reject) => {
       el.onload = () => resolve(el)
       el.onerror = (err) => reject(err)
-      el.src = url
+      el.src = (window.__BASE_URL || '') + url
     })
   }
 

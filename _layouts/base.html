@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
+  <script>window.__BASE_URL='{{ site.baseurl | default: "" }}';</script>
   <title>{{ page.title | escape }} | {{ site.title }}</title>
   {% if jekyll.environment == 'stage' %}
   <meta name="robots" content="noindex" />
