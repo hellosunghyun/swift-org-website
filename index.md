@@ -1,6 +1,6 @@
 ---
 layout: new-layouts/base
-title: Swift Programming Language
+title: Swift 프로그래밍 언어
 ---
 
 <div class="animation-container">
@@ -13,13 +13,13 @@ title: Swift Programming Language
 </div>
 <section id="what-is-swift" class="section">
     <div class="hero-content">
-        <h1>Swift is the powerful, flexible,<br /> multiplatform programming language.</h1>
-        <div class="sub-text"><h2>Fast. Expressive. Safe.</h2></div>
-        <a href="/install/" data-text="Install">Install</a>
-        <p>Tools for Linux, macOS, and Windows</p>
-        <h2>Create using Swift</h2>
+        <h1>Swift는 강력하고 유연한<br /> 멀티플랫폼 프로그래밍 언어입니다.</h1>
+        <div class="sub-text"><h2>빠르고. 표현력 있고. 안전합니다.</h2></div>
+        <a href="/install/" data-text="설치">설치</a>
+        <p>Linux, macOS, Windows용 도구</p>
+        <h2>Swift로 만들기</h2>
     </div>
-    <nav aria-label="Get started with Swift">
+    <nav aria-label="Swift 시작하기">
         <ul class="primary-links">
             {% for item in site.data.new-data.landing.get-started-primary %}
             <li>
@@ -52,11 +52,11 @@ title: Swift Programming Language
 <section id="pillar-1" class="section pillar">
     <div class="pillar-wrapper content-wrapper">
         <p class="pillar-intro">
-            Swift is the only language that scales from embedded devices and kernels to apps and cloud infrastructure. It’s simple, and expressive, with incredible performance and safety. And it has unmatched interoperability with C and C++.
+            Swift는 임베디드 기기와 커널부터 앱, 클라우드 인프라까지 아우르는 유일한 언어입니다. 간결하고 표현력이 뛰어나며, 놀라운 성능과 안전성을 갖추고 있습니다. C 및 C++와의 상호 운용성도 탁월합니다.
         </p>
         <br />
         <p class="pillar-intro">
-            It's the combination of approachability, speed, safety, and all of<br class="hide-small"/> Swift’s strengths that make it so unique.
+            접근성, 속도, 안전성, 그리고 Swift가 가진 모든 강점의<br class="hide-small"/> 조합이야말로 Swift를 특별하게 만드는 이유입니다.
         </p>
     </div>
     {% for callout in pillar1_callouts %}

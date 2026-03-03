@@ -1,135 +1,130 @@
-# User Stories - color color scheme Toggle
+# 사용자 스토리 - 색상 모드 전환
 
-Feature: Initial site load with initial color scheme preference
-    Background (all):
-        Given the user loads the site for the first time
-        And has no localStorage key value for color scheme preference
+기능: 초기 색상 모드 환경설정으로 사이트 처음 로드
+배경 (전체):
+사용자가 사이트를 처음 로드하는 경우
+색상 모드 환경설정에 대한 localStorage 키 값이 없는 경우
 
-    Background:
-        Given the user's system supports light, dark, auto color schemes
-        And the user's system is set to Auto
+    배경:
+        사용자의 시스템이 라이트, 다크, 자동 색상 모드를 지원하는 경우
+        사용자의 시스템이 자동으로 설정된 경우
 
-    Scenario: System supports light, dark, auto color schemes - Light appearance
-        Given the user's system appearance is Light
-        When the user loads the site
-        Then the color scheme toggle UI has options for Light, Dark, and Auto
-        And is set to Auto
-        And the page displays Light colors
+    시나리오: 시스템이 라이트, 다크, 자동 색상 모드를 지원 - 라이트 외관
+        사용자의 시스템 외관이 라이트인 경우
+        사용자가 사이트를 로드하면
+        색상 모드 전환 UI에 라이트, 다크, 자동 옵션이 표시됨
+        자동으로 설정됨
+        페이지가 라이트 색상으로 표시됨
 
-    Scenario: System supports light, dark, auto color schemes - Dark appearance
-        Given the user's system appearance is Dark
-        When the user loads the site
-        Then the color scheme toggle UI has options for Light, Dark, and Auto
-        And is set to Auto
-        And the page displays Dark colors
+    시나리오: 시스템이 라이트, 다크, 자동 색상 모드를 지원 - 다크 외관
+        사용자의 시스템 외관이 다크인 경우
+        사용자가 사이트를 로드하면
+        색상 모드 전환 UI에 라이트, 다크, 자동 옵션이 표시됨
+        자동으로 설정됨
+        페이지가 다크 색상으로 표시됨
 
-    Background:
-        Given the user's system does NOT support auto color scheme
-        And the user's system is set to Dark
+    배경:
+        사용자의 시스템이 자동 색상 모드를 지원하지 않는 경우
+        사용자의 시스템이 다크로 설정된 경우
 
-    Scenario: System does NOT support auto color scheme
-        Given the appearance is Dark
-        When the user loads the site
-        Then the color scheme toggle UI has options for Light and Dark
-        And is set to Dark
-        And the page displays Dark colors
+    시나리오: 시스템이 자동 색상 모드를 지원하지 않음
+        외관이 다크인 경우
+        사용자가 사이트를 로드하면
+        색상 모드 전환 UI에 라이트와 다크 옵션이 표시됨
+        다크로 설정됨
+        페이지가 다크 색상으로 표시됨
 
-    Background:
-        Given the user's system does NOT support any color scheme
+    배경:
+        사용자의 시스템이 어떤 색상 모드도 지원하지 않는 경우
 
-    Scenario: System does NOT support any color schemes
-        When the user loads the site
-        Then the color scheme toggle UI has options for Light and Dark
-        And is set to Light
-        And the page displays Light colors
+    시나리오: 시스템이 어떤 색상 모드도 지원하지 않음
+        사용자가 사이트를 로드하면
+        색상 모드 전환 UI에 라이트와 다크 옵션이 표시됨
+        라이트로 설정됨
+        페이지가 라이트 색상으로 표시됨
 
+기능: 시스템 환경설정 변경 감지
+배경:
+시스템 환경설정이 자동으로 설정됨
+시스템 외관이 라이트
 
-Feature: Listen for System preference changes
-    Background:
-      Given the System preference is set to Auto
-      And the System appearance is Light
+    시나리오: 시스템이 다크로 변경됨 (사용자가 수동으로 또는 시스템이 자동으로)
+      색상 모드 전환 UI가 자동인 경우
+      시스템 환경설정이 다크로 변경되면
+      사이트 색상 모드 전환 UI는 자동을 유지해야 함
+      사이트 외관이 자동으로 다크로 업데이트되어야 함
 
-    Scenario: System changes to Dark (manually by user or automatically by the system)
-      Given the color scheme toggle UI is Auto
-      When the System preference is changed to Dark
-      Then the site color scheme toggle UI should remain Auto
-      And the site appearance should automatically update to Dark
+    시나리오: 시스템이 라이트로 변경됨 (사용자가 수동으로 또는 시스템이 자동으로)
+      색상 모드 전환 UI가 자동인 경우
+      시스템 환경설정이 라이트로 변경되면
+      사이트 색상 모드 전환 UI는 자동을 유지해야 함
+      사이트 외관이 라이트를 유지해야 함
 
-    Scenario: System changes to Light (manually by user or automatically by the system)
-      Given the color scheme toggle UI is Auto
-      When the System preference is changed to Light
-      Then the site color scheme toggle UI should remain Auto
-      And the site appearance should remain Light
+기능: 동시 세션에서 색상 모드 환경설정 유지
+배경:
+사용자가 사이트의 두 개의 창 또는 탭을 열어둔 경우
 
+    색상 모드 전환 UI가 다크인 경우
+    사용자가 한 세션에서 색상 모드 전환 UI를 라이트로 변경하면
+    다른 세션이 자동으로 라이트로 업데이트되어야 함
+    사용자가 페이지를 새로고침할 필요 없이
 
-Feature: Color scheme preference persists across concurrent sessions
-    Background:
-        Given a user has two windows or tabs of the site open
+기능: 새 세션에서 색상 모드 환경설정 유지
+배경:
+색상 모드 전환 UI가 다크인 경우
 
-    Given the color scheme toggle UI is Dark
-    When the user changes the color scheme toggle UI to Light in one session
-    Then the other session should automatically update to Light
-    And without the user needing to refresh the page
+    시나리오: 사용자가 새 창 또는 탭을 열음
+        사용자가 새 창 또는 탭을 열고
+        사이트를 로드하면
+        색상 모드 전환 UI가 다크로 설정됨
+        사이트 외관이 다크
 
-Feature: Color scheme preference persists across new sessions
-    Background:
-        Given the color scheme toggle UI is Dark
+    시나리오: 사용자가 브라우저를 종료하고 세션을 다시 열음
+        사용자가 브라우저를 다시 열고
+        이전 세션이 열리면
+        색상 모드 전환 UI가 다크로 설정됨
+        사이트 외관이 다크
 
-    Scenario: User opens new window or tab
-        Given the user opens a new window or tab
-        When they load the site
-        Then the color scheme toggle UI is set to Dark
-        And the site appearance is Dark
+    시나리오: 사용자가 브라우저를 종료하고 새 세션을 시작함
+        사용자가 브라우저를 다시 열고
+        새 창 또는 탭을 로드하면
+        페이지가 로드될 때
+        색상 모드 전환 UI가 다크로 설정됨
+        사이트 외관이 다크
 
-    Scenario: User quits the browser and reopens the session
-        Given the user reopens the browser
-        When the previous session is opened
-        Then the color scheme toggle UI is set to Dark
-        And the site appearance is Dark
+기능: `localStorage` 색상 환경설정 값 수동 조작
+Web Inspector를 통해 사용자가 수행할 수 있음
 
-    Scenario: User quits the browser and starts a new session
-        Given the user reopens the browser
-        And loads a new window or tab
-        When the page loads
-        Then the color scheme toggle UI is set to Dark
-        And the site appearance is Dark
+    시나리오: 이전 키가 유효한 경우
+        잘못된 localStorage 값이 입력됨 (예: Red)
+        이전 값이 유효한 경우 (예: Dark)
+        잘못된 값이 제출되면
+        이전 값(Dark)이 설정/사용되어야 함
 
+    시나리오: 이전 키가 비어 있거나 유효하지 않은 경우
+        잘못된 localStorage 값이 입력됨 (예: Red)
+        이전 값이 비어 있거나 유효하지 않은 경우
+        잘못된 값이 제출되면
+        값/색상 환경설정 UI 전환/외관이 자동으로 설정되어야 함
 
-Feature: Manual manipulation of `localStorage` color preference value
-    Likely done by the user via Web Inspector
+    시나리오: 사용자가 수동으로 유효한 값을 입력
+        유효한 localStorage 값이 입력됨 (예: Light)
+        값이 제출되면
+        해당 값(Light)이 설정/사용되어야 함
 
-    Scenario: Previous key is valid
-        Given an invalid localStorage value is entered (e.g., Red)
-        And the old value is valid (e.g., Dark)
-        When the invalid value is submitted
-        Then the previous value (Dark), should be set/used
+기능: Safari의 엄격한 캐싱에서 올바른 색상 모드
+배경:
+사용자가 홈페이지에 있는 경우
+색상 모드 전환 UI가 다크인 경우
 
-    Scenario: Previous key is empty or invalid
-        Given an invalid localStorage value is entered (e.g., Red)
-        And the old value is empty or invalid
-        When the invalid value is submitted
-        Then the value/color preference UI toggle/appearance should be set to Auto
+    사용자가 새 페이지로 이동하고
+    색상 모드 전환 UI를 라이트로 설정한 후
+    사용자가 브라우저 뒤로가기 버튼을 선택하여 이전 페이지(홈페이지)로 돌아가면
+    홈페이지가 라이트 색상으로 표시되어야 함
+    색상 모드 전환 UI가 라이트로 설정되어야 함
 
-    Scenario: User manually enters valid value
-        Given a valid localStorage value is entered (e.g., Light)
-        When the value is submitted
-        Then that value (Light) should be set/used
-
-
-Feature: Proper color scheme with Safari's strict caching
-    Background:
-        Given a user is on the homepage
-        And the color scheme toggle UI is Dark
-
-    Given the user goes to a new page
-    And sets the color scheme toggle UI to Light
-    When the user selects the browser back button to go to the previous page (i.e., the homepage)
-    Then the homepage should display Light colors
-    And the color scheme toggle UI should be set to Light
-
-
-Feature: Color scheme toggle works on page when Cookies are disabled
-    Given the user has cookies disabled
-    When the user loads the page
-    Then the toggle should still work as expected on that page
-    But the setting will not be able to persist across pages or sessions
+기능: 쿠키가 비활성화된 페이지에서 색상 모드 전환 동작
+사용자가 쿠키를 비활성화한 경우
+사용자가 페이지를 로드하면
+해당 페이지에서 전환이 정상적으로 동작해야 함
+단, 설정이 페이지 간 또는 세션 간에 유지되지 않음

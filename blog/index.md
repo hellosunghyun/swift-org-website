@@ -1,6 +1,6 @@
 ---
 layout: new-layouts/base
-title: Blog
+title: 블로그
 ---
 
 <div class="blog">
@@ -52,14 +52,14 @@ title: Blog
   <section class="blogs-and-filter-wrapper content">
     <div class="dropdown blogs-filter">
       <button class="dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-menu">
-        <span class="body-copy>">Categories</span>
+        <span class="body-copy>">카테고리</span>
         <span class="dropdown-toggle-arrow"></span>
       </button>
       <div class="dropdown-menu" role="menu">
         <div class="dropdown-header">
            <label>
             <input disabled name="select-all" class="select-all" type="checkbox" value="select-all" checked="true">
-            <span class="checkbox-symbol"></span> <span class="dropdown-filter-text">All Categories</span>
+            <span class="checkbox-symbol"></span> <span class="dropdown-filter-text">전체 카테고리</span>
           </label>
         </div>
         <hr>

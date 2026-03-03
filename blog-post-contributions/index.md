@@ -1,42 +1,42 @@
 ---
 layout: page
-title: Blog Post Contributions
+title: 블로그 포스트 기여
 ---
 
-The [Swift.org blog](https://www.swift.org/blog/) helps to keep the Swift community informed of recent developments in the language, the release roadmap, interesting new features, libraries, tools, and announcing project & community initiatives. It is central to Diversity in Swift’s mission to recognize and highlight work across the community. We welcome blog post contributions from everyone, regardless of background or experience.
+[Swift.org 블로그](https://www.swift.org/blog/)는 언어의 최신 개발 현황, 릴리스 로드맵, 흥미로운 새 기능, 라이브러리, 도구, 프로젝트 및 커뮤니티 이니셔티브 소식을 Swift 커뮤니티에 전달합니다. Diversity in Swift의 미션에 따라 커뮤니티 전반의 작업을 인정하고 조명하는 데 핵심적인 역할을 합니다. 배경이나 경험에 상관없이 누구나 블로그 포스트 기여를 환영합니다.
 
-Are you doing interesting things using Swift? The community would love to hear how you’ve been using the language. See the process below for details on how to submit a blog post.
+Swift로 흥미로운 작업을 하고 있다면, 커뮤니티에서 여러분의 경험을 듣고 싶어 합니다. 블로그 포스트 제출 방법은 아래 프로세스를 참고하세요.
 
-## Community Contributed Content
+## 커뮤니티 기여 콘텐츠
 
-Blog posts don’t necessarily need to be technical, and your writing can appeal to anyone from beginners to language experts. Did you have an unusual journey towards Swift? Share that story. Did you use Swift code to interact with some hardware or in another context that people might not expect? That sounds great. Is there a previously covered topic you’d like to take further? Adding your experience and perspective is valuable.
+블로그 포스트가 꼭 기술적일 필요는 없으며, 입문자부터 언어 전문가까지 다양한 독자를 대상으로 작성할 수 있습니다. Swift에 이르기까지 특별한 여정이 있었나요? 그 이야기를 공유해 주세요. 하드웨어와 상호작용하거나 사람들이 예상하지 못한 맥락에서 Swift 코드를 사용했나요? 훌륭한 주제입니다. 이전에 다뤄진 주제를 더 깊이 탐구하고 싶으신가요? 여러분의 경험과 관점을 더하는 것은 그 자체로 가치가 있습니다.
 
-Readers have different backgrounds and experiences, but you can assume a basic knowledge of the Swift language.
+독자마다 배경과 경험이 다르지만, Swift 언어에 대한 기본 지식은 갖추고 있다고 가정할 수 있습니다.
 
-Is there anything to avoid in a Swift.org blog post? There’s a short list:
+Swift.org 블로그 포스트에서 피해야 할 것이 있을까요? 짧은 목록이 있습니다:
 
-* Directly commercial content promoting a product, service, or event.
-* Launch announcements for apps or libraries. While a blog post could talk about a new Swift language library or package, it should not be the post’s focus. The [Community Showcase](https://forums.swift.org/c/community-showcase/66) section of the Swift forums is ideal for community announcements.
+- 제품, 서비스, 이벤트를 홍보하는 직접적인 상업 콘텐츠.
+- 앱이나 라이브러리의 출시 공지. 블로그 포스트에서 새로운 Swift 언어 라이브러리나 패키지를 다룰 수는 있지만, 그것이 포스트의 핵심 주제가 되어서는 안 됩니다. Swift 포럼의 [Community Showcase](https://forums.swift.org/c/community-showcase/66) 섹션이 커뮤니티 공지에 적합합니다.
 
-All Swift.org blog posts are published under a Creative Commons Attribution 4.0 International license. You may re-publish your work on your own website under this license with appropriate attribution.
+모든 Swift.org 블로그 포스트는 Creative Commons Attribution 4.0 International 라이선스로 게시됩니다. 적절한 출처를 표시하면 이 라이선스에 따라 자신의 웹사이트에 다시 게시할 수 있습니다.
 
-## Writing Guidelines
+## 작성 가이드라인
 
-Blog posts on Swift.org don’t need to be written in a particular style, but there are some guidelines below that will help make a great post:
+Swift.org의 블로그 포스트에 특정 문체가 요구되지는 않지만, 좋은 포스트를 작성하는 데 도움이 되는 가이드라인이 있습니다:
 
-* Write inclusively and respectfully according to the Swift.org Code of Conduct.
-* There’s no set length for a blog post, but between 500 and 1,000 words is typical.
-* Screenshots, illustrations, code snippets, and links to documentation or other websites can be worth a thousand words.
-* You can write alone or in a small group. It’s up to you.
+- Swift.org 행동 강령에 따라 포용적이고 존중하는 글을 작성하세요.
+- 블로그 포스트의 정해진 길이는 없지만, 500~1,000단어가 일반적입니다.
+- 스크린샷, 일러스트, 코드 스니펫, 문서나 다른 웹사이트로의 링크는 천 마디 말의 가치가 있습니다.
+- 혼자 작성해도 되고, 소규모 그룹으로 작성해도 됩니다. 선택은 자유입니다.
 
-## Submission Process
+## 제출 프로세스
 
-Submit ideas or drafts of blog posts by [sending a message to the @swift-website-workgroup](https://forums.swift.org/new-message?groupname=swift-website-workgroup&title=Blog%20post%20proposal). Be sure to include some details about what you’d like to contribute in your post:
+[@swift-website-workgroup에게 메시지 보내기](https://forums.swift.org/new-message?groupname=swift-website-workgroup&title=Blog%20post%20proposal)를 통해 블로그 포스트 아이디어나 초안을 제출하세요. 기여하려는 포스트에 대한 세부 사항을 포함해 주세요:
 
-* Either a first draft or a few paragraphs that summarise your post idea.
-* Whether your post or the topic it covers is time-sensitive and any information on why.
-* Your name and Swift forum username. If you are writing as a group, include everyone.
+- 초안 또는 포스트 아이디어를 요약하는 몇 개의 단락.
+- 포스트나 다루는 주제의 시의성 여부와 그 이유에 대한 정보.
+- 이름과 Swift 포럼 사용자명. 그룹으로 작성하는 경우 모든 구성원을 포함하세요.
 
-The [Swift Website Workgroup]({% link website-workgroup/index.md %}) discusses blog post pitches bi-weekly and will reply to all submissions.
+[Swift Website Workgroup]({% link website-workgroup/index.md %})은 격주로 블로그 포스트 제안을 검토하며, 모든 제출에 답변합니다.
 
-Like all contributions to this website, the [Swift.org website governance]({% link website-governance/index.md %}) process covers all blog post submissions.
+이 웹사이트에 대한 모든 기여와 마찬가지로, [Swift.org 웹사이트 거버넌스]({% link website-governance/index.md %}) 프로세스가 모든 블로그 포스트 제출에 적용됩니다.

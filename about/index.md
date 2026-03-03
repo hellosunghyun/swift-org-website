@@ -1,39 +1,39 @@
 ---
 layout: page
-title: About Swift
+title: Swift 소개
 ---
 
-Swift is a general-purpose programming language that's approachable for newcomers and powerful for experts. It is fast, modern, safe, and a joy to write.
+Swift는 입문자에게는 친숙하고 전문가에게는 강력한 범용 프로그래밍 언어입니다. 빠르고, 현대적이며, 안전하고, 코드를 작성하는 즐거움을 선사합니다.
 
-* Swift is general-purpose and modern. Suitable for everything from systems programming, through mobile and desktop apps, to cloud services.
-* Swift is safe. Undefined behavior is the enemy of safety, and it’s best to catch mistakes before software goes into production. Swift makes the obvious path the safest.
-* Swift is fast to run and quick to write. It comes with predictable and consistent performance that is on-par with C-based languages without sacrificing developer friendliness.
-* Swift is approachable and powerful. From a single-line “Hello, World!” to large-scale apps with hundreds of thousands of lines. Swift scales with your needs.
+- Swift는 범용적이고 현대적인 언어입니다. 시스템 프로그래밍부터 모바일·데스크톱 앱, 클라우드 서비스까지 모든 분야에 적합합니다.
+- Swift는 안전합니다. 정의되지 않은 동작은 안전성의 적이며, 소프트웨어가 프로덕션에 배포되기 전에 실수를 잡아내는 것이 최선입니다. Swift는 가장 자연스러운 코드가 곧 가장 안전한 코드가 되도록 설계되었습니다.
+- Swift는 실행이 빠르고 작성이 빠릅니다. 개발자 친화성을 희생하지 않으면서도 C 기반 언어에 견줄 만한 예측 가능하고 일관된 성능을 제공합니다.
+- Swift는 접근하기 쉬우면서도 강력합니다. 한 줄짜리 "Hello, World!"부터 수십만 줄 규모의 대형 앱까지, Swift는 필요에 따라 확장됩니다.
 
-## Tools
+## 도구
 
-Tools are a critical part of the Swift ecosystem. We strive to integrate well within a developer's toolset, to build quickly, to present excellent diagnostics, and to enable interactive development experiences. Tools can make programming so much more powerful, like Swift-based playgrounds do in Xcode, or a web-based REPL can when working with Linux server-side code.
+도구는 Swift 생태계의 핵심 요소입니다. 우리는 개발자의 도구 환경에 자연스럽게 통합되고, 빠르게 빌드하며, 뛰어난 진단 정보를 제공하고, 대화형 개발 경험을 지원하는 것을 목표로 합니다. 도구가 프로그래밍을 훨씬 더 강력하게 만들 수 있다는 점은 Xcode의 Swift 기반 Playground나, Linux 서버 사이드 코드 작업 시 활용할 수 있는 웹 기반 REPL이 잘 보여줍니다.
 
-## Features
+## 기능
 
-Swift includes features that make code easier to read and write, while giving the developer the control needed in a true systems programming language.  Swift supports inferred types to make code cleaner and less prone to mistakes, and modules eliminate headers and provide namespaces. Memory is managed automatically, and you don’t even need to type semi-colons. Swift also borrows from other languages, for instance named parameters brought forward from Objective-C are expressed in a clean syntax that makes APIs in Swift easy to read and maintain.
+Swift는 코드를 더 쉽게 읽고 쓸 수 있게 하면서도, 시스템 프로그래밍 언어에 필요한 제어력을 개발자에게 제공합니다. Swift는 코드를 더 깔끔하게 만들고 실수를 줄이는 타입 추론을 지원하며, 모듈을 통해 헤더를 없애고 네임스페이스를 제공합니다. 메모리는 자동으로 관리되고, 세미콜론을 입력할 필요도 없습니다. Swift는 다른 언어의 장점도 차용했는데, 예를 들어 Objective-C에서 가져온 이름 있는 매개변수는 깔끔한 구문으로 표현되어 Swift API를 읽고 유지보수하기 쉽게 만듭니다.
 
-The features of Swift are designed to work together to create a language that is powerful, yet fun to use. Some additional features of Swift include:
+Swift의 기능들은 강력하면서도 사용하기 즐거운 언어를 만들기 위해 함께 동작하도록 설계되었습니다. Swift의 추가 기능 중 일부는 다음과 같습니다:
 
-* Closures unified with function pointers
-* Tuples and multiple return values
-* Generics
-* Fast and concise iteration over a range or collection
-* Structs that support methods, extensions, and protocols
-* Functional programming patterns, e.g., map and filter
-* Powerful error handling built-in
-* Advanced control flow with `do`, `guard`, `defer`, and `repeat` keywords
+- 함수 포인터와 통합된 클로저
+- 튜플과 다중 반환 값
+- 제네릭
+- 범위나 컬렉션에 대한 빠르고 간결한 반복
+- 메서드, 익스텐션, 프로토콜을 지원하는 구조체
+- map, filter 등의 함수형 프로그래밍 패턴
+- 강력한 내장 오류 처리
+- `do`, `guard`, `defer`, `repeat` 키워드를 활용한 고급 제어 흐름
 
-### Safety
+### 안전성
 
-Swift was designed from the outset to be safer than C-based languages, and eliminates entire classes of unsafe code. Variables are always initialized before use, arrays and integers are checked for overflow, and memory is managed automatically. Syntax is tuned to make it easy to define your intent — for example, simple three-character keywords define a variable (`var`) or constant (`let`).
+Swift는 처음부터 C 기반 언어보다 안전하게 설계되었으며, 안전하지 않은 코드의 전체 범주를 제거합니다. 변수는 사용 전에 항상 초기화되고, 배열과 정수는 오버플로 검사를 거치며, 메모리는 자동으로 관리됩니다. 구문은 의도를 쉽게 정의할 수 있도록 설계되어 있습니다. 예를 들어, 간단한 세 글자 키워드로 변수(`var`)나 상수(`let`)를 정의합니다.
 
-Another safety feature is that by default Swift objects can never be `nil`, and trying to make or use a `nil` object results in a compile-time error. This makes writing code much cleaner and safer, and prevents a common cause of runtime crashes. However, there are cases where `nil` is appropriate, and for these situations Swift has an innovative feature known as **optionals**. An optional may contain `nil`, but Swift syntax forces you to safely deal with it using ``?`` to indicate to the compiler you understand the behavior and will handle it safely.
+또 다른 안전 기능으로, Swift 객체는 기본적으로 `nil`이 될 수 없으며, `nil` 객체를 만들거나 사용하려고 하면 컴파일 시점에 오류가 발생합니다. 이를 통해 코드가 훨씬 깔끔하고 안전해지며, 런타임 크래시의 흔한 원인을 방지합니다. 하지만 `nil`이 적절한 경우도 있으며, 이런 상황을 위해 Swift에는 **옵셔널**이라는 혁신적인 기능이 있습니다. 옵셔널은 `nil`을 포함할 수 있지만, Swift 구문은 `?`를 사용하여 컴파일러에게 해당 동작을 이해하고 안전하게 처리할 것임을 명시하도록 합니다.
 
 {% include_relative _platform-support.md %}
 {% include_relative _open-source.md %}

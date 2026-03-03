@@ -1,11 +1,11 @@
 ---
 layout: new-layouts/base
-title: Use case
+title: 활용 사례
 ---
 
 <section id="cloud-services-case-hero" class="section">
     <div class="hero-content">
-        <h1>Build cloud services with Swift</h1>
+        <h1>Swift로 클라우드 서비스 구축하기</h1>
         <p>Subtitle text</p>
         <ul>
             {% for box in site.data.new-data.use-case.hero-boxes %}
@@ -15,7 +15,7 @@ title: Use case
                 </li>
             {% endfor %}
         </ul>
-        <a href="/" data-text="Get Started">Get Started</a>
+        <a href="/" data-text="시작하기">시작하기</a>
         <div class="swoop swoop-1"></div>
         <div class="swoop swoop-2"></div>
     </div>

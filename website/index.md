@@ -1,59 +1,57 @@
 ---
 layout: page
-title: Swift.org website
+title: Swift.org 웹사이트
 ---
 
-Swift.org website goals include:
+Swift.org 웹사이트의 목표:
 
-* Welcome newcomers with friendly information about Swift.
-* Help visitors of all skill levels get started developing with Swift.
-* Document the language, libraries, and best practices.
-* Announce new features, APIs, and tooling improvements.
-* Provide a safe, friendly place to interact with fellow Swift developers.
-* Promote activities occurring anywhere within the community.
-* Support collaboration and evolution in building the Swift ecosystem.
+- Swift 프로그래밍 언어에 관심 있는 방문자를 친절한 정보로 맞이합니다.
+- 모든 수준의 방문자가 Swift로 개발을 시작할 수 있도록 돕습니다.
+- 언어, 라이브러리, 모범 사례를 문서화합니다.
+- 새로운 기능, API, 도구 개선 사항을 알립니다.
+- Swift 개발자 동료들과 교류할 수 있는 안전하고 친근한 공간을 제공합니다.
+- 커뮤니티 전반에서 이루어지는 활동을 알립니다.
+- Swift 생태계 구축을 위한 협력과 발전을 지원합니다.
 
-## Community Participation
+## 커뮤니티 참여
 
-Everyone is welcome to contribute to the Swift.org website in the following ways:
+누구나 다음과 같은 방식으로 Swift.org 웹사이트에 기여할 수 있습니다:
 
-* Submitting pull requests to improve and correct existing content or technical infrastructure.
-* Proposing broad enhancements or large scale changes to the website. Such proposals require consultation with the [website workgroup](/website-workgroup) and can be proposed as a public forum post on [Swift.org website forum](https://forums.swift.org/c/swift-website/) or privately by contacting [@swift-website-workgroup](https://forums.swift.org/new-message?groupname=swift-website-workgroup) on the Swift Forums. Example for such broad changes include:
-    * Proposing new topics and content domains, or broad changes to existing ones.
-    * Proposing broad changes to how content is organized in the website (information design).
-    * Proposing broad changes to how the website looks (UX/UI design).
-    * Proposing broad changes to the technical infrastructure that powers the website.
-* Participating in design discussions.
-* Asking or answering questions on the forums.
-* Reporting or triaging bugs.
+- 기존 콘텐츠나 기술 인프라를 개선하고 수정하는 풀 리퀘스트 제출.
+- 웹사이트에 대한 광범위한 개선이나 대규모 변경 제안. 이러한 제안은 [웹사이트 워크그룹](/website-workgroup)과의 협의가 필요하며, [Swift.org 웹사이트 포럼](https://forums.swift.org/c/swift-website/)에 공개 포럼 포스트로 제안하거나 Swift 포럼에서 [@swift-website-workgroup](https://forums.swift.org/new-message?groupname=swift-website-workgroup)에 비공개로 연락할 수 있습니다. 이러한 광범위한 변경의 예시:
+  - 새로운 주제 및 콘텐츠 영역 제안, 또는 기존 영역의 광범위한 변경.
+  - 웹사이트의 콘텐츠 구성 방식에 대한 광범위한 변경 제안 (정보 설계).
+  - 웹사이트의 외관에 대한 광범위한 변경 제안 (UX/UI 디자인).
+  - 웹사이트를 구동하는 기술 인프라에 대한 광범위한 변경 제안.
+- 디자인 논의에 참여.
+- 포럼에서 질문하거나 답변하기.
+- 버그 신고 또는 분류.
 
-See [`CONTRIBUTING.md`](https://github.com/swiftlang/swift-org-website/blob/main/CONTRIBUTING.md) for additional information about the website's contribution guidelines.
+웹사이트의 기여 가이드라인에 대한 추가 정보는 [`CONTRIBUTING.md`](https://github.com/swiftlang/swift-org-website/blob/main/CONTRIBUTING.md)를 참조하세요.
 
+## 거버넌스
 
-## Governance
+웹사이트에는 기여자들의 풀 리퀘스트를 검토하고 병합하는 _쓰기_ 권한을 가진 소수의 *메인테이너*가 있습니다.
+_메인테이너_ 그룹은 Swift 코어 팀의 일부와 [Swift 웹사이트 워크그룹 멤버](/website-workgroup)로 구성됩니다.
 
-The website has a small list of *maintainers* which have *write* access and are in charge of reviewing and merging pull requests from *contributors*.
-The *maintainers* group consists of a small subset of the Swift core team and the [Swift website workgroup members](/website-workgroup).
+Swift.org 웹사이트 소스 코드는 여러 구분된 부분으로 구성됩니다:
 
-The Swift.org website source code consists of several distinct parts:
+1. 일반 콘텐츠: Markdown, HTML, 데이터 파일, 이미지 및 기타 콘텐츠.
+2. 블로그 포스트: 주로 Markdown 형식의 블로그 포스트 소스 파일.
+3. 기술 인프라: Markdown 및 HTML 파일 같은 텍스트 형식의 콘텐츠에서 웹사이트의 최종 정적 콘텐츠(주로 HTML)를 생성하기 위한 코드와 스크립트.
+4. 정보 설계, 사용자 경험 및 사용자 인터페이스 디자인: CSS와 이미지를 포함한 웹사이트의 레이아웃과 내비게이션.
 
-1. General content: Markdown, HTML, data files, images and other content.
-2. Blog posts: Source files for blog posts, mostly in markdown form.
-3. Technical infrastructure: Code and scripts for generating the website’s final static content (HTML mostly) from other forms of textual content such as Markdown and HTML files.
-4. Information design, user experience and user interface design: The layout and navigation of the website, including CSS and images used to define the user experience and user interface.
+이 각 영역은 특성에 맞는 약간 다른 기여 프로세스로 운영됩니다.
 
-Each one of these areas is governed by a slightly different contribution process that matches their nature.
+웹사이트의 거버넌스에 대한 추가 정보는 [Swift.org 거버넌스](/website-governance)를 참조하세요.
 
-See [Swift.org governance](/website-governance) for additional information about the website's governance.
+## 웹사이트 워크그룹
 
+Swift 웹사이트 워크그룹은 Swift.org 웹사이트의 발전을 안내하는 운영 팀입니다. Swift 웹사이트 워크그룹의 역할:
 
-## Website workgroup
+- Swift.org 웹사이트 기여를 규율하는 프로세스 정의.
+- Swift.org 웹사이트 개발과 기여를 적극적으로 안내.
+- Swift 커뮤니티의 요구를 해결하는 Swift.org 웹사이트 관련 노력의 정의 및 우선순위 설정.
+- Swift 커뮤니티의 요구에 대한 피드백을 Swift 코어 팀에 전달.
 
-The Swift website workgroup is a steering team that helps guide the evolution on the Swift.org website. The Swift website workgroup will:
-
-* Define a set of processes that govern the contributions to the Swift.org website.
-* Actively guide Swift.org website development and contributions.
-* Define and prioritize Swift.org website related efforts that address the needs of the Swift community.
-* Channel feedback to Swift core team about the needs of the Swift community.
-
-See [Swift.org workgroup](/website-workgroup) for additional information about the workgroup.
+워크그룹에 대한 추가 정보는 [Swift.org 워크그룹](/website-workgroup)을 참조하세요.
